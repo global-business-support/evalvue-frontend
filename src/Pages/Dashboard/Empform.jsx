@@ -8,25 +8,26 @@ function Empform() {
   const location = useLocation();
   const organization_id = location.state;
   const navigate = useNavigate();
-  console.log(organization_id)
   const [empregdata, Setempregdata] = useState({
     user_id: userId,
     organization_id: organization_id.organization_id,
   });
   
-  const [errors, setErrors] = useState({});
-  const [serverError, setServerError] = useState(null);
+  const [errors, setErrors] = useState("");
+  const [serverError, setServerError] = useState("");
   
   function emphadler(event) {
     const name = event.target.name;
     const value = event.target.value;
     Setempregdata((values) => ({ ...values, [name]: value }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
   }
 
   function empfilehadler(e) {
     const name = e.target.name;
     const value = e.target.files[0];
     Setempregdata((values) => ({ ...values, [name]: value }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
   }
 
  
@@ -58,16 +59,18 @@ function Empform() {
     }
     setErrors({});
     setServerError(null);
-    console.log(empregdata)
     axios.post("https://api.evalvue.com/create/employees/", empregdata,header)
       .then(res => {
         if (res.data.is_employee_register_successfull) {
           navigate(`/dashboard/organization/employee/${organization_id.organization_id}`,{state:location.state});
         }
+        else{
+          setServerError(res.data.error)
+        }
       })
       .catch(err => {
-        setServerError("Failed to register employee. Please try again.");
-        console.log(err);
+        setServerError(err.response.data.error);
+        // console.log(err);
       });
   }
 
@@ -80,7 +83,7 @@ function Empform() {
           onSubmit={empregsubmit}
         >
           <div>
-            <label className="block mb-1 font-medium">First Name</label>
+            <label className="block mb-1 font-medium">First Name<span className="text-[red]">*</span></label>
             <input
               type="text"
               placeholder="First name"
@@ -92,7 +95,7 @@ function Empform() {
             {errors.first_name && <p className="text-red-500">{errors.first_name}</p>}
           </div>
           <div>
-            <label className="block mb-1 font-medium">Last Name</label>
+            <label className="block mb-1 font-medium">Last Name<span className="text-[red]">*</span></label>
             <input
               type="text"
               placeholder="Last name"
@@ -104,7 +107,7 @@ function Empform() {
             {errors.last_name && <p className="text-red-500">{errors.last_name}</p>}
           </div>
           <div>
-            <label className="block mb-1 font-medium">Email</label>
+            <label className="block mb-1 font-medium">Email<span className="text-[red]">*</span></label>
             <input
               type="email"
               placeholder="abc@gmail.com"
@@ -116,7 +119,7 @@ function Empform() {
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
           <div>
-            <label className="block mb-1 font-medium">Mobile Number</label>
+            <label className="block mb-1 font-medium">Mobile Number<span className="text-[red]">*</span></label>
             <input
               type="tel"
               placeholder="9754504587"
@@ -129,7 +132,7 @@ function Empform() {
             {errors.mobile_number && <p className="text-red-500">{errors.mobile_number}</p>}
           </div>
           <div>
-            <label className="block mb-1 font-medium">Aadhar Number</label>
+            <label className="block mb-1 font-medium">Aadhar Number<span className="text-[red]">*</span></label>
             <input
               type="tel"
               placeholder="854933256268"
@@ -142,7 +145,7 @@ function Empform() {
             {errors.aadhar_number && <p className="text-red-500">{errors.aadhar_number}</p>}
           </div>
           <div>
-            <label className="block mb-1 font-medium">Confirm Aadhar Number</label>
+            <label className="block mb-1 font-medium">Confirm Aadhar Number<span className="text-[red]">*</span></label>
             <input
               type="tel"
               placeholder="854933256268"
@@ -155,7 +158,7 @@ function Empform() {
             {errors.confirm_aadhar_number && <p className="text-red-500">{errors.confirm_aadhar_number}</p>}
           </div>
           <div>
-            <label className="block mb-1 font-medium">Designation</label>
+            <label className="block mb-1 font-medium">Designation<span className="text-[red]">*</span></label>
             <input
               type="text"
               placeholder="Front-end developer"
@@ -167,7 +170,7 @@ function Empform() {
             {errors.designation && <p className="text-red-500">{errors.designation}</p>}
           </div>
           <div>
-            <label className="block mb-1 font-medium">Image</label>
+            <label className="block mb-1 font-medium">Image<span className="text-[red]">*</span></label>
             <input
               type="file"
               name="employee_image"
@@ -177,6 +180,7 @@ function Empform() {
             {errors.employee_image && <p className="text-red-500">{errors.employee_image}</p>}
           </div>
           <div className="md:col-span-2">
+            {serverError && <p className="text-red-500 mt-4">{serverError}</p>}
             <button
               type="submit"
               className="w-full bg-primary-100 text-white font-regular p-3 rounded-lg mt-4"
@@ -185,7 +189,6 @@ function Empform() {
             </button>
           </div>
         </form>
-        {serverError && <p className="text-red-500 mt-4">{serverError}</p>}
       </div>
     </>
   );

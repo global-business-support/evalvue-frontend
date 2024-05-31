@@ -9,7 +9,7 @@ function Viewemp() {
   const { organization_id } = useParams();
   const location = useLocation();
   const state=location.state
-  console.log(state);
+  // console.log(state);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +18,7 @@ function Viewemp() {
           organization_id,
         });
         setEmployees(response.data.employee_list || []);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (err) {
         setError(err.message);
       } finally {

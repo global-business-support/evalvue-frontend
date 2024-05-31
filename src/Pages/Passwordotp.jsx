@@ -13,10 +13,10 @@ function Passwordotp(props) {
   const { userId, setUserId } = useContext(UserContext);
   const location = useLocation();
   const state = location.state;
-  console.log(state.isForget)
+  // console.log(state.isForget)
   let user_id = userId;
 
-  console.log('UserId from context:', userId); // Debugging userId
+  // console.log('UserId from context:', userId); // Debugging userId
   useEffect(() => {
     if (isOtpVerified && state.isForget) {
       navigate('/passgenerate');
@@ -36,12 +36,12 @@ function Passwordotp(props) {
         body: JSON.stringify({ email }),
       });
       const data = await response.json();
-      console.log('Response from email submit:', data);
+      // console.log('Response from email submit:', data);
 
       if (data.otp_send_successfull) {
         setIsEmailSent(true);
         setUserId(data.user_id);
-        console.log('Set userId:', data.user_id); // Log after setting userId
+        // console.log('Set userId:', data.user_id); // Log after setting userId
       } else {
         setError(data.message || 'Something went wrong. Please try again.');
       }
@@ -71,8 +71,8 @@ function Passwordotp(props) {
 
   const handleOtpSubmit = async () => {
     const otpCode = otp.join('');
-    console.log('Submitting OTP:', otpCode); // Log OTP code
-    console.log('UserId before OTP submit:', user_id); // Log userId before submit
+    // console.log('Submitting OTP:', otpCode); // Log OTP code
+    // console.log('UserId before OTP submit:', user_id); // Log userId before submit
 
     try {
       const response = await fetch('https://api.evalvue.com/verify/otp/', {
@@ -84,7 +84,7 @@ function Passwordotp(props) {
       });
 
       const data = await response.json();
-      console.log('Response from OTP submit:', data);
+      // console.log('Response from OTP submit:', data);
 
       if (response.ok) {
         if (data.otp_verified_successfull) {

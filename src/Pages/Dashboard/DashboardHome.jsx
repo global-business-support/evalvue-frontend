@@ -14,11 +14,11 @@ function DashboardHome() {
       .then((res) => {
         if (res.data.is_review_mapped) {
           setFeed(res.data.dashboard_list);
-          console.log(res.data.dashboard_list);
+          // console.log(res.data.dashboard_list);
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 
@@ -31,7 +31,7 @@ function DashboardHome() {
               key={feed.review_id}
               className="flex flex-col p-3 justify-center mx-auto items-center  gap-5 "
             >
-              <div className=" bg-white mx-auto rounded-3xl w-4/6 shadow-md overflow-hidden">
+              <div className=" bg-white mx-auto rounded-3xl md:w-5/6 shadow-md overflow-hidden">
                 <div className="p-4">
                   <div className="flex items-center">
                     <div className="h-10 w-10 rounded-full  border bg-zinc-100">
@@ -62,12 +62,12 @@ function DashboardHome() {
                           {feed.employee_name}
                         </p>
                         <p className="text-xs text-zinc-500">
-                          Front-end Developer
+                          {feed.designation}
                         </p>
                       </div>
                     </div>
                     <div className="mt-4 bg-slate-200 min-h-[150px] bg-gray-200 rounded-xl">
-                      <p className="text-zinc-800 text-sm p-3">
+                      <p className="text-zinc-800 text-sm p-3 break-words">
                         {feed.comment}
                       </p>
                     </div>

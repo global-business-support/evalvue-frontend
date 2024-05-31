@@ -2,14 +2,12 @@ import { NavLink, Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Addorganization from "./Addorganization";
-import { OrganizationContext } from "./OrganizationContext";
 import { UserContext } from "../../Contextfile";
 
 export default function Organization() {
   const [Orgdata, setOrgdata] = useState([]);
   const [Isorgmap, setIsorgmap] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { setOrganization } = useContext(OrganizationContext);
   const { userId } = useContext(UserContext);
   const header = {
     headers: { 'Content-Type': 'multipart/form-data' }
@@ -18,10 +16,10 @@ export default function Organization() {
     axios
       .post("https://api.evalvue.com/organizations/", { user_id: userId },header)
       .then((res) => {
-        // console.log(res.data);
+        // // console.log(res.data);
         setOrgdata(res.data.organization_list);
 
-        setOrganization(res.data.organization_list);
+        // setOrganization(res.data.organization_list);
         setIsorgmap(res.data.is_organization_mapped);
       })
       .catch((err) => {

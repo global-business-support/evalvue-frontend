@@ -33,8 +33,54 @@ function DashboardNavigation() {
     <>
       <div className="py-10 md:flex hidden flex-col items-center ">
         <div className="flex flex-col items-center gap-3 h-full lg:w-[280px] w-[200px] p-2">
-          {/* ${(isActive) ? 'text-white bg-[#5134a9] ' : 'text-gray-600'} */}
           <NavLink
+            to="/dashboard"
+            end
+            className={({ isActive }) =>
+              `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold ${
+                isActive ? "text-white bg-[#5134a9]" : "text-gray-600"
+              }`
+            }
+          >
+            <BungalowIcon className="align-text-top" sx={{ fontSize: 20 }} />
+            Feed
+          </NavLink>
+
+          <NavLink
+            to="/dashboard/organization"
+            end
+            className={({ isActive }) =>
+              `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold ${
+                isActive ? "text-white bg-[#5134a9]" : "text-gray-600"
+              }`
+            }
+          >
+            <DashboardIcon className="align-text-top" sx={{ fontSize: 20 }} />
+            Organization
+          </NavLink>
+
+          <NavLink
+            onClick={showtermandcondition}
+            className={({ isActive }) =>
+              `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
+            }
+          >
+            <ShieldIcon className="align-text-top" sx={{ fontSize: 20 }} />
+            Terms and conditions
+          </NavLink>
+
+          <NavLink
+            id="abhi"
+            onClick={showprivicy}
+            className={({ isActive }) =>
+              `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
+            }
+          >
+            <HttpsIcon className="align-text-top" sx={{ fontSize: 20 }} />
+            Privacy
+          </NavLink>
+          {/* ${(isActive) ? 'text-white bg-[#5134a9] ' : 'text-gray-600'} */}
+          {/* <NavLink
             to="/dashboard"
             className={({
               isActive,
@@ -58,7 +104,7 @@ function DashboardNavigation() {
           >
             <DashboardIcon className="align-text-top" sx={{ fontSize: 20 }} />
             Organization
-          </NavLink>
+          </NavLink> */}
 
           {/* <NavLink
             to="/dashboard/searchByAadharCard"
@@ -75,7 +121,7 @@ function DashboardNavigation() {
             Search by Aadhar card
           </NavLink> */}
 
-          <NavLink
+          {/* <NavLink
             onClick={showtermandcondition}
             className={({
               isActive,
@@ -83,10 +129,10 @@ function DashboardNavigation() {
                         text-gray-600`}
           >
             <ShieldIcon className="align-text-top" sx={{ fontSize: 20 }} />
-            Tearm and conditions
-          </NavLink>
+            Terms and conditions
+          </NavLink> */}
 
-          <NavLink
+          {/* <NavLink
             to=""
             id="abhi"
             onClick={showprivicy}
@@ -97,7 +143,7 @@ function DashboardNavigation() {
           >
             <HttpsIcon className="align-text-top" sx={{ fontSize: 20 }} />
             Privacy
-          </NavLink>
+          </NavLink> */}
 
           {/* <NavLink to='/dashboard/help' className={({ isActive }) => `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold 
                         ${(isActive) ? 'text-white bg-primary-100 ' : 'text-gray-600'}`}>
@@ -111,14 +157,15 @@ function DashboardNavigation() {
 
       <div className="md:hidden w-0">
         <Button onClick={toggleDrawer(true)}>
-          <span>Menu</span>
-          <KeyboardArrowRightOutlinedIcon className="text-xs p-0" />
+          <span className="text-primary-100 font-semibold">Menu</span>
+          <KeyboardArrowRightOutlinedIcon className="text-xs p-0 text-primary-100" />
         </Button>
         <Drawer open={open} onClose={toggleDrawer(false)}>
           <div className="py-10 flex  flex-col items-center ">
             <div className="flex flex-col items-center gap-3 h-full  w-[280px] p-2 ">
               <NavLink
-                to="/dashboard/home"
+                to="/dashboard"
+                end
                 className={({
                   isActive,
                 }) => `w-full py-2 ps-2 rounded font-semibold
@@ -138,6 +185,7 @@ function DashboardNavigation() {
 
               <NavLink
                 to="/dashboard/organization"
+                end
                 className={({
                   isActive,
                 }) => `w-full py-2 ps-2 rounded font-semibold 
@@ -154,8 +202,9 @@ function DashboardNavigation() {
                 Organization
               </NavLink>
 
-              <NavLink
+              {/* <NavLink
                 to="/dashboard/searchByAadharCard"
+                end
                 className={({
                   isActive,
                 }) => `w-full py-2 ps-2 rounded font-semibold 
@@ -167,39 +216,30 @@ function DashboardNavigation() {
               >
                 <SearchIcon className="align-text-end" sx={{ fontSize: 20 }} />
                 Search by Aadhar card
-              </NavLink>
+              </NavLink> */}
 
               <NavLink
-                to="/dashboard/termsAndCondition"
-                className={({
-                  isActive,
-                }) => `w-full py-2 ps-2 rounded font-semibold 
-                                    ${
-                                      isActive
-                                        ? "text-white bg-primary-100 "
-                                        : "text-gray-600"
-                                    }`}
+                onClick={showtermandcondition}
+                className={({ isActive }) =>
+                  `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
+                }
               >
                 <ShieldIcon className="align-text-top" sx={{ fontSize: 20 }} />
-                Tearm and conditions
+                Terms and conditions
               </NavLink>
 
               <NavLink
-                to="/dashboard/privacy"
-                className={({
-                  isActive,
-                }) => `w-full py-2 ps-2 rounded font-semibold 
-                                    ${
-                                      isActive
-                                        ? "text-white bg-primary-100 "
-                                        : "text-gray-600"
-                                    }`}
+                id="abhi"
+                onClick={showprivicy}
+                className={({ isActive }) =>
+                  `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
+                }
               >
                 <HttpsIcon className="align-text-top" sx={{ fontSize: 20 }} />
                 Privacy
               </NavLink>
 
-              <NavLink
+              {/* <NavLink
                 to="/dashboard/help"
                 className={({
                   isActive,
@@ -215,12 +255,12 @@ function DashboardNavigation() {
                   sx={{ fontSize: 20 }}
                 />
                 Help
-              </NavLink>
+              </NavLink> */}
             </div>
 
-            <button className="font-bold text-gray-600">
+            {/* <button className="font-bold text-gray-600">
               <SettingsIcon className="text-[#5559AF]" /> Settings
-            </button>
+            </button> */}
           </div>
         </Drawer>
       </div>

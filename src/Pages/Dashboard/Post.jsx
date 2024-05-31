@@ -12,7 +12,7 @@ function Post() {
   const [comment, setcomment] = useState("");
   const [msg,setmsg]=useState("none");
   const { userId } = useContext(UserContext);
-  console.log(state);
+  // console.log(state);
   // const [postdata, setpostdata] = useState(
   //   {
   //     user_id: userId,
@@ -40,12 +40,12 @@ function Post() {
       .then((res) => {
         if (res.data.is_review_added_successfull) {
           // navigate('organization/employee/review')
-          console.log("hello");
+          // console.log("hello");
           navigate("/dashboard/organization/employee/review/", {
             state,
           });
         } else {
-          console.log("byyy");
+          // console.log("byyy");
         }
       })
       .catch((err) => {
@@ -54,12 +54,16 @@ function Post() {
     }
     
   }
+  function handleBackClick(){
+      navigate(-1)
+  }
   return (
     <form onSubmit={postsubmit}>
       <div className="max-w-3xl mx-auto bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-4">
-        <div className="flex items-center mb-4">
+        <div className="flex justify-between mb-4">
+          <div className="flex items-center">
           <img
-            src="https://placehold.co/50x50"
+            src={state.empimage}
             alt="Profile Picture"
             className="w-10 h-10 rounded-full mr-3"
           />
@@ -68,6 +72,10 @@ function Post() {
               {state.empname}
             </div>
           </div>
+          </div>
+          <div onClick={handleBackClick} className="cursor-pointer">
+        <h1 className="text-xl text-gray-800 font-semibold">X</h1>
+      </div>
         </div>
         <textarea
           className="w-full p-2 border-4 border-indigo-200 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-100 "

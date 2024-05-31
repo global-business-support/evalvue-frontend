@@ -12,8 +12,8 @@ function Landing() {
                         <h1 className="text-3xl md:text-4xl font-bold text-zinc-900">Optimize Your Operations with Our Employee Solutions</h1>
                         <p className="text-zinc-600">We provide comprehensive solutions that allow companies to seamlessly integrate their own employees, manage their performance, and gather insightful reviews. Our tailored services are designed to enhance efficiency, foster collaboration, and drive growth. Partner with us to streamline your operations, boost employee engagement, and achieve unparalleled success. .</p>
                         <div className="flex gap-6 pt-8">
-                            <a href="#" className="bg-primary-100  text-white px-6 py-2 rounded-md">Join Now</a>
-                            <a href="#" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a>
+                            <a href="/register" className="bg-primary-100  text-white px-6 py-2 rounded-md">Join Now</a>
+                            {/* <a href="" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a> */}
                         </div>
                     </div>
                     <div>
@@ -23,7 +23,7 @@ function Landing() {
             </div>
         
             
-            <div className="bg-zinc-100 py-5 mt-5 mb-6">
+            {/* <div className="bg-zinc-100 py-5 mt-5 mb-6">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex h-[60px] justify-center gap-10 ">
                         <img src="https://companieslogo.com/img/orig/TCS.NS-7401f1bd.png?t=1631949260" alt="Palm Marina" className="mx-4 filter grayscale "/>
@@ -33,7 +33,7 @@ function Landing() {
                         <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Paytm_logo.jpg" alt="minimal" className="mx-4 filter grayscale"/>
                     </div>
                 </div>
-            </div>
+            </div> */}
         
        
 
