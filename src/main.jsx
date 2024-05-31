@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -11,11 +11,11 @@ import {
 import Loginfile from "./Components/Loginfile.jsx";
 import Registration from "./Components/Registration.jsx";
 import Landing from "./Pages/Landing.jsx";
-import Contact from "./Pages/Contact.jsx";
-import Help from "./Pages/Help.jsx";
-import About from "./Pages/About.jsx";
-import Services from "./Pages/Dashboard/Services.jsx";
-import Employee from "./Pages/Dashboard/TermsAndCondition.jsx";
+// import Contact from "./Pages/Contact.jsx";
+// import Help from "./Pages/Help.jsx";
+// import About from "./Pages/About.jsx";
+// import Services from "./Pages/Dashboard/Services.jsx";
+// import Employee from "./Pages/Dashboard/TermsAndCondition.jsx";
 import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import Dhashboardhome from "./Pages/Dashboard/DashboardHome.jsx";
 import Organization from "./Pages/Dashboard/Organization.jsx";
@@ -32,11 +32,11 @@ import Enpreviewoutlet from "./Pages/Enpreviewoutlet.jsx";
 import Post from "./Pages/Dashboard/Post.jsx";
 import Personalreview from "./Pages/Personalreview.jsx";
 import CompanyList from "./CompanyList.jsx";
-import { UserProvider } from "./Contextfile.jsx";
-import { OrganizationProvider } from "./Pages/Dashboard/OrganizationContext.jsx";
+import { UserContext, UserProvider } from "./Contextfile.jsx";
+// import { OrganizationProvider } from "./Pages/Dashboard/OrganizationContext.jsx";
 import { IsverifiedProvider } from "./Isverified.jsx";
-import TermsAndCondition from "./Pages/Dashboard/TermsAndCondition.jsx";
-import SearchByAadharCard from "./Pages/Dashboard/SearchByAadharCard.jsx";
+import ProtectedRoute from "./Pages/ProtectedRoute.jsx";
+import PageNotFound from "./PageNotFound.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,15 +44,12 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}>
         <Route index element={<Landing />} />
         {/* <Route index element={<Loginfile />} /> */}
+
         <Route path="organization" element={<ParentComponent />}>
           <Route index element={<Addorganization />} />
         </Route>
-        {/* <Route path="/contact" element={<Contact />} /> */}
-        {/* <Route path="/company" element={<CompanyList />} /> */}
-        {/* <Route path="/help" element={<Help />} /> */}
-        {/* <Route path="/about" element={<About />} /> */}
-        {/* <Route path="/services" element={<Services />} /> */}
-        <Route path="/dashboard" element={<Dashboard />}>
+      
+        <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard/>}/>}>
           <Route index element={<Dhashboardhome />} />
            <Route path="organization" element={<Orgoutlet />}>
            
@@ -78,6 +75,7 @@ const router = createBrowserRouter(
           {/* <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} /> */}
         {/* <Route path='/register' element={<Registration/>} /> */}
       </Route>
+      <Route path="*" element={<PageNotFound/>} />
       </Route>
       <Route path="/login" element={<Loginfile />} />
       {/* <Route path="/forgotpassword" element={<Passwordotp />} /> */}
@@ -92,9 +90,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <IsverifiedProvider>
     <UserProvider>
-    <OrganizationProvider>
     <RouterProvider router={router} />
-    </OrganizationProvider>
     </UserProvider>
     </IsverifiedProvider>
   </React.StrictMode>
