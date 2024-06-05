@@ -38,7 +38,7 @@ function Personalreview() {
       <>
         {ReviewList.map((review) => (
           <div className="m-3" key={review.review_id}>
-            <div className="md:w-4/6 mx-auto bg-white rounded-3xl shadow-md overflow-hidden">
+            <div className="md:w-4/6 mx-auto bg-white rounded-lg shadow-md overflow-hidden">
               <div className="p-2">
                 <div className="h-full w-full p-2 mt-1 rounded-xl border-[6px] border-bglight-200">
                   <div className="flex items-center">
@@ -58,7 +58,7 @@ function Personalreview() {
                     <p className="text-gray-800 text-sm  p-3">{review.comment}</p>
                   </div>
                   <div className="mt-1 p-3 flex gap-2">
-                    <span className="text-gray-800 font-semibold text-md">Overall rating:</span>
+                    <span className="text-gray-800 font-semibold lg:text-lg sm:text-base">Rating:</span>
                     <Rating value={review.rating} readonly />
                   </div>
                 </div>
