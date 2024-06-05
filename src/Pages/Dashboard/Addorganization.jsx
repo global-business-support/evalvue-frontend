@@ -101,7 +101,7 @@ function Addorganization() {
         ) : (
           <>
               <h1 className="text-xl font-semibold mb-4">Register your organization:</h1>
-            <p className="mb-6 text-zinc-700 w-1/2">
+            <p className="mb-6 text-zinc-700 w-full">
               Welcome to our organization registration form! Whether you're a
               budding startup, a growing enterprise, or a well-established company,
               we invite you to join our community.

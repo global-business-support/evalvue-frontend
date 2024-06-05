@@ -57,14 +57,26 @@ const Registration = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="flex justify-center bg-white shadow-md items-center w-full max-w-4xl">
-        <div className="w-[55%] h-[570px] p-3 text-white text-center hidden lg:block">
-          <img
-            src={value}
-            alt="Logo"
-            className="h-[450px] mt-10"
-          />
+     <div className="flex justify-center bg-white shadow-md items-center w-full max-w-4xl ">
+      <div className="w-[55%] h-[570px]  text-white text-center hidden lg:block relative ">
+        <div className='h-full w-full absolute bg-[#0000008f] z-10 px-12 pt-20 flex flex-col items-center gap-52 text-start'>
+          <div className='text-center '>
+            <h1 className='text-4xl font-semibold'>Welcome to Evalvue</h1>
+            <h1 className='text-sm font-semibold mt-2'> Where Your Journey to Success Begins!</h1>
+          </div>
+          <h1 className='text-sm text-gray-200 font-medium text-start border-l border-gray-400 ps-2'>
+              "Invest in talent, reap success. Grow with the best. Investing in talent is an investment in the
+               company's success, as it cultivates a culture of excellence and enables the organization to grow alongside its exceptional employees”
+          </h1>
         </div>
+        <img
+         src={value}
+        alt="Logo"
+        className="h-full w-full object-cover"
+        />
+      </div>
+
+
 
         <div className="w-4/5 md:w-1/2 lg:1/3 bg-white p-8">
           <h2 className="text-[26px] font-bold mb-7 text-zinc-800">Create Account :-</h2>
