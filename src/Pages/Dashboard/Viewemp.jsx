@@ -99,7 +99,7 @@ function Viewemp() {
                 <td className="text-left font-semibold text-gray-600  py-2 px-4">
                   Employee Name:
                 </td>
-                <td className="text-left font-semibold text-gray-600  py-2 px-4">Document Number:</td>
+                <td className="text-left font-semibold text-gray-600  py-2 px-4">Aadhaar Number:</td>
                 <td className="text-left font-semibold text-gray-600  py-2 px-4">Designation:</td>
                 <td className="text-left font-semibold text-gray-600  py-2 px-4">Reviews:</td>
               </tr>

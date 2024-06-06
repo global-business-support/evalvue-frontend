@@ -29,7 +29,7 @@ function DashboardHome() {
           <>
             <div
               key={feed.review_id}
-              className="flex flex-col p-3 justify-center mx-auto items-center  gap-5 "
+              className="flex flex-col p-3 justify-center mx-auto items-center  gap-5 mt-8"
             >
               <div className=" bg-white mx-auto rounded-3xl md:w-5/6 shadow-md overflow-hidden">
                 <div className="p-4">
@@ -73,7 +73,7 @@ function DashboardHome() {
                     </div>
                     <div className="mt-2 p-3 flex gap-2">
                       <span className="text-gray-800 font-semibold text-md">
-                        Overall rating:{" "}
+                        Overall Rating:{" "}
                       </span>
                       <span>
                         <Rating value={feed.rating} readonly />
