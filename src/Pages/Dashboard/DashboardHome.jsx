@@ -4,9 +4,11 @@ import logo from "../../assets/images/logo.png";
 import axios from "axios";
 import { UserContext } from "../../Contextfile";
 import { Rating } from "@material-tailwind/react";
+import Loader from "../Loader";
 function DashboardHome() {
   const [Feed, setFeed] = useState([]);
   const { userId } = useContext(UserContext);
+  const [loading,setloading]=useState(true)
 
   useEffect(() => {
     axios
@@ -20,7 +22,19 @@ function DashboardHome() {
       .catch((err) => {
         // console.log(err);
       });
-  }, []);
+      setloading(false)
+    }, []);
+
+    
+  if (loading) {
+    return (
+      <>
+      <div className="h-[calc(100vh-200px)] flex justify-center items-center">
+        <Loader/>
+      </div>
+      </>
+    ) 
+  }
 
   return (
     <>
@@ -67,7 +81,7 @@ function DashboardHome() {
                       </div>
                     </div>
                     <div className="mt-4 bg-slate-200 min-h-[150px] bg-gray-200 rounded-xl">
-                      <p className="text-zinc-800 text-sm p-3 break-words">
+                      <p className="text-zinc-800 text-sm p-3 break-words break-all">
                         {feed.comment}
                       </p>
                     </div>

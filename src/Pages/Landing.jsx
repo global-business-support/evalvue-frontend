@@ -1,200 +1,310 @@
+import { BsBookmarkCheckFill } from "react-icons/bs";
+import { BiBadgeCheck } from "react-icons/bi";
+import { BiCommentCheck } from "react-icons/bi";
+import { BsBookmarkCheck } from "react-icons/bs";
+import { FaHandsHelping } from "react-icons/fa";
+import { FaReadme } from "react-icons/fa";
+import { Check } from "@mui/icons-material";
+import { FaCross } from "react-icons/fa6";
+import { FaCircleCheck } from "react-icons/fa6";
+import { RxCross2 } from "react-icons/rx";
+import { FaRupeeSign } from "react-icons/fa";
+import Footer from "./Footer";
 
 function Landing() {
   return (
+    <>
+      <div className="bg-white text-zinc-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-4">
+              <h1 className="text-3xl md:text-4xl font-bold text-zinc-900">
+                Optimize Your Operations with Our Employee Solutions
+              </h1>
+              <p className="text-zinc-600">
+                Weoffer the best services related to employee work experience.
+                When employees leave a company, wehelp organizations post
+                reviews about their performance and the reasons for their
+                departure. This information helps other companies access the
+                employee's biodata during the hiring process, making it easier
+                to select top talent. Join us to improve your employee community
+                and foster organizational growth.
+              </p>
+              <div className="flex gap-6 pt-8">
+                <a
+                  href="/register"
+                  className="bg-primary-100  text-white px-6 py-2 rounded-md"
+                >
+                  Join Now
+                </a>
+                {/* <a href="" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a> */}
+              </div>
+            </div>
+            <div>
+              <img
+                src="https://i.pinimg.com/564x/5b/6f/84/5b6f84ae598450a2ed19bcb9371c3b71.jpg"
+                alt="Digital Agency"
+                className="rounded-lg  h-[500px] shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+        {/* services section */}
+        <section className="py-14">
+          <div className="container mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-14">
+              Our{" "}
+              <span className=" underline text-primary-100 underline-offset-2">
+                {" "}
+                Services
+              </span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="  p-6 rounded-lg shadow-lg border border-b-4 border-b-purple-900 hover:scale-105 transition-all duration-300 drop-shadow-lg">
+                <div className="flex justify-center mb-4 p-2 ">
+                  <div className="h-20 w-20 bg-primary-100 rounded-full p-6">
+                    <BsBookmarkCheckFill className="h-8 w-8 mx-auto my-auto text-white" />
+                  </div>
 
-     <>
-     
-     <div className="bg-white text-zinc-800">
-            
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                    <div className="space-y-4">
-                        <h1 className="text-3xl md:text-4xl font-bold text-zinc-900">Optimize Your Operations with Our Employee Solutions</h1>
-                        <p className="text-zinc-600">We provide comprehensive solutions that allow companies to seamlessly integrate their own employees, manage their performance, and gather insightful reviews. Our tailored services are designed to enhance efficiency, foster collaboration, and drive growth. Partner with us to streamline your operations, boost employee engagement, and achieve unparalleled success. .</p>
-                        <div className="flex gap-6 pt-8">
-                            <a href="/register" className="bg-primary-100  text-white px-6 py-2 rounded-md">Join Now</a>
-                            {/* <a href="" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a> */}
-                        </div>
-                    </div>
+                  {/* <img src="https://placehold.co/64x64" alt="Corporate Solution" className="w-16 h-16"/> */}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  Corporate Solution
+                </h3>
+                <p className="">
+                  Contrary to popular belief, Lorem Ipsum is not simply random
+                  text. It has roots in a piece of classical Latin literature
+                  from 45 BC, making it over 2000 years Contrary to popular
+                  belief, Lorem Ipsum is not simply random text. It has roots in
+                  a piece of classical Latin It has roots in a piece of
+                  classical Latin literature old.
+                </p>
+              </div>
+              <div className="  p-6 rounded-lg shadow-lg border border-b-4 hover:scale-105 transition-all duration-300 border-b-purple-900 drop-shadow-lg">
+                <div className="flex justify-center mb-4">
+                  <div className="h-20 w-20 bg-primary-100 rounded-full p-5">
+                    <FaHandsHelping
+                      heck
+                      className="h-9 w-9 mx-auto my-auto text-white"
+                    />
+                  </div>
+
+                  {/* <img src="https://placehold.co/64x64" alt="Call Center Solutions" className="w-16 h-16"/> */}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  Call Center Solutions
+                </h3>
+                <p>
+                  Contrary to popular belief, Lorem Ipsum is not simply random
+                  text. It has roots in a piece of classical Latin literature
+                  from 45 BC, making it over 2000 years old.
+                </p>
+              </div>
+              <div className=" p-6 rounded-lg shadow-lg border border-b-4 hover:scale-105 transition-all duration-300 border-b-purple-900 drop-shadow-lg">
+                <div className="flex justify-center mb-4">
+                  <div className="h-20 w-20 bg-primary-100 rounded-full p-6">
+                    <FaReadme className="h-8 w-8 mx-auto my-auto text-white" />
+                  </div>
+
+                  {/* <img src="https://placehold.co/64x64" alt="Cloud Development" className="w-16 h-16"/> */}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  Cloud Development
+                </h3>
+                <p>
+                  There are many vundefinedtions of passages of Lorem Ipsum
+                  available, but the majority have suffered alteration in some
+                  form, by injected humour, or randomised words.
+                </p>
+              </div>
+            </div>
+            <div className="mt-10">
+              <a
+                href="/services"
+                className="bg-primary-100 text-white py-2 px-4 rounded"
+              >
+                See All Services
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* plan section */}
+
+        <div className="max-w-4xl mx-auto p-6   rounded-lg shadow-md">
+          <h2 className="text-center text-4xl font-bold text-zinc-900 dark:text-white">
+            Simple, transparent pricing
+          </h2>
+          <p className="text-center text-zinc-600 dark:text-zinc-300">
+            No contracts. No surprise fees.
+          </p>
+          <div className="flex flex-col md:flex-row justify-center mt-8">
+            <div className="flex flex-col items-center w-1/2 md:items-start bg-gray-100 p-6 rounded-lg">
+              <div className="flex space-x-2 mb-4">
+                <button className="px-4 py-2 bg-primary-100 text-white rounded-full">
+                  Monthly
+                </button>
+                <button className="px-4 py-2 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-full">
+                  Yearly
+                </button>
+              </div>
+              <ul className="space-y-6 w-full text-zinc-900 dark:text-white">
+                <li className="flex items-center">
+                  <span className="mr-2">All limited links</span>
+                  <span className="ml-auto">
+                    <input
+                      type="radio"
+                      name="plan1"
+                      className="custom-checkbox"
+                    />
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">Own analytics platform</span>
+                  <span className="ml-auto">
+                    <input
+                      type="radio"
+                      name="plan2"
+                      className="custom-checkbox"
+                      checked
+                    />
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">Chat support</span>
+                  <span className="ml-auto">
+                    <input
+                      type="radio"
+                      name="plan3"
+                      className="custom-checkbox"
+                      checked
+                    />
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">Optimize hashtags</span>
+                  <span className="ml-auto">
+                    <input
+                      type="radio"
+                      name="plan4"
+                      className="custom-checkbox"
+                      disabled
+                    />
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">Unlimited users</span>
+                  <span className="ml-auto">
+                    <input
+                      type="radio"
+                      name="plan5"
+                      className="custom-checkbox"
+                      disabled
+                    />
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div className="flex flex-col items-center md:items-start w-1/2 p-6 rounded-lg ml-0 md:ml-6 mt-6 md:mt-0">
+              <div className="w-full mb-4">
+                <div className="flex items-center justify-between bg-primary-100 text-white p-4 rounded-lg">
+                  <div className="flex justify-center items-center gap-4">
+                    <FaCircleCheck className="h-6 w-6" />
                     <div>
-                        <img src="https://i.pinimg.com/564x/5b/6f/84/5b6f84ae598450a2ed19bcb9371c3b71.jpg" alt="Digital Agency" className="rounded-lg  h-[500px] shadow-lg"/>
+                      <span className="text-lg  font-semibold ">Intro</span>
+                      <div className="text-center border px-2 py-1 rounded-full text-[10px] text-white">
+                        Save $20
+                      </div>
                     </div>
+                  </div>
+                  <span className="font-semibold text-3xl">
+                    ₹99 <span className="text-sm">/Month</span>
+                  </span>
                 </div>
-            </div>
-        
-            
-            {/* <div className="bg-zinc-100 py-5 mt-5 mb-6">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex h-[60px] justify-center gap-10 ">
-                        <img src="https://companieslogo.com/img/orig/TCS.NS-7401f1bd.png?t=1631949260" alt="Palm Marina" className="mx-4 filter grayscale "/>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Primary_Logo_Color_RGB.svg" alt="utoPix" className="mx-4 filter grayscale"/>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Infosys_logo.svg/1280px-Infosys_logo.svg.png" alt="SMARTICO" className="mx-4 filter grayscale"/>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/800px-Google_2015_logo.svg.png" alt="SAUTER" className="mx-4 filter grayscale"/>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Paytm_logo.jpg" alt="minimal" className="mx-4 filter grayscale"/>
+              </div>
+              <div className="w-full mb-4">
+                <div className="flex items-center justify-between border-2  p-4 rounded-lg">
+                  <div className="flex ">
+                    <RxCross2 className="h-6 w-6" />
+                    <div className="ml-2">
+                      <span className="text-lg font-semibold ">Base</span>
+                      <div className="text-center border px-2 text-red-300 py-1 rounded-full text-[10px]">
+                        Save $20
+                      </div>
                     </div>
+                  </div>
+                  <span className="font-semibold text-3xl">
+                    ₹199 <span className="text-sm">/Month</span>
+                  </span>
                 </div>
-            </div> */}
-        
-       
-
-{/* plan section */}
-
-        <div className="min-h-screen bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300 flex flex-col items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl w-full">
-            <h2 className="text-center text-3xl font-bold text-zinc-800  mb-4">Find the <span className="text-blue-600">Right Plan</span>.</h2>
-            <p className="text-center text-zinc-600  mb-8">Create your own website with the fastest page building platform.</p>
-            <div className="flex justify-center items-center mb-8">
-              <span className="mr-2 text-zinc-600 ">Billed yearly</span>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer"/>
-                <div className="w-11 h-6 bg-zinc-200 peer-focus:outline-none  dark:peer-focus:ring-primary-100 rounded-full peer dark:bg-zinc-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-300 peer-checked:bg-primary-100"></div>
-              </label>
-              <span className="ml-2 text-zinc-600 ">Billed monthly</span>
+              </div>
+              <div className="w-full mb-4">
+                <div className="flex items-center justify-between border-2  p-4 rounded-lg">
+                  <div className="flex ">
+                    <RxCross2 className="h-6 w-6" />
+                    <div className="ml-2">
+                      <span className="text-lg text-capital font-semibold ">
+                        Popular
+                      </span>
+                      <div className="text-center text-red-300 border px-2 py-1 rounded-full text-[10px]">
+                        Save $20
+                      </div>
+                    </div>
+                  </div>
+                  <span className="font-semibold text-3xl">
+                    ₹299 <span className="text-sm">/Month</span>
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              
-              <div className="bg-primary-100 text-white rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold mb-4">Professional</h3>
-                <p className="text-2xl font-bold mb-4">$19.99</p>
-                <ul className="mb-6">
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    1 User
-                  </li>
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    10 TB of secure storage
-                  </li>
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    Premium productivity features and simple, secure file sharing
-                  </li>
-                </ul>
-                <button className="bg-white text-primary-100 font-bold py-2 px-4 rounded-lg">Try free for 30 days</button>
+          </div>
+          <div className="flex items-center justify-center mt-8">
+            <button className="px-6 py-2 bg-primary-100 text-white rounded-lg">
+              Choose Plan
+            </button>
+          </div>
+        </div>
+
+        {/* after plan */}
+        <div className="py-28">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <img
+                  src="https://img.indiafilings.com/learn/wp-content/uploads/2015/07/12011038/starting-a-business-in-India-for-foreign-company-1024x683.jpg"
+                  alt="Integrated Digital Agency"
+                  className="rounded-lg shadow-lg"
+                />
               </div>
-              
-              <div className="bg-white dark:bg-zinc-200 rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold mb-4">Standard</h3>
-                <p className="text-2xl font-bold mb-4">$29.99</p>
-                <ul className="mb-6">
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    5 Users
-                  </li>
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    50 TB of secure storage
-                  </li>
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    Premium productivity features and simple, secure file sharing
-                  </li>
-                </ul>
-                <button className="bg-primary-100 text-white font-bold py-2 px-4 rounded-lg">Try free for 30 days</button>
-              </div>
-              
-              <div className="bg-white dark:bg-zinc-200 rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold mb-4">Ultimate</h3>
-                <p className="text-2xl font-bold mb-4">$99.99</p>
-                <ul className="mb-6">
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    Unlimited Users
-                  </li>
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    Unlimited secure storage
-                  </li>
-                  <li className="flex items-center mb-2">
-                    <img undefinedhidden="true" alt="check" src="/icons/check.svg" className="w-4 h-4 mr-2"/>
-                    Premium productivity features and simple, secure file sharing
-                  </li>
-                </ul>
-                <button className="bg-primary-100 text-white font-bold py-2 px-4 rounded-lg">Try free for 30 days</button>
+              <div className="space-y-4">
+                <h2 className="text-3xl font-bold text-zinc-900">
+                  We Support to Your Business with best employees.
+                </h2>
+                <p className="text-zinc-600 pb-5">
+                  You realize you have made the right decision by partnering
+                  with us, as we ensure complete transparency with your
+                  employees. Our services help you maintain clear communication,
+                  foster trust, and enhance overall efficiency within your
+                  organization. Join us to experience a seamless and open work
+                  environment that benefits both your employees and your
+                  business growth .
+                </p>
+                <a
+                  href="#"
+                  className="bg-primary-100 mt-5 hover:bg-red-600 text-white px-6 py-2 rounded-md"
+                >
+                  Read More
+                </a>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-{/* after plan */}
-        <div className="py-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                        <div>
-                            <img src="https://img.indiafilings.com/learn/wp-content/uploads/2015/07/12011038/starting-a-business-in-India-for-foreign-company-1024x683.jpg" alt="Integrated Digital Agency" className="rounded-lg shadow-lg"/>
-                        </div>
-                        <div className="space-y-4">
-                            <h2 className="text-3xl font-bold text-zinc-900">We Are Fully Integrated Digital Agency</h2>
-                            <p className="text-zinc-600 pb-5">With a comprehensive approach to crafting solutions, we ensure that your business stands out in the digital marketplace. Our strategies are designed to meet the unique needs of our clients.</p>
-                            <a href="#" className="bg-primary-100 mt-5 hover:bg-red-600 text-white px-6 py-2 rounded-md">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {/* footer section */}
-        <div className="bg-zinc-100 text-zinc-600 py-10 px-5 md:px-20">
-            <div className="max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
-                <div>
-                    <h6 className="text-lg font-semibold text-zinc-800 mb-4">Company</h6>
-                    <ul className="space-y-2">
-                        <li><a href="#" className="hover:text-zinc-800">About Us</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Press</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Support</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h6 className="text-lg font-semibold text-zinc-800 mb-4">Clonables</h6>
-                    <ul className="space-y-2">
-                        <li><a href="#" className="hover:text-zinc-800">All Products</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Templates</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Assets</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">UI Kits</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h6 className="text-lg font-semibold text-zinc-800 mb-4">Resources</h6>
-                    <ul className="space-y-2">
-                        <li><a href="#" className="hover:text-zinc-800">Learning Center</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Promotion</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Integration</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Videos</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Submit</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h6 className="text-lg font-semibold text-zinc-800 mb-4">Store</h6>
-                    <ul className="space-y-2">
-                        <li><a href="#" className="hover:text-zinc-800">View the Store</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Forest UI Kit</a></li>
-                        <li><a href="#" className="hover:text-zinc-800">Orbs Template</a></li>
-                    </ul>
-                </div>
-                <div className="col-span-2 md:col-span-1">
-                    <h6 className="text-lg font-semibold text-zinc-800 mb-4">Follow our Socials</h6>
-                    <div className="flex space-x-4">
-                        <a href="#" className="text-zinc-600 hover:text-zinc-800"><img src="https://placehold.co/20x20/twitter" alt="Twitter"/></a>
-                        <a href="#" className="text-zinc-600 hover:text-zinc-800"><img src="https://placehold.co/20x20/facebook" alt="Facebook"/></a>
-                        <a href="#" className="text-zinc-600 hover:text-zinc-800"><img src="https://placehold.co/20x20/instagram" alt="Instagram"/></a>
-                    </div>
-                </div>
-            </div>
-            <div className="text-center text-zinc-500 mt-10">
-                <p>Copyright © 2020 Flowbase - Powered by Webflow</p>
-                <p className="mt-1">
-                    <a href="#" className="hover:text-zinc-800">Privacy Policy</a> | 
-                    <a href="#" className="hover:text-zinc-800">Affiliate Notice</a> | 
-                    <a href="#" className="hover:text-zinc-800">Press Kit</a>
-                </p>
-            </div>
-        </div>
-        
-             
-       
-        </>
-  )
+      {/* footer section */}
+      <Footer/>
+    </>
+  );
 }
 
-export default Landing
+export default Landing;

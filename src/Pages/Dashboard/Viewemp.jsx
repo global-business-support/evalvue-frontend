@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useParams, useLocation } from "react-router-dom";
+import Loader from "../Loader";
 
 function Viewemp() {
   const [Employees, setEmployees] = useState();
@@ -9,7 +10,7 @@ function Viewemp() {
   const { organization_id } = useParams();
   const location = useLocation();
   const state=location.state
-  // console.log(state);
+  // console.log(state); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +31,13 @@ function Viewemp() {
   }, [organization_id]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <>
+      <div className="h-[calc(100vh-100px)] flex justify-center items-center">
+        <Loader/>
+      </div>
+      </>
+    ) 
   }
 
   if (error) {

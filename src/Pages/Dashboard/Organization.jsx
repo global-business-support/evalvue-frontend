@@ -1,37 +1,45 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Addorganization from "./Addorganization";
 import { UserContext } from "../../Contextfile";
+import Loader from '../Loader'
 
 export default function Organization() {
   const [Orgdata, setOrgdata] = useState([]);
   const [Isorgmap, setIsorgmap] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Set initial loading state to true
+  const [address, setAddress] = useState({});
   const { userId } = useContext(UserContext);
-  const header = {
-    headers: { 'Content-Type': 'multipart/form-data' }
-  };
+
   useEffect(() => {
     axios
-      .post("https://api.evalvue.com/organizations/", { user_id: userId },header)
+      .post("https://api.evalvue.com/organizations/", { user_id: userId })
       .then((res) => {
-        // // console.log(res.data);
         setOrgdata(res.data.organization_list);
-
-        // setOrganization(res.data.organization_list);
-        setIsorgmap(res.data.is_organization_mapped);
+        if (res.data.is_organization_mapped) {
+          setIsorgmap(res.data.is_organization_mapped);
+        } else {
+          setAddress(res.data);
+          console.log(res.data);
+        }
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        setLoading(false);
+        setLoading(false); // Set loading state to false when request completes
       });
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+      <div className="h-[calc(100vh-100px)] flex justify-center items-center">
+        <Loader/>
+      </div>
+      </>
+    ) 
   }
 
   return (

@@ -3,16 +3,19 @@ import { useLocation, useOutletContext } from 'react-router-dom';
 import { UserContext } from '../Contextfile';
 import { Rating } from '@material-tailwind/react';
 import axios from 'axios';
+import Loader from './Loader';
 
 function Personalreview() {
   const { state } = useLocation();
   const { userId } = useContext(UserContext);
   const { updateReviewCount } = useOutletContext();
+  const [loading,setloading]=useState(false);
   const [isReviewMapped, setIsReviewMapped] = useState(false);
   const [ReviewList, setReviewList] = useState([]);
   const [EmployeeList, setEmployeeList] = useState(null);
 
   useEffect(() => {
+    setloading(true)
     const fetchData = async () => {
       try {
         const response = await axios.post('https://api.evalvue.com/reviews/', {
@@ -20,6 +23,7 @@ function Personalreview() {
           organization_id: state.emporgid,
           employee_id: state.empid,
         });
+        setloading(false)
         if (response.data.is_review_mapped_to_employee_successfull) {
           setIsReviewMapped(true);
           setReviewList(response.data.review_list);
@@ -32,6 +36,16 @@ function Personalreview() {
     };
     fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <>
+      <div className="h-[calc(100vh-350px)] flex justify-center items-center">
+        <Loader/>
+      </div>
+      </>
+    ) 
+  }
 
   if (isReviewMapped) {
     return (
