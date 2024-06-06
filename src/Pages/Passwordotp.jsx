@@ -84,7 +84,7 @@ function Passwordotp(props) {
       });
 
       const data = await response.json();
-      // console.log('Response from OTP submit:', data);
+      console.log('Response from OTP submit:', data);
 
       if (response.ok) {
         if (data.otp_verified_successfull) {

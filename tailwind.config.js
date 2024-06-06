@@ -33,6 +33,14 @@ module.exports = withMT({
     },
   },
   plugins: [
+    
+    function ({ addVariant, e }) {
+      addVariant('autofill', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`autofill${separator}${className}`)}:-webkit-autofill`;
+        });
+      });
+    },
     plugin(function({ addUtilities }) {
       const newUtilities = {
         '.scrollbar-hide': {

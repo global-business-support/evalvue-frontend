@@ -4,11 +4,13 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import { button } from "@material-tailwind/react";
 import { Rating } from "@material-tailwind/react";
+import Loader from "../Loader";
 
 function Post() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [rating, setrating] = useState(0);
+  const [loading,setloading]=useState(false)
   const [comment, setcomment] = useState("");
   const [msg,setmsg]=useState("none");
   const { userId } = useContext(UserContext);
@@ -31,6 +33,7 @@ function Post() {
 
   function postsubmit(e) {
     e.preventDefault();
+    setloading(true)
     if(comment.length<250){
       setmsg("block");
     }
@@ -52,10 +55,19 @@ function Post() {
         console.log(err);
       });
     }
-    
+    setloading(false)
   }
   function handleBackClick(){
       navigate(-1)
+  }
+  if (loading) {
+    return (
+      <>
+      <div className="h-[calc(100vh-350px)] flex justify-center items-center">
+        <Loader/>
+      </div>
+      </>
+    ) 
   }
   return (
     <form onSubmit={postsubmit}>
@@ -82,6 +94,7 @@ function Post() {
           rows="8"
           placeholder="What do you want to talk about?"
           name="comment"
+          maxLength={500}
           onChange={(event) => {
             setcomment(event.target.value); // Update the comment state with event.target.value
           }}

@@ -2,13 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  background-color:#ebebeb !important; /* Change to your desired color */
+  border-color: #5134a9 !important; /* Change to your desired border color */
+  color: red !important;
+  border: none;
+  /* color: #004d40 !important; Change to your desired text color */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(45deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-45deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@-webkit-keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-custom {
+  animation: spin 4s linear infinite;
+}
 .scrollbar-custom {
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #d3d3d3 #f1f1f1; /* Firefox */
 }
 
+.custom-file-label {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-file-label input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
 input {
-  @apply pl-10 text-sm  appearance-none border rounded w-full bg-bglight-200 py-2 px-3 text-gray-700 leading-tight focus:outline-primary-100;
+  @apply pl-10 text-sm  border rounded w-full bg-bglight-200 py-2 px-3 text-gray-700 leading-tight focus:outline-primary-100;
 }
 
 select{
@@ -23,11 +63,12 @@ input:focus::placeholder {
   @apply text-gray-700 text-base; /* Change placeholder color on focus */
 }
 
+
 input:-webkit-autofill,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:focus {
-  @apply bg-yellow-200 text-gray-900 border-blue-500;
+  @apply bg-yellow-200 text-gray-900 border-primary-100;
 }

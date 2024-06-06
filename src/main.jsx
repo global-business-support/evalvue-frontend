@@ -11,11 +11,11 @@ import {
 import Loginfile from "./Components/Loginfile.jsx";
 import Registration from "./Components/Registration.jsx";
 import Landing from "./Pages/Landing.jsx";
-// import Contact from "./Pages/Contact.jsx";
-// import Help from "./Pages/Help.jsx";
-// import About from "./Pages/About.jsx";
-// import Services from "./Pages/Dashboard/Services.jsx";
-// import Employee from "./Pages/Dashboard/TermsAndCondition.jsx";
+import Contact from "./Pages/Contact.jsx";
+import Help from "./Pages/Help.jsx";
+import About from "./Pages/About.jsx";
+import Services from "./Pages/Dashboard/Services.jsx";
+import Employee from "./Pages/Dashboard/TermsAndCondition.jsx";
 import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import Dhashboardhome from "./Pages/Dashboard/DashboardHome.jsx";
 import Organization from "./Pages/Dashboard/Organization.jsx";
@@ -37,6 +37,9 @@ import { UserContext, UserProvider } from "./Contextfile.jsx";
 import { IsverifiedProvider } from "./Isverified.jsx";
 import ProtectedRoute from "./Pages/ProtectedRoute.jsx";
 import PageNotFound from "./PageNotFound.jsx";
+import Address from "./Pages/Dashboard/Address.jsx";
+import Loader from "./Pages/Loader.jsx";
+import Custompop from "./Pages/Custompop.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -75,13 +78,26 @@ const router = createBrowserRouter(
           {/* <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} /> */}
         {/* <Route path='/register' element={<Registration/>} /> */}
       </Route>
+      <Route path="/contact" element={<Contact/>}/>
+      <Route path="/help" element={<Help/>}/>
+      <Route path="/about" element={<About/>}/>
+      <Route path="/services" element={<Services/>}/>
       <Route path="*" element={<PageNotFound/>} />
+      {/* navbar */}
       </Route>
+
+
       <Route path="/login" element={<Loginfile />} />
       {/* <Route path="/forgotpassword" element={<Passwordotp />} /> */}
       <Route path="/verified"  element={<Passwordotp/>} />
       <Route path="/passgenerate" element={<Passwordgenrate />} />
       <Route path="/register" element={<Registration />} />
+      <Route path="/address" element={<Address />} />
+      <Route path="/loader" element={<Loader />} />
+      {/* <Route path="/pop" element={<Custompop visible={true} 
+        title="Alert Title" 
+        message="This is an alert message." 
+         />} /> */}
     </>
   )
 );
