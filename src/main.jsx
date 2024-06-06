@@ -67,7 +67,7 @@ const router = createBrowserRouter(
               <Route path="review" element={<Enpreviewoutlet />} >
               <Route index element={<Personalreview/>} />
               <Route path="newpost" element={<Post/>}/>
-              </Route>
+              </Route>/
               {/* <Route path="review" element={<Enpreview/>}/> */}
             </Route>
            
@@ -78,12 +78,10 @@ const router = createBrowserRouter(
           {/* <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} /> */}
         {/* <Route path='/register' element={<Registration/>} /> */}
       </Route>
-
-      <Route path="/contact" element={<Contact/>}/>
-      <Route path="/help" element={<Help/>}/>
-      <Route path="/about" element={<About/>}/>
-      <Route path="/services" element={<Services/>}/>
-
+      <Route path="/contact" element={<Contact/>} />
+      <Route path="/help" element={<Help/>} />
+      <Route path="/about" element={<About/>} />
+      <Route path="/services" element={<Services/>} />
       <Route path="*" element={<PageNotFound/>} />
       {/* navbar */}
       </Route>
