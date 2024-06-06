@@ -2,10 +2,12 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
+import Loader from "../Loader";
 
 function Empform() {
   const { userId } = useContext(UserContext);
   const location = useLocation();
+  const [loading,setloading]=useState(false)
   const organization_id = location.state;
   const navigate = useNavigate();
   const [empregdata, Setempregdata] = useState({
@@ -72,6 +74,16 @@ function Empform() {
         setServerError(err.response.data.error);
         // console.log(err);
       });
+      
+  }
+  if (loading) {
+    return (
+      <>
+      <div className="h-[calc(100vh-100px)] flex justify-center items-center">
+        <Loader/>
+      </div>
+      </>
+    ) 
   }
 
   return (
@@ -190,6 +202,7 @@ function Empform() {
           </div>
         </form>
       </div>
+      
     </>
   );
 }

@@ -42,9 +42,9 @@ function Navbar() {
         </Link>
 
         <div className="md:flex hidden items-center gap-7 lg:text-lg">
-          {/* <NavLink className='font-semibold text-primary-100 lg:text-base text-xl'><Typography variant='button-text'><HouseIcon className='text-[#4f5ecd] align-text-bottom' sx={{ fontSize:20 }} to="/" />Home</Typography></NavLink> */}
+          <NavLink className='font-semibold text-primary-100 lg:text-base text-xl'><Typography variant='button-text'><HouseIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} to="/" />Home</Typography></NavLink>
 
-          {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/services"><Typography variant='button-text'><HomeRepairServiceIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Services</Typography></NavLink> */}
+          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/services"><Typography variant='button-text'><HomeRepairServiceIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Services</Typography></NavLink>
 
           {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/feed"><Typography variant='button-text'><ViewAgendaIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Feed</Typography></NavLink> */}
 
@@ -65,13 +65,13 @@ function Navbar() {
             ""
           )}
 
-          {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/dashboard"><Typography variant='button-text'><DashboardIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Dashboard</Typography></NavLink> */}
+          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/dashboard"><Typography variant='button-text'><DashboardIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Dashboard</Typography></NavLink>
 
-          {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/about"><Typography variant='button-text'><InfoIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />About us</Typography></NavLink> */}
+          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/about"><Typography variant='button-text'><InfoIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />About us</Typography></NavLink>
 
-          {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/contact"><Typography variant='button-text'><CallIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Contact</Typography></NavLink> */}
+          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/contact"><Typography variant='button-text'><CallIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Contact</Typography></NavLink>
 
-          {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/help"><Typography variant='button-text'><HelpIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Help</Typography></NavLink> */}
+          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/help"><Typography variant='button-text'><HelpIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Help</Typography></NavLink>
         </div>
 
         {userId ? (

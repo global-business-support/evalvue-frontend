@@ -1,37 +1,45 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Addorganization from "./Addorganization";
 import { UserContext } from "../../Contextfile";
+import Loader from '../Loader'
 
 export default function Organization() {
   const [Orgdata, setOrgdata] = useState([]);
   const [Isorgmap, setIsorgmap] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Set initial loading state to true
+  const [address, setAddress] = useState({});
   const { userId } = useContext(UserContext);
-  const header = {
-    headers: { 'Content-Type': 'multipart/form-data' }
-  };
+
   useEffect(() => {
     axios
-      .post("https://api.evalvue.com/organizations/", { user_id: userId },header)
+      .post("https://api.evalvue.com/organizations/", { user_id: userId })
       .then((res) => {
-        // // console.log(res.data);
         setOrgdata(res.data.organization_list);
-
-        // setOrganization(res.data.organization_list);
-        setIsorgmap(res.data.is_organization_mapped);
+        if (res.data.is_organization_mapped) {
+          setIsorgmap(res.data.is_organization_mapped);
+        } else {
+          setAddress(res.data);
+          console.log(res.data);
+        }
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        setLoading(false);
+        setLoading(false); // Set loading state to false when request completes
       });
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+      <div className="h-[calc(100vh-100px)] flex justify-center items-center">
+        <Loader/>
+      </div>
+      </>
+    ) 
   }
 
   return (
@@ -39,7 +47,9 @@ export default function Organization() {
       {Isorgmap ? (
         <div className="px-8 py-6 rounded-lg mx-auto">
           <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-xl">
-            <h2 className="text-lg font-semibold">Total Organization: {Orgdata.length}</h2>
+            <h2 className="text-lg font-semibold">
+              Total Organization: {Orgdata.length}
+            </h2>
             <NavLink to={`/dashboard/organization/addorganization`}>
               <button className="bg-primary-100 text-white transition duration-300 border border-primary-100 text-primary-100 font-semibold py-2 px-4 rounded">
                 + Add Organization
@@ -53,8 +63,12 @@ export default function Organization() {
                   <td className="text-left font-semibold text-gray-600  py-2 px-4">
                     Organization:
                   </td>
-                  <td className="text-left font-semibold text-gray-600  py-2 px-4">Address:</td>
-                  <td className="text-left font-semibold text-gray-600  py-2 px-4">View:</td>
+                  <td className="text-left font-semibold text-gray-600  py-2 px-4">
+                    Address:
+                  </td>
+                  <td className="text-left font-semibold text-gray-600  py-2 px-4">
+                    View:
+                  </td>
                 </tr>
               </thead>
               <tbody className="mt-4 ">
@@ -64,11 +78,11 @@ export default function Organization() {
                     className="hover:bg-blue-gray-50 transition duration-300 bg-white shadow-sm"
                   >
                     <td className="py-3 px-4 flex justify-start items-center gap-2 rounded-l-lg">
-                      <div className="h-14 w-14 p-1 rounded-full border-2 border-gray-500">
+                      <div className="h-14 w-14 rounded-full  border-1 border-gray-500">
                         <img
                           src={organization.image}
                           alt=""
-                          className="h-full w-full object-contain rounded-full"
+                          className=" w-full h-full object-contain rounded-full"
                         />
                       </div>
                       <h2 className="font-semibold text-gray-900">
