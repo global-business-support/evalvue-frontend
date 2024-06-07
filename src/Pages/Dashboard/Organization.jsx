@@ -5,6 +5,7 @@ import Addorganization from "./Addorganization";
 import { UserContext } from "../../Contextfile";
 import deleteIcon from '../../assets/images/delete6.png';
 import editIcon from '../../assets/images/edit2.png';
+import Loader from "../Loader";
 
 export default function Organization() {
   const [Orgdata, setOrgdata] = useState([]);

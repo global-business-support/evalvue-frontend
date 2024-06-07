@@ -10,6 +10,7 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { FaRupeeSign } from "react-icons/fa";
 import Footer from "./Footer";
+import SubServices from "./Dashboard/SubServices";
 
 function Landing() {
   return (
@@ -50,84 +51,7 @@ function Landing() {
           </div>
         </div>
         {/* services section */}
-        <section className="py-14">
-          <div className="container mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-14">
-              Our{" "}
-              <span className=" underline text-primary-100 underline-offset-2">
-                {" "}
-                Services
-              </span>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="  p-6 rounded-lg shadow-lg border border-b-4 border-b-purple-900 hover:scale-105 transition-all duration-300 drop-shadow-lg">
-                <div className="flex justify-center mb-4 p-2 ">
-                  <div className="h-20 w-20 bg-primary-100 rounded-full p-6">
-                    <BsBookmarkCheckFill className="h-8 w-8 mx-auto my-auto text-white" />
-                  </div>
-
-                  {/* <img src="https://placehold.co/64x64" alt="Corporate Solution" className="w-16 h-16"/> */}
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Corporate Solution
-                </h3>
-                <p className="">
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text. It has roots in a piece of classical Latin literature
-                  from 45 BC, making it over 2000 years Contrary to popular
-                  belief, Lorem Ipsum is not simply random text. It has roots in
-                  a piece of classical Latin It has roots in a piece of
-                  classical Latin literature old.
-                </p>
-              </div>
-              <div className="  p-6 rounded-lg shadow-lg border border-b-4 hover:scale-105 transition-all duration-300 border-b-purple-900 drop-shadow-lg">
-                <div className="flex justify-center mb-4">
-                  <div className="h-20 w-20 bg-primary-100 rounded-full p-5">
-                    <FaHandsHelping
-                      heck
-                      className="h-9 w-9 mx-auto my-auto text-white"
-                    />
-                  </div>
-
-                  {/* <img src="https://placehold.co/64x64" alt="Call Center Solutions" className="w-16 h-16"/> */}
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Call Center Solutions
-                </h3>
-                <p>
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text. It has roots in a piece of classical Latin literature
-                  from 45 BC, making it over 2000 years old.
-                </p>
-              </div>
-              <div className=" p-6 rounded-lg shadow-lg border border-b-4 hover:scale-105 transition-all duration-300 border-b-purple-900 drop-shadow-lg">
-                <div className="flex justify-center mb-4">
-                  <div className="h-20 w-20 bg-primary-100 rounded-full p-6">
-                    <FaReadme className="h-8 w-8 mx-auto my-auto text-white" />
-                  </div>
-
-                  {/* <img src="https://placehold.co/64x64" alt="Cloud Development" className="w-16 h-16"/> */}
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Cloud Development
-                </h3>
-                <p>
-                  There are many vundefinedtions of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour, or randomised words.
-                </p>
-              </div>
-            </div>
-            <div className="mt-10">
-              <a
-                href="/services"
-                className="bg-primary-100 text-white py-2 px-4 rounded"
-              >
-                See All Services
-              </a>
-            </div>
-          </div>
-        </section>
+        <SubServices />
 
         {/* plan section */}
 

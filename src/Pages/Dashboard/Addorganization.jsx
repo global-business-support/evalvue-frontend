@@ -152,6 +152,7 @@ function Addorganization() {
               </NavLink>
             </div>
           </div>
+          </div>
         ) : (
           <>
               <h1 className="text-xl font-semibold mb-4">Register your organization:</h1>
@@ -161,6 +162,7 @@ function Addorganization() {
               we invite you to join our community.
             </p>
             <form className="mt-10" onSubmit={orgregsubmit}>
+              <div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">Organization name<span className="text-[red]">*</span></label>

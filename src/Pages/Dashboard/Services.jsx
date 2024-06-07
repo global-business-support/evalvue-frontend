@@ -1,4 +1,6 @@
 import React from 'react'
+import SubServices from './SubServices'
+import Footer from '../Footer'
 function Services() {
   return (
      <div className=" text-zinc-900 ">
@@ -13,8 +15,10 @@ function Services() {
          </div>
        </div>
      </section>
-     
-     <section className="py-20">
+
+     <SubServices />
+
+     {/* <section className="py-20">
        <div className="container mx-auto text-center">
          <h2 className="text-3xl font-bold mb-10">Our Services</h2>
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -47,7 +51,7 @@ function Services() {
            <a href="#" className="bg-primary-100 text-white py-2 px-4 rounded">See All Services</a>
          </div>
        </div>
-     </section>
+     </section> */}
      
      <section className="bg-primary-100 text-white  py-20">
        <div className="container mx-auto text-center">
@@ -84,64 +88,9 @@ function Services() {
        </div>
      </section>
      
-     {/* <section className="py-20">
-       <div className="container mx-auto text-center">
-         <div className="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
-           <div className="flex items-center justify-center">
-             <img src="https://placehold.co/200x200" alt="10 Years Of Experience" className="w-48 h-48"/>
-           </div>
-           <div>
-             <h3 className="text-3xl font-bold mb-4">10 Years Of Experience</h3>
-             <ul className="text-left space-y-2">
-               <li><strong>2K</strong> Apps Developed</li>
-               <li><strong>40</strong> Consultants</li>
-               <li><strong>160</strong> Employers</li>
-             </ul>
-           </div>
-         </div>
-       </div>
-     </section> */}
-     <footer className="bg-zinc-300 text-zinc-700  py-8">
-       <div className="container mx-auto px-4 grid md:grid-cols-4 gap-6">
-         <div>
-           <h3 className="text-lg font-bold mb-2">About us</h3>
-           <ul>
-             <li><a href="#" className="hover:underline">Who we are</a></li>
-             <li><a href="#" className="hover:underline">What we do</a></li>
-             <li><a href="#" className="hover:underline">Our history</a></li>
-             <li><a href="#" className="hover:underline">Our Press</a></li>
-           </ul>
-         </div>
-         <div>
-           <h3 className="text-lg font-bold mb-2">Work with us</h3>
-           <ul>
-             <li><a href="#" className="hover:underline">Careers</a></li>
-             <li><a href="#" className="hover:underline">Partner with us</a></li>
-             <li><a href="#" className="hover:underline">Staff and alumni portal</a></li>
-           </ul>
-         </div>
-         <div>
-           <h3 className="text-lg font-bold mb-2">Research and policy insight</h3>
-           <ul>
-             <li><a href="#" className="hover:underline">Our research</a></li>
-             <li><a href="#" className="hover:underline">Policy insights</a></li>
-             <li><a href="#" className="hover:underline">Funding opportunities</a></li>
-           </ul>
-         </div>
-         <div>
-           <h3 className="text-lg font-bold mb-2">Contact us</h3>
-           <ul>
-             <li><a href="#" className="hover:underline">Contact details</a></li>
-             <li><a href="#" className="hover:underline">FAQs</a></li>
-             <li><a href="#" className="hover:underline">Feedback</a></li>
-           </ul>
-         </div>
-       </div>
-       <div className="container mx-auto px-4 mt-8 text-center text-zinc-500">
-         <p>&copy; 2024 Evalvue. All rights reserved.</p>
-         <p><a href="#" className="hover:underline">Terms and conditions of use</a> | <a href="#" className="hover:underline">Accessibility</a> | <a href="#" className="hover:underline">Privacy and cookies</a> | <a href="#" className="hover:underline">Sitemap</a></p>
-       </div>
-     </footer>
+     
+     
+     <Footer />
    </div>
   )
 }
