@@ -3,7 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Addorganization from "./Addorganization";
 import { UserContext } from "../../Contextfile";
-import Loader from '../Loader'
+import deleteIcon from '../../assets/images/delete6.png';
+import editIcon from '../../assets/images/edit2.png';
+import Loader from "../Loader";
 
 export default function Organization() {
   const [Orgdata, setOrgdata] = useState([]);
@@ -64,6 +66,7 @@ export default function Organization() {
                   <td className="text-left font-semibold text-gray-600  py-2 px-4">Document Number:</td>
                   <td className="text-left font-semibold text-gray-600  py-2 px-4">Address:</td>
                   <td className="text-left font-semibold text-gray-600  py-2 px-4">View:</td>
+                  <td className="text-left font-semibold text-gray-600  py-2 px-4">Edit / Delete:</td>
                 </tr>
               </thead>
               <tbody className="mt-4 ">
@@ -89,13 +92,13 @@ export default function Organization() {
                       </div>
                     </td>
                     <td className="py-3 px-4 w-[18%] bg-white text-gray-700 border-t border-b border-gray-400 shadow-top-bottom-xl">
-                      810346564
+                      8103112050
                     </td>
                     <td className="py-3 px-4  bg-white text-gray-700  text-gray-700 border-t border-b border-gray-400 shadow-top-bottom-xl">
                       {organization.area}, {organization.city_name},{" "}
                       {organization.state_name}, {organization.pincode}
                     </td>
-                    <td className="ml-10 py-3 px-4 w-[10%] bg-white rounded-r-lg text-gray-700 border-r border-t border-b border-gray-400 shadow-top-bottom-xl">
+                    <td className="ml-10 py-3 px-4 w-[10%] bg-white text-gray-700 border-t border-b border-gray-400 shadow-top-bottom-xl">
                       <NavLink
                         to={`/dashboard/organization/employee/${organization.organization_id}`}
                         state={{
@@ -109,6 +112,14 @@ export default function Organization() {
                         <button className=" hover:bg-primary-100 text-primary-100 font-semibold py-1 px-3 rounded border border-primary-100 transition duration-300 hover:text-white text-sm">
                           View
                         </button>
+                      </NavLink>
+                    </td>
+                    <td className="py-3 px-4  bg-white text-gray-700 border-t border-b border-r rounded-r-lg border-gray-400 shadow-top-bottom-xl">
+                      <NavLink to={""}>
+                        <div className="flex gap-3 lg:ml-4">
+                          <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
+                          <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
+                        </div>
                       </NavLink>
                     </td>
                   </tr>

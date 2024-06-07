@@ -39,13 +39,13 @@ function Footer() {
               placeholder="Enter your email"
               className="p-2 rounded-md border text-primary-100 text-lg placeholder:text-white border-gray-600 bg-gray-400 "
             />
-            <button className="bg-gray-400 border-2 p-2 rounded-md hover:bg-zinc-600">
+            <button className="bg-gray-400 border-2 p-2 rounded-md hover:bg-gray-700 transition duration-300">
               Subscribe
             </button>
           </div>
         </div>
         <div className="text-center mt-4 text-sm">
-          © 2023 Untitled UI. All rights reserved.
+          © 2024 Global Business Support. All rights reserved.
         </div>
       </div>
     </div>

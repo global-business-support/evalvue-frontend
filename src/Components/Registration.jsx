@@ -116,9 +116,19 @@ console.log(termsAccepted)
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-     <div className="flex justify-center bg-white shadow-md items-center w-full max-w-4xl ">
-      <div className="w-[55%] h-[570px]  text-white text-center hidden lg:flex relative  justify-center items-center ">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 ">
+     <div className="flex justify-center bg-primary-100 shadow-md items-center w-full max-w-4xl rounded-xl">
+      <div className="w-[50%] h-[570px]  text-white text-center hidden lg:flex flex-col relative justify-between items-center">
+        <div className='h-[35%] flex flex-col justify-between items-center '>
+          <div className=' '>
+            <h1 className='text-4xl font-semibold'>Welcome to Evalvue</h1>
+            <h1 className='text-sm font-semibold mt-2'> Where Your Journey to Success Begins!</h1>
+          </div>
+          <h1 className='text-xs w-[75%] text-gray-200 font-medium text-start border-l border-gray-400 ps-2'>
+              "Invest in talent, reap success. Grow with the best. Investing in talent is an investment in the
+               company's success, as it cultivates a culture of excellence and enables the organization to grow alongside its exceptional employees”
+          </h1>
+        </div>
         {/* <div className='h-full w-full absolute bg-[#0000008f] z-10 px-12 pt-20 flex flex-col items-center gap-52 text-start'>
           <div className='text-center '>
             <h1 className='text-4xl font-semibold'>Welcome to Evalvue</h1>
@@ -136,71 +146,71 @@ console.log(termsAccepted)
         /> */}
 
         {/* slider */}
-        <div className='h-52 w-[60%] '>
-      <Swiper
-      spaceBetween={30}
-      pagination={{
-          dynamicBullets: true,
+        <div className='h-60  w-[60%] '>
+          <Swiper
+          spaceBetween={30}
+          pagination={{
+          // dynamicBullets: true,
             
-        }}
+          }}
         
-        autoplay={{
+          autoplay={{
           delay: 3500,
           disableOnInteraction: false,
-        }}
+          }}
         
          modules={[Autoplay, Pagination]}
-         className=" h-40 mySwiper text-black text-xs">
+         className=" mySwiper text-black text-xs">
 
-        <SwiperSlide className='w-auto  rounded-xl p-5 border-2 border-black  font-medium bg-[#ffffff64]'>
-          <div className='flex flex-col items-center gap-2'>
-            <img src={logo} alt=""className='rounded-full h-14 w-14 p-2 object-contain' />
+        <SwiperSlide className='w-auto  rounded-xl p-5 border-2 text-gray-700 font-medium bg-white'>
+          <div className='flex flex-col items-center gap-2 mb-5'>
+            <img src={logo} alt=""className='rounded-full h-14 w-14 p-2 object-contain ' />
             <h1>Good employees exhibit several key qualities that contribute to their effectiveness and value within an organization:</h1>
           </div>
           </SwiperSlide>
 
-        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 border-black  font-medium'>
-          <div className='flex flex-col items-center gap-2'>
+        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 text-gray-700  font-medium bg-white'>
+          <div className='flex flex-col items-center gap-2 mb-5'>
             <img src={logo} alt=""className='rounded-full h-14 w-14 p-2 object-contain' />
             <h1>Good employees exhibit several key qualities that contribute to their effectiveness and value within an organization:</h1>
           </div>  
         </SwiperSlide>
 
-        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 border-black  font-medium'>
-          <div className='flex flex-col items-center gap-2'>
+        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 text-gray-700  font-medium bg-white'>
+          <div className='flex flex-col items-center gap-2 mb-5'>
             <img src={logo} alt=""className='rounded-full h-14 w-14 p-2 object-contain' />
             <h1>Good employees exhibit several key qualities that contribute to their effectiveness and value within an organization:</h1>
           </div>
         </SwiperSlide>
 
-        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 border-black  font-medium'>
-          <div className='flex flex-col items-center gap-2'>
+        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 text-gray-700  font-medium bg-white'>
+          <div className='flex flex-col items-center gap-2 mb-5'>
             <img src={logo} alt=""className='rounded-full h-14 w-14 p-2 object-contain' />
             <h1>Good employees exhibit several key qualities that contribute to their effectiveness and value within an organization:</h1>
           </div>
         </SwiperSlide>
 
-        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 border-black  font-medium'>
-          <div className='flex flex-col items-center gap-2'>
+        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 text-gray-700  font-medium bg-white'>
+          <div className='flex flex-col items-center gap-2 mb-5'>
             <img src={logo} alt=""className='rounded-full h-14 w-14 p-2 object-contain' />
             <h1>Good employees exhibit several key qualities that contribute to their effectiveness and value within an organization:</h1>
           </div>
         </SwiperSlide>
 
-        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 border-black  font-medium'>
-          <div className='flex flex-col items-center gap-2'>
+        <SwiperSlide  className='w-auto  rounded-xl p-5 border-2 text-gray-700  font-medium bg-white'>
+          <div className='flex flex-col items-center gap-2 mb-5'>
             <img src={logo} alt=""className='rounded-full h-14 w-14 p-2 object-contain' />
             <h1>Good employees exhibit several key qualities that contribute to their effectiveness and value within an organization:</h1>
           </div>
         </SwiperSlide>
         
-      </Swiper>
-      </div>  
+          </Swiper>
+          </div>  
       </div>
 
 
 
-        <div className="w-4/5 md:w-1/2 lg:1/3 bg-white p-8">
+        <div className="w-4/5 md:w-1/2 lg:1/3 bg-white p-8 m-5 rounded-xl">
           <h2 className="text-[26px] font-bold mb-7 text-zinc-800">
             Create Account :-
           </h2>
