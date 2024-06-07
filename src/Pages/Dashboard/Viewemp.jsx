@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useParams, useLocation } from "react-router-dom";
-import Loader from "../Loader";
+import deleteIcon from '../../assets/images/delete6.png';
+import editIcon from '../../assets/images/edit2.png';
+import empLogo from '../../assets/images/emplogo.jpg';
 
 function Viewemp() {
   const [Employees, setEmployees] = useState();
@@ -10,7 +12,8 @@ function Viewemp() {
   const { organization_id } = useParams();
   const location = useLocation();
   const state=location.state
-  // console.log(state); 
+  const [topFive,setTopFive] = useState(false);
+  // console.log(state);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,7 +101,6 @@ function Viewemp() {
               </NavLink>
           </div>
         </div>
-
         <div className="mb-3 flex justify-center items-start mt-3 w-full">
           <table className=" border-separate w-full border-spacing-y-3">
             <thead>
@@ -109,6 +111,7 @@ function Viewemp() {
                 <td className="text-left font-semibold text-gray-600  py-2 px-4">Aadhaar Number:</td>
                 <td className="text-left font-semibold text-gray-600  py-2 px-4">Designation:</td>
                 <td className="text-left font-semibold text-gray-600  py-2 px-4">Reviews:</td>
+                <td className="text-left font-semibold text-gray-600  py-2 px-4">Edit / Delete:</td>
               </tr>
             </thead>
             <tbody className="mt-4">
@@ -131,13 +134,13 @@ function Viewemp() {
                       {employee.name}
                     </h2>
                   </td>
-                  <td className="py-3 px-4 w-[25%] bg-white text-gray-700 border-t border-b border-gray-400 shadow-top-bottom-xl">
+                  <td className="py-3 px-4 w-[20%] bg-white text-gray-700 border-t border-b border-gray-400 shadow-top-bottom-xl">
                       810346564
                     </td>
-                  <td className="py-3 px-4 w-[25%] text-gray-700 bg-white border-t border-b border-gray-400 shadow-top-bottom-xl">
+                  <td className="py-3 px-4 w-[20%] text-gray-700 bg-white border-t border-b border-gray-400 shadow-top-bottom-xl">
                     {employee.designation}
                   </td>
-                  <td className="ml-10 py-3 px-4 bg-white rounded-r-lg border-r border-t border-b border-gray-400 shadow-top-bottom-xl">
+                  <td className="ml-10 py-3 px-4 w-[20%] bg-white border-t border-b border-gray-400 shadow-top-bottom-xl">
                     <NavLink
                       to={`/dashboard/organization/employee/review`}
                       state={{
@@ -154,6 +157,14 @@ function Viewemp() {
                       </button>
                     </NavLink>
                   </td>
+                  <td className="px-4 bg-white text-gray-700 border-t border-b border-r rounded-r-lg border-gray-400 shadow-top-bottom-xl">
+                      <NavLink to={""}>
+                        <div className="flex gap-3 lg:ml-4">
+                          <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
+                          <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
+                        </div>
+                      </NavLink>
+                    </td>
                 </tr>
               ))}
             </tbody>

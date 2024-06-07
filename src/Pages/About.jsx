@@ -11,7 +11,7 @@ function About() {
               
              <div className="p-3">
 
-             <section className="h-[350px] lg:w-[85%] mx-auto m-4 relative rounded-xl text-start bg-gradient-to-r from-primary-100">
+             <section className="h-[350px] lg:w-[90%] mx-auto m-4 relative rounded-xl text-start bg-gradient-to-r from-primary-100">
                       <img src={aboutImg} alt="about-img" className='absolute right-0 z-[-10] h-full'/>
                       <div className='pt-20 px-10 lg:w-[50%]  text-white'>
                       <h1 className="text-6xl font-bold mb-4">About Us</h1>
