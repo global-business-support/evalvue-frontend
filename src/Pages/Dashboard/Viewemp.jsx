@@ -3,7 +3,6 @@ import axios from "axios";
 import { NavLink, useParams, useLocation } from "react-router-dom";
 import deleteIcon from '../../assets/images/delete6.png';
 import editIcon from '../../assets/images/edit2.png';
-import empLogo from '../../assets/images/emplogo.jpg';
 
 function Viewemp() {
   const [Employees, setEmployees] = useState();
