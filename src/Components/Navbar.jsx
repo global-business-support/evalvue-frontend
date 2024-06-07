@@ -65,7 +65,7 @@ function Navbar() {
             ""
           )}
 
-          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/dashboard"><Typography variant='button-text'><DashboardIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Dashboard</Typography></NavLink>
+          {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/dashboard"><Typography variant='button-text'><DashboardIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Dashboard</Typography></NavLink> */}
 
           <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/about"><Typography variant='button-text'><InfoIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />About us</Typography></NavLink>
 
@@ -99,7 +99,7 @@ function Navbar() {
           {["right"].map((anchor) => (
             <React.Fragment key={anchor}>
               <Button onClick={toggleDrawer(anchor, true)}>
-                <DehazeIcon className="text-primary-100"/>
+                <DehazeIcon className="text-primary-100" />
               </Button>
               <Drawer
                 anchor={anchor}
@@ -151,21 +151,21 @@ function Navbar() {
                       </Typography>
                     </NavLink>
                     {userId ? (
-            <NavLink
-              className="font-semibold lg:text-base text-xl text-gray-600"
-              to="/dashboard"
-            >
-              <Typography variant="button-text">
-                <DashboardIcon
-                  className="text-primary-100 align-text-bottom"
-                  sx={{ fontSize: 20 }}
-                />
-                Dashboard
-              </Typography>
-            </NavLink>
-          ) : (
-            ""
-          )}
+                      <NavLink
+                        className="font-semibold lg:text-base text-xl text-gray-600"
+                        to="/dashboard"
+                      >
+                        <Typography variant="button-text">
+                          <DashboardIcon
+                            className="text-primary-100 align-text-bottom"
+                            sx={{ fontSize: 20 }}
+                          />
+                          Dashboard
+                        </Typography>
+                      </NavLink>
+                    ) : (
+                      ""
+                    )}
 
                     {/* <NavLink
                       className="font-semibold text-lg text-gray-600"
@@ -194,7 +194,7 @@ function Navbar() {
                         Contact
                       </Typography>
                     </NavLink> */}
-{/* 
+                    {/* 
                     <NavLink
                       className="font-semibold text-lg text-gray-600"
                       to="/help"

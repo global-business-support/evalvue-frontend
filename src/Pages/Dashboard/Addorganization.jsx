@@ -152,38 +152,141 @@ function Addorganization() {
               </NavLink>
             </div>
           </div>
-        </div>
-      ) : (
-        <>
-          <h1 className="text-xl font-semibold mb-4">
-            Register your organization:
-          </h1>
-          <p className="mb-6 text-zinc-700 w-1/2">
-            Welcome to our organization registration form! Whether you're a
-            budding startup, a growing enterprise, or a well-established
-            company, we invite you to join our community.
-          </p>
-          <form className="mt-10" onSubmit={orgRegSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          </div>
+        ) : (
+          <>
+              <h1 className="text-xl font-semibold mb-4">Register your organization:</h1>
+            <p className="mb-6 text-zinc-700 w-full">
+              Welcome to our organization registration form! Whether you're a
+              budding startup, a growing enterprise, or a well-established company,
+              we invite you to join our community.
+            </p>
+            <form className="mt-10" onSubmit={orgregsubmit}>
               <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Organization name<span className="text-[red]">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  name="organization_name"
-                  value={orgregdata.organization_name || ""}
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                />
-                {errors.organization_name && (
-                  <span className="text-red-600 text-sm">
-                    {errors.organization_name}
-                  </span>
-                )}
-              </div>
-              <div className="p-4 flex items-start">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Organization name<span className="text-[red]">*</span></label>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    name="organization_name"
+                    value={orgregdata.organization_name}
+                    onChange={orghadler}
+                    className="w-full p-2 border  rounded-md"
+                  />
+                  {errors.organization_name && <span className="text-red-600 text-sm">{errors.organization_name}</span>}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Organization Logo/image<span className="text-[red]">*</span></label>
+                  <input
+                    type="file"
+                    className="w-full p-2 border  rounded-md"
+                    name="organization_image"
+                    onChange={filehandler} 
+                  />
+                  {errors.organization_image && <span className="text-red-600 text-sm">{errors.organization_image}</span>}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Organization Sector<span className="text-[red]">*</span></label>
+                  <select name="sector_id" onChange={orghadler} className="w-full p-2 border  rounded-md">
+                    <option aria-readonly>Select any one</option>
+                    <option value={1}>Gov</option>
+                    <option value={2}>Private</option>
+                  </select>
+                  {errors.sector_id && <span className="text-red-600 text-sm">{errors.sector_id}</span>}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Organization Listed<span className="text-[red]">*</span></label>
+                  <select name="listed_id" onChange={orghadler} className="w-full p-2 border  rounded-md">
+                    <option aria-readonly>Select any one</option>
+                    <option value={1}>It.</option>
+                    <option value={2}>Pharmacy</option>
+                    <option value={3}>Agriculture</option>
+                    <option value={4}>Civil</option>
+                  </select>
+                  {errors.listed_id && <span className="text-red-600 text-sm">{errors.listed_id}</span>}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Document type<span className="text-[red]">*</span></label>
+                  <select name="document_type_id" onChange={orghadler} className="w-full p-2 border  rounded-md">
+                    <option aria-readonly>Select any one</option>
+                    <option value={1}>Aadhar card</option>
+                    <option value={2}>PAN Card</option>
+                    <option value={3}>Driving Licence</option>
+                  </select>
+                  {errors.document_type_id && <span className="text-red-600 text-sm">{errors.document_type_id}</span>}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Document Number<span className="text-[red]">*</span></label>
+                  <input
+                    type="text"
+                    placeholder="CA739543A"
+                    name="document_number"
+                    onChange={orghadler}
+                    value={orgregdata.document_number}
+                    className="w-full p-2 border  rounded-md"
+                  />
+                  {errors.document_number && <span className="text-red-600 text-sm">{errors.document_number}</span>}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">GST Number (optional)<span className="text-[red]">*</span></label>
+                  <input
+                    type="text"
+                    placeholder="CA739543A525A"
+                    name="gstin"
+                    onChange={orghadler}
+                    value={orgregdata.gst_number}
+                    className="w-full p-2 border  rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Document File (any)<span className="text-[red]">*</span></label>
+                  <input
+                    type="file"
+                    className="w-full p-2 border  rounded-md"
+                    name="document_file"
+                    onChange={filehandler} 
+                  />
+                  {errors.document_file && <span className="text-red-600 text-sm">{errors.document_file}</span>}
+                </div>
+                <div>
+                  <h3 className="font-semibold text-xl ">Address<span className="text-[red]">*</span></h3>
+                </div>
+                <br />
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Address<span className="text-[red]">*</span></label>
+                  <input
+                    type="text"
+                    placeholder="Area Ex-148,teen puliya"
+                    name="area"
+                    onChange={orghadler}
+                    value={orgregdata.area}
+                    className="w-full p-2 border  rounded-md"
+                  />
+                  {errors.area && <span className="text-red-600 text-sm">{errors.area}</span>}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">Country<span className="text-[red]">*</span></label>
+                  <select name="country_id" onChange={orghadler} className="w-full p-2 border  rounded-md">
+                    <option aria-readonly>Select any one</option>
+                    <option value={1}>India</option>
+                    <option value={2}>USA</option>
+                    <option value={3}>China</option>
+                    <option value={4}>Pakistan</option>
+                  </select>
+                  {errors.country_id && <span className="text-red-600 text-sm">{errors.country_id}</span>}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">State<span className="text-[red]">*</span></label>
+                  <select name="state_id" onChange={orghadler} className="w-full p-2 border  rounded-md">
+                    <option aria-readonly>Select any one</option>
+                    <option value={1}>Madhya Pradesh</option>
+                    <option value={2}> Andhra Pradesh</option>
+                    <option value={3}>Bihar</option>
+                    <option value={4}>Goa</option>
+                  </select>
+                  {errors.state_id && <span className="text-red-600 text-sm">{errors.state_id}</span>}
+                </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Organization Logo
