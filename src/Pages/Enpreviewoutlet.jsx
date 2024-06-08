@@ -31,11 +31,15 @@ function Enpreview() {
             </p>
           </div>
         </div>
+        <div className="mt-1 p-3 flex gap-2">
+          <span className="text-gray-800 font-semibold lg:text-lg sm:text-sm">Overall Rating:</span>
+          <Rating value={4} readonly />
+        </div>
         <div className="flex justify-center flex-col items-center gap-2">
           <p className="text-sm font-semibold" ref={reviewref}></p>
           <div className="flex justify-end">
             <NavLink to={'newpost'} state={state}>
-              <button className='bg-primary-100 text-white py-2 px-3 rounded'>+Add Review</button>
+              <button className='bg-primary-100 text-white lg:py-2 lg:px-4 rounded lg:text-lg sm:py-1 sm:px-1 sm:text-sm'>+Add Review</button>
             </NavLink>
           </div>
         </div>
