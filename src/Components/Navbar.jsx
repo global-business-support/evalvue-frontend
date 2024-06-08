@@ -65,7 +65,6 @@ function Navbar() {
             ""
           )}
 
-          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/dashboard"><Typography variant='button-text'><DashboardIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Dashboard</Typography></NavLink>
 
           <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/about"><Typography variant='button-text'><InfoIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />About us</Typography></NavLink>
 

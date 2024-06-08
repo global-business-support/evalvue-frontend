@@ -40,6 +40,7 @@ import PageNotFound from "./PageNotFound.jsx";
 import Address from "./Pages/Dashboard/Address.jsx";
 import Loader from "./Pages/Loader.jsx";
 import Custompop from "./Pages/Custompop.jsx";
+import SearchByAadharCard from "./Pages/Dashboard/SearchByAadharCard.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -75,7 +76,7 @@ const router = createBrowserRouter(
           {/* <Route path='/dashboard/privacy' element={<Privacy />} /> */}
           {/* <Route path='/dashboard/help' element={<Help />} /> */}
         </Route>
-          {/* <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} /> */}
+          <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} />
         {/* <Route path='/register' element={<Registration/>} /> */}
       </Route>
       <Route path="/contact" element={<Contact/>}/>
