@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate,NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
+import logo from "../../assets/images/evalvuelogo.jpg";
 
 function SearchByAadharCard() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,11 +10,12 @@ function SearchByAadharCard() {
   const [empmappedbyaadhar, setempmappedbyaadhar] = useState(false);
   const navigate = useNavigate(); // Updated from useHistory to useNavigate
 
+  let value = "";
   const handleSearchChange = async (e) => {
-    const value = e.target.value;
+    value=e.target.value.replace(/[^0-9]/g, '');
     setSearchTerm(value);
 
-    if (value.length >= 0) {
+    if (value.length > 0) {
       try {
         const response = await axios.post(
           `https://api.evalvue.com/search/employee/aadhar/`,
@@ -31,39 +33,59 @@ function SearchByAadharCard() {
   };
   console.log(employees);
   const handleEmployeeClick = (employeeId) => {
-    navigate(`/dashboard/organization/employee/review`,
-    {state:{empimage:employees[employeeId].employee_image,
-      empname:employees[employeeId].employee_name,
-      empdesignation:employees[employeeId].designation,
-      empid:employees[employeeId].employee_id,
-      emporgid:employees[employeeId].organization_id
-    }}
-    
-    ); // Updated navigation logic
+    navigate(`/dashboard/organization/employee/review`, {
+      state: {
+        empimage: employees[employeeId].employee_image,
+        empname: employees[employeeId].employee_name,
+        empdesignation: employees[employeeId].designation,
+        empid: employees[employeeId].employee_id,
+        emporgid: employees[employeeId].organization_id,
+        aadhar:false
+      },
+    }); // Updated navigation logic
   };
 
   return (
-    <div className="flex justify-center items-center h-full ">
+    <div className="relative h-full w-full flex justify-center">
+{/* {console.log(employees.length)} */}
+      {employees==undefined || employees.length==0?
+      (
       <div
-        className={`w-1/2 mx-auto p-4 ${
-          isFocused
-            ? "fixed top-[20%] left-[55%] transform -translate-x-1/2"
-            : "fixed top-1/2 left-[60%] transform -translate-x-1/2 -translate-y-1/2"
-        } transition-transform duration-300 ease-in-out bg-white dark:bg-zinc-800 rounded-lg shadow-lg`}
+        className="absolute inset-0  bg-white"
+        style={{
+          backgroundImage: `url(${logo})`,
+          backgroundPosition: "400px 200px",
+          backgroundRepeat:"no-repeat",
+          backgroundSize:"350px"
+          
+        }}
       >
-        <div className="w-full flex">
+        <div className="absolute inset-0 bg-blue-gray-700 opacity-20"></div>
+      </div>):
+      ""
+      }
+
+      <div
+        className={`w-full mx-1 md:w-full  h-max mt-2 p-4 relative z-10  dark:bg-zinc-800 rounded-lg shadow-lg`}
+      >
+        <div className="w-full flex justify-center items-center ">
+          <div className="ml-2  mx-8 w-full ">
+
+          <label htmlFor="" className="text-lg font-thin"> Enter Employee Aadhaar Number</label>
           <input
             type="text"
+            pattern="[0-9]*"
             placeholder="Enter Aadhaar number"
-            className="ml-2 px-4 mx-2 flex-grow bg-transparent outline-none text-zinc-700 dark:text-zinc-300"
+            className=" px-3 my-2 text-lg border-2 border-blue-gray-200 flex-grow bg-[#d6dadf] text-zinc-700 dark:text-zinc-300"
             value={searchTerm}
             maxLength={12}
             onChange={handleSearchChange}
             onFocus={() => setIsFocused(true)}
             onBlur={() => searchTerm.length === 0 && setIsFocused(false)} // Remove focus if searchTerm is empty
           />
+            </div>
           <button
-            className="text-primary-100 font-semibold dark:text-primary-100"
+            className=" border-2 px-8 bg-primary-100 text-white py-3 rounded-md  mt-7 font-semibold dark:text-primary-100"
             onClick={() => {
               setSearchTerm("");
               setEmployees([]);
@@ -75,28 +97,49 @@ function SearchByAadharCard() {
         </div>
 
         {empmappedbyaadhar ? (
-          <div className={`mt-8 ${
-            isFocused
-              ? "h-[450px]"
-              : ""
-          }   scrollbar-custom  overflow-y-auto`  }>
-            {employees.map((employee,index) => (
+          <div
+            className={`mt-8 ${
+              isFocused&&(value.length>0) ? "h-[450px]" : ""
+            }   scrollbar-custom  overflow-y-auto`}
+          >
+            {employees.map((employee, index) => (
               <div
                 key={employee.employee_id}
-                className="p-5 bg-gray-100 mt-4 rounded-md shadow-lg"
+                className="p-5 bg-white mt-4 rounded-md shadow-lg"
               >
                 <div className=" flex justify-between items-center gap-4">
-                  <div className="flex justify-between items-center gap-4 ">
-
-                  <img src={employee.employee_image} className="h-14 w-14 rounded-full object-fill" alt="" />
-                  <div>
-                    <h3>{employee.employee_name}</h3>
-                    <h3>{employee.designation}</h3>
+                  <div className="flex  items-center gap-4 w-[20%]">
+                    <img
+                      src={employee.employee_image}
+                      className="h-16 w-16 border-[3px] border-primary-100 rounded-full object-fill"
+                      alt=""
+                    />
+                    <div>
+                      <small className="font-bold ">Name :</small>
+                      <h3 className="font-bold text-sm text-primary-100">{employee.employee_name}</h3>
+                      
+                    </div>
                   </div>
+                  <div className="w-[20%] ">
+                    <small className="font-bold ">Designation :</small>
+                   <h3 className="font-bold text-sm text-primary-100"> {employee.designation}</h3>
                   </div>
-
-                  <button onClick={()=>{handleEmployeeClick(index)}}>view</button>
-
+                  <div className="w-[20%]">
+                    <small className="font-bold">Aadhaar Number :</small>
+                    <h3 className="font-bold text-sm text-primary-100">{employee.aadhar_number}</h3>
+                    </div>
+                  <div className="w-[20%]">
+                    <small className="font-bold">Mobile Number :</small>
+                    <h3 className="font-bold text-sm text-primary-100">{employee.mobile_number}</h3>
+                    </div>
+                  <button
+                    onClick={() => {
+                      handleEmployeeClick(index);
+                    }}
+                    className="border px-8 py-2 rounded-md bg-primary-100 text-white"
+                  >
+                    view
+                  </button>
                 </div>
               </div>
               // <li
@@ -109,9 +152,7 @@ function SearchByAadharCard() {
               // </li>
             ))}
           </div>
-        ) : (
-          <h2>Please Enter Aadhaar Number</h2>
-        )}
+        ) : ""}
       </div>
     </div>
   );

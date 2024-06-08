@@ -9,10 +9,23 @@ function Personalreview() {
   const { state } = useLocation();
   const { userId } = useContext(UserContext);
   const { updateReviewCount } = useOutletContext();
+  // const { overallRating  } = useOutletContext();
   const [loading,setloading]=useState(false);
   const [isReviewMapped, setIsReviewMapped] = useState(false);
   const [ReviewList, setReviewList] = useState([]);
   const [EmployeeList, setEmployeeList] = useState(null);
+ 
+  
+  // function calcoverallrating(reviews){
+  //   var count=0;
+  //   reviews.map(function(review){
+  //     count=count+review.rating;
+  //   })
+  //   console.log(parseInt(count/5));
+  //   return parseInt(count/5);
+
+  // }
+
 console.log(state)
   useEffect(() => {
     setloading(true)
@@ -25,10 +38,14 @@ console.log(state)
         });
         setloading(false)
         if (response.data.is_review_mapped_to_employee_successfull) {
+        
           setIsReviewMapped(true);
           setReviewList(response.data.review_list);
           setEmployeeList(response.data.employee_list[0]);
-          updateReviewCount(response.data.review_list.length); // Update review count
+          updateReviewCount(response.data.review_list.length);
+          // overallRating(calcoverallrating(response.data.review_list))
+          
+           // Update review count
         }
       } catch (err) {
         // console.log(err);
@@ -52,11 +69,11 @@ console.log(state)
       <>
         {ReviewList.map((review) => (
           <div className="m-3" key={review.review_id}>
-            <div className="md:w-4/6 mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="md:w-[90%] mx-auto bg-white rounded-lg shadow-md overflow-hidden">
               <div className="p-2">
                 <div className="h-full w-full p-2 mt-1 rounded-xl border-[6px] border-bglight-200">
                   <div className="flex items-center">
-                    <div className="h-10 w-10 rounded-full border bg-zinc-100">
+                    <div className="h-16 w-16 rounded-full border bg-zinc-100">
                       <img
                         className="h-full w-full object-cover rounded-full"
                         src={EmployeeList.image}

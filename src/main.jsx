@@ -77,6 +77,7 @@ const router = createBrowserRouter(
           {/* <Route path='/dashboard/help' element={<Help />} /> */}
         </Route>
           <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} />
+          {/* <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} /> */}
         {/* <Route path='/register' element={<Registration/>} /> */}
       </Route>
       <Route path="/contact" element={<Contact/>} />

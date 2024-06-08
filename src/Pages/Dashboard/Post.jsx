@@ -107,7 +107,9 @@ function Post() {
         </p>
         </div>
         <div className="mx-1 my-4">
+          <h3>Select rating : <span className="text-red-500">*</span></h3>
           <Rating
+          aria-required
             value={0}
             onChange={(value) => {
               setrating(value);

@@ -202,7 +202,7 @@ function DashboardNavigation() {
                 Organization
               </NavLink>
 
-              {/* <NavLink
+              <NavLink
                 to="/dashboard/searchByAadharCard"
                 end
                 className={({
@@ -216,7 +216,7 @@ function DashboardNavigation() {
               >
                 <SearchIcon className="align-text-end" sx={{ fontSize: 20 }} />
                 Search by Aadhar card
-              </NavLink> */}
+              </NavLink>
 
               <NavLink
                 onClick={showtermandcondition}

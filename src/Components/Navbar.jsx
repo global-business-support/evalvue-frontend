@@ -123,7 +123,7 @@ function Navbar() {
                       </Typography>
                     </NavLink>
 
-                    {/* <NavLink
+                    <NavLink
                       className="font-semibold text-lg text-gray-600"
                       to="/services"
                       onClick={toggleDrawer(anchor, false)}
@@ -135,7 +135,7 @@ function Navbar() {
                         />
                         Services
                       </Typography>
-                    </NavLink> */}
+                    </NavLink>
 
                     <NavLink
                       className="font-semibold text-lg text-gray-600"
@@ -167,7 +167,7 @@ function Navbar() {
                       ""
                     )}
 
-                    {/* <NavLink
+                    <NavLink
                       className="font-semibold text-lg text-gray-600"
                       to="/about"
                       onClick={toggleDrawer(anchor, false)}
@@ -179,9 +179,9 @@ function Navbar() {
                         />
                         About us
                       </Typography>
-                    </NavLink> */}
+                    </NavLink>
 
-                    {/* <NavLink
+                    <NavLink
                       className="font-semibold text-lg text-gray-600"
                       to="/contact"
                       onClick={toggleDrawer(anchor, false)}
@@ -193,8 +193,8 @@ function Navbar() {
                         />
                         Contact
                       </Typography>
-                    </NavLink> */}
-                    {/* 
+                    </NavLink>
+                    
                     <NavLink
                       className="font-semibold text-lg text-gray-600"
                       to="/help"
@@ -207,7 +207,7 @@ function Navbar() {
                         />
                         Help
                       </Typography>
-                    </NavLink> */}
+                    </NavLink>
                   </div>
                 </div>
 

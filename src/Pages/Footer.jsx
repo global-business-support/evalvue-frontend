@@ -1,39 +1,40 @@
 import React from "react";
+import logo from '../assets/images/logo.png'
 
 function Footer() {
   return (
-    <div className="bg-gray-200 h-[40vh] flex justify-center items-center  text-zinc-300 py-8 px-4">
+    <div className="bg-gray-200 h-[35vh] flex justify-center items-center  text-zinc-300 py-8 px-4">
       <div className="w-full max-w-7xl">
-        <div className=" w-full flex flex-col gap-10 md:flex-row items-center  justify-between">
+        <div className=" w-full flex flex-col gap-10 md:flex-row items-end  justify-between">
           <div className="flex items-center space-x-4">
             <img
-              src="https://placehold.co/24x24"
+              src={logo}
               alt="logo"
-              className="h-6 w-6"
+              className="h-20 w-56"
             />
-            <span className="text-primary-100 text-4xl font-bold">Evalvue</span>
           </div>
+          <div className="text-center mt-4 text-sm">
+          © 2024 Global Business Support. All rights reserved.
+        </div>
           <nav className="flex space-x-4 mt-4 md:mt-0">
-            <a href="/" className="hover:text-white">
+            <a href="/" className="hover:text-primary-100 hover:underline">
               Home
             </a>
-            <a href="/services" className="hover:text-white">
+            <a href="/services" className="hover:text-primary-100 hover:underline">
               Services
             </a>
-            <a href="/contact" className="hover:text-white">
+            <a href="/contact" className="hover:text-primary-100 hover:underline">
               Contact
             </a>
-            <a href="/help" className="hover:text-white">
+            <a href="/help" className="hover:text-primary-100 hover:underline">
               Help
             </a>
-            <a href="#" className="hover:text-white">
-              Help
-            </a>
-            <a href="/privacy" className="hover:text-white">
+            
+            <a href="/privacy" className="hover:text-primary-100 hover:underline">
               Privacy
             </a>
           </nav>
-          <div className="mt-4 md:mt-0 flex items-center space-x-2">
+          {/* <div className="mt-4 md:mt-0 flex items-center space-x-2">
             <input
               type="email"
               placeholder="Enter your email"
@@ -42,11 +43,9 @@ function Footer() {
             <button className="bg-gray-400 border-2 p-2 rounded-md hover:bg-gray-700 transition duration-300">
               Subscribe
             </button>
-          </div>
+          </div> */}
         </div>
-        <div className="text-center mt-4 text-sm">
-          © 2024 Global Business Support. All rights reserved.
-        </div>
+        
       </div>
     </div>
   );
