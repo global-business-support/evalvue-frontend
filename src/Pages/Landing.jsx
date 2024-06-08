@@ -1,14 +1,8 @@
 import { BsBookmarkCheckFill } from "react-icons/bs";
-import { BiBadgeCheck } from "react-icons/bi";
-import { BiCommentCheck } from "react-icons/bi";
-import { BsBookmarkCheck } from "react-icons/bs";
 import { FaHandsHelping } from "react-icons/fa";
 import { FaReadme } from "react-icons/fa";
-import { Check } from "@mui/icons-material";
-import { FaCross } from "react-icons/fa6";
 import { FaCircleCheck } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
-import { FaRupeeSign } from "react-icons/fa";
 import Footer from "./Footer";
 import SubServices from "./Dashboard/SubServices";
 

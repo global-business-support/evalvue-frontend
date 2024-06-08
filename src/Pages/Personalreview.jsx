@@ -13,7 +13,7 @@ function Personalreview() {
   const [isReviewMapped, setIsReviewMapped] = useState(false);
   const [ReviewList, setReviewList] = useState([]);
   const [EmployeeList, setEmployeeList] = useState(null);
-
+console.log(state)
   useEffect(() => {
     setloading(true)
     const fetchData = async () => {

@@ -58,7 +58,20 @@ function DashboardNavigation() {
             <DashboardIcon className="align-text-top" sx={{ fontSize: 20 }} />
             Organization
           </NavLink>
-
+          <NavLink
+            to="/dashboard/searchByAadharCard"
+            className={({
+              isActive,
+            }) => `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold 
+                        ${
+                          isActive
+                            ? "text-white bg-primary-100 "
+                            : "text-gray-600"
+                        }`}
+          >
+            <SearchIcon className="align-text-end" sx={{ fontSize: 20 }} />
+            Search by Aadhar card
+          </NavLink>
           <NavLink
             onClick={showtermandcondition}
             className={({ isActive }) =>
@@ -106,20 +119,7 @@ function DashboardNavigation() {
             Organization
           </NavLink> */}
 
-          {/* <NavLink
-            to="/dashboard/searchByAadharCard"
-            className={({
-              isActive,
-            }) => `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold 
-                        ${
-                          isActive
-                            ? "text-white bg-primary-100 "
-                            : "text-gray-600"
-                        }`}
-          >
-            <SearchIcon className="align-text-end" sx={{ fontSize: 20 }} />
-            Search by Aadhar card
-          </NavLink> */}
+         
 
           {/* <NavLink
             onClick={showtermandcondition}
