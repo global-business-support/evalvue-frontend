@@ -140,7 +140,7 @@ function Landing() {
                   </span>
                 </div>
               </div>
-              <div className="w-full mb-4">
+              {/* <div className="w-full mb-4">
                 <div className="flex items-center justify-between border-2  p-4 rounded-lg">
                   <div className="flex ">
                     <RxCross2 className="h-6 w-6" />
@@ -173,7 +173,7 @@ function Landing() {
                     ₹299 <span className="text-sm">/Month</span>
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="flex items-center justify-center mt-8">

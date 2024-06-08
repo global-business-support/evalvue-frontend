@@ -67,12 +67,12 @@ function SubServices() {
               </div>
             </div>
             <div className="mt-10">
-              <a
+              {/* <a
                 href="/services"
                 className="bg-primary-100 text-white py-2 px-4 rounded"
               >
                 See All Services
-              </a>
+              </a> */}
             </div>
           </div>
         </section>

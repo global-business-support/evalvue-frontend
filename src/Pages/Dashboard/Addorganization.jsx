@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
+import { select } from "@material-tailwind/react";
 
 function Addorganization() {
   const navigate = useNavigate();
@@ -18,11 +19,55 @@ function Addorganization() {
   const [loading, setloading] = useState(false);
   const [isOrganizationCreated, setIsOrganizationCreated] = useState(false);
   const [errors, setErrors] = useState({});
+  const [documenttype, setdocumenttype] = useState([]);
+  const [sectortype, setsectortype] = useState([]);
+  const [listedtype, setlistedtype] = useState([]);
+  const [country, setcountry] = useState([]);
+  const [state, setstate] = useState([]);
+  const [city, setcity] = useState([]);
+  const [statedata, setstatedata] = useState([]);
+  const [citydata, setcitydata] = useState([]);
+  const [iscity,setiscity]=useState(true);
+  const [isstate,setisstate]=useState(true);
+
+  function populateState(id){
+    var data = statedata;
+    var tempList = []
+    tempList.push(<option value="">--Please Select--</option>)
+    Object.keys(data).forEach(function(key) {
+      if(data[key].CountryId == id){
+        tempList.push(<option value={key}>{data[key].Name}</option>);
+      }
+    });
+    setisstate(false)
+    setstate(tempList);
+  }
+
+  function populateCity(id){
+    var data = citydata;
+    var tempList = []
+    tempList.push(<option value="">--Please Select--</option>)
+    Object.keys(data).forEach(function(key) {
+      if(data[key].StateId == id){
+        tempList.push(<option value={key}>{data[key].Name}</option>);
+      }
+    });
+    setiscity(false)
+    setcity(tempList);
+  }
 
   function orgHandler(e) {
     const name = e.target.name;
     const value = e.target.value;
     setOrgregdata((values) => ({ ...values, [name]: value }));
+    if(name == 'country_id'){
+      populateState(value);
+    }else if(name == 'state_id'){
+      populateCity(value);
+    }
+    
+
+
 
     // Remove error for this field when user enters a value
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
@@ -52,7 +97,7 @@ function Addorganization() {
   const header = {
     headers: { "Content-Type": "multipart/form-data" },
   };
-
+// var doctype=[];
   function validate() {
     const newErrors = {};
     if (!orgregdata.organization_name)
@@ -79,8 +124,42 @@ function Addorganization() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
+  useEffect(() => {
+    axios
+      .post("https://api.evalvue.com/add/organization/")
+      .then((res) => {
+
+          // setdocumenttype(res.data.document_type);
+          setdocumenttype(populateDropDown(res.data.document_type));
+          setsectortype(populateDropDown(res.data.sector_type));
+          setlistedtype(populateDropDown(res.data.listed_type));
+          setcountry(populateDropDown(res.data.country));
+          setstate(populateDropDown(res.data.state));
+          setstatedata(res.data.state);
+          setcity(populateDropDown(res.data.city));
+          setcitydata(res.data.city)
+         
+        // console.log(doctype)
+        // setdocumenttype(doctype);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+
+
+  function populateDropDown(data){
+    var tempList = []
+    tempList.push(<option value="">--Please Select--</option>)
+    Object.keys(data).forEach(function(key) {
+      tempList.push(<option value={key}>{data[key].Name}</option>);
+    });
+    return tempList;
+  }
 
   function orgRegSubmit(event) {
+    console.log("abhishek")
     event.preventDefault();
     setloading(true);
     if (!validate()) return;
@@ -90,7 +169,7 @@ function Addorganization() {
     formData.append("document_file", orgregdata.document_file);
 
     axios
-      .post("https://api.evalvue.com/create/organization/", formData, header)
+      .post("https://api.evalvue.com/create/organization/", orgregdata, header)
       .then((res) => {
         if (res.data.is_organization_register_successfull) {
           setIsOrganizationCreated(true);
@@ -184,7 +263,99 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
+                <div className=" flex items-start ">
+                  <div>
+                    <label className="block mb-2 text-sm font-medium text-zinc-700">
+                      Organization Logo
+                      <span className="text-[red]">*</span>
+                    </label>
+                    <div className="flex items-center">
+                      <label className="custom-file-label bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
+                        {fileLogoName || "Choose file"}
+                        <input
+                          type="file"
+                          className="hidden"
+                          name="organization_image"
+                          onChange={fileHandler}
+                        />
+                      </label>
+                      {/* </div> */}
+                    </div>
+                  </div>
+                  {fileLogoPreview && (
+                    <div className="ml-4">
+                      <img
+                        src={fileLogoPreview}
+                        alt="Preview"
+                        className="h-14 w-36 border border-gray-300 rounded-md"
+                      />
+                    </div>
+                  )}
+                </div>
+                {errors.organization_image && (
+                  <span className="text-red-600 text-sm">
+                    {errors.organization_image}
+                  </span>
+                )}
+
                 <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">
+                    Document type<span className="text-[red]">*</span>
+                  </label>
+                  <select
+                    name="document_type_id"
+                    onChange={orgHandler}
+                    className="w-full p-2 border  rounded-md"
+                  >
+                    {/* {console.log(documenttype)} */}
+                    {documenttype}
+                    {/* {documenttype.map((value,docid) => {
+                      <option value={docid}>{value[docid].Name}</option>;
+                    })} */}
+                    {/* {documenttype.map(function(doctype){
+                      <option value={doctype.DocumentTypeId} key={doctype.DocumentTypeId}>{doctype.Name}</option>
+                    })} */}
+                  </select>
+                  {errors.document_type_id && (
+                    <span className="text-red-600 text-sm">
+                      {errors.document_type_id}
+                    </span>
+                  )}
+                </div>
+                <div className=" flex items-start ">
+                  <div>
+                    <label className="block mb-2 text-sm font-medium text-zinc-700">
+                      Document file
+                      <span className="text-[red]">*</span>
+                    </label>
+                    <div className="flex items-center ">
+                      <label className="custom-file-label bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
+                        {fileName || "Choose file"}
+                        <input
+                          type="file"
+                          className="hidden"
+                          name="document_file"
+                          onChange={fileHandler}
+                        />
+                      </label>
+                    </div>
+                    {errors.document_file && (
+                      <span className="text-red-600 text-sm">
+                        {errors.document_file}
+                      </span>
+                    )}
+                  </div>
+                  {filePreview && (
+                    <div className="ml-4">
+                      <img
+                        src={filePreview}
+                        alt="Preview"
+                        className="h-16 w-36 border border-gray-300 rounded-md"
+                      />
+                    </div>
+                  )}
+                </div>
+                {/* <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Organization Logo/image<span className="text-[red]">*</span>
                   </label>
@@ -199,7 +370,7 @@ function Addorganization() {
                       {errors.organization_image}
                     </span>
                   )}
-                </div>
+                </div> */}
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Organization Sector<span className="text-[red]">*</span>
@@ -209,9 +380,7 @@ function Addorganization() {
                     onChange={orgHandler}
                     className="w-full p-2 border  rounded-md"
                   >
-                    <option aria-readonly>Select any one</option>
-                    <option value={1}>Gov</option>
-                    <option value={2}>Private</option>
+                    {sectortype}
                   </select>
                   {errors.sector_id && (
                     <span className="text-red-600 text-sm">
@@ -228,11 +397,7 @@ function Addorganization() {
                     onChange={orgHandler}
                     className="w-full p-2 border  rounded-md"
                   >
-                    <option aria-readonly>Select any one</option>
-                    <option value={1}>It.</option>
-                    <option value={2}>Pharmacy</option>
-                    <option value={3}>Agriculture</option>
-                    <option value={4}>Civil</option>
+                   {listedtype}
                   </select>
                   {errors.listed_id && (
                     <span className="text-red-600 text-sm">
@@ -240,26 +405,7 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-zinc-700">
-                    Document type<span className="text-[red]">*</span>
-                  </label>
-                  <select
-                    name="document_type_id"
-                    onChange={orgHandler}
-                    className="w-full p-2 border  rounded-md"
-                  >
-                    <option aria-readonly>Select any one</option>
-                    <option value={1}>Aadhar card</option>
-                    <option value={2}>PAN Card</option>
-                    <option value={3}>Driving Licence</option>
-                  </select>
-                  {errors.document_type_id && (
-                    <span className="text-red-600 text-sm">
-                      {errors.document_type_id}
-                    </span>
-                  )}
-                </div>
+
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Document Number<span className="text-[red]">*</span>
@@ -291,7 +437,28 @@ function Addorganization() {
                     className="w-full p-2 border  rounded-md"
                   />
                 </div>
+
                 <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">
+                    Number of employee<span className="text-[red]">*</span>
+                  </label>
+                  <select
+                    name="number_of_employee"
+                    onChange={orgHandler}
+                    className="w-full p-2 border rounded-md"
+                  >
+                    <option aria-readonly>Select any one</option>
+                    <option value="1">1-10</option>
+                    <option value="2">11-50</option>
+                    <option value="3">51-200</option>
+                  </select>
+                  {errors.number_of_employee && (
+                    <span className="text-red-600 text-sm">
+                      {errors.number_of_employee}
+                    </span>
+                  )}
+                </div>
+                {/* <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Document File (any)<span className="text-[red]">*</span>
                   </label>
@@ -306,7 +473,8 @@ function Addorganization() {
                       {errors.document_file}
                     </span>
                   )}
-                </div>
+                </div> */}
+                <br />
                 <div>
                   <h3 className="font-semibold text-xl ">
                     Address<span className="text-[red]">*</span>
@@ -338,11 +506,7 @@ function Addorganization() {
                     onChange={orgHandler}
                     className="w-full p-2 border  rounded-md"
                   >
-                    <option aria-readonly>Select any one</option>
-                    <option value={1}>India</option>
-                    <option value={2}>USA</option>
-                    <option value={3}>China</option>
-                    <option value={4}>Pakistan</option>
+                    {country}
                   </select>
                   {errors.country_id && (
                     <span className="text-red-600 text-sm">
@@ -357,13 +521,9 @@ function Addorganization() {
                   <select
                     name="state_id"
                     onChange={orgHandler}
-                    className="w-full p-2 border  rounded-md"
+                    className="w-full p-2 border  rounded-md" disabled={isstate}
                   >
-                    <option aria-readonly>Select any one</option>
-                    <option value={1}>Madhya Pradesh</option>
-                    <option value={2}> Andhra Pradesh</option>
-                    <option value={3}>Bihar</option>
-                    <option value={4}>Goa</option>
+                    {state}
                   </select>
                   {errors.state_id && (
                     <span className="text-red-600 text-sm">
@@ -373,37 +533,41 @@ function Addorganization() {
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
-                    Organization Logo
-                    <span className="text-[red]">*</span>
+                    City<span className="text-[red]">*</span>
                   </label>
-                  <div className="flex items-center">
-                    <label className="custom-file-label bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
-                      {fileLogoName || "Choose file"}
-                      <input
-                        type="file"
-                        className="hidden"
-                        name="organization_image"
-                        onChange={fileHandler}
-                      />
-                    </label>
-                  </div>
-                  {errors.organization_image && (
+                  <select
+                    name="city_id"
+                    onChange={orgHandler}
+                    className="w-full p-2 border rounded-md" disabled={iscity}
+                  >
+                    {city}
+                  </select>
+                  {errors.city_id && (
                     <span className="text-red-600 text-sm">
-                      {errors.organization_image}
+                      {errors.city_id}
                     </span>
                   )}
                 </div>
-                {fileLogoPreview && (
-                  <div className="ml-4">
-                    <img
-                      src={fileLogoPreview}
-                      alt="Preview"
-                      className="h-14 w-14 border border-gray-300 rounded-md"
-                    />
-                  </div>
-                )}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">
+                    Pin number<span className="text-[red]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="pincode"
+                    placeholder="Pin number"
+                    value={orgregdata.pincode || ""}
+                    onChange={orgHandler}
+                    className="w-full p-2 border rounded-md"
+                  />
+                  {errors.pincode && (
+                    <span className="text-red-600 text-sm">
+                      {errors.pincode}
+                    </span>
+                  )}
+                </div>
               </div>
-              <div>
+              {/* <div>
                 <label className="block mb-2 text-sm font-medium text-zinc-700">
                   Organization Sector<span className="text-[red]">*</span>
                 </label>
@@ -421,8 +585,8 @@ function Addorganization() {
                     {errors.sector_id}
                   </span>
                 )}
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block mb-2 text-sm font-medium text-zinc-700">
                   Listed Organization<span className="text-[red]">*</span>
                 </label>
@@ -440,8 +604,8 @@ function Addorganization() {
                     {errors.listed_id}
                   </span>
                 )}
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block mb-2 text-sm font-medium text-zinc-700">
                   Document type<span className="text-[red]">*</span>
                 </label>
@@ -461,8 +625,8 @@ function Addorganization() {
                     {errors.document_type_id}
                   </span>
                 )}
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block mb-2 text-sm font-medium text-zinc-700">
                   Document Number<span className="text-[red]">*</span>
                 </label>
@@ -479,61 +643,9 @@ function Addorganization() {
                     {errors.document_number}
                   </span>
                 )}
-              </div>
-              <div className="p-4 flex items-start">
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-zinc-700">
-                    Document
-                    <span className="text-[red]">*</span>
-                  </label>
-                  <div className="flex items-center">
-                    <label className="custom-file-label bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
-                      {fileName || "Choose file"}
-                      <input
-                        type="file"
-                        className="hidden"
-                        name="document_file"
-                        onChange={fileHandler}
-                      />
-                    </label>
-                  </div>
-                  {errors.document_file && (
-                    <span className="text-red-600 text-sm">
-                      {errors.document_file}
-                    </span>
-                  )}
-                </div>
-                {filePreview && (
-                  <div className="ml-4">
-                    <img
-                      src={filePreview}
-                      alt="Preview"
-                      className="h-14 w-14 border border-gray-300 rounded-md"
-                    />
-                  </div>
-                )}
-              </div>
-              <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Number of employee<span className="text-[red]">*</span>
-                </label>
-                <select
-                  name="number_of_employee"
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option aria-readonly>Select any one</option>
-                  <option value="1">1-10</option>
-                  <option value="2">11-50</option>
-                  <option value="3">51-200</option>
-                </select>
-                {errors.number_of_employee && (
-                  <span className="text-red-600 text-sm">
-                    {errors.number_of_employee}
-                  </span>
-                )}
-              </div>
-              <div>
+              </div> */}
+
+              {/* <div>
                 <label className="block mb-2 text-sm font-medium text-zinc-700">
                   Address<span className="text-[red]">*</span>
                 </label>
@@ -548,8 +660,8 @@ function Addorganization() {
                 {errors.area && (
                   <span className="text-red-600 text-sm">{errors.area}</span>
                 )}
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block mb-2 text-sm font-medium text-zinc-700">
                   Country<span className="text-[red]">*</span>
                 </label>
@@ -568,8 +680,8 @@ function Addorganization() {
                     {errors.country_id}
                   </span>
                 )}
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block mb-2 text-sm font-medium text-zinc-700">
                   State<span className="text-[red]">*</span>
                 </label>
@@ -588,49 +700,15 @@ function Addorganization() {
                     {errors.state_id}
                   </span>
                 )}
-              </div>
-              <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  City<span className="text-[red]">*</span>
-                </label>
-                <select
-                  name="city_id"
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option aria-readonly>Select any one</option>
-                  <option value="1">Ahmedabad</option>
-                  <option value="2">Baroda</option>
-                  <option value="3">Surat</option>
-                </select>
-                {errors.city_id && (
-                  <span className="text-red-600 text-sm">{errors.city_id}</span>
-                )}
-              </div>
-              <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Pin number<span className="text-[red]">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="pincode"
-                  placeholder="Pin number"
-                  value={orgregdata.pincode || ""}
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                />
-                {errors.pincode && (
-                  <span className="text-red-600 text-sm">{errors.pincode}</span>
-                )}
-              </div>
+              </div> */}
             </div>
             <div className="flex justify-end mt-8">
-              <button
+              <input
                 type="submit"
                 className="bg-primary-100 hover:bg-primary-100 text-white font-semibold py-2 px-4 rounded-full"
-              >
-                Save
-              </button>
+                value="Submit"
+              />
+              
             </div>
           </form>
         </>

@@ -70,7 +70,7 @@ function Viewemp() {
       <div className="px-8 py-6 mt-6">
         <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-lg">
           <div className="flex justify-center items-center gap-5">
-            <div className="h-16 w-16 border border-gray-500 rounded-full">
+            <div className="h-20 w-20 border-primary-100 border-[3px] rounded-full">
               <img
                 src={state.orgimg}
                 alt=""
@@ -78,25 +78,27 @@ function Viewemp() {
               />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-gray-800">
+              <h1 className="text-xl font-semibold text-primary-100">
                 {state.organization_name}
               </h1>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-primary-100">
                 {state.orgarea}, {state.orgcity}, {state.orgstate}
               </p>
             </div>
           </div>
           <div className="flex flex-col items-center gap-3">
-              <p className="text-sm font-semibold">
-                Total Employee: {Employees.length}
+              <p className="text-base font-semibold">
+                Total Employee : {Employees.length}
               </p>
               
               <NavLink
                 to="/dashboard/organization/employee/addemp"
-                state={{ organization_id: organization_id }}
+                state={{ organization_id: organization_id,
+                
+                }}
               >
-                <button className="border bg-primary-100 text-white font-semibold px-4 py-2 sm:px-2 rounded-lg">
-                  + Add Employee
+                <button className="border bg-primary-100 text-white font-semibold px-5 py-2  rounded-lg">
+                  <span className="font-bold text-xl"> + </span> Add Employee
                 </button>
               </NavLink>
           </div>
@@ -105,13 +107,13 @@ function Viewemp() {
           <table className=" border-separate w-full border-spacing-y-3">
             <thead>
               <tr>
-                <td className="text-left font-semibold text-gray-600  py-2 px-4">
-                  Employee Name:
+                <td className="text-left font-semibold text-black  py-2 px-4">
+                  Employee Name :
                 </td>
-                <td className="text-left font-semibold text-gray-600  py-2 px-4">Aadhaar Number:</td>
-                <td className="text-left font-semibold text-gray-600  py-2 px-4">Designation:</td>
-                <td className="text-left font-semibold text-gray-600  py-2 px-4">Reviews:</td>
-                <td className="text-left font-semibold text-gray-600  py-2 px-4">Edit / Delete:</td>
+                <td className="text-left font-semibold text-black  py-2 px-4">Aadhaar Number :</td>
+                <td className="text-left font-semibold text-black  py-2 px-4">Designation :</td>
+                <td className="text-left font-semibold text-black  py-2 px-4">Reviews :</td>
+                {/* <td className="text-left font-semibold text-black  py-2 px-4">Edit / Delete :</td> */}
               </tr>
             </thead>
             <tbody className="mt-4">
@@ -120,9 +122,9 @@ function Viewemp() {
                   key={employee.organization_id}
                   className=""
                 >
-                  <td className="py-3 px-4 flex justify-start items-center gap-2 bg-white rounded-l-lg border-b border-t border-l border-gray-400 shadow-top-bottom-xl">
+                  <td className="py-3 px-4 flex justify-start items-center gap-2 bg-white roundeblack shadow-top-bottom-xl">
                     <div className="relative">
-                      <div className="h-14 w-14 ml-2 rounded-full border border-gray-500 overflow-hidden">
+                      <div className="h-16 w-16 ml-2 rounded-full border-[3px] border-primary-100 overflow-hidden">
                         <img
                           src={employee.image}
                           alt=""
@@ -130,17 +132,17 @@ function Viewemp() {
                         />
                       </div>
                     </div>
-                    <h2 className="font-semibold text-gray-900">
+                    <h2 className="font-semibold   text-sm text-primary-100">
                       {employee.name}
                     </h2>
                   </td>
-                  <td className="py-3 px-4 w-[20%] bg-white text-gray-700 border-t border-b border-gray-400 shadow-top-bottom-xl">
-                      810346564
+                  <td className="py-3 px-4 w-[20%] bg-white font-semibold text-sm text-primary-100 shadow-top-bottom-xl">
+                      {employee.aadhar_number}
                     </td>
-                  <td className="py-3 px-4 w-[20%] text-gray-700 bg-white border-t border-b border-gray-400 shadow-top-bottom-xl">
+                  <td className="py-3 px-4 w-[20%] text-primary-100 font-semibold text-sm  bg-white shadow-top-bottom-xl">
                     {employee.designation}
                   </td>
-                  <td className="ml-10 py-3 px-4 w-[20%] bg-white border-t border-b border-gray-400 shadow-top-bottom-xl">
+                  <td className="ml-10 py-3 px-4 w-[20%] bg-white  shadow-top-bottom-xl">
                     <NavLink
                       to={`/dashboard/organization/employee/review`}
                       state={{
@@ -149,22 +151,23 @@ function Viewemp() {
                         empimage: employee.image,
                         empid: employee.employee_id,
                         emporgid: organization_id,
+                        aadhar:true
                         
                       }}
                     >
-                      <button className=" hover:bg-primary-100 text-primary-100 font-semibold py-1 px-3 rounded border border-primary-100 transition duration-300 hover:text-white text-sm">
+                      <button className="  text-white bg-primary-100 font-semibold py-2 px-5 rounded border border-primary-100 transition duration-300 hover:text-white text-sm">
                         Review
                       </button>
                     </NavLink>
                   </td>
-                  <td className="px-4 bg-white text-gray-700 border-t border-b border-r rounded-r-lg border-gray-400 shadow-top-bottom-xl">
+                  {/* <td className="px-4 bg-white text-gray-700  rounded-r-lg  shadow-top-bottom-xl">
                       <NavLink to={""}>
                         <div className="flex gap-3 lg:ml-4">
                           <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
                           <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
                         </div>
                       </NavLink>
-                    </td>
+                    </td> */}
                 </tr>
               ))}
             </tbody>
