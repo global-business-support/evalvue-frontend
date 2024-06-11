@@ -1,12 +1,12 @@
-import { BsBookmarkCheckFill } from "react-icons/bs";
-import { FaHandsHelping } from "react-icons/fa";
-import { FaReadme } from "react-icons/fa";
 import { FaCircleCheck } from "react-icons/fa6";
-import { RxCross2 } from "react-icons/rx";
 import Footer from "./Footer";
 import SubServices from "./Dashboard/SubServices";
+import Tittle from '../Tittle'
+
 
 function Landing() {
+ Tittle("Home page -Evalvue")
+
   return (
     <>
       <div className="bg-white text-zinc-800">
@@ -14,7 +14,7 @@ function Landing() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-4">
               <h1 className="text-3xl md:text-4xl font-bold text-zinc-900">
-                Optimize Your Operations with Our Employee Solutions
+                Optimize Your <span className="text-primary-100 ">Operations</span> with Our <span className="text-primary-100 ">Employee</span> Solutions
               </h1>
               <p className="text-zinc-600">
                 Weoffer the best services related to employee work experience.
@@ -51,13 +51,13 @@ function Landing() {
 
         <div className="max-w-4xl mx-auto p-6   rounded-lg shadow-md">
           <h2 className="text-center text-4xl font-bold text-zinc-900 dark:text-white">
-            Simple, transparent pricing
+            Simple, <span className="text-primary-100 underline">transparent pricing</span>
           </h2>
           <p className="text-center text-zinc-600 dark:text-zinc-300">
             No contracts. No surprise fees.
           </p>
           <div className="flex flex-col md:flex-row justify-center mt-8">
-            <div className="flex flex-col items-center w-1/2 md:items-start bg-gray-100 p-6 rounded-lg">
+            <div className="flex flex-col items-center w-full md:items-start bg-gray-100 p-6 rounded-lg">
               <div className="flex space-x-2 mb-4">
                 <button className="px-4 py-2 bg-primary-100 text-white rounded-full">
                   Monthly
@@ -123,7 +123,7 @@ function Landing() {
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col items-center md:items-start w-1/2 p-6 rounded-lg ml-0 md:ml-6 mt-6 md:mt-0">
+            <div className="flex flex-col items-center md:items-center w-full p-6 rounded-lg ml-0 md:ml-6 mt-6 md:mt-0">
               <div className="w-full mb-4">
                 <div className="flex items-center justify-between bg-primary-100 text-white p-4 rounded-lg">
                   <div className="flex justify-center items-center gap-4">
@@ -196,7 +196,7 @@ function Landing() {
               </div>
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold text-zinc-900">
-                  We Support to Your Business with best employees.
+                  We Support to Your <span className="text-primary-100">Business </span> with best employees.
                 </h2>
                 <p className="text-zinc-600 pb-5">
                   You realize you have made the right decision by partnering

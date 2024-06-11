@@ -6,7 +6,9 @@ import aboutVision4 from '../assets/images/about-vision4.jpg';
 import aboutVision2 from '../assets/images/about-vision2.avif';
 import aboutVision3 from '../assets/images/about-vision3.jpg';
 import Footer from './Footer';
+import Tittle from '../Tittle';
 function About() {
+  Tittle("About page-Evalvue")
   return (
               <>
               

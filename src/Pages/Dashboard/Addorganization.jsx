@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
 import { select } from "@material-tailwind/react";
+import Tittle from "../../Tittle";
 
 function Addorganization() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ function Addorganization() {
   const [iscity,setiscity]=useState(true);
   const [isstate,setisstate]=useState(true);
 
+  Tittle("Add Organization - Evalvue")
   function populateState(id){
     var data = statedata;
     var tempList = []

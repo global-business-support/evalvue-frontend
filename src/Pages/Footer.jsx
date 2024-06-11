@@ -3,9 +3,9 @@ import logo from '../assets/images/logo.png'
 
 function Footer() {
   return (
-    <div className="bg-gray-200 h-[35vh] flex justify-center items-center  text-zinc-300 py-8 px-4">
+    <div className="bg-gray-200 max-h-content flex flex-col md:justify-center md:items-center justify-start items-center  text-zinc-300 py-8 px-4">
       <div className="w-full max-w-7xl">
-        <div className=" w-full flex flex-col gap-10 md:flex-row items-end  justify-between">
+        <div className=" w-full flex flex-col gap-10 md:flex-row items-center  justify-between">
           <div className="flex items-center space-x-4">
             <img
               src={logo}
@@ -13,9 +13,7 @@ function Footer() {
               className="h-20 w-56"
             />
           </div>
-          <div className="text-center mt-4 text-sm">
-          © 2024 Global Business Support. All rights reserved.
-        </div>
+       
           <nav className="flex space-x-4 mt-4 md:mt-0">
             <a href="/" className="hover:text-primary-100 hover:underline">
               Home
@@ -34,6 +32,9 @@ function Footer() {
               Privacy
             </a>
           </nav>
+          <div className="text-center mt-4 text-sm">
+          © 2024 Global Business Support. All rights reserved.
+        </div>
           {/* <div className="mt-4 md:mt-0 flex items-center space-x-2">
             <input
               type="email"

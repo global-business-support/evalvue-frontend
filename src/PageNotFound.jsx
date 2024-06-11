@@ -1,6 +1,8 @@
 import React from 'react'
+import Tittle from './Tittle'
 
 function PageNotFound() {
+  Tittle("page not found")
   return (
               <div className="flex items-center justify-center min-h-[calc(100vh-120px)] bg-white dark:bg-zinc-900">
                 <div className="text-center">

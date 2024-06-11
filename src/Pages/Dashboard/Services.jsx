@@ -1,7 +1,10 @@
 import React from 'react'
 import SubServices from './SubServices'
 import Footer from '../Footer'
+import Tittle from '../../Tittle'
+
 function Services() {
+Tittle("Services-Evalvue")
   return (
      <div className=" text-zinc-900 ">
                 

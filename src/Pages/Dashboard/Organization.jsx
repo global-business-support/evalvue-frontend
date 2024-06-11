@@ -6,8 +6,10 @@ import { UserContext } from "../../Contextfile";
 import deleteIcon from '../../assets/images/delete6.png';
 import editIcon from '../../assets/images/edit2.png';
 import Loader from "../Loader";
+import Tittle from "../../Tittle";
 
 export default function Organization() {
+  Tittle("Organization - Evalvue")
   const [Orgdata, setOrgdata] = useState([]);
   const [Isorgmap, setIsorgmap] = useState(false);
   const [loading, setLoading] = useState(true); // Set initial loading state to true
@@ -20,6 +22,7 @@ export default function Organization() {
       .then((res) => {
         setOrgdata(res.data.organization_list);
         if (res.data.is_organization_mapped) {
+          console.log(res.data)
           setIsorgmap(res.data.is_organization_mapped);
         } else {
           setAddress(res.data);
