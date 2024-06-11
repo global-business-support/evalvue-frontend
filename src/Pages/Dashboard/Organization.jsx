@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Addorganization from "./Addorganization";
@@ -7,6 +7,7 @@ import deleteIcon from '../../assets/images/delete6.png';
 import editIcon from '../../assets/images/edit2.png';
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
+import ThreeDotMenu from "./ThreeDotMenu";
 
 export default function Organization() {
   Tittle("Organization - Evalvue")
@@ -15,6 +16,7 @@ export default function Organization() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [address, setAddress] = useState({});
   const { userId } = useContext(UserContext);
+  const navigate=useNavigate();
 
   useEffect(() => {
     axios
@@ -36,6 +38,16 @@ export default function Organization() {
         setLoading(false); // Set loading state to false when request completes
       });
   }, []);
+
+  const handleEdit = (organizationId) => {
+    // Navigate to the edit page
+    navigate(`/dashboard/organization/edit/${organizationId}`)
+  };
+
+  const handleDelete = (organizationId) => {
+    // Navigate to the delete page or handle deletion logic
+    navigate(`/dashboard/organization/delete/${organizationId}`)
+  };
 
   if (loading) {
     return (
@@ -123,14 +135,13 @@ export default function Organization() {
                       <button className="p-2 border w-full bg-blue-gray-200 text-gray-500 rounded-md" disabled>Under verification...</button>
                     }
                     </td>
-                    {/* <td className="py-3 px-4  bg-white text-primary-100  rounded-r-lg  shadow-top-bottom-xl">
-                      <NavLink to={""}>
-                        <div className="flex gap-3 lg:ml-4">
-                          <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
-                          <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
-                        </div>
-                      </NavLink>
-                    </td> */}
+                    <td className="py-3 px-4  bg-white text-primary-100  rounded-r-lg  shadow-top-bottom-xl">
+                    <ThreeDotMenu
+                    onEdit={() => handleEdit(organization.organization_id)}
+                    onDelete={() => handleDelete(organization.organization_id)}
+                    
+                  />
+                    </td>
                   </tr>
                 ))}
               </tbody>
