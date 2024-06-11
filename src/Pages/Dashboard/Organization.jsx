@@ -7,6 +7,8 @@ import deleteIcon from '../../assets/images/delete6.png';
 import editIcon from '../../assets/images/edit2.png';
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
+import { FaClock } from "react-icons/fa6";
+import { BiSolidShow } from "react-icons/bi";
 
 export default function Organization() {
   Tittle("Organization - Evalvue")
@@ -74,58 +76,70 @@ export default function Organization() {
               </thead>
               <tbody className=" ">
                 {Orgdata.map((organization, index) => (
+
+                  
                   <tr
-                    key={organization.organization_id}
-                    className="lg:px-6 sm:px-2"
+                  key={organization.organization_id}
+                  className="lg:px-6 sm:px-2"
                   >
-                    <td className="py-3 px-4 w-[25%] bg-white rounded-l-lg border-l  shadow-top-bottom-xl">
-                      <div className="flex justify-start items-center gap-2">
-                      <div className="relative">
-                        <div className="h-16 w-16 rounded-full border-[2px] border-primary-100 overflow-hidden">
-                          <img
-                            src={organization.image}
-                            alt=""
-                            className="h-full w-full object-cover rounded-full"
-                          />
+
+                      {console.log(organization)}
+                      <td className={`py-3 px-4 w-[25%] bg-${organization.organization_verified?"white" :"[#f3f7fc]"} rounded-l-lg border-l  shadow-top-bottom-xl`}>
+                        <div className="flex justify-start items-center gap-2">
+                        <div className="relative">
+                          <div className="h-16 w-16 rounded-full border-[2px] border-primary-100 overflow-hidden">
+                            <img
+                              src={organization.image}
+                              alt=""
+                              className="h-full w-full object-cover rounded-full"
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <h2 className="font-semibold text-sm text-primary-100">
-                        {organization.name}
-                      </h2>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 w-[18%] text-sm bg-white text-primary-100 font-semibold  shadow-top-bottom-xl">
-                      8103112050
-                    </td>
-                    <td className="py-3 px-4 text-sm bg-white text-primary-100  font-semibold  shadow-top-bottom-xl">
-                      {organization.area}, {organization.city_name},{" "}
-                      {organization.state_name}, {organization.pincode}
-                    </td>
-                    <td className="ml-10 py-3 px-4 w-[10%] bg-white text-primary-100  shadow-top-bottom-xl">
-                      <NavLink
-                        to={`/dashboard/organization/employee/${organization.organization_id}`}
-                        state={{
-                          organization_name: organization.name,
-                          orgarea: organization.area,
-                          orgcity: organization.city_name,
-                          orgstate: organization.state_name,
-                          orgimg: organization.image,
-                        }}
-                      >
-                        <button className="  text-white bg-primary-100  font-semibold py-2 px-5 rounded border border-primary-100 transition duration-300 hover:text-white text-sm">
-                          View
-                        </button>
-                      </NavLink>
-                    </td>
-                    {/* <td className="py-3 px-4  bg-white text-primary-100  rounded-r-lg  shadow-top-bottom-xl">
-                      <NavLink to={""}>
-                        <div className="flex gap-3 lg:ml-4">
-                          <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
-                          <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
+                        <h2 className="font-semibold text-sm text-primary-100">
+                          {organization.name}
+                        </h2>
                         </div>
-                      </NavLink>
-                    </td> */}
-                  </tr>
+                      </td>
+                      <td className={`py-3 px-4 w-[18%] text-sm bg-${organization.organization_verified?"white" :"[#f3f7fc]"} text-primary-100 font-semibold  shadow-top-bottom-xl`}>
+                      {organization.document_number}
+                      </td>
+                      <td className={`py-3 px-4 text-sm bg-${organization.organization_verified?"white" :"[#f3f7fc]"} text-primary-100  font-semibold  shadow-top-bottom-xl`}>
+                        {organization.area}, {organization.city_name},{" "}
+                        {organization.state_name}, {organization.pincode}
+                      </td>
+                      <td className={`ml-10 py-3 px-4 w-[10%] bg-${organization.organization_verified?"white" :"[#f3f7fc]"} text-primary-100  shadow-top-bottom-xl`}>
+                        <NavLink
+                          to={`/dashboard/organization/employee/${organization.organization_id}`}
+                          state={{
+                            organization_name: organization.name,
+                            orgarea: organization.area,
+                            orgcity: organization.city_name,
+                            orgstate: organization.state_name,
+                            orgimg: organization.image,
+                          }}
+                        >
+                          {organization.organization_verified?
+                          
+                          <button className="  text-white flex gap-2 bg-primary-100 font-semibold py-2 px-6 rounded border border-primary-100 transition duration-300 hover:text-white text-sm">
+                          <BiSolidShow className="my-auto h-5 w-5"/>View 
+                          </button>:
+                           <button className="text-white flex gap-2  bg-[#88898b]  font-semibold py-2 px-2 rounded border transition duration-300 hover:text-white text-sm" disabled>
+                           <FaClock className="my-auto h-4 w-4"/>Pending...
+                           </button>  
+                        }
+                          
+                        </NavLink>
+                      </td>
+                      {/* <td className="py-3 px-4  bg-white text-primary-100  rounded-r-lg  shadow-top-bottom-xl">
+                        <NavLink to={""}>
+                          <div className="flex gap-3 lg:ml-4">
+                            <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
+                            <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
+                          </div>
+                        </NavLink>
+                      </td> */}
+                    </tr> 
+                    
                 ))}
               </tbody>
             </table>
