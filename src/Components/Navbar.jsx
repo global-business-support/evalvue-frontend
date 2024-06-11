@@ -41,16 +41,16 @@ function Navbar() {
           <img src={logo} alt="" className="lg:h-[40px] sm:h-[35px] h-[30px]" />
         </Link>
 
-        <div className="md:flex hidden items-center gap-7 lg:text-lg">
-          <NavLink className='font-semibold text-primary-100 lg:text-base text-xl'><Typography variant='button-text'><HouseIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} to="/" />Home</Typography></NavLink>
+        <div className="md:flex hidden items-center lg:gap- md:gap-3 lg:text-lg text-sm">
+          <NavLink  className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to='/'><Typography variant='button-text'><HouseIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} to="/" />Home</Typography></NavLink>
 
-          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/services"><Typography variant='button-text'><HomeRepairServiceIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Services</Typography></NavLink>
+          <NavLink  className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/services"><Typography variant='button-text'><HomeRepairServiceIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Services</Typography></NavLink>
 
           {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/feed"><Typography variant='button-text'><ViewAgendaIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Feed</Typography></NavLink> */}
 
           {userId ? (
-            <NavLink
-              className="font-semibold lg:text-base text-xl text-gray-600"
+            <NavLink 
+              className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`}
               to="/dashboard"
             >
               <Typography variant="button-text">
@@ -67,11 +67,11 @@ function Navbar() {
 
           {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/dashboard"><Typography variant='button-text'><DashboardIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Dashboard</Typography></NavLink> */}
 
-          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/about"><Typography variant='button-text'><InfoIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />About us</Typography></NavLink>
+          <NavLink className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/about"><Typography variant='button-text'><InfoIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />About us</Typography></NavLink>
 
-          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/contact"><Typography variant='button-text'><CallIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Contact</Typography></NavLink>
+          <NavLink className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/contact"><Typography variant='button-text'><CallIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Contact</Typography></NavLink>
 
-          <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/help"><Typography variant='button-text'><HelpIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Help</Typography></NavLink>
+          <NavLink className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/help"><Typography variant='button-text'><HelpIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Help</Typography></NavLink>
         </div>
 
         {userId ? (
@@ -95,7 +95,7 @@ function Navbar() {
 
         {/* <button className='bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1'><LogoutIcon sx={{ fontSize: 20 }} /><NavLink to="/login">Login</NavLink></button> */}
 
-        <div className="md:hidden">
+        <div className="md:hidden ">
           {["right"].map((anchor) => (
             <React.Fragment key={anchor}>
               <Button onClick={toggleDrawer(anchor, true)}>
@@ -106,10 +106,10 @@ function Navbar() {
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
               >
-                <div className="w-[50vw] flex justify-start items-start ">
+                <div className="w-52 flex justify-start items-start ">
                   <div className="md:hidden flex flex-col items-start gap-4 p-5">
                     <NavLink
-                      className="font-semibold text-lg w-full border-b-2 text-gray-600 "
+                      className='font-semibold text-lg w-full border-b-2 text-gray-600'
                       to="/"
                       onClick={toggleDrawer(anchor, false)}
                     >
@@ -154,6 +154,7 @@ function Navbar() {
                       <NavLink
                         className="font-semibold lg:text-base text-xl text-gray-600"
                         to="/dashboard"
+                        onClick={toggleDrawer(anchor, false)}
                       >
                         <Typography variant="button-text">
                           <DashboardIcon

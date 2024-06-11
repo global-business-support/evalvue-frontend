@@ -69,10 +69,10 @@ function Viewemp() {
 
   return (
     <>
-      <div className="px-8 py-6 mt-6">
-        <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-lg">
-          <div className="flex justify-center items-center gap-5">
-            <div className="h-20 w-20 border-primary-100 border-[3px] rounded-full">
+      <div className="lg:px-6 sm:px-2 px-1 py-6 mt-6">
+        <div className="flex justify-between items-center mb-6 bg-white sm:p-4 p-2 rounded-lg">
+          <div className="flex justify-center items-center sm:gap-5 gap-2">
+            <div className="sm:h-20 h-14 sm:w-20 w-14 border-primary-100 border-[3px] rounded-full">
               <img
                 src={state.orgimg}
                 alt=""
@@ -80,16 +80,16 @@ function Viewemp() {
               />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-primary-100">
+              <h1 className="sm:text-xl font-semibold text-primary-100">
                 {state.organization_name}
               </h1>
-              <p className="text-xs text-primary-100">
+              <p className="text-xs  text-primary-100 ">
                 {state.orgarea}, {state.orgcity}, {state.orgstate}
               </p>
             </div>
           </div>
           <div className="flex flex-col items-center gap-3">
-              <p className="text-base font-semibold">
+              <p className="sm:text-base text-xs font-semibold">
                 Total Employee : {Employees.length}
               </p>
               
@@ -99,22 +99,22 @@ function Viewemp() {
                 
                 }}
               >
-                <button className="border bg-primary-100 text-white font-semibold px-5 py-2  rounded-lg">
-                  <span className="font-bold text-xl"> + </span> Add Employee
+                <button className="border bg-primary-100 text-white sm:text-base text-sm font-semibold px-5 py-2 rounded-lg">
+                  <span className="font-bold sm:text-xl text-sm"> + </span> Add Employee
                 </button>
               </NavLink>
           </div>
         </div>
-        <div className="mb-3 flex justify-center items-start mt-3 w-full">
-          <table className=" border-separate w-full border-spacing-y-3">
+        <div className="mb-3 flex justify-center items-start mt-3  overflow-x">
+          <table className=" border-separate min-w-full border-spacing-y-3">
             <thead>
-              <tr>
-                <td className="text-left font-semibold text-black  py-2 px-4">
+              <tr className=" align-text-bottom">
+                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[12px] ">
                   Employee Name :
                 </td>
-                <td className="text-left font-semibold text-black  py-2 px-4">Aadhaar Number :</td>
-                <td className="text-left font-semibold text-black  py-2 px-4">Designation :</td>
-                <td className="text-left font-semibold text-black  py-2 px-4">Reviews :</td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[12px] ">Aadhaar Number :</td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[12px] ">Designation :</td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[12px] ">Reviews :</td>
                 {/* <td className="text-left font-semibold text-black  py-2 px-4">Edit / Delete :</td> */}
               </tr>
             </thead>
@@ -124,9 +124,9 @@ function Viewemp() {
                   key={employee.organization_id}
                   className=""
                 >
-                  <td className="py-3 px-4 flex justify-start items-center gap-2 bg-white roundeblack shadow-top-bottom-xl">
+                  <td className="py-3 sm:px-4 px-2 flex justify-start items-center gap-2 bg-white roundeblack shadow-top-bottom-xl rounded-l-lg">
                     <div className="relative">
-                      <div className="h-16 w-16 ml-2 rounded-full border-[3px] border-primary-100 overflow-hidden">
+                      <div className="sm:h-16 h-12 sm:w-16 w-12 ml-2 rounded-full border-[3px] border-primary-100 overflow-hidden">
                         <img
                           src={employee.image}
                           alt=""
@@ -134,17 +134,17 @@ function Viewemp() {
                         />
                       </div>
                     </div>
-                    <h2 className="font-semibold   text-sm text-primary-100">
+                    <h2 className="font-semibold sm:text-sm text-[12px] text-primary-100">
                       {employee.name}
                     </h2>
                   </td>
-                  <td className="py-3 px-4 w-[20%] bg-white font-semibold text-sm text-primary-100 shadow-top-bottom-xl">
+                  <td className="py-3 sm:px-4 px-2 w-[20%] bg-white font-semibold sm:text-sm text-[12px] text-primary-100 shadow-top-bottom-xl">
                       {employee.aadhar_number}
                     </td>
-                  <td className="py-3 px-4 w-[20%] text-primary-100 font-semibold text-sm  bg-white shadow-top-bottom-xl">
+                  <td className="py-3 sm:px-4 px-2 w-[20%] text-primary-100 font-semibold sm:text-sm text-[12px] bg-white shadow-top-bottom-xl">
                     {employee.designation}
                   </td>
-                  <td className="ml-10 py-3 px-4 w-[20%] bg-white  shadow-top-bottom-xl">
+                  <td className="ml-10 py-3 sm:px-4 px-2 w-[20%] bg-white  shadow-top-bottom-xl rounded-r-lg">
                     <NavLink
                       to={`/dashboard/organization/employee/review`}
                       state={{
@@ -157,7 +157,7 @@ function Viewemp() {
                         
                       }}
                     >
-                      <button className="  text-white bg-primary-100 font-semibold py-2 px-5 rounded border border-primary-100 transition duration-300 hover:text-white text-sm">
+                      <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-2 rounded border border-primary-100 transition duration-300 hover:text-white sm:text-sm text-[12px]">
                         Review
                       </button>
                     </NavLink>
@@ -175,6 +175,7 @@ function Viewemp() {
             </tbody>
           </table>
         </div>
+
       </div>
     </>
   );
