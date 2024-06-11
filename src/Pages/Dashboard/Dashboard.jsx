@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom'
 import DashboardNavigation from '../Dashboard/DashboardNavigation'
 import MyProfile from '../Dashboard/MyProfile'
+import Tittle from '../../Tittle'
 
 function Dashboard() {
+    Tittle("Dashboard - Evalvue")
     return (
         <>
             <div className=' h-[calc(100vh-80px)] bg-white rounded-3xl flex p-3'>

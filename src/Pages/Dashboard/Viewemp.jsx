@@ -4,8 +4,10 @@ import { NavLink, useParams, useLocation } from "react-router-dom";
 import deleteIcon from '../../assets/images/delete6.png';
 import editIcon from '../../assets/images/edit2.png';
 import Loader from "../Loader";
+import Tittle from "../../Tittle";
 
 function Viewemp() {
+  Tittle("Employees - Evalvue")
   const [Employees, setEmployees] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

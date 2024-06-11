@@ -95,7 +95,7 @@ const router = createBrowserRouter(
       <Route path="/passgenerate" element={<Passwordgenrate />} />
       <Route path="/register" element={<Registration />} />
       <Route path="/address" element={<Address />} />
-      <Route path="/loader" element={<Loader />} />
+      {/* <Route path="/loader" element={<Loader />} /> */}
       {/* <Route path="/pop" element={<Custompop visible={true} 
         title="Alert Title" 
         message="This is an alert message." 

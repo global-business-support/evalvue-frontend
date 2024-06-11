@@ -7,7 +7,7 @@ import { FaReadme } from "react-icons/fa";
 
 function SubServices() {
   return (
-        <section className="py-14">
+        <section className="py-14 px-6">
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-bold mb-14">
               Our{" "}

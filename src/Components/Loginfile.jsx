@@ -8,6 +8,7 @@ import { UserContext } from "../Contextfile";
 import logo from "../assets/images/evalvuelogo.jpg";
 import Loader from "../Pages/Loader";
 import { ValidateEmail, ValidatePassword } from "../Pages/Validation";
+import Tittle from "../Tittle";
 
 const Loginfile = () => {
   const [Formdata, setFormdata] = useState({});
@@ -22,7 +23,7 @@ const Loginfile = () => {
   const [validpasswordicon, setValidPasswordIcon] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-
+Tittle("Login page - Evalvue")
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -75,7 +76,7 @@ const Loginfile = () => {
             });
             setLoading(false);
           } else {
-            navigate("/verified", { state: { isForget: false } });
+            navigate("/verified", { state: { isForget: false ,email:Formdata.email }  });
             setLoading(false);
           }
         }
@@ -93,7 +94,10 @@ const Loginfile = () => {
   return (
     <>
       {loading ? (
-        <Loader />
+        <div className="h-screen w-full flex justify-center items-center">
+          <Loader />
+
+        </div>
       ) : (
         <div className="h-screen flex items-center justify-center bg-gray-200">
           <div className="md:w-full md:m-8 lg:w-2/3 xl:w-1/2 bg-white flex justify-center items-center gap-4">

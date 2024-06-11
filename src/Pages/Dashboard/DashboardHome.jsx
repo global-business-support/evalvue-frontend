@@ -5,7 +5,9 @@ import axios from "axios";
 import { UserContext } from "../../Contextfile";
 import { Rating } from "@material-tailwind/react";
 import Loader from "../Loader";
+import Tittle from "../../Tittle";
 function DashboardHome() {
+  Tittle("Feed - Evalvue")
   const [Feed, setFeed] = useState([]);
   const { userId } = useContext(UserContext);
   const [loading,setloading]=useState(true)

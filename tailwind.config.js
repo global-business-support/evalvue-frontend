@@ -1,6 +1,6 @@
 // tailwind.config.js
-const plugin = require('tailwindcss/plugin');
-const withMT = require('@material-tailwind/react/utils/withMT');
+import plugin from 'tailwindcss/plugin';
+import withMT  from '@material-tailwind/react/utils/withMT';
 
 module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],

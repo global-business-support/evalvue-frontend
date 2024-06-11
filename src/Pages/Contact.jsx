@@ -1,7 +1,9 @@
 import React from 'react'
 import Footer from './Footer'
+import Tittle from '../Tittle'
 
 function Contact() {
+  Tittle("Contact Page - Evalvue")
   return (
               <div className="bg-zinc-100 min-h-screen">
                 <main className="container mx-auto px-4 py-8">

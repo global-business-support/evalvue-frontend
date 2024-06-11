@@ -2,8 +2,10 @@ import React from 'react'
 import { NavLink,Link } from "react-router-dom";
 import helpBgImage from '../assets/images/help-center-image.jpg'
 import Footer from './Footer';
+import Tittle from '../Tittle';
 
 function Help() {
+  Tittle("Help page - Evalvue")
     return (
                 <div className="min-h-screen bg-zinc-100 p-3 text-zinc-900">
                   

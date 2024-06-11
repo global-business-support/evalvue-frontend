@@ -23,6 +23,7 @@ import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
 import value from "../assets/images/register.jpg";
 import { Margin } from "@mui/icons-material";
+import Tittle from "../Tittle";
 
 const Registration = () => {
   const [Registerdata, setRegisterdata] = useState({});
@@ -33,6 +34,7 @@ const Registration = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  Tittle("Registration page - Evalvue")
   const navigate = useNavigate();
   console.log(termsAccepted);
   const inputHandler = (event) => {
@@ -47,7 +49,7 @@ const Registration = () => {
       }
     }
 
-    if (name === "password" || name === "confirmPassword") {
+    if (name === "password") {
       if (Registerdata.password !== confirmPassword) {
         setFormErrors((errors) => ({
           ...errors,
@@ -89,7 +91,7 @@ const Registration = () => {
             res.data.is_user_register_successfull
           );
           if (res.data.is_user_register_successfull) {
-            navigate("/verified", { state: { isForget: false } });
+            navigate("/verified", { state: { isForget: false , email:Registerdata.email } });
             return;
           } else {
             setError(res.data.error);
@@ -130,23 +132,7 @@ const Registration = () => {
                company's success, as it cultivates a culture of excellence and enables the organization to grow alongside its exceptional employees”
           </h1>
         </div>
-        {/* <div className='h-full w-full absolute bg-[#0000008f] z-10 px-12 pt-20 flex flex-col items-center gap-22 text-start'>
-          <div className='text-center '>
-            <h1 className='text-4xl font-semibold'>Welcome to Evalvue</h1>
-            <h1 className='text-sm font-semibold mt-2'> Where Your Journey to Success Begins!</h1>
-          </div>
-          <h1 className='text-sm text-gray-200 font-medium text-start border-l border-gray-400 ps-2'>
-              "Invest in talent, reap success. Grow with the best. Investing in talent is an investment in the
-               company's success, as it cultivates a culture of excellence and enables the organization to grow alongside its exceptional employees”
-          </h1>
-        </div>
-        <img
-         src={value}
-        alt="Logo"
-        className="h-full w-full object-cover"
-        /> */}
-
-        {/* slider */}
+        
         <div className='h-60  w-[80%] '>
           <Swiper
           spaceBetween={30}
@@ -268,7 +254,7 @@ const Registration = () => {
               )}
             </div>
 
-            <div className="mb-4 relative">
+            <div className="mb-4 relative"> 
               <label
                 htmlFor="email"
                 className="block text-zinc-500 text-sm font-medium mb-1 ml-0"
@@ -416,6 +402,7 @@ const Registration = () => {
                 I agree with the{" "}
                 <a
                   href="https://api.evalvue.com/media/Terms/Terms%20and%20Conditions.pdf"
+                  target="_blank"
                   className="text-primary-100 dark:text-primary-100 underline hover:underline"
                 >
                   terms and conditions.

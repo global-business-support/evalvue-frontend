@@ -4,8 +4,10 @@ import { UserContext } from '../Contextfile';
 import { Rating } from '@material-tailwind/react';
 import axios from 'axios';
 import Loader from './Loader';
+import Tittle from '../Tittle';
 
 function Personalreview() {
+  Tittle("reviews - Evalvue")
   const { state } = useLocation();
   const { userId } = useContext(UserContext);
   const { updateReviewCount } = useOutletContext();

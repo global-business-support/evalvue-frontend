@@ -3,8 +3,10 @@ import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
+import Tittle from "../../Tittle";
 
 function Empform() {
+  Tittle("Add Employee - Evalvue")
   const { userId } = useContext(UserContext);
   const location = useLocation();
   const [loading,setloading]=useState(false)

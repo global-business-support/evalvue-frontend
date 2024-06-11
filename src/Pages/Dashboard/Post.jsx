@@ -5,8 +5,10 @@ import { UserContext } from "../../Contextfile";
 import { button } from "@material-tailwind/react";
 import { Rating } from "@material-tailwind/react";
 import Loader from "../Loader";
+import Tittle from "../../Tittle";
 
 function Post() {
+  Tittle("New Review - Evalvue")
   const { state } = useLocation();
   const navigate = useNavigate();
   const [rating, setrating] = useState(0);

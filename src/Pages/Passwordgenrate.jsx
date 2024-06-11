@@ -3,8 +3,10 @@ import newpassimg from '../assets/images/newpassword-removebg-preview.png';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../Contextfile';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Tittle from '../Tittle';
 
 function Passwordgenrate() {
+  Tittle("Password generate - Evalvue")
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');

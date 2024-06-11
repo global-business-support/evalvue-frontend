@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/images/evalvuelogo.jpg";
+import Tittle from "../../Tittle";
 
 function SearchByAadharCard() {
+  Tittle("Search by Aadhaar - Evalvue")
   const [searchTerm, setSearchTerm] = useState("");
   const [employees, setEmployees] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
