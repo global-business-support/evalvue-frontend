@@ -74,10 +74,12 @@ export default function Organization() {
               </thead>
               <tbody className=" ">
                 {Orgdata.map((organization, index) => (
+                 
                   <tr
                     key={organization.organization_id}
                     className="lg:px-6 sm:px-2"
                   >
+                     {console.log(organization)}
                     <td className="py-3 px-4 w-[25%] bg-white rounded-l-lg border-l  shadow-top-bottom-xl">
                       <div className="flex justify-start items-center gap-2">
                       <div className="relative">
@@ -95,13 +97,15 @@ export default function Organization() {
                       </div>
                     </td>
                     <td className="py-3 px-4 w-[18%] text-sm bg-white text-primary-100 font-semibold  shadow-top-bottom-xl">
-                      8103112050
+                     {organization.document_number}
                     </td>
                     <td className="py-3 px-4 text-sm bg-white text-primary-100  font-semibold  shadow-top-bottom-xl">
                       {organization.area}, {organization.city_name},{" "}
                       {organization.state_name}, {organization.pincode}
                     </td>
                     <td className="ml-10 py-3 px-4 w-[10%] bg-white text-primary-100  shadow-top-bottom-xl">
+                      {organization.organization_verified?
+                  
                       <NavLink
                         to={`/dashboard/organization/employee/${organization.organization_id}`}
                         state={{
@@ -115,7 +119,9 @@ export default function Organization() {
                         <button className="  text-white bg-primary-100  font-semibold py-2 px-5 rounded border border-primary-100 transition duration-300 hover:text-white text-sm">
                           View
                         </button>
-                      </NavLink>
+                      </NavLink>:
+                      <button className="p-2 border w-full bg-blue-gray-200 text-gray-500 rounded-md" disabled>Under verification...</button>
+                    }
                     </td>
                     {/* <td className="py-3 px-4  bg-white text-primary-100  rounded-r-lg  shadow-top-bottom-xl">
                       <NavLink to={""}>
