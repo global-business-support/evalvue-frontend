@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Addorganization from "./Addorganization";
@@ -9,6 +9,7 @@ import Loader from "../Loader";
 import Tittle from "../../Tittle";
 import { FaClock } from "react-icons/fa6";
 import { BiSolidShow } from "react-icons/bi";
+import ThreeDotMenu from "./ThreeDotMenu";
 
 export default function Organization() {
   Tittle("Organization - Evalvue")
@@ -17,6 +18,7 @@ export default function Organization() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [address, setAddress] = useState({});
   const { userId } = useContext(UserContext);
+  const navigate=useNavigate();
 
   useEffect(() => {
     axios
@@ -38,6 +40,16 @@ export default function Organization() {
         setLoading(false); // Set loading state to false when request completes
       });
   }, []);
+
+  const handleEdit = (organizationId) => {
+    // Navigate to the edit page
+    navigate(`/dashboard/organization/edit/${organizationId}`)
+  };
+
+  const handleDelete = (organizationId) => {
+    // Navigate to the delete page or handle deletion logic
+    navigate(`/dashboard/organization/delete/${organizationId}`)
+  };
 
   if (loading) {
     return (
@@ -76,12 +88,11 @@ export default function Organization() {
               </thead>
               <tbody className=" ">
                 {Orgdata.map((organization, index) => (
-
-                  
                   <tr
                   key={organization.organization_id}
                   className="lg:px-6 sm:px-2"
                   >
+
 
                       {console.log(organization)}
                       <td className={`py-3 px-4 w-[25%] bg-${organization.organization_verified?"white" :"[#f3f7fc]"} rounded-l-lg border-l  shadow-top-bottom-xl`}>
@@ -140,6 +151,15 @@ export default function Organization() {
                       </td> */}
                     </tr> 
                     
+
+                    <td className="py-3 px-4  bg-white text-primary-100  rounded-r-lg  shadow-top-bottom-xl">
+                    <ThreeDotMenu
+                    onEdit={() => handleEdit(organization.organization_id)}
+                    onDelete={() => handleDelete(organization.organization_id)}
+                    
+                  />
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>

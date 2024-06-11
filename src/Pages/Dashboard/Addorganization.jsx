@@ -552,7 +552,7 @@ function Addorganization() {
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
-                    Pin number<span className="text-[red]">*</span>
+                    Pin Code<span className="text-[red]">*</span>
                   </label>
                   <input
                     type="text"
@@ -560,6 +560,7 @@ function Addorganization() {
                     placeholder="Pin number"
                     value={orgregdata.pincode || ""}
                     onChange={orgHandler}
+                    maxLength={6}
                     className="w-full p-2 border rounded-md"
                   />
                   {errors.pincode && (

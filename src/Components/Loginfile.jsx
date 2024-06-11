@@ -11,7 +11,8 @@ import { ValidateEmail, ValidatePassword } from "../Pages/Validation";
 import Tittle from "../Tittle";
 
 const Loginfile = () => {
-  const [Formdata, setFormdata] = useState({});
+  const [Formdata, setFormdata] = useState({password:"",
+email:""});
   const [Loginerror, setLoginerror] = useState({});
   const [networkError, setNetworkError] = useState(null);
   const [formErrors, setFormErrors] = useState({});
@@ -135,7 +136,7 @@ Tittle("Login page - Evalvue")
                       className="ml-1"
                       title={ValidateEmail(Formdata.email).message}
                     >
-                      {isEmailFocused &&
+                      {(isEmailFocused && Formdata.email.length > 0)&&
                         (validemailicon ? (
                           <FaCheck className="text-green-500 text-sm" />
                         ) : (
@@ -176,7 +177,7 @@ Tittle("Login page - Evalvue")
                       className="absolute right-4 pr-3 flex items-center cursor-pointer"
                       onClick={togglePasswordVisibility}
                     >
-                      {showPassword ? (
+                      {showPassword  ? (
                         <FaEyeSlash className="text-logo-100" />
                       ) : (
                         <FaEye className="text-logo-100" />
@@ -186,7 +187,7 @@ Tittle("Login page - Evalvue")
                       className="ml-1"
                       title={ValidatePassword(Formdata.password).message}
                     >
-                      {isPasswordFocused &&
+                      {(isPasswordFocused && Formdata.password.length>0) &&
                         (validpasswordicon ? (
                           <FaCheck className="text-green-500 text-sm" />
                         ) : (

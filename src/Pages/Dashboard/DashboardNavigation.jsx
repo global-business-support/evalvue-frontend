@@ -42,7 +42,7 @@ function DashboardNavigation() {
               }`
             }
           >
-            <BungalowIcon className="align-text-top" sx={{ fontSize: 20 }} />
+            <BungalowIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
             Feed
           </NavLink>
 
@@ -55,7 +55,7 @@ function DashboardNavigation() {
               }`
             }
           >
-            <DashboardIcon className="align-text-top" sx={{ fontSize: 20 }} />
+            <DashboardIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
             Organization
           </NavLink>
           <NavLink
@@ -69,7 +69,7 @@ function DashboardNavigation() {
                             : "text-gray-600"
                         }`}
           >
-            <SearchIcon className="align-text-end" sx={{ fontSize: 20 }} />
+            <SearchIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
             Search by Aadhar card
           </NavLink>
           <NavLink
@@ -78,7 +78,7 @@ function DashboardNavigation() {
               `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
             }
           >
-            <ShieldIcon className="align-text-top" sx={{ fontSize: 20 }} />
+            <ShieldIcon className="align-text-top" sx={{ fontSize: 16 }} />
             Terms and conditions
           </NavLink>
 
@@ -89,7 +89,7 @@ function DashboardNavigation() {
               `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
             }
           >
-            <HttpsIcon className="align-text-top" sx={{ fontSize: 20 }} />
+            <HttpsIcon className="align-text-top" sx={{ fontSize: 15 }} />
             Privacy
           </NavLink>
           {/* ${(isActive) ? 'text-white bg-[#5134a9] ' : 'text-gray-600'} */}
@@ -174,10 +174,11 @@ function DashboardNavigation() {
                                         ? "text-white bg-primary-100 "
                                         : "text-gray-600"
                                     }`}
+                                    onClick={toggleDrawer(false)}
               >
                 <BungalowIcon
-                  className="align-text-top"
-                  sx={{ fontSize: 20 }}
+                  className="align-text-bottom"
+                  sx={{ fontSize: 18 }}
                   to="/"
                 />
                 Home
@@ -194,10 +195,11 @@ function DashboardNavigation() {
                                         ? "text-white bg-primary-100 "
                                         : "text-gray-600"
                                     }`}
+                                    onClick={toggleDrawer(false)}
               >
                 <DashboardIcon
                   className="align-text-top"
-                  sx={{ fontSize: 20 }}
+                  sx={{ fontSize: 15 }}
                 />
                 Organization
               </NavLink>
@@ -213,29 +215,31 @@ function DashboardNavigation() {
                                         ? "text-white bg-primary-100 "
                                         : "text-gray-600"
                                     }`}
+                                    onClick={toggleDrawer(false)}
               >
-                <SearchIcon className="align-text-end" sx={{ fontSize: 20 }} />
+                <SearchIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
                 Search by Aadhar card
               </NavLink>
 
               <NavLink
-                onClick={showtermandcondition}
+                onClick={()=>{showtermandcondition(); toggleDrawer(false)}}
                 className={({ isActive }) =>
                   `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
                 }
+                
               >
-                <ShieldIcon className="align-text-top" sx={{ fontSize: 20 }} />
+                <ShieldIcon className="align-text-top" sx={{ fontSize: 15 }} />
                 Terms and conditions
               </NavLink>
 
               <NavLink
                 id="abhi"
-                onClick={showprivicy}
+                onClick={()=>{showprivicy(); toggleDrawer(false)}}
                 className={({ isActive }) =>
                   `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
                 }
               >
-                <HttpsIcon className="align-text-top" sx={{ fontSize: 20 }} />
+                <HttpsIcon className="align-text-top" sx={{ fontSize: 15 }} />
                 Privacy
               </NavLink>
 

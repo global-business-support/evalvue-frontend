@@ -78,10 +78,10 @@ function Passwordgenrate() {
                 onChange={(e) => setNewPassword(e.target.value)}
               />
               <div
-                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                className="absolute inset-y-0 right-0 mt-8 pr-3 flex items-center cursor-pointer"
                 onClick={toggleNewPasswordVisibility}
               >
-                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                {showNewPassword ? <FaEyeSlash className="text-logo-100"/> : <FaEye className="text-logo-100"/>}
               </div>
             </div>
             <div className="mb-6 relative top-0">
@@ -97,7 +97,7 @@ function Passwordgenrate() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <div
-                className="absolute inset-y-0 right-0 pr-3 flex justify-center items-center cursor-pointer"
+                className="absolute inset-y-0 right-0 mt-8 pr-3 flex justify-center items-center cursor-pointer"
                 onClick={toggleConfirmPasswordVisibility}
               >
                 {showConfirmPassword ? <FaEyeSlash className="text-logo-100" /> : <FaEye className="text-logo-100" />}
