@@ -59,7 +59,7 @@ function Help() {
                 <section className="text-center mb-12">
                   <h2 className="text-2xl font-semibold mb-4">Didn't find an answer to your question?</h2>
                   <p className="mb-6">Get in touch with us for details on additional services and custom work pricing</p>
-                  <Link to='/contact' className="bg-primary-100 text-white px-6 py-3 rounded-lg shadow-lg">Contact Us</Link>
+                  <Link to='/contact' className="bg-primary-100 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-[#5559af] hover:shadow-sm">Contact Us</Link>
                 </section>
                   </main>
                   <Footer />

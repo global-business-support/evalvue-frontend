@@ -97,7 +97,7 @@ function Viewemp() {
                 
                 }}
               >
-                <button className="border bg-primary-100 text-white sm:text-base text-sm font-semibold px-5 py-2 rounded-lg">
+                <button className="border bg-primary-100 text-white sm:text-base text-sm font-semibold px-5 py-2 rounded-lg hover:bg-[#5559af] hover:shadow-sm">
                   <span className="font-bold sm:text-xl text-sm"> + </span> Add Employee
                 </button>
               </NavLink>
@@ -155,11 +155,19 @@ function Viewemp() {
                         
                       }}
                     >
-                      <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-2 rounded border border-primary-100 transition duration-300 hover:text-white sm:text-sm text-[12px]">
+                      <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-2 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[12px]">
                         Review
                       </button>
                     </NavLink>
                   </td>
+                  {/* <td className="px-4 bg-white text-gray-700  rounded-r-lg  shadow-top-bottom-xl">
+                      <NavLink to={""}>
+                        <div className="flex gap-3 lg:ml-4">
+                          <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
+                          <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
+                        </div>
+                      </NavLink>
+                    </td> */}
                 </tr>
               ))}
             </tbody>
