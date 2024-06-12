@@ -7,29 +7,29 @@ function Contact() {
   return (
               <div className="bg-zinc-100 min-h-screen">
                 <main className="container mx-auto px-4 py-8">
-                  <h1 className="text-4xl font-bold mb-6">Contact us</h1>
+                  <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
                   <div className="grid md:grid-cols-3 gap-6 mb-12">
                     <div className="bg-bglight-100 shadow- rounded-lg p-6">
                       <img src="https://i.pinimg.com/236x/1d/d8/01/1dd8013f6ac883c35758d59c94771d84.jpg"  alt="Online enquiry" className="w-40 h-40 object-contain rounded-lg mb-4"/>
-                      <h2 className="text-xl font-semibold mb-2">Online enquiry</h2>
+                      <h2 className="text-xl font-semibold mb-2">Online Enquiry</h2>
                       <p className="text-zinc-600 mb-4">We are here to help you with three working days.</p>
-                      <button className="bg-primary-100 text-white px-4 py-2 rounded-lg">Send us a message</button>
+                      <button className="bg-primary-100 text-white px-4 py-2 rounded-lg hover:bg-[#5559af] hover:shadow-sm">Send us a message</button>
                     </div>
                     <div className="bg-bglight-100 shadow rounded-lg p-6">
                       <img src="https://i.pinimg.com/564x/3e/7e/0f/3e7e0f79a73507773d4fea4634950b37.jpg" alt="Call us" className="w-40 h-40 object-cover rounded-lg mb-4"/>
-                      <h2 className="text-xl font-semibold mb-2">Call us</h2>
+                      <h2 className="text-xl font-semibold mb-2">Call Us</h2>
                       <p className="text-zinc-600 mb-4">(+91) 6263767770</p>
                       <p className="text-zinc-600 mb-4">Monday to Friday: 9am to 9pm </p>
                       <p className="text-zinc-600 mb-4">Closed on Saturday and Sunday</p>
                     </div>
                     <div className="bg-bglight-100 shadow rounded-lg p-6">
                       <img src="https://i.pinimg.com/236x/65/c5/ec/65c5ec44268717616785ec1cd6383ac2.jpg" alt="Write to us" className="w-40 h-40 object-cover rounded-lg mb-4"/>
-                      <h2 className="text-xl font-semibold mb-2">Write to us</h2>
+                      <h2 className="text-xl font-semibold mb-2">Write To Us</h2>
                       <p className="text-zinc-600 mb-4">Email: contact@evalvue.com</p>
                       <p className="text-zinc-600 mb-4">Global Bussiness Support, 518, 5th Floor Shagun Tower, Above Apna Sweet Vijay Nagar, Indore (M.P)</p>
                     </div>
                   </div>
-              <h2 className="text-2xl font-bold mb-6">Another requests</h2>
+              <h2 className="text-2xl font-bold mb-6">Another Requests</h2>
               <div className="grid md:grid-cols-3 gap-6 mb-12">
                 <div className="bg-bglight-100 shadow rounded-lg p-6">
                   <h3 className="text-xl font-semibold mb-2">Complaint</h3>
@@ -56,7 +56,7 @@ function Contact() {
               <div className="bg-primary-100 text-white p-8 rounded-lg mb-12">
                 <h2 className="text-2xl font-bold mb-4">How helpful were we today?</h2>
                 <p className="mb-4">At evalvue.com, your feedback matters! We're committed to providing you with the best experience possible, and we'd love to hear your thoughts.</p>
-                <button className="bg-white text-primary-100 px-4 py-2 rounded-lg">Send us a message</button>
+                <button className="bg-white text-primary-100 px-4 py-2 rounded-lg hover:text-black">Send us a message</button>
               </div>
                 </main>
                 <Footer />

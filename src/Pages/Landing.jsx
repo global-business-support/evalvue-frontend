@@ -14,21 +14,21 @@ function Landing() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-4">
               <h1 className="text-3xl md:text-4xl font-bold text-zinc-900">
-                Optimize Your <span className="text-primary-100 ">Operations</span> with Our <span className="text-primary-100 ">Employee</span> Solutions
+                Optimize Your <span className="text-primary-100 ">Operations</span> With Our <span className="text-primary-100 ">Employee</span> Solutions
               </h1>
               <p className="text-zinc-600">
-                Weoffer the best services related to employee work experience.
+                We offer the best services related to employee work experience.
                 When employees leave a company, wehelp organizations post
                 reviews about their performance and the reasons for their
                 departure. This information helps other companies access the
-                employee's biodata during the hiring process, making it easier
+                employee's bio-data during the hiring process, making it easier
                 to select top talent. Join us to improve your employee community
                 and foster organizational growth.
               </p>
               <div className="flex gap-6 pt-8">
                 <a
                   href="/register"
-                  className="bg-primary-100  text-white px-6 py-2 rounded-md"
+                  className="bg-primary-100  text-white px-6 py-2 rounded-md hover:bg-[#5559af] hover:shadow-sm"
                 >
                   Join Now
                 </a>
@@ -140,44 +140,10 @@ function Landing() {
                   </span>
                 </div>
               </div>
-              {/* <div className="w-full mb-4">
-                <div className="flex items-center justify-between border-2  p-4 rounded-lg">
-                  <div className="flex ">
-                    <RxCross2 className="h-6 w-6" />
-                    <div className="ml-2">
-                      <span className="text-lg font-semibold ">Base</span>
-                      <div className="text-center border px-2 text-red-300 py-1 rounded-full text-[10px]">
-                        Save $20
-                      </div>
-                    </div>
-                  </div>
-                  <span className="font-semibold text-3xl">
-                    ₹199 <span className="text-sm">/Month</span>
-                  </span>
-                </div>
-              </div>
-              <div className="w-full mb-4">
-                <div className="flex items-center justify-between border-2  p-4 rounded-lg">
-                  <div className="flex ">
-                    <RxCross2 className="h-6 w-6" />
-                    <div className="ml-2">
-                      <span className="text-lg text-capital font-semibold ">
-                        Popular
-                      </span>
-                      <div className="text-center text-red-300 border px-2 py-1 rounded-full text-[10px]">
-                        Save $20
-                      </div>
-                    </div>
-                  </div>
-                  <span className="font-semibold text-3xl">
-                    ₹299 <span className="text-sm">/Month</span>
-                  </span>
-                </div>
-              </div> */}
             </div>
           </div>
           <div className="flex items-center justify-center mt-8">
-            <button className="px-6 py-2 bg-primary-100 text-white rounded-lg">
+            <button className="px-6 py-2 bg-primary-100 text-white rounded-lg hover:bg-[#5559af] hover:shadow-sm">
               Choose Plan
             </button>
           </div>
@@ -196,7 +162,7 @@ function Landing() {
               </div>
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold text-zinc-900">
-                  We Support to Your <span className="text-primary-100">Business </span> with best employees.
+                  We Support To Your <span className="text-primary-100">Business </span> With Best Employees.
                 </h2>
                 <p className="text-zinc-600 pb-5">
                   You realize you have made the right decision by partnering
@@ -209,7 +175,7 @@ function Landing() {
                 </p>
                 <a
                   href="#"
-                  className="bg-primary-100 mt-5 hover:bg-red-600 text-white px-6 py-2 rounded-md"
+                  className="bg-primary-100 mt-5 hover:bg-red-600 transition duration-300 text-white px-6 py-2 rounded-md"
                 >
                   Read More
                 </a>

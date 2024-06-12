@@ -66,7 +66,7 @@ export default function Organization() {
           <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-lg">
             <h2 className="sm:text-lg text-xs font-semibold">Total Organization: {Orgdata.length}</h2>
             <NavLink to={`/dashboard/organization/addorganization`}>
-              <button className="bg-primary-100 sm:text-base text-[12px] text-white transition duration-300 border border-primary-100 font-semibold py-2 sm:px-4 px-2 rounded">
+              <button className="bg-primary-100 sm:text-base text-[12px] text-white hover:bg-[#5559af] hover:shadow-sm border border-primary-100 font-semibold py-2 sm:px-4 px-2 rounded">
                 + Add Organization
               </button>
             </NavLink>
@@ -128,7 +128,7 @@ export default function Organization() {
                           }}
                         >
                           {organization.organization_verified ?
-                          <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 transition duration-300 hover:text-white text-sm">
+                          <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
                           <BiSolidShow className="my-auto h-5 w-5"/>View 
                           </button>:
                            <button className="text-white flex gap-2  bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]" disabled>

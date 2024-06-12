@@ -32,21 +32,14 @@ const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
-  
-  console.log(Registerdata)
-  
+
   Tittle("Registration page - Evalvue")
   const navigate = useNavigate();
   const inputHandler = (event) => {
     const name=event.target.name;
     const value=event.target.value;
     setRegisterdata((values) => ({ ...values, [name]: value }));
-
-    
-
   };
-
-  
 
   const validate = () => {
     const errors = {};
@@ -124,15 +117,11 @@ const Registration = () => {
             <Swiper
               spaceBetween={30}
               pagination={{
-
-
               }}
-
               autoplay={{
                 delay: 2000,
                 disableOnInteraction: false,
               }}
-
               modules={[Autoplay, Pagination]}
               className=" mySwiper text-black text-base">
 
@@ -166,47 +155,9 @@ const Registration = () => {
                   <h1 >Adaptability is essential in today's fast-paced work environment, and a good employee embraces change with resilience.</h1>
                 </div>
               </SwiperSlide>
-
-              {/* <SwiperSlide  className='  rounded-xl p-2 border-2   text-gray-700  font-medium bg-white'>
-          <div className='flex flex-col items-center gap-2 mb-4'>
-            <img src={logo} alt=""className='rounded-full  h-[95px] w-[135px] p-2 object-contain' />
-            <h1>Good employees are dependable and consistently meet deadlines. They can be counted on to fulfill their responsibilities and follow through on commitments</h1>
-          </div>  
-        </SwiperSlide>
-
-        <SwiperSlide  className='  rounded-xl p-2 border-2   text-gray-700  font-medium bg-white'>
-          <div className='flex flex-col items-center gap-2 mb-4'>
-            <img src={logo} alt=""className='rounded-full  h-[95px] w-[135px] p-2 object-contain' />
-            <h1>A good employee is like a Swiss Army knife - versatile, reliable, and always ready to tackle any task thrown their way. They're the ones who not only excel in their assigned roles but also go above and beyond to support their team and contribute to the overall success of the organization</h1>
-          </div>
-        </SwiperSlide>
-
-        <SwiperSlide  className='  rounded-xl p-2 border-2   text-gray-700  font-medium bg-white'>
-          <div className='flex flex-col items-center gap-2 mb-4'>
-            <img src={logo} alt=""className='rounded-full  h-[95px] w-[135px] p-2 object-contain' />
-            <h1>A good employee is someone who consistently meets or exceeds expectations, communicates effectively, collaborates well with others, takes initiative, is reliable, adaptable, and demonstrates a willingness to learn and grow.</h1>
-          </div>
-        </SwiperSlide>
-
-        <SwiperSlide  className='  rounded-xl p-2 border-2   text-gray-700  font-medium bg-white'>
-          <div className='flex flex-col items-center gap-2 mb-4 '>
-            <img src={logo} alt=""className='rounded-full  h-[95px] w-[135px] p-2 object-contain' />
-            <h1>Communication is another key attribute of a good employee. They effectively convey ideas, actively listen to others, and collaborate seamlessly with colleagues. Whether it's providing updates on project statuses or offering constructive feedback.</h1>
-          </div>
-        </SwiperSlide>
-
-        <SwiperSlide  className='  rounded-xl p-2 border-2   text-gray-700  font-medium bg-white'>
-          <div className='flex flex-col items-center gap-3 mb-4'>
-            <img src={logo} alt=""className='rounded-full  h-[95px] w-[135px] p-2 object-contain' />
-            <h1>Adaptability is essential in today's fast-paced work environment, and a good employee embraces change with resilience. They remain flexible and open-minded, quickly adjusting to new challenges or priorities as they arise.</h1>
-          </div>
-        </SwiperSlide> */}
-
             </Swiper>
           </div>
         </div>
-
-
         <div className="w-4/5 md:w-1/2 lg:1/3 bg-white p-8 m-5 rounded-xl">
           <h2 className="text-[26px] font-bold mb-7 text-zinc-800">
             Create Account :-
