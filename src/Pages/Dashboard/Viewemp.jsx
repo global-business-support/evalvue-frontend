@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useParams, useLocation } from "react-router-dom";
-import deleteIcon from '../../assets/images/delete6.png';
-import editIcon from '../../assets/images/edit2.png';
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
 
@@ -162,14 +160,6 @@ function Viewemp() {
                       </button>
                     </NavLink>
                   </td>
-                  {/* <td className="px-4 bg-white text-gray-700  rounded-r-lg  shadow-top-bottom-xl">
-                      <NavLink to={""}>
-                        <div className="flex gap-3 lg:ml-4">
-                          <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
-                          <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
-                        </div>
-                      </NavLink>
-                    </td> */}
                 </tr>
               ))}
             </tbody>
