@@ -153,9 +153,9 @@ function Addorganization() {
 
   function populateDropDown(data){
     var tempList = []
-    tempList.push(<option value="">--Please Select--</option>)
+    tempList.push(<option key={tempList.length+1} value="">--Please Select--</option>)
     Object.keys(data).forEach(function(key) {
-      tempList.push(<option value={key}>{data[key].Name}</option>);
+      tempList.push(<option key={tempList.length+1} selected={orgregdata.document_type_id == 2} value={key}>{data[key].Name}</option>);
     });
     return tempList;
   }
@@ -164,25 +164,38 @@ function Addorganization() {
     console.log("abhishek")
     event.preventDefault();
     setloading(true);
-    if (!validate()) return;
+    console.log('before validata')
+
+    if (!validate) return;
+    console.log('after validata')
 
     const formData = new FormData();
     formData.append("organization_image", orgregdata.organization_image);
     formData.append("document_file", orgregdata.document_file);
 
-    axios
+    
+
+      axios
       .post("https://api.evalvue.com/create/organization/", orgregdata, header)
       .then((res) => {
         if (res.data.is_organization_register_successfull) {
           setIsOrganizationCreated(true);
           navigate("/dashboard/organization");
           setloading(false);
+          console.log('successfull')
         }
       })
       .catch((err) => {
-        setError(err.response.data.error);
+        if(!Object.keys(formData).length === 0){
+          setError(err.response.data.error);
+        }
         setloading(false);
+        console.log(err)
+        validate()
       });
+    
+
+    
   }
 
   if (loading) {
@@ -265,7 +278,7 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-                <div className=" flex items-start ">
+                <div className="flex items-end">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-zinc-700">
                       Organization Logo
@@ -283,6 +296,11 @@ function Addorganization() {
                       </label>
                       {/* </div> */}
                     </div>
+                    {errors.organization_image && (
+                  <span className="text-red-600 text-sm">
+                    {errors.organization_image}
+                  </span>
+                )}
                   </div>
                   {fileLogoPreview && (
                     <div className="ml-4">
@@ -293,12 +311,8 @@ function Addorganization() {
                       />
                     </div>
                   )}
+                
                 </div>
-                {errors.organization_image && (
-                  <span className="text-red-600 text-sm">
-                    {errors.organization_image}
-                  </span>
-                )}
 
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
@@ -309,8 +323,10 @@ function Addorganization() {
                     onChange={orgHandler}
                     className="w-full p-2 border  rounded-md"
                   >
+                    
                     {/* {console.log(documenttype)} */}
                     {documenttype}
+                    
                     {/* {documenttype.map((value,docid) => {
                       <option value={docid}>{value[docid].Name}</option>;
                     })} */}
@@ -318,13 +334,14 @@ function Addorganization() {
                       <option value={doctype.DocumentTypeId} key={doctype.DocumentTypeId}>{doctype.Name}</option>
                     })} */}
                   </select>
+                  {console.log(documenttype.length)}
                   {errors.document_type_id && (
                     <span className="text-red-600 text-sm">
                       {errors.document_type_id}
                     </span>
                   )}
                 </div>
-                <div className=" flex items-start ">
+                <div className=" flex items-end ">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-zinc-700">
                       Document file
@@ -428,7 +445,7 @@ function Addorganization() {
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
-                    GST Number (optional)<span className="text-[red]">*</span>
+                    GST Number (optional)
                   </label>
                   <input
                     type="text"
@@ -438,6 +455,7 @@ function Addorganization() {
                     value={orgregdata.gst_number}
                     className="w-full p-2 border  rounded-md"
                   />
+                  
                 </div>
 
                 <div>
@@ -705,7 +723,13 @@ function Addorganization() {
                 )}
               </div> */}
             </div>
-            <div className="flex justify-end mt-8">
+            <div className="flex flex-col gap-3 mt-8">
+            {error && (
+                    <span className="text-red-600 text-sm">
+                      {'*' + error}
+                    </span>
+                  )
+            }
               <input
                 type="submit"
                 className="bg-primary-100 hover:bg-primary-100 text-white font-semibold py-2 px-4 rounded-full"
