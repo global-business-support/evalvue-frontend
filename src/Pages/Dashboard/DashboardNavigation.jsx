@@ -181,7 +181,7 @@ function DashboardNavigation() {
                   sx={{ fontSize: 18 }}
                   to="/"
                 />
-                Home
+                Feed
               </NavLink>
 
               <NavLink

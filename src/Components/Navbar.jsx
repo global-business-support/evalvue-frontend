@@ -106,7 +106,7 @@ function Navbar() {
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
               >
-                <div className="w-52 flex justify-start items-start ">
+                <div className=" w-56 flex justify-start items-start mt-10">
                   <div className="md:hidden flex flex-col items-start gap-4 p-5">
                     <NavLink
                       className='font-semibold text-lg w-full border-b-2 text-gray-600'

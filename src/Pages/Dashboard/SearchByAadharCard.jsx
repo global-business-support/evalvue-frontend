@@ -48,16 +48,18 @@ function SearchByAadharCard() {
   };
 
   return (
-    <div className="relative h-full w-full flex justify-center">
+    <div className="relative h-full w-full flex justify-center mt-16">
 {/* {console.log(employees.length)} */}
       {employees==undefined || employees.length==0?
       (
       <div
-        className="absolute inset-0  bg-white"
+        className="absolute inset-0 bg-white"
         style={{
           backgroundImage: `url(${logo})`,
           backgroundPosition: "400px 200px",
           backgroundRepeat:"no-repeat",
+          backgroundPositionX:"50%",
+          backgroundPositionY:"80%",
           backgroundSize:"350px"
           
         }}
@@ -68,17 +70,17 @@ function SearchByAadharCard() {
       }
 
       <div
-        className={`w-full mx-1 md:w-full  h-max mt-2 p-4 relative z-10  dark:bg-zinc-800 rounded-lg shadow-lg`}
+        className={`w-full mx-1 md:w-full h-max mt-2 p-4 relative z-10 dark:bg-zinc-800 rounded-lg shadow-lg`}
       >
-        <div className="w-full flex justify-center items-center ">
-          <div className="ml-2  mx-8 w-full ">
+        <div className="w-full flex justify-center items-center py-2">
+          <div className="ml-2 mx-8 w-full">
 
-          <label htmlFor="" className="text-lg font-thin"> Enter Employee Aadhaar Number</label>
+          <label htmlFor="" className="sm:text-lg text-sm font-thin"> Enter Employee Aadhaar Number</label>
           <input
             type="text"
             pattern="[0-9]*"
             placeholder="Enter Aadhaar number"
-            className=" px-3 my-2 text-lg border-2 border-blue-gray-200 flex-grow bg-[#d6dadf] text-zinc-700 dark:text-zinc-300"
+            className=" px-3 text-lg border-2 border-blue-gray-200 flex-grow bg-[#d6dadf] text-zinc-700 dark:text-zinc-300"
             value={searchTerm}
             maxLength={12}
             onChange={handleSearchChange}
@@ -87,7 +89,7 @@ function SearchByAadharCard() {
           />
             </div>
           <button
-            className=" border-2 px-8 bg-primary-100 text-white py-3 rounded-md  mt-7 font-semibold dark:text-primary-100"
+            className=" border-2 sm:px-8 px-5 sm:text-base text-sm bg-primary-100 text-white py-3 rounded-md  mt-7 font-semibold dark:text-primary-100"
             onClick={() => {
               setSearchTerm("");
               setEmployees([]);
@@ -107,22 +109,22 @@ function SearchByAadharCard() {
             {employees.map((employee, index) => (
               <div
                 key={employee.employee_id}
-                className="p-5 bg-white mt-4 rounded-md shadow-lg"
+                className=" py-5 md:px-5 px-3 w-full bg-white mt-4 rounded-md shadow-lg"
               >
                 <div className=" flex justify-between items-center gap-4">
-                  <div className="flex  items-center gap-4 w-[20%]">
+                  <div className="flex items-center gap-4 w-[20%]">
                     <img
                       src={employee.employee_image}
                       className="h-16 w-16 border-[3px] border-primary-100 rounded-full object-fill"
                       alt=""
                     />
-                    <div>
+                    <div className="">
                       <small className="font-bold ">Name :</small>
                       <h3 className="font-bold text-sm text-primary-100">{employee.employee_name}</h3>
                       
                     </div>
                   </div>
-                  <div className="w-[20%] ">
+                  <div className="w-[20%]">
                     <small className="font-bold ">Designation :</small>
                    <h3 className="font-bold text-sm text-primary-100"> {employee.designation}</h3>
                   </div>

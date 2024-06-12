@@ -62,7 +62,7 @@ export default function Organization() {
   return (
     <>
       {Isorgmap ? (
-        <div className="lg:px-6 sm:px-2 py-10 rounded-lg mx-auto">
+        <div className="lg:px-6 sm:px-2 py-10 rounded-lg mx-auto mt-10">
           <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-lg">
             <h2 className="sm:text-lg text-xs font-semibold">Total Organization: {Orgdata.length}</h2>
             <NavLink to={`/dashboard/organization/addorganization`}>

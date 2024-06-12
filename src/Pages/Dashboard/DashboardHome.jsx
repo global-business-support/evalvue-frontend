@@ -45,10 +45,10 @@ function DashboardHome() {
           <>
             <div
               key={feed.review_id}
-              className="flex flex-col p-3 justify-center mx-auto items-center  gap-5 mt-8"
+              className="flex flex-col p-3 justify-center mx-auto items-center  gap-5 mt-16"
             >
-              <div className=" bg-white mx-auto rounded-3xl md:w-5/6 shadow-md overflow-hidden">
-                <div className="p-4">
+              <div className=" bg-white mx-auto rounded-3xl md:w-5/6 w-full shadow-md overflow-hidden">
+                <div className="p-4 l">
                   <div className="flex items-center">
                     <div className="h-10 w-10 rounded-full  border bg-zinc-100">
                       <img
