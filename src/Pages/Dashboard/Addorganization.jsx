@@ -5,7 +5,7 @@ import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
 import { select } from "@material-tailwind/react";
 import Tittle from "../../Tittle";
-
+const apiUrl = import.meta.env.VITE_API_URL;
 function Addorganization() {
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
@@ -128,7 +128,7 @@ function Addorganization() {
   }
   useEffect(() => {
     axios
-      .post("https://api.evalvue.com/add/organization/")
+      .post(`${apiUrl}/add/organization/`)
       .then((res) => {
 
           // setdocumenttype(res.data.document_type);
@@ -155,7 +155,7 @@ function Addorganization() {
     var tempList = []
     tempList.push(<option key={tempList.length+1} value="">--Please Select--</option>)
     Object.keys(data).forEach(function(key) {
-      tempList.push(<option key={tempList.length+1} selected={orgregdata.document_type_id == 2} value={key}>{data[key].Name}</option>);
+      tempList.push(<option key={tempList.length+1} selected={orgregdata.document_type_id == key} value={key}>{data[key].Name}</option>);
     });
     return tempList;
   }
@@ -176,7 +176,7 @@ function Addorganization() {
     
 
       axios
-      .post("https://api.evalvue.com/create/organization/", orgregdata, header)
+      .post(`${apiUrl}/create/organization/`, orgregdata, header)
       .then((res) => {
         if (res.data.is_organization_register_successfull) {
           setIsOrganizationCreated(true);

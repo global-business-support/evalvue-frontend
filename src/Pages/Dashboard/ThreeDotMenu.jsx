@@ -32,13 +32,13 @@ function ThreeDotMenu({ onEdit, onDelete }) {
         <div className="absolute right-0 mt-0 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
           <button
             onClick={() => { onEdit(); setShowMenu(false); }}
-            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:rounded-lg"
           >
             <FiEdit className="inline w-4 h-4 mr-2" /> Edit
           </button>
           <button
             onClick={() => { onDelete(); setShowMenu(false); }}
-            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:rounded-lg"
           >
             <MdOutlineDelete className="inline w-5 h-5 mr-2" />
             Delete

@@ -24,7 +24,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import value from "../assets/images/register.jpg";
 import { Margin } from "@mui/icons-material";
 import Tittle from "../Tittle";
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const Registration = () => {
   const [Registerdata, setRegisterdata] = useState({});
   const [error, setError] = useState("");
@@ -62,7 +62,7 @@ const Registration = () => {
 
     if (Object.keys(errors).length === 0) {
       axios
-        .post("https://api.evalvue.com/create/user/", Registerdata, {
+        .post(`${apiUrl}/create/user/`, Registerdata, {
           headers: { "Content-Type": "application/json" },
         })
         .then((res) => {
@@ -334,7 +334,7 @@ const Registration = () => {
               >
                 I agree with the{" "}
                 <a
-                  href="https://api.evalvue.com/media/Terms/Terms%20and%20Conditions.pdf"
+                  href={`${apiUrl}/media/Terms/Terms%20and%20Conditions.pdf`}
                   target="_blank"
                   className="text-primary-100 dark:text-primary-100 underline hover:underline"
                 >

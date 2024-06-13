@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { UserContext } from '../Contextfile';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Tittle from '../Tittle';
-
+const apiUrl = import.meta.env.VITE_API_URL;
 function Passwordgenrate() {
   Tittle("Password generate - Evalvue")
   const [newPassword, setNewPassword] = useState('');
@@ -27,7 +27,7 @@ function Passwordgenrate() {
     const payload = { password: newPassword, user_id: userId };
 
     try {
-      const response = await fetch('https://api.evalvue.com/update/password/', {
+      const response = await fetch(`${apiUrl}/update/password/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

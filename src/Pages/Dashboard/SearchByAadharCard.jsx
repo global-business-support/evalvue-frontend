@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/images/evalvuelogo.jpg";
 import Tittle from "../../Tittle";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function SearchByAadharCard() {
   Tittle("Search by Aadhaar - Evalvue")
@@ -20,7 +21,7 @@ function SearchByAadharCard() {
     if (value.length > 0) {
       try {
         const response = await axios.post(
-          `https://api.evalvue.com/search/employee/aadhar/`,
+          `${apiUrl}/search/employee/aadhar/`,
           { aadhar_number: value }
         );
         setEmployees(response.data.employees_list_by_aadhar);

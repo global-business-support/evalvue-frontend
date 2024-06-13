@@ -3,6 +3,7 @@ import Addorganization from "./Dashboard/Addorganization";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../Contextfile";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function ParentComponent() {
   const location = useLocation();
@@ -13,7 +14,7 @@ function ParentComponent() {
   const {  is_login_successful } = location.state || {};
 
   useEffect(()=>{
-    axios.post("https://api.evalvue.com/organizations/",{user_id:userId})
+    axios.post(`${apiUrl}/organizations/`,{user_id:userId})
     .then(res=>{
       setIsorganizationmapped(res.data.is_organization_mapped);
       

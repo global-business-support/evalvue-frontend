@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useParams, useLocation } from "react-router-dom";
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Viewemp() {
   Tittle("Employees - Evalvue")
@@ -18,7 +19,7 @@ function Viewemp() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post("https://api.evalvue.com/employees/", {
+        const response = await axios.post(`${apiUrl}/employees/`, {
           organization_id,
         });
         setEmployees(response.data.employee_list || []);

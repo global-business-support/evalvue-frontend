@@ -6,6 +6,7 @@ import { button } from "@material-tailwind/react";
 import { Rating } from "@material-tailwind/react";
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Post() {
   Tittle("New Review - Evalvue")
@@ -41,7 +42,7 @@ function Post() {
     }
     else{
       axios
-      .post("https://api.evalvue.com/create/review/", pay)
+      .post(`${apiUrl}/create/review/`, pay)
       .then((res) => {
         if (res.data.is_review_added_successfull) {
           // navigate('organization/employee/review')
