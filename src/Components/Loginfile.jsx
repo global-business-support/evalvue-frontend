@@ -9,6 +9,7 @@ import logo from "../assets/images/evalvuelogo.jpg";
 import Loader from "../Pages/Loader";
 import { ValidateEmail, ValidatePassword } from "../Pages/Validation";
 import Tittle from "../Tittle";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const Loginfile = () => {
   const [Formdata, setFormdata] = useState({password:"",
@@ -62,8 +63,10 @@ Tittle("Login page - Evalvue")
       setLoading(true);
       try {
         const res = await axios.post(
-          "https://api.evalvue.com/login/user/",
-          Formdata
+          `${apiUrl}/login/user/`,
+         
+          Formdata,
+          
         );
         localStorage.setItem("isLogin", res.data.is_login_successfull);
         if (res.status === 200) {

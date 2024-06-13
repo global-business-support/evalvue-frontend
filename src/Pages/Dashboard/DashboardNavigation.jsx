@@ -10,6 +10,7 @@ import HttpsIcon from "@mui/icons-material/Https";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import SettingsIcon from "@mui/icons-material/Settings";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function DashboardNavigation() {
   const [open, setOpen] = React.useState(false);

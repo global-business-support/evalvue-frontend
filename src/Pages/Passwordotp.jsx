@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../Contextfile';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Tittle from '../Tittle';
-
+const apiUrl = import.meta.env.VITE_API_URL;
 function Passwordotp(props) {
   Tittle("Verified OTP - Evalvue")
   const [otp, setOtp] = useState(new Array(6).fill(''));
@@ -41,7 +41,7 @@ function Passwordotp(props) {
     if (e) e.preventDefault();
 
     try {
-      const response = await fetch('https://api.evalvue.com/shoot/otp/', {
+      const response = await fetch(`${apiUrl}/shoot/otp/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function Passwordotp(props) {
     const otpCode = otp.join('');
 
     try {
-      const response = await fetch('https://api.evalvue.com/verify/otp/', {
+      const response = await fetch(`${apiUrl}/verify/otp/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

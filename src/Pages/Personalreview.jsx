@@ -5,7 +5,7 @@ import { Rating } from '@material-tailwind/react';
 import axios from 'axios';
 import Loader from './Loader';
 import Tittle from '../Tittle';
-
+const apiUrl = import.meta.env.VITE_API_URL;
 function Personalreview() {
   Tittle("reviews - Evalvue")
   const { state } = useLocation();
@@ -33,7 +33,7 @@ console.log(state)
     setloading(true)
     const fetchData = async () => {
       try {
-        const response = await axios.post('https://api.evalvue.com/reviews/', {
+        const response = await axios.post(`${apiUrl}/reviews/`, {
           user_id: userId,
           organization_id: state.emporgid,
           employee_id: state.empid,

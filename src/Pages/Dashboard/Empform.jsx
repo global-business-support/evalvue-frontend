@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Empform() {
   Tittle("Add Employee - Evalvue")
@@ -63,7 +64,7 @@ function Empform() {
     }
     setErrors({});
     setServerError(null);
-    axios.post("https://api.evalvue.com/create/employees/", empregdata,header)
+    axios.post(`${apiUrl}/create/employees/`, empregdata,header)
       .then(res => {
         if (res.data.is_employee_register_successfull) {
           navigate(`/dashboard/organization/employee/${organization_id.organization_id}`,{state:location.state});

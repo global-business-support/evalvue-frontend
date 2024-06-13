@@ -8,6 +8,7 @@ import Tittle from "../../Tittle";
 import { FaClock } from "react-icons/fa6";
 import { BiSolidShow } from "react-icons/bi";
 import ThreeDotMenu from "./ThreeDotMenu";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Organization() {
   Tittle("Organization - Evalvue")
@@ -20,7 +21,7 @@ export default function Organization() {
 
   useEffect(() => {
     axios
-      .post("https://api.evalvue.com/organizations/", { user_id: userId })
+      .post(`${apiUrl}/organizations/`, { user_id: userId })
       .then((res) => {
         setOrgdata(res.data.organization_list);
         if (res.data.is_organization_mapped) {
@@ -109,14 +110,14 @@ export default function Organization() {
                       <td className={`py-3 sm:px-4 px-1 sm:text-base text-[12px] w-[18%] bg-${organization.organization_verified ? "white" : "[#f3f7fc]"} text-primary-100 font-semibold  shadow-top-bottom-xl`}>
                       {organization.document_number}
                       </td>
-                      <td className={`py-3 sm:px-4 px-1 sm:text-base text-[12px] bg-${organization.organization_verified ? "white" : "[#f3f7fc]"} text-primary-100  font-semibold  shadow-top-bottom-xl`}>
+                      <td className={`py-3 sm:px-4 px-1  sm:text-base text-[12px] bg-${organization.organization_verified ? "white" : "[#f3f7fc]"} text-primary-100  font-semibold  shadow-top-bottom-xl`}>
                         <h1 className="sm:w-52 w-20 sm:text-wrap truncate">
                         {organization.area}, {organization.city_name},{" "}
                         {organization.state_name}, {organization.pincode}
                         </h1>
                         
                       </td>
-                      <td className={`ml-10 py-3 sm:px-4 px-1 w-[10%] bg-${organization.organization_verified? "white" : "[#f3f7fc]"} text-primary-100  shadow-top-bottom-xl`}>
+                      <td className={` py-3 sm:px-0 px-1 ${organization.organization_verified? "bg-white":"bg-[#f3f7fc]"} text-primary-100  shadow-top-bottom-xl`}>
                         <NavLink
                           to={`/dashboard/organization/employee/${organization.organization_id}`}
                           state={{
@@ -129,7 +130,7 @@ export default function Organization() {
                         >
                           {organization.organization_verified ?
                           <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
-                          <BiSolidShow className="my-auto h-5 w-5"/>View 
+                          <BiSolidShow className=" h-5 w-5"/>View 
                           </button>:
                            <button className="text-white flex gap-2  bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]" disabled>
                            <FaClock className="my-auto h-4 w-4"/>Pending...
@@ -137,7 +138,7 @@ export default function Organization() {
                         }
                         </NavLink>
                       </td>
-                    <td className={`ml-10 py-3 sm:px-4 px-1 w-[10%] bg-${organization.organization_verified? "white" : "[#f3f7fc]"} text-primary-100 rounded-r-lg  shadow-top-bottom-xl`}>
+                    <td className={` py-3 sm:px-4 px-1 bg-${organization.organization_verified? "white" : "[#f3f7fc]"} text-primary-100 rounded-r-lg  shadow-top-bottom-xl`}>
                     {organization.organization_verified ?
                     <ThreeDotMenu
                     onEdit={() => handleEdit(organization.organization_id)}
@@ -152,7 +153,7 @@ export default function Organization() {
         </div>
       ) : (
         <Addorganization userId={userId} />
-      )};
+      )}
     </>
   );
 }
