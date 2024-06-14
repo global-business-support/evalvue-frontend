@@ -134,6 +134,7 @@ export default function Organization() {
                           <BiSolidShow className=" h-5 w-5"/>View 
                           </button>:
                            <button className="text-white flex gap-2 mr-7 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]" disabled>
+
                            <FaClock className="my-auto h-4 w-4"/>Pending...
                            </button>  
                         }

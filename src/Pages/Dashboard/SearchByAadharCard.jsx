@@ -71,9 +71,9 @@ function SearchByAadharCard() {
       }
 
       <div
-        className={`w-full mx-1 md:w-full h-max mt-2 p-4 relative z-10 dark:bg-zinc-800 rounded-lg shadow-lg`}
+        className={`w-full mx-1 md:w-full h-max mt-2 p-4 relative z-10 dark:bg-zinc-800 rounded-lg shadow-lg `}
       >
-        <div className="w-full flex justify-center items-center py-2">
+        <div className="w-full flex justify-center items-center py-2 sticky top-[76px] bg-[#e6eaee]">
           <div className="ml-2 mx-8 w-full">
 
           <label htmlFor="" className="sm:text-lg text-sm font-thin"> Enter Employee Aadhaar Number</label>
@@ -103,45 +103,45 @@ function SearchByAadharCard() {
 
         {empmappedbyaadhar ? (
           <div
-            className={`mt-8 ${
+            className={`mt-8 lg:flex lg:flex-col grid sm:grid-cols-2 grid-cols-1 ${
               isFocused&&(value.length>0) ? "h-[450px]" : ""
             }   scrollbar-custom  overflow-y-auto`}
           >
             {employees.map((employee, index) => (
               <div
                 key={employee.employee_id}
-                className=" py-5 md:px-5 px-3 w-full bg-white mt-4 rounded-md shadow-lg"
+                className=" py-5 md:px-5 px-3 m-0.5 lg:w-full w-50% bg-white mt-4 rounded-md shadow-lg"
               >
-                <div className=" flex justify-between items-center gap-4">
-                  <div className="flex items-center gap-4 w-[20%]">
+                <div className=" flex lg:flex-row flex-col justify-between items-center lg:gap-4 gap-2">
+                  <div className="flex lg:flex-row flex-col items-center gap-4 lg:w-[20%] w-full justify-start">
                     <img
                       src={employee.employee_image}
-                      className="h-16 w-16 border-[3px] border-primary-100 rounded-full object-fill"
+                      className="lg:h-[70px] h-[80px] lg:w-[70px] w-[80px] border-[3px] border-primary-100 rounded-full object-fill"
                       alt=""
                     />
-                    <div className="">
-                      <small className="font-bold ">Name :</small>
-                      <h3 className="font-bold text-sm text-primary-100">{employee.employee_name}</h3>
+                    <div className="flex lg:flex-col">
+                      <small className="font-bold sm:text-sm text-xs ">Name :&nbsp;</small>
+                      <h3 className="font-bold sm:text-sm text-xs text-primary-100">{employee.employee_name}</h3>
                       
                     </div>
                   </div>
-                  <div className="w-[20%]">
-                    <small className="font-bold ">Designation :</small>
-                   <h3 className="font-bold text-sm text-primary-100"> {employee.designation}</h3>
+                  <div className="lg:w-[20%] w-full flex lg:flex-col justify-start ">
+                    <small className="font-bold sm:text-sm text-xs">Designation :&nbsp;</small>
+                   <h3 className="font-bold sm:text-sm text-xs text-primary-100"> {employee.designation}</h3>
                   </div>
-                  <div className="w-[20%]">
-                    <small className="font-bold">Aadhaar Number :</small>
-                    <h3 className="font-bold text-sm text-primary-100">{employee.aadhar_number}</h3>
+                  <div className="lg:w-[20%] w-full flex lg:flex-col justify-start">
+                    <small className="font-bold sm:text-sm text-xs">Aadhaar Number :&nbsp;</small>
+                    <h3 className="font-bold  sm:text-sm text-xs text-primary-100">{employee.aadhar_number}</h3>
                     </div>
-                  <div className="w-[20%]">
-                    <small className="font-bold">Mobile Number :</small>
-                    <h3 className="font-bold text-sm text-primary-100">{employee.mobile_number}</h3>
+                  <div className="lg:w-[20%] w-full flex lg:flex-col justify-start">
+                    <small className="font-bold sm:text-sm text-xs">Mobile Number :&nbsp;</small>
+                    <h3 className="font-bold sm:text-sm text-xs text-primary-100">{employee.mobile_number}</h3>
                     </div>
                   <button
                     onClick={() => {
                       handleEmployeeClick(index);
                     }}
-                    className="border px-8 py-2 rounded-md bg-primary-100 text-white"
+                    className="lg:w-auto w-full border px-8 py-2 rounded-md bg-primary-100 text-white"
                   >
                     view
                   </button>
