@@ -101,7 +101,7 @@ const Registration = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 ">
       <div className="flex justify-center  shadow-md items-center w-full max-w-4xl rounded-xl">
-        <div className="w-[50%] h-[640px] bg-primary-100 text-white text-center hidden lg:flex flex-col relative justify-center gap-14 items-center">
+        <div className="w-[50%] h-[661px] bg-primary-100 text-white text-center hidden lg:flex flex-col relative justify-center gap-14 items-center rounded-l-xl">
           <div className='h-[25%] flex flex-col justify-between items-center '>
             <div className=' '>
               <h1 className='text-4xl font-semibold'>Welcome to Evalvue</h1>
@@ -113,7 +113,7 @@ const Registration = () => {
             </h1>
           </div>
 
-          <div className='h-60  w-[80%] '>
+          <div className='h-60  w-[70%] '>
             <Swiper
               spaceBetween={30}
               pagination={{
@@ -158,7 +158,7 @@ const Registration = () => {
             </Swiper>
           </div>
         </div>
-        <div className="w-4/5 md:w-1/2 lg:1/3 bg-white p-8 m-5 rounded-xl">
+        <div className="w-4/5 md:w-1/2 lg:1/3 bg-white p-8 rounded-xl rounded-l-none">
           <h2 className="text-[26px] font-bold mb-7 text-zinc-800">
             Create Account :-
           </h2>

@@ -19,11 +19,11 @@ function Dashboard() {
 
     return (
         <>
-            <div className='h-[calc(100vh-80px)] bg-white rounded-3xl flex p-3 '>
+            <div className='h-[calc(100vh-80px bg-white rounded-3xl flex p-3 '>
                 <DashboardNavigation />
-                <div className='rounded-lg md:w-full h-[calc(100vh-100px)] overflow-auto scrollbar-custom w-full bg-[#e6eaee]'>
+                <div className=' rounded-lg h-[calc(100vh-100px)] overflow-auto scrollbar-custom w-full bg-[#e6eaee]'>
                     {/* Back Button */}
-                    <div className="p-2 mt-5 w-full flex justify-between fixed">
+                    <div className="p-2 mt-5 w-full flex justify-between fixed z-20 ">
                         <button
                             onClick={handleBack}
                             className=" p-2  text-gray-800 rounded "
@@ -32,11 +32,14 @@ function Dashboard() {
 
                         </button>
                         <button  onClick={handleForword}
-                            className=" p-2 text-gray-800 rounded lg:mr-[310px] md:mr-[230px] mr-5">
+                            className=" p-2 text-gray-800 rounded lg:mr-[303px] md:mr-[225px] mr-6">
                         <FaArrowAltCircleRight className='h-6 w-6'/>
                         </button>
                     </div>
+                    
+
                     <Outlet />
+                    
                 </div>
             </div>
         </>

@@ -74,6 +74,7 @@ function Landing() {
                       type="radio"
                       name="plan1"
                       className="custom-checkbox"
+                      checked
                     />
                   </span>
                 </li>
