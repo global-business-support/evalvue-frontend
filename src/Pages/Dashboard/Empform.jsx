@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
@@ -7,35 +7,83 @@ import Tittle from "../../Tittle";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function Empform() {
+
   Tittle("Add Employee - Evalvue")
   const { userId } = useContext(UserContext);
   const location = useLocation();
-  const [loading,setloading]=useState(false)
+  const [loading, setloading] = useState(false)
   const organization_id = location.state;
   const navigate = useNavigate();
   const [empregdata, Setempregdata] = useState({
     user_id: userId,
-    organization_id: organization_id.organization_id,
+    employee_id: location.state.employee_id,
+    organization_id: organization_id.organization_id
   });
-  
+  console.log(location.state.employee_id)
+  console.log(empregdata)
+  const [editEnable, setEditEnable] = useState(!location.state.addEmp);
+  const [fileLogoName, setFileLogoName] = useState("");
+  const [fileLogoPreview, setLogoFilePreview] = useState("");
+  const [fileName, setFileName] = useState("");
+
   const [errors, setErrors] = useState("");
   const [serverError, setServerError] = useState("");
-  
   function emphadler(event) {
     const name = event.target.name;
     const value = event.target.value;
     Setempregdata((values) => ({ ...values, [name]: value }));
     setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
   }
+  const getFileNameFromUrl = (url) => {
+    try {
+      const parsedUrl = new URL(url);
+      const pathname = parsedUrl.pathname;
+      const segments = pathname.split('/');
+      return segments.pop() || ''; // Return the last segment which is the file name
+    } catch (error) {
+      console.error('Invalid URL:', error);
+      return '';
+    }
+  };
 
-  function empfilehadler(e) {
+  const fileHandler = (e) => {
     const name = e.target.name;
-    const value = e.target.files[0];
-    Setempregdata((values) => ({ ...values, [name]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
-  }
+    const file = e.target.files[0];
+    if (file) {
+      if (name === "employee_image") {
+        setFileLogoName(file.name);
+        setLogoFilePreview(URL.createObjectURL(file));
+      }
+      Setempregdata((values) => ({ ...values, [name]: file }));
+    }
+    else {
+      setFileLogoName("");
+      setLogoFilePreview("");
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+  };
 
- 
+  const editData = {
+    employee_id: location.state.employee_id,
+    user_id: userId
+  };
+
+  useEffect(() => {
+    if (editEnable) {
+
+      axios.post(`${apiUrl}/employee/editable/data/`, editData)
+        .then(res => {
+          Setempregdata((pre) => ({
+            ...pre,
+            ...res.data.employee_list[0]
+          }))
+          setFileName(getFileNameFromUrl(res.data.employee_list[0].employee_image))
+          setEditEnable(res.data.employee_editable_data_send_successfull)
+        })
+        .catch(err => { console.log(err) })
+    }
+  }, [editData.employee_id]);
+  console.log(empregdata)
 
   function validateForm() {
     const newErrors = {};
@@ -44,8 +92,10 @@ function Empform() {
     if (!empregdata.email) newErrors.email = "Email is required";
     if (!empregdata.mobile_number) newErrors.mobile_number = "Mobile number is required";
     if (!empregdata.aadhar_number) newErrors.aadhar_number = "Aadhar number is required";
-    if (empregdata.aadhar_number !== empregdata.confirm_aadhar_number) {
-      newErrors.confirm_aadhar_number = "Aadhar numbers do not match";
+    if (!editEnable) {
+      if (empregdata.aadhar_number !== empregdata.confirm_aadhar_number) {
+        newErrors.confirm_aadhar_number = "Aadhar numbers do not match";
+      }
     }
     if (!empregdata.designation) newErrors.designation = "Designation is required";
     if (!empregdata.employee_image) newErrors.employee_image = "Image is required";
@@ -54,7 +104,7 @@ function Empform() {
   const header = {
     headers: { 'Content-Type': 'multipart/form-data' }
   };
-  
+
   function empregsubmit(event) {
     event.preventDefault();
     const formErrors = validateForm();
@@ -64,12 +114,12 @@ function Empform() {
     }
     setErrors({});
     setServerError(null);
-    axios.post(`${apiUrl}/create/employees/`, empregdata,header)
+    axios.post(`${apiUrl}${editEnable ? `/employee/edit/` : `/create/employees/`}`, empregdata, header)
       .then(res => {
-        if (res.data.is_employee_register_successfull) {
-          navigate(`/dashboard/organization/employee/${organization_id.organization_id}`,{state:location.state});
+        if (res.data.is_employee_register_successfull || res.data.employee_edit_sucessfull) {
+          navigate(`/dashboard/organization/employee/${organization_id.organization_id}`, { state: location.state });
         }
-        else{
+        else {
           setServerError(res.data.error)
         }
       })
@@ -77,16 +127,16 @@ function Empform() {
         setServerError(err.response.data.error);
         // console.log(err);
       });
-      
+
   }
   if (loading) {
     return (
       <>
-      <div className="h-[calc(100vh-100px)] flex justify-center items-center">
-        <Loader/>
-      </div>
+        <div className="h-[calc(100vh-100px)] flex justify-center items-center">
+          <Loader />
+        </div>
       </>
-    ) 
+    )
   }
 
   return (
@@ -149,6 +199,8 @@ function Empform() {
           <div>
             <label className="block mb-1 font-medium">Aadhar Number<span className="text-[red]">*</span></label>
             <input
+              readOnly={editEnable && true}
+
               type="tel"
               placeholder="854933256268"
               name="aadhar_number"
@@ -159,7 +211,7 @@ function Empform() {
             />
             {errors.aadhar_number && <p className="text-red-500">{errors.aadhar_number}</p>}
           </div>
-          <div>
+          <div className={editEnable == true ? `hidden` : `block`}>
             <label className="block mb-1 font-medium">Confirm Aadhar Number<span className="text-[red]">*</span></label>
             <input
               type="tel"
@@ -184,28 +236,59 @@ function Empform() {
             />
             {errors.designation && <p className="text-red-500">{errors.designation}</p>}
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Image<span className="text-[red]">*</span></label>
-            <input
-              type="file"
-              name="employee_image"
-              onChange={empfilehadler}
-              className="w-full p-2 border rounded"
-            />
-            {errors.employee_image && <p className="text-red-500">{errors.employee_image}</p>}
+          <div className="flex items-end">
+            <div>
+              <label className="block mb-4 font-medium">
+                Image
+                <span className="text-[red]">*</span>
+              </label>
+              <div className="flex items-center">
+                <label className="custom-file-label w-[113px] truncate bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
+                  {fileLogoName || fileName || "Choose file"}
+                  <input
+                    type="file"
+                    className="hidden"
+                    name="employee_image"
+                    onChange={fileHandler}
+                  />
+                </label>
+              </div>
+              {errors.employee_image && (
+                <span className="text-red-600 text-sm">
+                  {errors.employee_image}
+                </span>
+              )}
+            </div>
+            {(fileLogoPreview || fileName) && (
+              <div className="ml-4">
+                <img
+                  src={fileLogoPreview == "" ? empregdata.employee_image : fileLogoPreview}
+                  alt="Preview"
+                  className="h-14 w-24 border border-gray-300 rounded-md"
+                />
+              </div>
+            )}
           </div>
           <div className="md:col-span-2">
             {serverError && <p className="text-red-500 mt-4">{serverError}</p>}
-            <button
-              type="submit"
-              className="w-full bg-primary-100 text-white font-regular p-3 rounded-lg mt-4"
-            >
-              Add Employee
-            </button>
+            {
+              editEnable == true ?
+                <button
+                  type="submit"
+                  className="w-full bg-primary-100 text-white font-regular p-3 rounded-lg mt-4">
+                  Update Employee
+                </button> :
+                <button
+                  type="submit"
+                  className="w-full bg-primary-100 text-white font-regular p-3 rounded-lg mt-4">
+                  Add Employee
+                </button>
+            }
+
           </div>
         </form>
       </div>
-      
+
     </>
   );
 }
