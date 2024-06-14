@@ -14,7 +14,7 @@ function Addorganization() {
   const location = useLocation();
   const [orgregdata, setOrgregdata] = useState({
     user_id: userId,
-    organization_id: location.state.organization_id || "",
+    organization_id: location.state?.organization_id || "",
   });
   const [fileLogoName, setFileLogoName] = useState("");
   const [fileLogoPreview, setLogoFilePreview] = useState("");
@@ -241,12 +241,12 @@ function Addorganization() {
         }
       })
       .catch((err) => {
+        setloading(false);
         if (!Object.keys(formData).length === 0) {
           setError(err.response.data.error);
-        }
-        setloading(false);
-        console.log(err);
-        validate();
+          }
+          console.log(err);
+          validate();
       });
   }
 
