@@ -127,14 +127,14 @@ function Viewemp() {
                     <div className="relative">
                       <div className="sm:h-16 h-12 sm:w-16 w-12 ml-2 rounded-full border-[3px] border-primary-100 overflow-hidden">
                         <img
-                          src={employee.image}
+                          src={employee.employee_image}
                           alt=""
                           className="h-full w-full object-cover rounded-full"
                         />
                       </div>
                     </div>
                     <h2 className="font-semibold sm:text-sm text-[12px] text-primary-100">
-                      {employee.name}
+                      {employee.employee_name}
                     </h2>
                   </td>
                   <td className="py-3 sm:px-4 px-2 w-[20%] bg-white font-semibold sm:text-sm text-[12px] text-primary-100 shadow-top-bottom-xl">

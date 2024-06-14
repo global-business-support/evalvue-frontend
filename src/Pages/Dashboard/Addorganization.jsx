@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
 import { select } from "@material-tailwind/react";
@@ -10,8 +10,11 @@ function Addorganization() {
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
   const [error, setError] = useState("");
+  
+  const location = useLocation();
   const [orgregdata, setOrgregdata] = useState({
     user_id: userId,
+    organization_id: location.state.organization_id || "",
   });
   const [fileLogoName, setFileLogoName] = useState("");
   const [fileLogoPreview, setLogoFilePreview] = useState("");
@@ -28,33 +31,37 @@ function Addorganization() {
   const [city, setcity] = useState([]);
   const [statedata, setstatedata] = useState([]);
   const [citydata, setcitydata] = useState([]);
-  const [iscity,setiscity]=useState(true);
-  const [isstate,setisstate]=useState(true);
+  const [iscity, setiscity] = useState(true);
+  const [isstate, setisstate] = useState(true);
+  // const [editOrgData, seteditOrgData] = useState('');
+  const [editOrgEnabled, seteditOrgEnabled] = useState(
+    location.state?.editorg ?? false
+  );
 
-  Tittle("Add Organization - Evalvue")
-  function populateState(id){
+  Tittle("Add Organization - Evalvue");
+  function populateState(id) {
     var data = statedata;
-    var tempList = []
-    tempList.push(<option value="">--Please Select--</option>)
-    Object.keys(data).forEach(function(key) {
-      if(data[key].CountryId == id){
+    var tempList = [];
+    tempList.push(<option value="">--Please Select--</option>);
+    Object.keys(data).forEach(function (key) {
+      if (data[key].CountryId == id) {
         tempList.push(<option value={key}>{data[key].Name}</option>);
       }
     });
-    setisstate(false)
+    setisstate(false);
     setstate(tempList);
   }
 
-  function populateCity(id){
+  function populateCity(id) {
     var data = citydata;
-    var tempList = []
-    tempList.push(<option value="">--Please Select--</option>)
-    Object.keys(data).forEach(function(key) {
-      if(data[key].StateId == id){
+    var tempList = [];
+    tempList.push(<option value="">--Please Select--</option>);
+    Object.keys(data).forEach(function (key) {
+      if (data[key].StateId == id) {
         tempList.push(<option value={key}>{data[key].Name}</option>);
       }
     });
-    setiscity(false)
+    setiscity(false);
     setcity(tempList);
   }
 
@@ -62,15 +69,11 @@ function Addorganization() {
     const name = e.target.name;
     const value = e.target.value;
     setOrgregdata((values) => ({ ...values, [name]: value }));
-    if(name == 'country_id'){
+    if (name == "country_id") {
       populateState(value);
-    }else if(name == 'state_id'){
+    } else if (name == "state_id") {
       populateCity(value);
     }
-    
-
-
-
     // Remove error for this field when user enters a value
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   }
@@ -99,7 +102,7 @@ function Addorganization() {
   const header = {
     headers: { "Content-Type": "multipart/form-data" },
   };
-// var doctype=[];
+  // var doctype=[];
   function validate() {
     const newErrors = {};
     if (!orgregdata.organization_name)
@@ -126,76 +129,125 @@ function Addorganization() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
+  console.log(orgregdata)
+  if (editOrgEnabled) {
+    const editdata = {
+      organization_id: location.state.organization_id || "",
+      user_id: userId,
+    };
+    useEffect(() => {
+      axios
+        .post(`${apiUrl}/organization/editable/data/`, editdata)
+        .then((res) => {
+          // console.log(res)
+          setOrgregdata((pre)=>({
+            ...pre,
+            ...res.data.organization_list[0]
+          }));
+          setFileLogoName(getFileNameFromUrl(res.data.organization_list[0].organization_image))
+
+          seteditOrgEnabled(
+            res.data.organization_editable_data_send_succesfull
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, [editdata.organization_id]);
+  }
+  // console.log(editOrgData)
+  console.log(orgregdata);
   useEffect(() => {
     axios
       .post(`${apiUrl}/add/organization/`)
       .then((res) => {
+        // setdocumenttype(res.data.document_type);
+        setdocumenttype(populateDropDown(res.data.document_type));
+        setsectortype(populateDropDown(res.data.sector_type));
+        setlistedtype(populateDropDown(res.data.listed_type));
+        setcountry(populateDropDown(res.data.country));
+        setstate(populateDropDown(res.data.state));
+        setstatedata(res.data.state);
+        setcity(populateDropDown(res.data.city));
+        setcitydata(res.data.city);
 
-          // setdocumenttype(res.data.document_type);
-          setdocumenttype(populateDropDown(res.data.document_type));
-          setsectortype(populateDropDown(res.data.sector_type));
-          setlistedtype(populateDropDown(res.data.listed_type));
-          setcountry(populateDropDown(res.data.country));
-          setstate(populateDropDown(res.data.state));
-          setstatedata(res.data.state);
-          setcity(populateDropDown(res.data.city));
-          setcitydata(res.data.city)
-         
         // console.log(doctype)
         // setdocumenttype(doctype);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [userId]);
 
-
-
-  function populateDropDown(data){
-    var tempList = []
-    tempList.push(<option key={tempList.length+1} value="">--Please Select--</option>)
-    Object.keys(data).forEach(function(key) {
-      tempList.push(<option key={tempList.length+1} selected={orgregdata.document_type_id == key} value={key}>{data[key].Name}</option>);
+  function populateDropDown(data) {
+    var tempList = [];
+    tempList.push(
+      <option key={tempList.length + 1} value="">
+        --Please Select--
+      </option>
+    );
+    Object.keys(data).forEach(function (key) {
+      tempList.push(
+        <option
+          key={tempList.length + 1}
+          selected={orgregdata.document_type_id == key}
+          value={key}
+        >
+          {data[key].Name}
+        </option>
+      );
     });
     return tempList;
   }
-
+  const getFileNameFromUrl = (url) => {
+    try {
+      const parsedUrl = new URL(url);
+      const pathname = parsedUrl.pathname;
+      const segments = pathname.split("/");
+      return segments.pop() || ""; // Return the last segment which is the file name
+    } catch (error) {
+      console.error("Invalid URL:", error);
+      return "";
+    }
+  };
   function orgRegSubmit(event) {
-    console.log("abhishek")
+    console.log("abhishek");
     event.preventDefault();
     setloading(true);
-    console.log('before validata')
+    console.log("before validata");
 
-    if (!validate) return;
-    console.log('after validata')
+    // if (!validate) return;
+    // console.log("after validata");
 
-    const formData = new FormData();
-    formData.append("organization_image", orgregdata.organization_image);
-    formData.append("document_file", orgregdata.document_file);
+    // const formData = new FormData();
+    // formData.append("organization_image", orgregdata.organization_image);
+    // formData.append("document_file", orgregdata.document_file);
 
-    
+    axios
 
-      axios
-      .post(`${apiUrl}/create/organization/`, orgregdata, header)
+      .post(
+        `${apiUrl}${
+          editOrgEnabled ? "/organization/edit/" : "/create/organization/"
+        }`,
+        orgregdata,
+        header
+      )
       .then((res) => {
-        if (res.data.is_organization_register_successfull) {
+        if (res.data.is_organization_register_successfull || res.data.organization_edit_sucessfull) {
           setIsOrganizationCreated(true);
           navigate("/dashboard/organization");
           setloading(false);
-          console.log('successfull')
+          console.log("successfull");
         }
       })
       .catch((err) => {
-        if(!Object.keys(formData).length === 0){
+        if (!Object.keys(formData).length === 0) {
           setError(err.response.data.error);
         }
         setloading(false);
-        console.log(err)
-        validate()
+        console.log(err);
+        validate();
       });
-    
-
-    
   }
 
   if (loading) {
@@ -205,6 +257,7 @@ function Addorganization() {
       </div>
     );
   }
+  console.log(fileLogoName)
 
   return (
     <div className="max-w-full m-4 p-6 bg-white shadow-md rounded-lg">
@@ -249,14 +302,23 @@ function Addorganization() {
         </div>
       ) : (
         <>
-          <h1 className="text-xl font-semibold mb-4">
-            Register your organization:
-          </h1>
-          <p className="mb-6 text-zinc-700 w-full">
-            Welcome to our organization registration form! Whether you're a
-            budding startup, a growing enterprise, or a well-established
-            company, we invite you to join our community.
-          </p>
+          {editOrgEnabled ? (
+            <h1 className="text-xl font-semibold mb-4">
+              Update your organization:
+            </h1>
+          ) : (
+            <>
+              <h1 className="text-xl font-semibold mb-4">
+                Register your organization:
+              </h1>
+              <p className="mb-6 text-zinc-700 w-full">
+                Welcome to our organization registration form! Whether you're a
+                budding startup, a growing enterprise, or a well-established
+                company, we invite you to join our community.
+              </p>
+            </>
+          )}
+
           <form className="mt-10" onSubmit={orgRegSubmit}>
             <div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -268,7 +330,7 @@ function Addorganization() {
                     type="text"
                     placeholder="Name"
                     name="organization_name"
-                    value={orgregdata.organization_name}
+                    value={orgregdata.organization_name || orgregdata.name}
                     onChange={orgHandler}
                     className="w-full p-2 border  rounded-md"
                   />
@@ -285,7 +347,7 @@ function Addorganization() {
                       <span className="text-[red]">*</span>
                     </label>
                     <div className="flex items-center">
-                      <label className="custom-file-label bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
+                      <label className="custom-file-label w-4/6 truncate bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
                         {fileLogoName || "Choose file"}
                         <input
                           type="file"
@@ -297,10 +359,10 @@ function Addorganization() {
                       {/* </div> */}
                     </div>
                     {errors.organization_image && (
-                  <span className="text-red-600 text-sm">
-                    {errors.organization_image}
-                  </span>
-                )}
+                      <span className="text-red-600 text-sm">
+                        {errors.organization_image}
+                      </span>
+                    )}
                   </div>
                   {fileLogoPreview && (
                     <div className="ml-4">
@@ -311,9 +373,9 @@ function Addorganization() {
                       />
                     </div>
                   )}
-                
                 </div>
 
+                    {editOrgEnabled?"":
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Document type<span className="text-[red]">*</span>
@@ -321,26 +383,20 @@ function Addorganization() {
                   <select
                     name="document_type_id"
                     onChange={orgHandler}
+                    disabled={editOrgEnabled}
                     className="w-full p-2 border  rounded-md"
                   >
-                    
-                    {/* {console.log(documenttype)} */}
                     {documenttype}
-                    
-                    {/* {documenttype.map((value,docid) => {
-                      <option value={docid}>{value[docid].Name}</option>;
-                    })} */}
-                    {/* {documenttype.map(function(doctype){
-                      <option value={doctype.DocumentTypeId} key={doctype.DocumentTypeId}>{doctype.Name}</option>
-                    })} */}
                   </select>
-                  {console.log(documenttype.length)}
+
                   {errors.document_type_id && (
                     <span className="text-red-600 text-sm">
                       {errors.document_type_id}
                     </span>
                   )}
                 </div>
+                }
+                  {editOrgEnabled?"":
                 <div className=" flex items-end ">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-zinc-700">
@@ -350,14 +406,17 @@ function Addorganization() {
                     <div className="flex items-center ">
                       <label className="custom-file-label bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
                         {fileName || "Choose file"}
+                        
                         <input
                           type="file"
                           className="hidden"
                           name="document_file"
+                          disabled={editOrgEnabled}
                           onChange={fileHandler}
                         />
                       </label>
                     </div>
+                    {editOrgEnabled?"Not Changeable":""}
                     {errors.document_file && (
                       <span className="text-red-600 text-sm">
                         {errors.document_file}
@@ -374,22 +433,7 @@ function Addorganization() {
                     </div>
                   )}
                 </div>
-                {/* <div>
-                  <label className="block mb-2 text-sm font-medium text-zinc-700">
-                    Organization Logo/image<span className="text-[red]">*</span>
-                  </label>
-                  <input
-                    type="file"
-                    className="w-full p-2 border  rounded-md"
-                    name="organization_image"
-                    onChange={fileHandler}
-                  />
-                  {errors.organization_image && (
-                    <span className="text-red-600 text-sm">
-                      {errors.organization_image}
-                    </span>
-                  )}
-                </div> */}
+}
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Organization Sector<span className="text-[red]">*</span>
@@ -416,7 +460,7 @@ function Addorganization() {
                     onChange={orgHandler}
                     className="w-full p-2 border  rounded-md"
                   >
-                   {listedtype}
+                    {listedtype}
                   </select>
                   {errors.listed_id && (
                     <span className="text-red-600 text-sm">
@@ -424,7 +468,8 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-
+                {editOrgEnabled?"":
+                <>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Document Number<span className="text-[red]">*</span>
@@ -433,6 +478,7 @@ function Addorganization() {
                     type="text"
                     placeholder="CA739543A"
                     name="document_number"
+                    disabled={editOrgEnabled}
                     onChange={orgHandler}
                     value={orgregdata.document_number}
                     className="w-full p-2 border  rounded-md"
@@ -451,13 +497,14 @@ function Addorganization() {
                     type="text"
                     placeholder="CA739543A525A"
                     name="gstin"
+                    disabled={editOrgEnabled}
                     onChange={orgHandler}
                     value={orgregdata.gst_number}
                     className="w-full p-2 border  rounded-md"
                   />
-                  
                 </div>
-
+                </>
+}
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Number of employee<span className="text-[red]">*</span>
@@ -478,22 +525,7 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-                {/* <div>
-                  <label className="block mb-2 text-sm font-medium text-zinc-700">
-                    Document File (any)<span className="text-[red]">*</span>
-                  </label>
-                  <input
-                    type="file"
-                    className="w-full p-2 border  rounded-md"
-                    name="document_file"
-                    onChange={fileHandler}
-                  />
-                  {errors.document_file && (
-                    <span className="text-red-600 text-sm">
-                      {errors.document_file}
-                    </span>
-                  )}
-                </div> */}
+
                 <br />
                 <div>
                   <h3 className="font-semibold text-xl ">
@@ -541,7 +573,8 @@ function Addorganization() {
                   <select
                     name="state_id"
                     onChange={orgHandler}
-                    className="w-full p-2 border  rounded-md" disabled={isstate}
+                    className="w-full p-2 border  rounded-md"
+                    disabled={isstate}
                   >
                     {state}
                   </select>
@@ -558,7 +591,8 @@ function Addorganization() {
                   <select
                     name="city_id"
                     onChange={orgHandler}
-                    className="w-full p-2 border rounded-md" disabled={iscity}
+                    className="w-full p-2 border rounded-md"
+                    disabled={iscity}
                   >
                     {city}
                   </select>
@@ -588,154 +622,22 @@ function Addorganization() {
                   )}
                 </div>
               </div>
-              {/* <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Organization Sector<span className="text-[red]">*</span>
-                </label>
-                <select
-                  name="sector_id"
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option aria-readonly>Select any one</option>
-                  <option value="1">Pharma</option>
-                  <option value="2">Education</option>
-                </select>
-                {errors.sector_id && (
-                  <span className="text-red-600 text-sm">
-                    {errors.sector_id}
-                  </span>
-                )}
-              </div> */}
-              {/* <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Listed Organization<span className="text-[red]">*</span>
-                </label>
-                <select
-                  name="listed_id"
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option aria-readonly>Select any one</option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                </select>
-                {errors.listed_id && (
-                  <span className="text-red-600 text-sm">
-                    {errors.listed_id}
-                  </span>
-                )}
-              </div> */}
-              {/* <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Document type<span className="text-[red]">*</span>
-                </label>
-                <select
-                  name="document_type_id"
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option aria-readonly>Select any one</option>
-                  <option value="1">Certificate of Incorporation</option>
-                  <option value="2">PAN</option>
-                  <option value="3">TIN</option>
-                  <option value="4">GST</option>
-                </select>
-                {errors.document_type_id && (
-                  <span className="text-red-600 text-sm">
-                    {errors.document_type_id}
-                  </span>
-                )}
-              </div> */}
-              {/* <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Document Number<span className="text-[red]">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="document_number"
-                  placeholder="Number"
-                  value={orgregdata.document_number || ""}
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                />
-                {errors.document_number && (
-                  <span className="text-red-600 text-sm">
-                    {errors.document_number}
-                  </span>
-                )}
-              </div> */}
-
-              {/* <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Address<span className="text-[red]">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="area"
-                  placeholder="Address"
-                  value={orgregdata.area || ""}
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                />
-                {errors.area && (
-                  <span className="text-red-600 text-sm">{errors.area}</span>
-                )}
-              </div> */}
-              {/* <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  Country<span className="text-[red]">*</span>
-                </label>
-                <select
-                  name="country_id"
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option aria-readonly>Select any one</option>
-                  <option value="1">India</option>
-                  <option value="2">UAE</option>
-                  <option value="3">USA</option>
-                </select>
-                {errors.country_id && (
-                  <span className="text-red-600 text-sm">
-                    {errors.country_id}
-                  </span>
-                )}
-              </div> */}
-              {/* <div>
-                <label className="block mb-2 text-sm font-medium text-zinc-700">
-                  State<span className="text-[red]">*</span>
-                </label>
-                <select
-                  name="state_id"
-                  onChange={orgHandler}
-                  className="w-full p-2 border rounded-md"
-                >
-                  <option aria-readonly>Select any one</option>
-                  <option value="1">Rajasthan</option>
-                  <option value="2">Maharashtra</option>
-                  <option value="3">Gujrat</option>
-                </select>
-                {errors.state_id && (
-                  <span className="text-red-600 text-sm">
-                    {errors.state_id}
-                  </span>
-                )}
-              </div> */}
             </div>
             <div className="flex flex-col gap-3 mt-8">
-            {error && (
-                    <span className="text-red-600 text-sm">
-                      {'*' + error}
-                    </span>
-                  )
-            }
+              {error && (
+                <span className="text-red-600 text-sm">{"*" + error}</span>
+              )}
+              {editOrgEnabled?
+              <input
+                type="submit"
+                className="bg-primary-100 hover:bg-primary-100 text-white font-semibold py-2 px-4 rounded-full"
+                value="Save & Update"
+              />:
               <input
                 type="submit"
                 className="bg-primary-100 hover:bg-primary-100 text-white font-semibold py-2 px-4 rounded-full"
                 value="Submit"
-              />
-              
+              />}
             </div>
           </form>
         </>
