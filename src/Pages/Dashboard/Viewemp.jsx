@@ -1,20 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { NavLink, useParams, useLocation } from "react-router-dom";
+import { NavLink, useParams, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
 const apiUrl = import.meta.env.VITE_API_URL;
+import ThreeDotMenu from "./ThreeDotMenu";
 
 function Viewemp() {
+  const navigate=useNavigate();
   Tittle("Employees - Evalvue")
   const [Employees, setEmployees] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { organization_id } = useParams();
   const location = useLocation();
-  const state=location.state
-  const [topFive,setTopFive] = useState(false);
-  // console.log(state);
+  const state=location.state;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +33,21 @@ function Viewemp() {
 
     fetchData();
   }, [organization_id]);
+
+  const handleEdit = (empId, OrgId) => {
+    // Navigate to the edit page
+    navigate(`/dashboard/organization/employee/addemp`,
+      {state:{employee_id:empId,
+        organization_id:OrgId,
+        addEmp:false 
+      }}
+    )
+  };
+
+  const handleDelete = () => {
+    // Navigate to the delete page or handle deletion logic
+    navigate(`/dashboard/organization/delete/`)
+  };
 
   if (loading) {
     return (
@@ -94,7 +109,8 @@ function Viewemp() {
               
               <NavLink
                 to="/dashboard/organization/employee/addemp"
-                state={{ organization_id: organization_id,
+                state={{ organization_id: organization_id, 
+                  addEmp : true,
                 
                 }}
               >
@@ -127,14 +143,14 @@ function Viewemp() {
                     <div className="relative">
                       <div className="sm:h-16 h-12 sm:w-16 w-12 ml-2 rounded-full border-[3px] border-primary-100 overflow-hidden">
                         <img
-                          src={employee.image}
+                          src={employee.employee_image}
                           alt=""
                           className="h-full w-full object-cover rounded-full"
                         />
                       </div>
                     </div>
                     <h2 className="font-semibold sm:text-sm text-[12px] text-primary-100">
-                      {employee.name}
+                      {employee.employee_name}
                     </h2>
                   </td>
                   <td className="py-3 sm:px-2 px-1 w-[20%] bg-white font-semibold sm:text-sm text-[12px] text-primary-100 shadow-top-bottom-xl">
@@ -143,32 +159,32 @@ function Viewemp() {
                   <td className="py-3 sm:px-2 px-1 w-[20%] text-primary-100 font-semibold sm:text-sm text-[12px] bg-white shadow-top-bottom-xl">
                     {employee.designation}
                   </td>
-                  <td className="ml-10 py-3 sm:px-2 px-1 w-[20%] bg-white  shadow-top-bottom-xl rounded-r-lg">
+
+                  <td className="ml-10 py-3 sm:px-4 px-2 w-[20%] bg-white rounded-r-lg shadow-top-bottom-xl">
+                    <div className="flex gap-4 justify-center items-center">
+
                     <NavLink
                       to={`/dashboard/organization/employee/review`}
                       state={{
-                        empname: employee.name,
+                        empname: employee.employee_name,
                         empdesignation: employee.designation,
                         empimage: employee.image,
                         empid: employee.employee_id,
                         emporgid: organization_id,
                         aadhar:true
-                        
                       }}
                     >
                       <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-1 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[11px]">
                         Review
                       </button>
                     </NavLink>
+                    <ThreeDotMenu
+                    onEdit={() => handleEdit(employee.employee_id,organization_id)}
+                    onDelete={() => handleDelete()}
+                  />
+                  </div>
                   </td>
-                  {/* <td className="px-4 bg-white text-gray-700  rounded-r-lg  shadow-top-bottom-xl">
-                      <NavLink to={""}>
-                        <div className="flex gap-3 lg:ml-4">
-                          <button><img src={editIcon} alt="edit-icon" className="w-7 h-7" /></button>
-                          <button><img src={deleteIcon} alt="delete-icon" className="w-7 h-7"/></button> 
-                        </div>
-                      </NavLink>
-                    </td> */}
+
                 </tr>
               ))}
             </tbody>

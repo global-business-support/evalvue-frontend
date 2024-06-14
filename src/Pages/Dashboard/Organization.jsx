@@ -118,6 +118,7 @@ export default function Organization() {
                         
                       </td>
                       <td className={` py-3 sm:px-0 px-1 ${organization.organization_verified? "bg-white":"bg-[#f3f7fc]"} text-primary-100  shadow-top-bottom-xl`}>
+                      <div className="flex gap-4 justify-center items-center">
                         <NavLink
                           to={`/dashboard/organization/employee/${organization.organization_id}`}
                           state={{
@@ -132,18 +133,19 @@ export default function Organization() {
                           <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
                           <BiSolidShow className=" h-5 w-5"/>View 
                           </button>:
+                           <button className="text-white flex gap-2 mr-7 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]" disabled>
+
                            <FaClock className="my-auto h-4 w-4"/>Pending...
                            </button>  
                         }
                         </NavLink>
-                      </td>
-                    <td className={` py-3 sm:px-4 px-1 bg-${organization.organization_verified? "white" : "[#f3f7fc]"} text-primary-100 rounded-r-lg  shadow-top-bottom-xl`}>
-                    {organization.organization_verified ?
+                        {organization.organization_verified ?
                     <ThreeDotMenu
                     onEdit={() => handleEdit(organization.organization_id)}
                     onDelete={() => handleDelete(organization.organization_id)}
                   /> : <div></div>}
-                    </td>
+                  </div>
+                      </td>
                   </tr>
                 ))}
               </tbody>

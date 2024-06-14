@@ -41,7 +41,7 @@ function Navbar() {
           <img src={logo} alt="" className="lg:h-[40px] sm:h-[35px] h-[30px]" />
         </Link>
 
-        <div className="md:flex hidden items-center lg:gap- md:gap-3 lg:text-lg text-sm">
+        <div className="md:flex hidden items-center lg:gap-7 md:gap-3 lg:text-lg text-sm">
           <NavLink  className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to='/'><Typography variant='button-text'><HouseIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} to="/" />Home</Typography></NavLink>
 
           <NavLink  className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/services"><Typography variant='button-text'><HomeRepairServiceIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Services</Typography></NavLink>

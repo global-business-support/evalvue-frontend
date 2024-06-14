@@ -25,7 +25,7 @@ function ThreeDotMenu({ onEdit, onDelete }) {
 
   return (
     <div className="relative" ref={menuRef}>
-      <button onClick={() => setShowMenu(!showMenu)} className="w-7  h-7 text-xl font-bold">
+      <button onClick={() => setShowMenu(!showMenu)} className="w-7  h-7 text-2xl font-bold">
         &#x22EE;
       </button>
       {showMenu && (
