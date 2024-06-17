@@ -70,7 +70,7 @@ function Viewemp() {
         <p className="text-2xl text-zinc-300">No employees</p>
         <NavLink
           to="/dashboard/organization/employee/addemp"
-          state={{ organization_id: organization_id ,state:state}}
+          state={{ organization_id: organization_id ,state:state,addEmp : true,}}
         >
           <button className=" border hover:text-whitebg-primary-100 transition duration-300 border-primary-100 text-primary-100 font-semibold px-1 py-2 rounded-lg">
             + Add Employee
@@ -134,7 +134,7 @@ function Viewemp() {
               </tr>
             </thead>
             <tbody className="mt-4">
-              {Employees.map((employee, index) => (
+              {Employees.map((employee) => (
                 <tr
                   key={employee.organization_id}
                   className=""
@@ -168,7 +168,7 @@ function Viewemp() {
                       state={{
                         empname: employee.employee_name,
                         empdesignation: employee.designation,
-                        empimage: employee.image,
+                        empimage:employee.employee_image,
                         empid: employee.employee_id,
                         emporgid: organization_id,
                         aadhar:true

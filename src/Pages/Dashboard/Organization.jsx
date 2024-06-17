@@ -151,26 +151,28 @@ export default function Organization() {
                   
                       <td className={` py-3 sm:px-0 px-1 ${organization.organization_verified? "bg-white":"bg-[#f3f7fc]"} text-primary-100 rounded-r-lg  shadow-top-bottom-xl`}>
                       <div className="flex gap-4 justify-center items-center">
-                        <NavLink
-                          to={`/dashboard/organization/employee/${organization.organization_id}`}
-                          state={{
-                            organization_name: organization.name,
-                            orgarea: organization.area,
-                            orgcity: organization.city_name,
-                            orgstate: organization.state_name,
-                            orgimg: organization.image,
-                          }}
-                        >
+                       
                           {organization.organization_verified ?
+                           <NavLink
+                           to={`/dashboard/organization/employee/${organization.organization_id}`}
+                           state={{
+                             organization_name: organization.name,
+                             orgarea: organization.area,
+                             orgcity: organization.city_name,
+                             orgstate: organization.state_name,
+                             orgimg: organization.image,
+                           }}
+                         >
                           <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
                           <BiSolidShow className=" h-5 w-5"/>View 
-                          </button>:
+
+                          </button> </NavLink>:
                            <button className="text-white flex gap-2 mr-7 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]" disabled>
 
                            <FaClock className="my-auto h-4 w-4"/>Pending...
                            </button>  
                         }
-                        </NavLink>
+                        
                         {organization.organization_verified ?
                     <ThreeDotMenu
                     onEdit={() => handleEdit(organization.organization_id)}
