@@ -1,5 +1,7 @@
 import React from "react";
-import logo from '../assets/images/logo.png'
+import logo from '../assets/images/evalvuelogo.jpg'
+import { NavLink } from "react-router-dom";
+import footerBackgroundImage from '../assets/images/FooterBackgroundImage.png'
 
 function Footer() {
   function showprivicy() {
@@ -14,48 +16,49 @@ function Footer() {
       "_blank"
     );
   }
+  function showRefundPolicy() {
+    window.open(
+      "http://api.evalvue.com/media/Refund/Refund%20Policy.pdf",
+      "_blank"
+    );
+  }
   return (
-    <div className="bg-[#383433] min-h-96 max-h-content flex flex-col md:justify-center md:items-center justify-start items-center  text-zinc-300 py-8 px-4">
+    <div className={`bg-[#383433] min-h-78 max-h-content flex flex-col md:justify-center md:items-center justify-start items-center  text-zinc-300 py-8 px-4 bg-footer-bg bg-no-repeat bg-center bg-cover `}>
       
-      <div className="w-full max-w-7xl ">
-        <div className=" w-full flex md:flex-row flex-col gap-10 items-center justify-evenly">
-          <div className="flex items-center space-x-4">
-            <img
-              src={logo}
-              alt="logo"
-              className="h-16 w-36"
-            />
-          </div>
+      
+      <div className="w-full max-w-7xl flex flex-col items-center gap-10">
+        <div className=" w-full flex md:flex-row flex-col gap-10 md:items-center justify-around">
+          
+        
        
-          <nav className="md:ml-0 ml-8 flex flex-col gap-2 mt-4 md:mt-0 text-base text-white">
-            <a href="/" className="hover:text-primary-100 hover:underline ">
+          <nav className="md:ml-0 ml-8 flex md:flex-row flex-col md:items-center gap-4 mt-4 md:mt-0 sm:text-base text-sm text-white md:border-none border-l border-gray-700">
+            <NavLink to='/' className="hover:text-primary-100 hover:underline md:border-l border-gray-700 ps-4">
               Home
-            </a>
-            <a href="/services" className="hover:text-primary-100 hover:underline ">
+            </NavLink>
+            <NavLink to="/services" className="hover:text-primary-100 hover:underline md:border-l border-gray-700 ps-4">
               Services
-            </a>
-            <a href="/contact" className="hover:text-primary-100 hover:underline">
+            </NavLink>
+          <NavLink to="/contact" className="hover:text-primary-100 hover:underline md:border-l border-gray-700 ps-4">
               Contact
-            </a>
-            <a href="/help" className="hover:text-primary-100 hover:underline">
+           </NavLink >
+          <NavLink to="/help" className="hover:text-primary-100 hover:underline md:border-l border-gray-700 ps-4">
               Help
-            </a>
+           </NavLink >
             
-            <a onClick={showprivicy} className="hover:text-primary-100 hover:underline">
+            <NavLink onClick={showprivicy} className="hover:text-primary-100 hover:underline md:border-l border-gray-700 ps-4">
               Privacy
-            </a>
+           </NavLink >
 
-            <a href="/" className="hover:text-primary-100 hover:underline">
+          <NavLink onClick={showRefundPolicy} to="/" className="hover:text-primary-100 hover:underline md:border-l border-gray-700 ps-4">
               Refund Policy
-            </a>
+           </NavLink >
 
-            <a onClick={showtermandcondition} className="hover:text-primary-100 hover:underline">
+            <NavLink onClick={showtermandcondition} className="hover:text-primary-100 hover:underline md:border-l md:border-r border-gray-700 px-4">
               Terms and Conditions
-            </a>
+           </NavLink >
           </nav>
-          <div className="md:text-end text-center mt-4 text-sm text-white">
-          © 2024 Global Business Support. All rights reserved.
-          </div>
+          
+         
           {/* <div className="mt-4 md:mt-0 flex items-center space-x-2">
             <input
               type="email"
@@ -68,6 +71,17 @@ function Footer() {
           </div> */}
         </div>
         
+        <div className="flex md:flex-row flex-col  items-center justify-center  ms:gap-10 gap-5 text-center mt-4 text-xs text-white border-t border-gray-700 w-full pt-5">
+        <div className="flex space-x-4">
+            {/* <img
+              src={logo}
+              alt="logo"
+              className="size-20 rounded-full "
+            /> */}
+          </div>
+          <p className="text-gray-300 md:text-base text-xs">© 2024 Global Business Support. All rights reserved.</p>
+          </div>
+
       </div>
     </div>
   );

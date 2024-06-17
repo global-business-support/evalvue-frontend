@@ -1,6 +1,7 @@
 // tailwind.config.js
 import plugin from 'tailwindcss/plugin';
 import withMT  from '@material-tailwind/react/utils/withMT';
+import footerbg from './src/assets/images/FooterBackgroundImage.png'
 
 const defaultTheme = require('tailwindcss/defaultTheme')
 
@@ -32,6 +33,10 @@ module.exports = withMT({
           200: 'red',
         },
       },
+      backgroundImage: {
+        'footer-bg': "url('./src/assets/images/FooterBackgroundImage.png')"
+        
+      }
     },
   },
   plugins: [

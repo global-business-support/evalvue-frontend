@@ -2,6 +2,8 @@ import { FaCircleCheck } from "react-icons/fa6";
 import Footer from "./Footer";
 import SubServices from "./Dashboard/SubServices";
 import Tittle from '../Tittle'
+import { FaCheck } from "react-icons/fa6";
+import { RxCross1 } from "react-icons/rx";
 
 
 function Landing() {
@@ -59,81 +61,55 @@ function Landing() {
           <div className="flex flex-col md:flex-row justify-center mt-8">
             <div className="flex flex-col items-center w-full md:items-start bg-gray-100 p-6 rounded-lg">
               <div className="flex space-x-2 mb-4">
-                <button className="px-4 py-2 bg-primary-100 text-white rounded-full">
-                  Monthly
-                </button>
-                <button className="px-4 py-2 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-full">
+                
+                <button className="px-4 py-2 bg-primary-100 dark:bg-zinc-800 text-zinc-900  text-white rounded-full">
                   Yearly
                 </button>
               </div>
               <ul className="space-y-6 w-full text-zinc-900 dark:text-white">
                 <li className="flex items-center">
-                  <span className="mr-2">All limited links</span>
+                  <span className="mr-2">One Organization Register</span>
                   <span className="ml-auto">
-                    <input
-                      type="radio"
-                      name="plan1"
-                      className="custom-checkbox"
-                      checked
-                    />
+                  <FaCheck className="text-primary-100"/>
                   </span>
                 </li>
                 <li className="flex items-center">
-                  <span className="mr-2">Own analytics platform</span>
+                  <span className="mr-2">Add unlimited Employees</span>
                   <span className="ml-auto">
-                    <input
-                      type="radio"
-                      name="plan2"
-                      className="custom-checkbox"
-                      checked
-                    />
+                  <FaCheck className="text-primary-100"/>           
                   </span>
                 </li>
                 <li className="flex items-center">
                   <span className="mr-2">Chat support</span>
                   <span className="ml-auto">
-                    <input
-                      type="radio"
-                      name="plan3"
-                      className="custom-checkbox"
-                      checked
-                    />
+                  <FaCheck className="text-primary-100"/>                   
                   </span>
                 </li>
                 <li className="flex items-center">
-                  <span className="mr-2">Optimize hashtags</span>
+                  <span className="mr-2">Data end-to-end Encryption</span>
                   <span className="ml-auto">
-                    <input
-                      type="radio"
-                      name="plan4"
-                      className="custom-checkbox"
-                      disabled
-                    />
+                  
+                  <FaCheck className="text-primary-100"/>
                   </span>
                 </li>
-                <li className="flex items-center">
+                {/* <li className="flex items-center">
                   <span className="mr-2">Unlimited users</span>
                   <span className="ml-auto">
-                    <input
-                      type="radio"
-                      name="plan5"
-                      className="custom-checkbox"
-                      disabled
-                    />
+                  <RxCross1 className="text-gray-500"/>
                   </span>
-                </li>
+                </li> */}
               </ul>
             </div>
-            <div className="flex flex-col items-center md:items-center w-full p-6 rounded-lg ml-0 md:ml-6 mt-6 md:mt-0">
+            <div className="flex flex-col items-center justify-center md:items-center w-full p-6 rounded-lg ml-0 md:ml-6 mt-6 md:mt-0">
               <div className="w-full mb-4">
-                <div className="flex items-center justify-between bg-primary-100 text-white p-4 rounded-lg">
+                <div className="h-full flex items-center justify-between bg-primary-100 text-white p-4 rounded-lg">
                   <div className="flex justify-center items-center gap-4">
                     <FaCircleCheck className="h-6 w-6" />
                     <div>
-                      <span className="text-lg  font-semibold ">Intro</span>
-                      <div className="text-center border px-2 py-1 rounded-full text-[10px] text-white">
+                      <span className="text-lg  font-semibold ">Basic</span>
+                      {/* <div className="text-center border px-2 py-1 rounded-full text-[10px] text-white">
                         Save $20
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <span className="font-semibold text-3xl">
