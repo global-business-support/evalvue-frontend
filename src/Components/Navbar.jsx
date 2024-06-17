@@ -12,6 +12,7 @@ import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import { Button, Drawer, Typography } from "@mui/material";
 import { UserContext } from "../Contextfile";
+import ScrollToTop from "../Pages/Dashboard/ScrollTotop";
 
 function Navbar() {
   const [state, setState] = useState({
@@ -36,6 +37,7 @@ function Navbar() {
   };
   return (
     <>
+    <ScrollToTop />
       <nav className="h-[80px] sticky border-b-2 z-10 top-0 w-full bg-white lg:px-[80px] sm:px-[20px] px-[10px] flex items-center justify-between ">
         <Link>
           <img src={logo} alt="" className="lg:h-[40px] sm:h-[35px] h-[30px]" />

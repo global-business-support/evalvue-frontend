@@ -2,6 +2,7 @@ import React from 'react'
 import SubServices from './SubServices'
 import Footer from '../Footer'
 import Tittle from '../../Tittle'
+import { NavLink } from 'react-router-dom'
 
 function Services() {
 Tittle("Services-Evalvue")
@@ -13,15 +14,16 @@ Tittle("Services-Evalvue")
          <h1 className="text-4xl font-bold mb-4">Solutions For Your Business</h1>
          {/* <p className="mb-6">Since our establishment, we have been delivering high-quality and sustainable software solutions for corporate business purposes.</p> */}
          <div className="flex justify-center space-x-4">
-           <a href="#" className="bg-primary-100 text-white py-2 px-4 rounded hover:bg-[#5559af] hover:shadow-sm">Learn More</a>
-           <a href="#" className=" text-zinc-900 border border-primary-100 py-2 px-4 rounded hover:bg-black transition duration-300 hover:shadow-sm hover:text-white">Get in Touch</a>
+          
+           <NavLink to="/" className="bg-primary-100 text-white py-2 px-4 rounded hover:bg-[#5559af] hover:shadow-sm">Learn More</NavLink>
+           <NavLink to="/contact" className=" text-zinc-900 border border-primary-100 py-2 px-4 rounded hover:bg-black transition duration-300 hover:shadow-sm hover:text-white">Get in Touch</NavLink>
          </div>
        </div>
      </section>
 
      <SubServices />
      
-     <section className="bg-primary-100 text-white  py-20">
+     <section className="bg-primary-100 text-white  py-20 mb-28">
        <div className="container mx-auto text-center">
          <h2 className="text-3xl font-bold underline underline-offset-2 mb-10">Why Choose Us</h2>
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

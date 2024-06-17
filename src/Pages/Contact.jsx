@@ -3,6 +3,13 @@ import Footer from './Footer'
 import Tittle from '../Tittle'
 
 function Contact() {
+  const handleSendEmail = () => {
+    const recipientEmail = 'contact@evalvue.com'; 
+    const subject = 'Subject';
+    const body = 'Describe your query or concern in details';
+    const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipientEmail}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailComposeUrl, '_blank');
+  };
   Tittle("Contact Page - Evalvue")
   return (
               <div className="bg-zinc-100 min-h-screen">
@@ -13,7 +20,10 @@ function Contact() {
                       <img src="https://i.pinimg.com/236x/1d/d8/01/1dd8013f6ac883c35758d59c94771d84.jpg"  alt="Online enquiry" className="w-40 h-40 object-contain rounded-lg mb-4"/>
                       <h2 className="text-xl font-semibold mb-2">Online Enquiry</h2>
                       <p className="text-zinc-600 mb-4">We are here to help you with three working days.</p>
-                      <button className="bg-primary-100 text-white px-4 py-2 rounded-lg hover:bg-[#5559af] hover:shadow-sm">Send us a message</button>
+                      <button className="bg-primary-100 text-white px-4 py-2 rounded-lg hover:bg-[#5559af] hover:shadow-sm"
+                        onClick={handleSendEmail}  >
+                        Send us a message
+                      </button>
                     </div>
                     <div className="bg-bglight-100 shadow rounded-lg p-6">
                       <img src="https://i.pinimg.com/564x/3e/7e/0f/3e7e0f79a73507773d4fea4634950b37.jpg" alt="Call us" className="w-40 h-40 object-cover rounded-lg mb-4"/>
@@ -56,7 +66,10 @@ function Contact() {
               <div className="bg-primary-100 text-white p-8 rounded-lg mb-12">
                 <h2 className="text-2xl font-bold mb-4">How helpful were we today?</h2>
                 <p className="mb-4">At evalvue.com, your feedback matters! We're committed to providing you with the best experience possible, and we'd love to hear your thoughts.</p>
-                <button className="bg-white text-primary-100 px-4 py-2 rounded-lg hover:text-black">Send us a message</button>
+                <button className="bg-white text-primary-100 px-4 py-2 rounded-lg hover:text-black"
+                  onClick={handleSendEmail}  >
+                  Send us a message
+                </button>
               </div>
                 </main>
                 <Footer />

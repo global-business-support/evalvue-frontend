@@ -41,6 +41,7 @@ import Address from "./Pages/Dashboard/Address.jsx";
 import Loader from "./Pages/Loader.jsx";
 import Custompop from "./Pages/Custompop.jsx";
 import SearchByAadharCard from "./Pages/Dashboard/SearchByAadharCard.jsx";
+import ScrollToTop from "./Pages/Dashboard/ScrollTotop.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
