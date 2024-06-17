@@ -149,7 +149,7 @@ export default function Organization() {
                       </h1>
                     </td>
                   
-                      <td className={` py-3 sm:px-0 px-1 ${organization.organization_verified? "bg-white":"bg-[#f3f7fc]"} text-primary-100  shadow-top-bottom-xl`}>
+                      <td className={` py-3 sm:px-0 px-1 ${organization.organization_verified? "bg-white":"bg-[#f3f7fc]"} text-primary-100 rounded-r-lg  shadow-top-bottom-xl`}>
                       <div className="flex gap-4 justify-center items-center">
                         <NavLink
                           to={`/dashboard/organization/employee/${organization.organization_id}`}
