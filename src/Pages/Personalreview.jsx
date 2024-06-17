@@ -78,7 +78,7 @@ console.log(state)
                     <div className="h-16 w-16 rounded-full border bg-zinc-100">
                       <img
                         className="h-full w-full object-cover rounded-full"
-                        src={EmployeeList.image}
+                        src={EmployeeList.employee_image}
                         alt="Company Logo"
                       />
                     </div>

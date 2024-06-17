@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 
-async function Apibackendrequest(url, request) {
-  const [Loading, setLoading] = useState(true);
+export default async function Apibackendrequest(url, request) {
+
   const responsedata = {
     isexception: false,
     exceptionmessage: "",
@@ -13,15 +13,11 @@ async function Apibackendrequest(url, request) {
   };
   try {
     const response = await axios.post(url, request, { headers });
-    responsedata.data = response;
+    responsedata.data = response.data;
   } catch (error) {
     responsedata.isexception = true;
-    responsedata.exceptionmessage =
-      "Something went wrong, please try after sometime";
-    console.error("API Request Error:", error);
+    responsedata.exceptionmessage = error.response.data;
   }
-  setLoading(false);
   return responsedata;
 }
 
-export default Apibackendrequest;

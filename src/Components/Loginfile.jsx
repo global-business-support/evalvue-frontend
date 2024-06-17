@@ -9,13 +9,12 @@ import logo from "../assets/images/evalvuelogo.jpg";
 import Loader from "../Pages/Loader";
 import { ValidateEmail, ValidatePassword } from "../Pages/Validation";
 import Tittle from "../Tittle";
+import Apibackendrequest from "../Pages/Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Loginfile = () => {
-  const [Formdata, setFormdata] = useState({password:"",
-email:""});
-  const [Loginerror, setLoginerror] = useState({});
-  const [networkError, setNetworkError] = useState(null);
+  const [Formdata, setFormdata] = useState({ password: "", email: "" });
+  const [Loginerror, setLoginerror] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // State to track password visibility
@@ -25,7 +24,7 @@ email:""});
   const [validpasswordicon, setValidPasswordIcon] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-Tittle("Login page - Evalvue")
+  Tittle("Login page - Evalvue");
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -54,43 +53,32 @@ Tittle("Login page - Evalvue")
 
   const submithandle = async (event) => {
     event.preventDefault();
-    setNetworkError(null);
 
     const errors = validate();
     setFormErrors(errors);
 
     if (Object.keys(errors).length === 0) {
       setLoading(true);
-      try {
-        const res = await axios.post(
-          `${apiUrl}/login/user/`,
-         
-          Formdata,
-          
-        );
+      const res = await Apibackendrequest(`${apiUrl}/login/user/`, Formdata);
+      if (res.data) {
         localStorage.setItem("isLogin", res.data.is_login_successfull);
-        if (res.status === 200) {
-          if (res.data.is_login_successfull && res.data.is_user_verified) {
-            setUserId(res.data.user_id);
-            navigate("/organization", {
-              state: {
-                is_login_successfull: res.data.is_login_successfull,
-                is_user_verified: res.data.is_user_verified,
-              },
-            });
-            setLoading(false);
-          } else {
-            navigate("/verified", { state: { isForget: false ,email:Formdata.email }  });
-            setLoading(false);
-          }
+        if (res.data.is_login_successfull && res.data.is_user_verified) {
+          setUserId(res.data.user_id);
+          navigate("/organization", {
+            state: {
+              is_login_successfull: res.data.is_login_successfull,
+              is_user_verified: res.data.is_user_verified,
+            },
+          });
+        } else if (res.data.is_user_verified == false) {
+          navigate("/verified", {
+            state: { isForget: false, email: Formdata.email },
+          });
         }
-      } catch (err) {
-        if (!err.response) {
-          setNetworkError("Network error, please try again later.");
-        } else {
-          setLoginerror(err.response.data);
-        }
-        setLoading(false);
+      }
+      setLoading(false);
+      if (res.isexception) {
+        setLoginerror(res.exceptionmessage.error);
       }
     }
   };
@@ -100,7 +88,6 @@ Tittle("Login page - Evalvue")
       {loading ? (
         <div className="h-screen w-full flex justify-center items-center">
           <Loader />
-
         </div>
       ) : (
         <div className="h-screen flex items-center justify-center bg-gray-200">
@@ -139,7 +126,8 @@ Tittle("Login page - Evalvue")
                       className="ml-1"
                       title={ValidateEmail(Formdata.email).message}
                     >
-                      {(isEmailFocused && Formdata.email.length > 0)&&
+                      {isEmailFocused &&
+                        Formdata.email.length > 0 &&
                         (validemailicon ? (
                           <FaCheck className="text-green-500 text-sm" />
                         ) : (
@@ -180,7 +168,7 @@ Tittle("Login page - Evalvue")
                       className="absolute right-4 pr-3 flex items-center cursor-pointer"
                       onClick={togglePasswordVisibility}
                     >
-                      {showPassword  ? (
+                      {showPassword ? (
                         <FaEyeSlash className="text-logo-100" />
                       ) : (
                         <FaEye className="text-logo-100" />
@@ -190,7 +178,8 @@ Tittle("Login page - Evalvue")
                       className="ml-1"
                       title={ValidatePassword(Formdata.password).message}
                     >
-                      {(isPasswordFocused && Formdata.password.length>0) &&
+                      {isPasswordFocused &&
+                        Formdata.password.length > 0 &&
                         (validpasswordicon ? (
                           <FaCheck className="text-green-500 text-sm" />
                         ) : (
@@ -213,12 +202,10 @@ Tittle("Login page - Evalvue")
                     Forgot Password?
                   </NavLink>
                 </div>
-                {Loginerror.error && (
-                  <p className="text-red-500 font-medium">{Loginerror.error}</p>
+                {Loginerror && (
+                  <p className="text-red-500 font-medium">{Loginerror}</p>
                 )}
-                {networkError && (
-                  <p className="text-red-500 font-medium">{networkError}</p>
-                )}
+
                 <div>
                   <button
                     type="submit"
