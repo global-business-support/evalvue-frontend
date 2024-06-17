@@ -16,7 +16,11 @@ function Post() {
   const [loading,setloading]=useState(false)
   const [comment, setcomment] = useState("");
   const [msg,setmsg]=useState("none");
+  const [ratMsg, setRatMsg] = useState("none");
   const { userId } = useContext(UserContext);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [imgName , setImgName] = useState("");
   // console.log(state);
   // const [postdata, setpostdata] = useState(
   //   {
@@ -40,6 +44,9 @@ function Post() {
     if(comment.length<250){
       setmsg("block");
     }
+    else if(rating==0){
+      setRatMsg("block")
+    }
     else{
       axios
       .post(`${apiUrl}/create/review/`, pay)
@@ -59,7 +66,24 @@ function Post() {
       });
     }
     setloading(false)
-  }
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setImgName(file.name)
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setSelectedImage(null);
+      setPreviewUrl(null);
+    }
+  };
+
   function handleBackClick(){
       navigate(-1)
   }
@@ -92,8 +116,37 @@ function Post() {
         <h1 className="text-xl text-gray-800 font-semibold">X</h1>
       </div>
         </div>
+      <div className="flex items-end">
+            <div>
+              <label className="block mb-4 font-medium">
+                Upload Image
+              </label>
+              <div className="flex items-center">
+                <label className="custom-file-label w-[113px] truncate bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
+                  {imgName || "Choose file"}
+                  <input
+                    type="file"
+                    className="hidden"
+                    name="review_image"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                </label>
+              </div>
+            </div>
+            {previewUrl && (
+              <div className="ml-4">
+                <img
+                  src={previewUrl}
+                  alt="Preview"
+                  className="h-14 w-24 border border-gray-300 rounded-md"
+                />
+              </div>
+            )}
+          </div>
+
         <textarea
-          className="w-full p-2 border-4 border-indigo-200 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-100 "
+          className="w-full p-2 border-4 mt-4 border-indigo-200 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-100 "
           rows="8"
           placeholder="What do you want to talk about?"
           name="comment"
@@ -101,12 +154,16 @@ function Post() {
           onChange={(event) => {
             setcomment(event.target.value); // Update the comment state with event.target.value
           }}
-        ></textarea>
+        >
+        </textarea>
         <div className="flex justify-between">
 
         <p className="text-gray-500">Minimum characters (250/{comment.length})</p>
         <p className="text-[red] " style={{display:msg}}>
            Minimum 250 characters are required
+        </p>
+        <p className="text-[red] " style={{display:ratMsg}}>
+           Rating employee is compulsory
         </p>
         </div>
         <div className="mx-1 my-4">
@@ -125,7 +182,7 @@ function Post() {
             type="submit"
             className="mx-auto px-10 border-primary-100 border-2 rounded-md text-md hover:text-white transition duration-300 hover:bg-primary-100 text-primary-100 font-semibold py-1"
           >
-            post
+            Post
           </button>
         </div>
       </div>
