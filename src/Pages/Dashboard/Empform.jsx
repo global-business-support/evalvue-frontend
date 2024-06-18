@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
+import Apibackendrequest from "../Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function Empform() {
@@ -17,17 +18,15 @@ function Empform() {
   const [empregdata, Setempregdata] = useState({
     user_id: userId,
     employee_id: location.state.employee_id,
-    organization_id: organization_id.organization_id
+    organization_id: organization_id.ordId,
   });
-  console.log(location.state.employee_id)
-  console.log(empregdata)
   const [editEnable, setEditEnable] = useState(!location.state.addEmp);
   const [fileLogoName, setFileLogoName] = useState("");
   const [fileLogoPreview, setLogoFilePreview] = useState("");
   const [fileName, setFileName] = useState("");
-
   const [errors, setErrors] = useState("");
   const [serverError, setServerError] = useState("");
+
   function emphadler(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -41,7 +40,7 @@ function Empform() {
       const segments = pathname.split('/');
       return segments.pop() || ''; // Return the last segment which is the file name
     } catch (error) {
-      console.error('Invalid URL:', error);
+      setErrors('Invalid URL:', error);
       return '';
     }
   };
@@ -68,10 +67,27 @@ function Empform() {
     user_id: userId
   };
 
+
+
+  // useEffect(() => {
+  //   if (editEnable) {
+
+  //     axios.post(`${apiUrl}/employee/editable/data/`, editData)
+  //       .then(res => {
+  //         Setempregdata((pre) => ({
+  //           ...pre,
+  //           ...res.data.employee_list[0]
+  //         }))
+  //         setFileName(getFileNameFromUrl(res.data.employee_list[0].employee_image))
+  //         setEditEnable(res.data.employee_editable_data_send_successfull)
+  //       })
+  //       .catch(err => { console.log(err) })
+  //   }
+  // }, [editData.employee_id]);
+
   useEffect(() => {
     if (editEnable) {
-
-      axios.post(`${apiUrl}/employee/editable/data/`, editData)
+      Apibackendrequest(`${apiUrl}/employee/editable/data/`, editData)
         .then(res => {
           Setempregdata((pre) => ({
             ...pre,
@@ -79,11 +95,14 @@ function Empform() {
           }))
           setFileName(getFileNameFromUrl(res.data.employee_list[0].employee_image))
           setEditEnable(res.data.employee_editable_data_send_successfull)
-        })
-        .catch(err => { console.log(err) })
-    }
+          if (res.isexception) {
+            setErrors(exceptionmessage);
+          };
+        });
+    };
   }, [editData.employee_id]);
-  console.log(empregdata)
+
+
 
   function validateForm() {
     const newErrors = {};
@@ -105,6 +124,31 @@ function Empform() {
     headers: { 'Content-Type': 'multipart/form-data' }
   };
 
+  // function empregsubmit(event) {
+  //   event.preventDefault();
+  //   const formErrors = validateForm();
+  //   if (Object.keys(formErrors).length > 0) {
+  //     setErrors(formErrors);
+  //     return;
+  //   }
+  //   setErrors({});
+  //   setServerError(null);
+  //   axios.post(`${apiUrl}${editEnable ? `/employee/edit/` : `/create/employees/`}`, empregdata, header)
+  //     .then(res => {
+  //       if (res.data.is_employee_register_successfull || res.data.employee_edit_sucessfull) {
+  //         navigate(`/dashboard/organization/employee/${organization_id.organization_id}`, { state: location.state });
+  //       }
+  //       else {
+  //         setServerError(res.data.error)
+  //       }
+  //     })
+  //     .catch(err => {
+  //       setServerError(err.response.data.error);
+  //       // console.log(err);
+  //     });
+
+  // }
+
   function empregsubmit(event) {
     event.preventDefault();
     const formErrors = validateForm();
@@ -114,21 +158,19 @@ function Empform() {
     }
     setErrors({});
     setServerError(null);
-    axios.post(`${apiUrl}${editEnable ? `/employee/edit/` : `/create/employees/`}`, empregdata, header)
+    Apibackendrequest(`${apiUrl}${editEnable ? `/employee/edit/` : `/create/employees/`}`, empregdata, header)
       .then(res => {
-        if (res.data.is_employee_register_successfull || res.data.employee_edit_sucessfull) {
-          navigate(`/dashboard/organization/employee/${organization_id.organization_id}`, { state: location.state });
+        if(res.data){
+          if (res.data.is_employee_register_successfull || res.data.employee_edit_sucessfull) {
+            navigate(`/dashboard/organization/employee/${organization_id.organization_id}`, { state: location.state });
+          }
         }
-        else {
-          setServerError(res.data.error)
+        else if(res.isexception){
+          setServerError(res.exceptionmessage.error)
         }
       })
-      .catch(err => {
-        setServerError(err.response.data.error);
-        // console.log(err);
-      });
-
   }
+  console.log(serverError)
   if (loading) {
     return (
       <>
@@ -141,7 +183,7 @@ function Empform() {
 
   return (
     <>
-      <div className="w-4/5 mx-auto mt-16 p-4 bg-white shadow rounded-lg">
+      <div className="w-4/5 mx-auto mt-4 p-4 bg-white shadow rounded-lg">
         <h1 className="text-xl font-semibold mb-4">Employee Details</h1>
         <form
           className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10"

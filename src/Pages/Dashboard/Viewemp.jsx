@@ -3,8 +3,9 @@ import axios from "axios";
 import { NavLink, useParams, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
-const apiUrl = import.meta.env.VITE_API_URL;
 import ThreeDotMenu from "./ThreeDotMenu";
+import Apibackendrequest from "../Apibackendrequest";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Viewemp() {
   const navigate=useNavigate();
@@ -16,23 +17,30 @@ function Viewemp() {
   const location = useLocation();
   const state=location.state;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(`${apiUrl}/employees/`, {
-          organization_id,
-        });
-        setEmployees(response.data.employee_list || []);
-        // console.log(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.post(`${apiUrl}/employees/`, {
+  //         organization_id,
+  //       });
+  //       setEmployees(response.data.employee_list || []);
+  //       // console.log(response.data);
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, [organization_id]);
+  useEffect(() => {
+  Apibackendrequest(`${apiUrl}/employees/`, {organization_id,})
+  .then((res) => {
+    setEmployees(res.data.employee_list || []);
+    if(res.isexception){
+      setError(res.exceptionmessage)
+    }
+  }).finally(()=>{setLoading(false)});
+      }, []);
 
   const handleEdit = (empId, OrgId) => {
     // Navigate to the edit page
@@ -63,7 +71,7 @@ function Viewemp() {
     return <p>Error: {error}</p>;
   }
 
-  if (Employees.length === 0) {
+  if (Employees?.length === 0) {
     return (
       <div className="w-full h-full flex justify-center items-center">
       <div className="flex justify-center flex-col items-center ">
@@ -136,7 +144,7 @@ function Viewemp() {
             <tbody className="mt-4">
               {Employees.map((employee) => (
                 <tr
-                  key={employee.organization_id}
+                  key={Employees.employee_id}
                   className=""
                 >
                   <td className="py-3 sm:px-4 px-1 flex justify-start items-center gap-2 bg-white roundeblack shadow-top-bottom-xl rounded-l-lg">
