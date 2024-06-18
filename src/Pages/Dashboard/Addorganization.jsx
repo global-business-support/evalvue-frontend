@@ -15,14 +15,16 @@ function Addorganization() {
   const [orgregdata, setOrgregdata] = useState({
     user_id: userId,
     organization_id: location.state?.organization_id || "",
+    gstin:""
   });
+  console.log(orgregdata)
   const [fileLogoName, setFileLogoName] = useState("");
   const [fileLogoPreview, setLogoFilePreview] = useState("");
   const [fileName, setFileName] = useState("");
   const [filePreview, setFilePreview] = useState("");
   const [loading, setloading] = useState(false);
   const [isOrganizationCreated, setIsOrganizationCreated] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState("");
   const [documenttype, setdocumenttype] = useState([]);
   const [sectortype, setsectortype] = useState([]);
   const [listedtype, setlistedtype] = useState([]);
@@ -78,26 +80,66 @@ function Addorganization() {
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   }
 
-  const fileHandler = (e) => {
+  if(editOrgEnabled){
+    const filelogoHandler = (e) => {
+      const name = e.target.name;
+      const file = e.target.files[0];
+      if (file) {
+        if (name === "organization_image") {
+          setFileLogoName(file.name);
+          setLogoFilePreview(URL.createObjectURL(file));
+          setOrgregdata((values) => ({ ...values, [name]: file }));
+        }
+       } else {
+        setFileLogoName("");
+        setLogoFilePreview("");
+        setOrgregdata((values) => ({ ...values, [name]: "" }));
+  
+        validate()
+      }
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+    };
+  }
+  
+  const filelogoHandler = (e) => {
     const name = e.target.name;
     const file = e.target.files[0];
     if (file) {
       if (name === "organization_image") {
         setFileLogoName(file.name);
         setLogoFilePreview(URL.createObjectURL(file));
-      } else if (name === "document_file") {
-        setFileName(file.name);
-        setFilePreview(URL.createObjectURL(file));
+        setOrgregdata((values) => ({ ...values, [name]: file }));
       }
-      setOrgregdata((values) => ({ ...values, [name]: file }));
-    } else {
-      setFileName("");
-      setFilePreview("");
+     } else {
       setFileLogoName("");
       setLogoFilePreview("");
+      setOrgregdata((values) => ({ ...values, [name]: "" }));
+
+      validate()
     }
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
+
+  const filedocumentHandler = (e) => {
+    const name = e.target.name;
+    const file = e.target.files[0];
+    if (file) {
+      if (name === "document_file") {
+        setFileName(file.name);
+        setFilePreview(URL.createObjectURL(file));
+        setOrgregdata((values) => ({ ...values, [name]: file }));
+      } 
+     } else {
+      setFileName("");
+      setFilePreview("");
+      setOrgregdata((values) => ({ ...values, [name]: "" }));
+
+      validate()
+      
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+  };
+  console.log(error)
 
   const header = {
     headers: { "Content-Type": "multipart/form-data" },
@@ -113,12 +155,16 @@ function Addorganization() {
       newErrors.sector_id = "Organization sector is required.";
     if (!orgregdata.listed_id)
       newErrors.listed_id = "Organization listed is required.";
-    if (!orgregdata.document_type_id)
-      newErrors.document_type_id = "Document type is required.";
-    if (!orgregdata.document_number)
-      newErrors.document_number = "Document number is required.";
-    if (!orgregdata.document_file)
-      newErrors.document_file = "Document file is required.";
+
+    if(!editOrgEnabled){
+      if (!orgregdata.document_type_id)
+        newErrors.document_type_id = "Document type is required.";
+      if (!orgregdata.document_number)
+        newErrors.document_number = "Document number is required.";
+      if (!orgregdata.document_file)
+        newErrors.document_file = "Document file is required.";
+    }
+
     if (!orgregdata.number_of_employee)
       newErrors.number_of_employee = "Number of employee is required.";
     if (!orgregdata.area) newErrors.area = "Address is required.";
@@ -151,7 +197,7 @@ function Addorganization() {
           );
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err);setError(err.response.data.error);
         });
     }, [editdata.organization_id]);
   }
@@ -215,16 +261,17 @@ function Addorganization() {
     event.preventDefault();
     setloading(true);
     console.log("before validata");
-
-    // if (!validate) return;
+    console.log(editOrgEnabled)
     // console.log("after validata");
-
-    // const formData = new FormData();
-    // formData.append("organization_image", orgregdata.organization_image);
-    // formData.append("document_file", orgregdata.document_file);
-
+    
+    const formData = new FormData();
+    formData.append("organization_image", orgregdata.organization_image);
+    formData.append("document_file", orgregdata.document_file);
+    
+    setloading(false);
+    if (!validate()) return;
+    console.log(editOrgEnabled)
     axios
-
       .post(
         `${apiUrl}${
           editOrgEnabled ? "/organization/edit/" : "/create/organization/"
@@ -242,10 +289,10 @@ function Addorganization() {
       })
       .catch((err) => {
         setloading(false);
-        if (!Object.keys(formData).length === 0) {
+        
           setError(err.response.data.error);
-          }
-          console.log(err);
+          
+          console.log(error);
           validate();
       });
   }
@@ -347,13 +394,13 @@ function Addorganization() {
                       <span className="text-[red]">*</span>
                     </label>
                     <div className="flex items-center">
-                      <label className="custom-file-label w-4/6 truncate bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
+                      <label className="custom-file-label w-[114px] truncate bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
                         {fileLogoName || "Choose file"}
                         <input
                           type="file"
                           className="hidden"
                           name="organization_image"
-                          onChange={fileHandler}
+                          onChange={filelogoHandler}
                         />
                       </label>
                       {/* </div> */}
@@ -364,10 +411,10 @@ function Addorganization() {
                       </span>
                     )}
                   </div>
-                  {fileLogoPreview && (
+                  {(fileLogoPreview || fileLogoName) && (
                     <div className="ml-4">
                       <img
-                        src={fileLogoPreview}
+                        src={fileLogoPreview == "" ? orgregdata.organization_image : fileLogoPreview}
                         alt="Preview"
                         className="h-14 w-36 border border-gray-300 rounded-md"
                       />
@@ -412,7 +459,7 @@ function Addorganization() {
                           className="hidden"
                           name="document_file"
                           disabled={editOrgEnabled}
-                          onChange={fileHandler}
+                          onChange={filedocumentHandler}
                         />
                       </label>
                     </div>
@@ -497,6 +544,7 @@ function Addorganization() {
                     type="text"
                     placeholder="CA739543A525A"
                     name="gstin"
+                    maxLength={15}
                     disabled={editOrgEnabled}
                     onChange={orgHandler}
                     value={orgregdata.gst_number}
@@ -515,9 +563,12 @@ function Addorganization() {
                     className="w-full p-2 border rounded-md"
                   >
                     <option aria-readonly>Select any one</option>
-                    <option value="1">1-10</option>
-                    <option value="2">11-50</option>
-                    <option value="3">51-200</option>
+                    <option value="50">1-50</option>
+                    <option value="100">50-100</option>
+                    <option value="200">100-200</option>
+                    <option value="300">200-300</option>
+                    <option value="500">300-500</option>
+                    <option value="1000">500-1000</option>
                   </select>
                   {errors.number_of_employee && (
                     <span className="text-red-600 text-sm">
@@ -624,9 +675,7 @@ function Addorganization() {
               </div>
             </div>
             <div className="flex flex-col gap-3 mt-8">
-              {error && (
-                <span className="text-red-600 text-sm">{"*" + error}</span>
-              )}
+              {error && <span className="text-red-600 text-sm">{"*" + error}</span>}
               {editOrgEnabled?
               <input
                 type="submit"

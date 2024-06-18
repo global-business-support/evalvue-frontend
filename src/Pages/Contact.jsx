@@ -19,7 +19,7 @@ function Contact() {
                     <div className="bg-bglight-100 shadow- rounded-lg p-6">
                       <img src="https://i.pinimg.com/236x/1d/d8/01/1dd8013f6ac883c35758d59c94771d84.jpg"  alt="Online enquiry" className="w-40 h-40 object-contain rounded-lg mb-4"/>
                       <h2 className="text-xl font-semibold mb-2">Online Enquiry</h2>
-                      <p className="text-zinc-600 mb-4">We are here to help you with three working days.</p>
+                      <p className="text-zinc-600 mb-4">We are here to help you with in three working days.</p>
                       <button className="bg-primary-100 text-white px-4 py-2 rounded-lg hover:bg-[#5559af] hover:shadow-sm"
                         onClick={handleSendEmail}  >
                         Send us a message

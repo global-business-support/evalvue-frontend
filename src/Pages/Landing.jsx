@@ -20,7 +20,7 @@ function Landing() {
               </h1>
               <p className="text-zinc-600">
                 We offer the best services related to employee work experience.
-                When employees leave a company, wehelp organizations post
+                When employees leave a company, we help organizations post
                 reviews about their performance and the reasons for their
                 departure. This information helps other companies access the
                 employee's bio-data during the hiring process, making it easier
