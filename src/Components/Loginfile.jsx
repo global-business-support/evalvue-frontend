@@ -229,7 +229,7 @@ const Loginfile = () => {
               </p>
             </div>
 
-            <div className="w-1/2 hidden flex justify-center items-center md:block h-[400px] text-white">
+            <div className="w-1/2 flex justify-center items-center md:block h-[400px] text-white">
               <img
                 src={logo}
                 className="h-[300px] w-[300px] mx-auto my-10"

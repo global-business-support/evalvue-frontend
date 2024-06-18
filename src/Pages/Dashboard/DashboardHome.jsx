@@ -6,6 +6,7 @@ import { UserContext } from "../../Contextfile";
 import { Rating } from "@material-tailwind/react";
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
+import Apibackendrequest from "../Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 function DashboardHome() {
   Tittle("Feed - Evalvue")
@@ -14,17 +15,15 @@ function DashboardHome() {
   const [loading,setloading]=useState(true)
 
   useEffect(() => {
-    axios
-      .post(`${apiUrl}/dashboard/feed/`, { user_id: userId })
+    Apibackendrequest(`${apiUrl}/dashboard/feed/`, { user_id: userId })
       .then((res) => {
         if (res.data.is_review_mapped) {
           setFeed(res.data.dashboard_list);
-          // console.log(res.data.dashboard_list);
+        }
+        if(res.isexception){
+          setError(res.exceptionmessage)
         }
       })
-      .catch((err) => {
-        // console.log(err);
-      });
       setloading(false)
     }, []);
 
