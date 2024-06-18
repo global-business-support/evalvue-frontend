@@ -74,7 +74,7 @@ function Post() {
   }
   return (
     <form onSubmit={postsubmit}>
-      <div className="max-w-3xl mx-auto bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-4">
+      <div className="max-w-3xl mt-4 mx-auto bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-4">
         <div className="flex justify-between mb-4">
           <div className="flex items-center">
           <img
