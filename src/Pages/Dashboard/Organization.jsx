@@ -8,6 +8,7 @@ import Tittle from "../../Tittle";
 import { FaClock } from "react-icons/fa6";
 import { BiSolidShow } from "react-icons/bi";
 import ThreeDotMenu from "./ThreeDotMenu";
+import Apibackendrequest from "../Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Organization() {
@@ -20,8 +21,8 @@ export default function Organization() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .post(`${apiUrl}/organizations/`, { user_id: userId })
+
+        Apibackendrequest(`${apiUrl}/organizations/`, { user_id: userId })
       .then((res) => {
         setOrgdata(res.data.organization_list);
         if (res.data.is_organization_mapped) {
@@ -29,13 +30,33 @@ export default function Organization() {
         } else {
           setAddress(res.data);
         }
+        console.log(res)
+        if(res.isexception){
+          console.log(res.exceptionmessage)
+        }
       })
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {
         setLoading(false); // Set loading state to false when request completes
-      });
+      
+
+    // axios
+    //   .post(`${apiUrl}/organizations/`, { user_id: userId })
+    //   .then((res) => {
+    //     setOrgdata(res.data.organization_list);
+    //     if (res.data.is_organization_mapped) {
+    //       setIsorgmap(res.data.is_organization_mapped);
+    //     } else {
+    //       setAddress(res.data);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false); // Set loading state to false when request completes
+    //   });
   }, []);
 
   const handleEdit = (organizationId) => {

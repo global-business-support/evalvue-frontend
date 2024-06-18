@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/images/evalvuelogo.jpg";
 import Tittle from "../../Tittle";
+import Apibackendrequest from "../Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function SearchByAadharCard() {
@@ -20,12 +21,26 @@ function SearchByAadharCard() {
 
     if (value.length > 0) {
       try {
-        const response = await axios.post(`${apiUrl}/search/employee/aadhar/`, {
+
+        Apibackendrequest(`${apiUrl}/search/employee/aadhar/`, {
           aadhar_number: value,
-        });
-        setEmployees(response.data.employees_list_by_aadhar);
-        setempmappedbyaadhar(response.data.employees_mapped_to_aadhar);
-        console.log(response);
+        })
+        .then((response)=>{
+          if(response.data){
+            setEmployees(response.data.employees_list_by_aadhar);
+            setempmappedbyaadhar(response.data.employees_mapped_to_aadhar);
+            console.log(response);
+          } else if(response.isexception){
+            console.log(response.exceptionmessage)
+          }
+        })
+
+        // const response = await axios.post(`${apiUrl}/search/employee/aadhar/`, {
+        //   aadhar_number: value,
+        // });
+        // setEmployees(response.data.employees_list_by_aadhar);
+        // setempmappedbyaadhar(response.data.employees_mapped_to_aadhar);
+        // console.log(response);
       } catch (error) {
         console.error("Error fetching employee data", error);
       }

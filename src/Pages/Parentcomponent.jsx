@@ -3,6 +3,7 @@ import Addorganization from "./Dashboard/Addorganization";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../Contextfile";
+import Apibackendrequest from "./Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function ParentComponent() {
@@ -14,18 +15,28 @@ function ParentComponent() {
   const {  is_login_successful } = location.state || {};
 
   useEffect(()=>{
-    axios.post(`${apiUrl}/organizations/`,{user_id:userId})
+
+    Apibackendrequest(`${apiUrl}/organizations/`,{user_id:userId})
     .then(res=>{
-      setIsorganizationmapped(res.data.is_organization_mapped);
+      if(res.data){
+        setIsorganizationmapped(res.data.is_organization_mapped);
+      } else if(res.isexception){
+        console.log(res.exceptionmessage)
+      }
+      })
       
-    
-    })
-    .catch(err=>{
-      // console.log(err);
-    })
-    .finally(() => {
       setLoading(false);
-    });
+
+    // axios.post(`${apiUrl}/organizations/`,{user_id:userId})
+    // .then(res=>{
+    //   setIsorganizationmapped(res.data.is_organization_mapped);
+    // })
+    // .catch(err=>{
+    //   // console.log(err);
+    // })
+    // .finally(() => {
+    //   setLoading(false);
+    // });
   },[userId])
   if (loading) {
     return <div>Loading...</div>;
