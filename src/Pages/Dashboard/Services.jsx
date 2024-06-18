@@ -38,7 +38,7 @@ Tittle("Services-Evalvue")
            </div>
            <div>
              <h3 className="text-xl font-semibold mb-2">03 - Best Organization System</h3>
-             <p>Best organization system: Simple, efficient, adaptable; clear categories, intuitive interfaces, easy resource management.</p>
+             <p>Simple, efficient, adaptable, clear categories, intuitive interfaces, easy resource management.</p>
            </div>
            <div>
              <h3 className="text-xl font-semibold mb-2">04 - High Level Of Usability</h3>
