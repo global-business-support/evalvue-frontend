@@ -51,8 +51,7 @@ export default function Organization() {
     navigate(`/dashboard/organization/delete/${organizationId}`);
   };
   const handleAddOrg = () => {
-    navigate('/dashboard/organization/addorganization', {
-    });
+    navigate("/dashboard/organization/addorganization", {});
   };
 
   if (loading) {
@@ -68,8 +67,11 @@ export default function Organization() {
   return (
     <>
       {Isorgmap ? (
-        <div className="lg:px-6 sm:px-2 py-10 rounded-lg mx-auto mt-10">
-          <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-lg">
+        <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto ">
+          <div
+            className="flex justify-between sticky z-50 items-center mb-6 bg-white p-4 rounded-lg shadow-lg"
+            style={{ top: "64px" }}
+          >
             <h2 className="sm:text-lg text-xs font-semibold">
               Total Organization: {Orgdata.length}
             </h2>
@@ -79,6 +81,7 @@ export default function Organization() {
               </button>
             </NavLink>
           </div>
+
           <div className="mb-3 flex justify-center items-start mt-8 overflow-y-auto">
             <table className="w-full border-separate border-spacing-y-3">
               <thead>
@@ -145,42 +148,58 @@ export default function Organization() {
                       <h1 className="sm:w-52 w-20 sm:text-wrap truncate">
                         {organization.area}, {organization.city_name},{" "}
                         {organization.state_name}, {organization.pincode}
-
                       </h1>
                     </td>
-                  
-                      <td className={` py-3 sm:px-0 px-1 ${organization.organization_verified? "bg-white":"bg-[#f3f7fc]"} text-primary-100 rounded-r-lg  shadow-top-bottom-xl`}>
+
+                    <td
+                      className={` py-3 sm:px-0 px-1 ${
+                        organization.organization_verified
+                          ? "bg-white"
+                          : "bg-[#f3f7fc]"
+                      } text-primary-100 rounded-r-lg  shadow-top-bottom-xl`}
+                    >
                       <div className="flex gap-4 justify-center items-center">
-                       
-                          {organization.organization_verified ?
-                           <NavLink
-                           to={`/dashboard/organization/employee/${organization.organization_id}`}
-                           state={{
-                             organization_name: organization.name,
-                             orgarea: organization.area,
-                             orgcity: organization.city_name,
-                             orgstate: organization.state_name,
-                             orgimg: organization.image,
-                           }}
-                         >
-                          <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
-                          <BiSolidShow className=" h-5 w-5"/>View 
+                        {organization.organization_verified ? (
+                          <NavLink
+                            to={`/dashboard/organization/employee/${organization.organization_id}`}
+                            state={{
+                              organization_name: organization.name,
+                              orgarea: organization.area,
+                              orgcity: organization.city_name,
+                              orgstate: organization.state_name,
+                              orgimg: organization.image,
+                            }}
+                          >
+                            <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
+                              <BiSolidShow className=" h-5 w-5" />
+                              View
+                            </button>{" "}
+                          </NavLink>
+                        ) : (
+                          <button
+                            className="text-white flex gap-2 mr-7 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]"
+                            disabled
+                          >
+                            <FaClock className="my-auto h-4 w-4" />
+                            Pending...
+                          </button>
+                        )}
 
-                          </button> </NavLink>:
-                           <button className="text-white flex gap-2 mr-7 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]" disabled>
-
-                           <FaClock className="my-auto h-4 w-4"/>Pending...
-                           </button>  
-                        }
-                        
-                        {organization.organization_verified ?
-                    <ThreeDotMenu
-                    onEdit={() => handleEdit(organization.organization_id)}
-                    onDelete={() => handleDelete(organization.organization_id)}
-                  /> : <div></div>}
-                  </div>
-                      </td>
-              </tr>
+                        {organization.organization_verified ? (
+                          <ThreeDotMenu
+                            onEdit={() =>
+                              handleEdit(organization.organization_id)
+                            }
+                            onDelete={() =>
+                              handleDelete(organization.organization_id)
+                            }
+                          />
+                        ) : (
+                          <div></div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>
