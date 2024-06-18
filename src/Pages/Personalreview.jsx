@@ -5,6 +5,7 @@ import { Rating } from '@material-tailwind/react';
 import axios from 'axios';
 import Loader from './Loader';
 import Tittle from '../Tittle';
+import Apibackendrequest from './Apibackendrequest';
 const apiUrl = import.meta.env.VITE_API_URL;
 function Personalreview() {
   Tittle("reviews - Evalvue")
@@ -32,26 +33,52 @@ console.log(state)
   useEffect(() => {
     setloading(true)
     const fetchData = async () => {
-      try {
-        const response = await axios.post(`${apiUrl}/reviews/`, {
+
+      Apibackendrequest(`${apiUrl}/reviews/`, {
           user_id: userId,
           organization_id: state.emporgid,
           employee_id: state.empid,
-        });
-        setloading(false)
-        if (response.data.is_review_mapped_to_employee_successfull) {
+        })
+        .then((response)=>{
+          if(response.data){
+            setloading(false)
+            if (response.data.is_review_mapped_to_employee_successfull) {
+            
+                  setIsReviewMapped(true);
+                  setReviewList(response.data.review_list);
+                  setEmployeeList(response.data.employee_list[0]);
+                  updateReviewCount(response.data.review_list.length);
+                  // overallRating(calcoverallrating(response.data.review_list))
+                  
+                   // Update review count
+                }
+          } else if(response.isexception){
+            console.log(response.exceptionmessage)
+          }
+        })
         
-          setIsReviewMapped(true);
-          setReviewList(response.data.review_list);
-          setEmployeeList(response.data.employee_list[0]);
-          updateReviewCount(response.data.review_list.length);
-          // overallRating(calcoverallrating(response.data.review_list))
+        
+
+      // try {
+      //   const response = await axios.post(`${apiUrl}/reviews/`, {
+      //     user_id: userId,
+      //     organization_id: state.emporgid,
+      //     employee_id: state.empid,
+      //   });
+      //   setloading(false)
+      //   if (response.data.is_review_mapped_to_employee_successfull) {
+        
+      //     setIsReviewMapped(true);
+      //     setReviewList(response.data.review_list);
+      //     setEmployeeList(response.data.employee_list[0]);
+      //     updateReviewCount(response.data.review_list.length);
+      //     // overallRating(calcoverallrating(response.data.review_list))
           
-           // Update review count
-        }
-      } catch (err) {
-        // console.log(err);
-      }
+      //      // Update review count
+      //   }
+      // } catch (err) {
+      //   // console.log(err);
+      // }
     };
     fetchData();
   }, []);

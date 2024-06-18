@@ -5,6 +5,7 @@ import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
 import { select } from "@material-tailwind/react";
 import Tittle from "../../Tittle";
+import Apibackendrequest from "../Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 function Addorganization() {
   const navigate = useNavigate();
@@ -182,32 +183,50 @@ function Addorganization() {
       user_id: userId,
     };
     useEffect(() => {
-      axios
-        .post(`${apiUrl}/organization/editable/data/`, editdata)
-        .then((res) => {
-          // console.log(res)
-          setOrgregdata((pre)=>({
-            ...pre,
-            ...res.data.organization_list[0]
-          }));
-          setFileLogoName(getFileNameFromUrl(res.data.organization_list[0].organization_image))
+      Apibackendrequest(`${apiUrl}/organization/editable/data/`, editdata)
+      .then((res) => {
+            // console.log(res)
+            setOrgregdata((pre)=>({
+              ...pre,
+              ...res.data.organization_list[0]
+            }));
+            setFileLogoName(getFileNameFromUrl(res.data.organization_list[0].organization_image))
+  
+            seteditOrgEnabled(
+              res.data.organization_editable_data_send_succesfull
+            );
+            if(res.isexception){
+              setError(res.exceptionmessage)
+            }
+          })
+          
 
-          seteditOrgEnabled(
-            res.data.organization_editable_data_send_succesfull
-          );
-        })
-        .catch((err) => {
-          console.log(err);setError(err.response.data.error);
-        });
+      // axios
+      //   .post(`${apiUrl}/organization/editable/data/`, editdata)
+      //   .then((res) => {
+      //     // console.log(res)
+      //     setOrgregdata((pre)=>({
+      //       ...pre,
+      //       ...res.data.organization_list[0]
+      //     }));
+      //     setFileLogoName(getFileNameFromUrl(res.data.organization_list[0].organization_image))
+
+      //     seteditOrgEnabled(
+      //       res.data.organization_editable_data_send_succesfull
+      //     );
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);setError(err.response.data.error);
+      //   });
     }, [editdata.organization_id]);
   }
   // console.log(editOrgData)
   console.log(orgregdata);
   useEffect(() => {
-    axios
-      .post(`${apiUrl}/add/organization/`)
-      .then((res) => {
-        // setdocumenttype(res.data.document_type);
+
+    Apibackendrequest(`${apiUrl}/add/organization/`)
+    .then((res) => {
+      if(res.data){
         setdocumenttype(populateDropDown(res.data.document_type));
         setsectortype(populateDropDown(res.data.sector_type));
         setlistedtype(populateDropDown(res.data.listed_type));
@@ -216,13 +235,34 @@ function Addorganization() {
         setstatedata(res.data.state);
         setcity(populateDropDown(res.data.city));
         setcitydata(res.data.city);
-
         // console.log(doctype)
         // setdocumenttype(doctype);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        
+      }else if(res.isexception){
+        console.log(res.exceptionmessage);
+      }
+          // setdocumenttype(res.data.document_type);
+        })
+
+    // axios
+    //   .post(`${apiUrl}/add/organization/`)
+    //   .then((res) => {
+    //     // setdocumenttype(res.data.document_type);
+    //     setdocumenttype(populateDropDown(res.data.document_type));
+    //     setsectortype(populateDropDown(res.data.sector_type));
+    //     setlistedtype(populateDropDown(res.data.listed_type));
+    //     setcountry(populateDropDown(res.data.country));
+    //     setstate(populateDropDown(res.data.state));
+    //     setstatedata(res.data.state);
+    //     setcity(populateDropDown(res.data.city));
+    //     setcitydata(res.data.city);
+
+    //     // console.log(doctype)
+    //     // setdocumenttype(doctype);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, [userId]);
 
   function populateDropDown(data) {
@@ -271,30 +311,51 @@ function Addorganization() {
     setloading(false);
     if (!validate()) return;
     console.log(editOrgEnabled)
-    axios
-      .post(
-        `${apiUrl}${
-          editOrgEnabled ? "/organization/edit/" : "/create/organization/"
-        }`,
-        orgregdata,
-        header
-      )
-      .then((res) => {
-        if (res.data.is_organization_register_successfull || res.data.organization_edit_sucessfull) {
-          setIsOrganizationCreated(true);
-          navigate("/dashboard/organization");
-          setloading(false);
-          console.log("successfull");
-        }
-      })
-      .catch((err) => {
-        setloading(false);
+
+    Apibackendrequest(`${apiUrl}${editOrgEnabled ? "/organization/edit/" : "/create/organization/"}`, orgregdata,header)
+        .then((res) => {
+          if(res.data){
+            if (res.data.is_organization_register_successfull || res.data.organization_edit_sucessfull) {
+              setIsOrganizationCreated(true);
+              navigate("/dashboard/organization");
+              setloading(false);
+              console.log("successfull");
+            }
+          } else if(res.isexception){
+                setloading(false);
+              
+                setError(res.exceptionmessage.error);
+                
+                console.log(error);
+                validate();
+              }
+            })
+            
+
+    // axios
+    //   .post(
+    //     `${apiUrl}${
+    //       editOrgEnabled ? "/organization/edit/" : "/create/organization/"
+    //     }`,
+    //     orgregdata,
+    //     header
+    //   )
+    //   .then((res) => {
+    //     if (res.data.is_organization_register_successfull || res.data.organization_edit_sucessfull) {
+    //       setIsOrganizationCreated(true);
+    //       navigate("/dashboard/organization");
+    //       setloading(false);
+    //       console.log("successfull");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setloading(false);
         
-          setError(err.response.data.error);
+    //       setError(err.response.data.error);
           
-          console.log(error);
-          validate();
-      });
+    //       console.log(error);
+    //       validate();
+    //   });
   }
 
   if (loading) {

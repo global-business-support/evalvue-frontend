@@ -6,6 +6,7 @@ import { button } from "@material-tailwind/react";
 import { Rating } from "@material-tailwind/react";
 import Loader from "../Loader";
 import Tittle from "../../Tittle";
+import Apibackendrequest from "../Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function Post() {
@@ -48,22 +49,39 @@ function Post() {
       setRatMsg("block")
     }
     else{
-      axios
-      .post(`${apiUrl}/create/review/`, pay)
+
+      Apibackendrequest(`${apiUrl}/create/review/`, pay)
       .then((res) => {
-        if (res.data.is_review_added_successfull) {
-          // navigate('organization/employee/review')
-          // console.log("hello");
-          navigate("/dashboard/organization/employee/review/", {
-            state,
-          });
-        } else {
-          // console.log("byyy");
+        if(res.data){
+          
+          if (res.data.is_review_added_successfull) {
+            // navigate('organization/employee/review')
+            // console.log("hello");
+            navigate("/dashboard/organization/employee/review/", {
+              state,
+            });
+          } 
+        } else if(res.isexception){
+          console.log(res.exceptionmessage)
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        })
+
+      // axios
+      // .post(`${apiUrl}/create/review/`, pay)
+      // .then((res) => {
+      //   if (res.data.is_review_added_successfull) {
+      //     // navigate('organization/employee/review')
+      //     // console.log("hello");
+      //     navigate("/dashboard/organization/employee/review/", {
+      //       state,
+      //     });
+      //   } else {
+      //     // console.log("byyy");
+      //   }
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     }
     setloading(false)
   };
@@ -160,7 +178,7 @@ function Post() {
 
         <p className="text-gray-500">Minimum characters (250/{comment.length})</p>
         <p className="text-[red] " style={{display:msg}}>
-           Minimum 250 characters are required
+        Minimum 250 characters required.
         </p>
         <p className="text-[red] " style={{display:ratMsg}}>
            Rating employee is compulsory
