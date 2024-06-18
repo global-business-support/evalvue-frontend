@@ -48,7 +48,7 @@ function SearchByAadharCard() {
   };
 
   return (
-    <div className="relative h-full w-full flex justify-center mt-16">
+    <div className="relative h-[calc(100vh-165px)] w-full flex justify-center ">
       {/* {console.log(employees.length)} */}
       {employees == undefined || employees.length == 0 ? (
         <div
@@ -69,11 +69,11 @@ function SearchByAadharCard() {
       )}
 
       <div
-        className={`w-full mx-1 md:w-full h-max mt-2 p-4 relative z-10 dark:bg-zinc-800 rounded-lg shadow-lg `}
+        className={`w-full mx-1 md:w-full h-max px-4 relative z-10 dark:bg-zinc-800 rounded-lg shadow-lg `}
       >
-        <div className="w-full flex justify-center items-center py-2  bg-[#e6eaee]">
+        <div className="w-full sticky top-[64px] py-4 px-6 bg-primary-100 shadow-lg flex rounded-lg justify-center items-center bg-[#e6eaee]">
           <div className="ml-2 mx-8 w-full">
-            <label htmlFor="" className="sm:text-lg text-sm font-thin">
+            <label htmlFor="" className="sm:text-lg text-sm text-white font-thin">
               {" "}
               Enter Employee Aadhaar Number
             </label>
@@ -81,7 +81,7 @@ function SearchByAadharCard() {
               type="text"
               pattern="[0-9]*"
               placeholder="Enter Aadhaar number"
-              className=" px-3 text-lg border-2 border-blue-gray-200 flex-grow bg-[#d6dadf] text-zinc-700 dark:text-zinc-300"
+              className=" px-3 text-lg  border-white flex-grow bg-white  text-gray-600 dark:text-zinc-300"
               value={searchTerm}
               maxLength={12}
               onChange={handleSearchChange}
@@ -90,7 +90,7 @@ function SearchByAadharCard() {
             />
           </div>
           <button
-            className=" border-2 sm:px-8 px-5 sm:text-base text-sm bg-primary-100 text-white py-3 rounded-md  mt-7 font-semibold dark:text-primary-100"
+            className=" border-2 sm:px-8 px-5 sm:text-base text-sm bg-white text-primary-100 py-3 rounded-md  mt-7 font-semibold dark:text-primary-100"
             onClick={() => {
               setSearchTerm("");
               setEmployees([]);

@@ -83,7 +83,7 @@ console.log(state)
                       />
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm font-semibold text-zinc-900">{EmployeeList.name}</p>
+                      <p className="text-sm font-semibold text-zinc-900">{EmployeeList.employee_name}</p>
                       <p className="text-xs text-zinc-500">{EmployeeList.designation}</p>
                     </div>
                   </div>
