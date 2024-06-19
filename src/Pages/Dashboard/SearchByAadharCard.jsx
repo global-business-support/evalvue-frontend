@@ -70,11 +70,11 @@ function SearchByAadharCard() {
           className="absolute inset-0 bg-white"
           style={{
             backgroundImage: `url(${logo})`,
-            backgroundPosition: "400px 200px",
+            backgroundPosition: "50% 75%",
             backgroundRepeat: "no-repeat",
             backgroundPositionX: "50%",
             backgroundPositionY: "80%",
-            backgroundSize: "350px",
+            backgroundSize: "30%",
           }}
         >
           <div className="absolute inset-0 bg-blue-gray-700 opacity-20"></div>
@@ -84,7 +84,7 @@ function SearchByAadharCard() {
       )}
 
       <div
-        className={`w-full mx-1 md:w-full h-max px-4 relative z-10 dark:bg-zinc-800 rounded-lg shadow-lg `}
+        className={`w-full mx-1 md:w-full h-max px-4 relative z-10 dark:bg-zinc-800 rounded-lg`}
       >
         <div className="w-full sticky top-[64px] py-4 px-6 bg-primary-100 shadow-lg flex rounded-lg justify-center items-center bg-[#e6eaee]">
           <div className="ml-2 mx-8 w-full">
