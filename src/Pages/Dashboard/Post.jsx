@@ -140,7 +140,7 @@ function Post() {
                 Upload Image
               </label>
               <div className="flex items-center">
-                <label className="custom-file-label w-[113px] truncate bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
+                <label className="custom-file-label w-[113px]  truncate bg-primary-100 text-white px-4 py-1 rounded-md cursor-pointer mr-2">
                   {imgName || "Choose file"}
                   <input
                     type="file"

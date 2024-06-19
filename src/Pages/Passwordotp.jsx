@@ -118,7 +118,7 @@ function Passwordotp(props) {
 
   // Function to handle resend OTP
   const handleResendOtp = () => {
-    setIsEmailSent(false);
+    setIsEmailSent(true);
     setOtp(new Array(6).fill(''));
     setError('');
   };
@@ -163,7 +163,7 @@ function Passwordotp(props) {
                     </button>
                   </div>
                   <p className="text-sm text-zinc-600 mt-4">
-                    Please enter the 6-digit reset password OTP that was sent to your email
+                    Please enter the 6-digit OTP that was sent to your email
                     <span className="text-red-500"> *</span>
                   </p>
                   <div className="flex justify-between gap-2 mt-4">
@@ -198,7 +198,7 @@ function Passwordotp(props) {
             ) : (
               <>
                 <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-bold text-xl">Enter OTP <span className='text-[red]'>*</span></h2>
+                  <h2 className="text-lg font-bold text-xl">OTP Verification <span className='text-[red]'>*</span></h2>
                   <button className="text-zinc-400 hover:text-zinc-600">
                     <span aria-hidden="true" className='text-3xl'>×</span>
                   </button>
