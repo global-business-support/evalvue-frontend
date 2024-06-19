@@ -91,7 +91,7 @@ const Loginfile = () => {
         </div>
       ) : (
         <div className="h-screen flex items-center justify-center bg-gray-200">
-          <div className="md:w-full md:m-8 lg:w-2/3 xl:w-1/2 bg-white flex justify-center items-center gap-4">
+          <div className="md:w-full md:m-8 lg:w-[70%] xl:w-1/2 bg-white flex justify-center items-center gap-4 rounded-lg">
             <div className="md:w-1/2 w-full p-10">
               <div className="text-center">
                 <img src={logo} className="h-20 mx-auto md:hidden" alt="" />
@@ -229,10 +229,10 @@ const Loginfile = () => {
               </p>
             </div>
 
-            <div className="w-1/2 flex justify-center items-center md:block h-[400px] text-white">
+            <div className="w-1/2  justify-center items-center md:flex hidden h-[400px] text-white">
               <img
                 src={logo}
-                className="h-[300px] w-[300px] mx-auto my-10"
+                className="h-[300px] w-[300px] md:block hidden mx-auto my-10"
                 alt=""
               />
             </div>

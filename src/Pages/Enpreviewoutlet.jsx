@@ -23,7 +23,7 @@ function Enpreview() {
 
   return (
     <>
-      <div className="sm:flex-col lg:flex-row w-[95%] flex justify-between items-center mx-auto sticky top-16  bg-white p-4  rounded-lg ">
+      <div className="sm:flex-col lg:flex-row w-[95%] flex justify-between z-10 items-center mx-auto sticky top-16  bg-white p-4  rounded-lg ">
         <div className="flex justify-center items-center gap-5">
           <div className="h-20 w-20 border border-zinc-300 rounded-full">
             <img

@@ -216,7 +216,7 @@ function Navbar() {
 
                 <button className="bg-primary-100 mx-auto mt-auto mb-24 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] md:m-0 m-5 p-1 flex md:hidden items-center justify-center gap-1 content-center">
                   <LogoutIcon sx={{ fontSize: 20 }} />
-                  <NavLink to="/login">Login</NavLink>
+                  <NavLink to="/login">Logout</NavLink>
                 </button>
               </Drawer>
             </React.Fragment>
