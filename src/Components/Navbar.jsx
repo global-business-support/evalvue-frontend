@@ -40,7 +40,6 @@ function Navbar() {
   useEffect(()=>{
     const loggedin = localStorage.getItem("isLogin")
     setIsLoggedIn(loggedin)
-    console.log(isLoggedIn)
   })
   return (
     <>

@@ -34,6 +34,8 @@ function SearchByAadharCard() {
             setError(response.exceptionmessage)
           }
         })
+        
+        
 
         // const response = await axios.post(`${apiUrl}/search/employee/aadhar/`, {
         //   aadhar_number: value,
@@ -56,12 +58,15 @@ function SearchByAadharCard() {
         empid: employees[employeeId].employee_id,
         emporgid: employees[employeeId].organization_id,
         aadhar: false,
+        createdOn: employees[employeeId].created_on,
+        orgName: employees[employeeId].organization_name,
+        orgImg: employees[employeeId].organization_image,
       },
     }); // Updated navigation logic
   };
 
   return (
-    <div className="relative h-[calc(100vh-165px)] w-full flex justify-center ">
+    <div className="relative h-[calc(100vh-180px)] w-full flex justify-center ">
       {employees == undefined || employees.length == 0 ? (
         <div
           className="absolute inset-0 bg-white"
@@ -83,7 +88,7 @@ function SearchByAadharCard() {
       <div
         className={`w-full mx-1 md:w-full h-max px-4 relative z-10 dark:bg-zinc-800 rounded-lg`}
       >
-        <div className="w-full sticky top-[64px] py-4 px-6 bg-primary-100 shadow-lg flex rounded-lg justify-center items-center bg-[#e6eaee]">
+        <div className="w-full sticky top-[80px] py-4 px-6 bg-primary-100 shadow-lg flex rounded-lg justify-center items-center  z-50">
           <div className="ml-2 mx-8 w-full">
             <label htmlFor="" className="sm:text-lg text-sm text-white font-thin">
               {" "}
@@ -128,7 +133,7 @@ function SearchByAadharCard() {
                   <div className="flex lg:flex-row flex-col items-center gap-4 lg:w-[20%] w-full justify-start">
                     <img
                       src={employee.employee_image}
-                      className="lg:h-[70px] h-[80px] lg:w-[70px] w-[80px] border-[3px] border-primary-100 rounded-full object-fill"
+                      className="lg:h-[70px] h-[80px] lg:max-w-[70px] w-[80px] border-[3px] border-primary-100 rounded-full object-fill"
                       alt=""
                     />
                     <div className="flex lg:flex-col">
