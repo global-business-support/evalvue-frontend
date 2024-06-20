@@ -17,6 +17,7 @@ function Personalreview() {
   const [isReviewMapped, setIsReviewMapped] = useState(false);
   const [ReviewList, setReviewList] = useState([]);
   const [EmployeeList, setEmployeeList] = useState(null);
+  const [error, setError] = useState();
  
   
   // function calcoverallrating(reviews){
@@ -28,8 +29,6 @@ function Personalreview() {
   //   return parseInt(count/5);
 
   // }
-
-console.log(state)
   useEffect(() => {
     setloading(true)
     const fetchData = async () => {
@@ -53,7 +52,7 @@ console.log(state)
                    // Update review count
                 }
           } else if(response.isexception){
-            console.log(response.exceptionmessage)
+            setError(response.exceptionmessage)
           }
         })
         
@@ -114,9 +113,33 @@ console.log(state)
                       <p className="text-xs text-zinc-500">{EmployeeList.designation}</p>
                     </div>
                   </div>
-                  <div className="mt-4 bg-bglight-200 rounded-md min-h-24 break-words">
-                    <p className="text-gray-800 text-sm  p-3">{review.comment}</p>
-                  </div>
+                  {review.image ? (
+                    <div className=" w-full flex gap-2 md:flex-row justify-between flex-col mt-4">
+                      <div className="md:w[48%] w-full bg-gray-200 p-2 rounded-lg ">
+                        <div className="flex justify-center items-center  bg-slate-200 h-[100%] bg-white rounded-lg">
+                          <p className="whitespace-pre-wrap text-zinc-800 text-sm p-3 break-words break-all">
+                            {review.comment}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="bg-red-400 w-[1px] sm:block hidden h-vh"></div>
+
+                      <div className=" max-h-[400px] overflow-hidden  md:w[48%] w-full bg-gray-200 p-2 rounded-lg">
+                          <img src={review.image} alt="Review-Image"
+                            className="rounded-lg object-scale-down w-full h-full "
+                          />
+                      </div>
+                    </div>
+                    ) : 
+                    (
+                      <div className="mt-4 bg-gray-200 h-[100%] rounded-lg">
+                          <p className="whitespace-pre-wrap text-zinc-800 text-sm p-3 break-words break-all">
+                            {review.comment}
+                          </p>
+                        </div>
+                    )
+                    }
                   <div className="mt-1 p-3 flex gap-2">
                     <span className="text-gray-800 font-semibold lg:text-lg sm:text-base">Rating:</span>
                     <Rating value={review.rating} readonly />
