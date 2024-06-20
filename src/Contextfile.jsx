@@ -7,6 +7,7 @@ const UserProvider = ({ children }) => {
     // Initialize state with value from localStorage if it exists
     return localStorage.getItem('userId') || null;
   });
+  const [stateOrgData, setStateOrgData] = useState({})
 
   useEffect(() => {
     // Save userId to localStorage whenever it changes
@@ -21,7 +22,7 @@ const UserProvider = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ userId, setUserId }}>
+    <UserContext.Provider value={{ userId, setUserId, stateOrgData, setStateOrgData }}>
       {children}
     </UserContext.Provider>
   );

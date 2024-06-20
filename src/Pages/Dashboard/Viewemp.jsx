@@ -5,6 +5,7 @@ import Loader from "../Loader";
 import Tittle from "../../Tittle";
 import ThreeDotMenu from "./ThreeDotMenu";
 import Apibackendrequest from "../Apibackendrequest";
+import { UserContext } from "../../Contextfile";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function Viewemp() {
@@ -16,6 +17,9 @@ function Viewemp() {
   const { organization_id } = useParams();
   const location = useLocation();
   const state=location.state;
+
+
+  const { stateOrgData } = useContext(UserContext);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -33,6 +37,7 @@ function Viewemp() {
   //   };
 
   useEffect(() => {
+    console.log(stateOrgData)
   Apibackendrequest(`${apiUrl}/employees/`, {organization_id,})
   .then((res) => {
     setEmployees(res.data.employee_list || []);
@@ -96,17 +101,17 @@ function Viewemp() {
           <div className="flex justify-center items-center sm:gap-5 gap-2">
             <div className="sm:h-20 h-14 sm:w-20 w-14 border-primary-100 border-[3px] rounded-full">
               <img
-                src={state.orgimg}
+                src={stateOrgData?.orgimg}
                 alt=""
                 className="h-full w-full object-cover rounded-full"
               />
             </div>
             <div>
               <h1 className="sm:text-xl font-semibold text-primary-100">
-                {state.organization_name}
+                {stateOrgData.organization_name}
               </h1>
               <p className="text-xs  text-primary-100 ">
-                {state.orgarea}, {state.orgcity}, {state.orgstate}
+                {stateOrgData.orgarea}, {stateOrgData.orgcity}, {stateOrgData.orgstate}
               </p>
             </div>
           </div>

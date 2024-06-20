@@ -16,8 +16,12 @@ export default function Organization() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [Isorgmap, setIsorgmap] = useState(false);
   const { userId } = useContext(UserContext);
+
   const [address, setAddress] = useState({});
   const [error, setError] = useState();
+
+  const { setStateOrgData } = useContext(UserContext);
+
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -181,13 +185,22 @@ export default function Organization() {
                         {organization.organization_verified ? (
                           <NavLink
                             to={`/dashboard/organization/employee/${organization.organization_id}`}
-                            state={{
-                              organization_name: organization.name,
-                              orgarea: organization.area,
-                              orgcity: organization.city_name,
-                              orgstate: organization.state_name,
-                              orgimg: organization.image,
-                            }}
+                            onClick={(()=>{
+                              setStateOrgData({
+                                  organization_name: organization.name,
+                                  orgarea: organization.area,
+                                  orgcity: organization.city_name,
+                                  orgstate: organization.state_name,
+                                  orgimg: organization.image,
+                                })
+                            })}
+                            // state={{
+                            //   organization_name: organization.name,
+                            //   orgarea: organization.area,
+                            //   orgcity: organization.city_name,
+                            //   orgstate: organization.state_name,
+                            //   orgimg: organization.image,
+                            // }}
                           >
                             <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
                               <BiSolidShow className=" h-5 w-5" />
