@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-// const Token = localStorage.getItem("accessToken")
+const Token = localStorage.getItem("accessToken")
 export default async function Apibackendrequest(url, request) {
-  // console.log(Token)
+  console.log(Token)
   const responsedata = {
     isexception: false,
     exceptionmessage: "",
@@ -10,7 +10,7 @@ export default async function Apibackendrequest(url, request) {
   };
   const headers = {
     "Content-Type": "multipart/form-data,application/json",
-    // "Authorization" : `Bearer ${Token}`,
+    "Authorization" : `Bearer ${Token}`,
   };
   try {
     const response = await axios.post(url, request, { headers });
