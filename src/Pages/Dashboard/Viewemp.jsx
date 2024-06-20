@@ -17,7 +17,7 @@ function Viewemp() {
   const { organization_id } = useParams();
   const location = useLocation();
   const state=location.state;
-
+const status = false /*Remove this variable */
 
   const { stateOrgData } = useContext(UserContext);
 
@@ -96,8 +96,8 @@ function Viewemp() {
 
   return (
     <>
-      <div className="lg:px-6 sm:px-2 ">
-        <div className="flex justify-between items-center  bg-white sm:p-4 p-2 rounded-lg z-10 sticky top-[64px] ">
+      <div className="lg:px-6 sm:px-2">
+        <div className="flex justify-between items-center  bg-white sm:p-4 p-2 rounded-lg z-10 sticky top-[80px] ">
           <div className="flex justify-center items-center sm:gap-5 gap-2">
             <div className="sm:h-20 h-14 sm:w-20 w-14 border-primary-100 border-[3px] rounded-full">
               <img
@@ -140,8 +140,8 @@ function Viewemp() {
                 <td className=" text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] ">
                   Employee Name :
                 </td>
-                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] ">Aadhaar Number :</td>
-                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] ">Designation :</td>
+                <td className="text-left font-semibold text-black sm:w-auto w-full py-2 sm:px-4 px-1 sm:text-base text-[11px] ">Aadhaar Number :</td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] sm:table-cell hidden ">Designation :</td>
                 <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] ">Reviews :</td>
                 {/* <td className="text-left font-semibold text-black  py-2 px-4">Edit / Delete :</td> */}
               </tr>
@@ -162,20 +162,21 @@ function Viewemp() {
                         />
                       </div>
                     </div>
-                    <h2 className="font-semibold sm:text-sm text-[12px] text-primary-100">
+                    <h2 className="font-semibold sm:text-sm text-[12px] md:w-auto w-[120px] truncate text-primary-100">
                       {employee.employee_name}
                     </h2>
                   </td>
                   <td className="py-3 sm:px-2 px-1 w-[20%] bg-white font-semibold sm:text-sm text-[12px] text-primary-100 shadow-top-bottom-xl">
                       {employee.aadhar_number}
                     </td>
-                  <td className="py-3 sm:px-2 px-1 w-[20%] text-primary-100 font-semibold sm:text-sm text-[12px] bg-white shadow-top-bottom-xl">
+                  <td className="py-3 sm:px-2 px-1 w-[20%] text-primary-100 font-semibold sm:text-sm text-[12px] bg-white shadow-top-bottom-xl sm:table-cell hidden">
                     {employee.designation}
                   </td>
 
                   <td className="ml-10 py-3 sm:px-4 px-2 w-[20%] bg-white rounded-r-lg shadow-top-bottom-xl">
-                    <div className="flex gap-4 justify-center items-center">
 
+                    <div className="flex gap-4 justify-center items-center">
+                   
                     <NavLink
                       to={`/dashboard/organization/employee/review`}
                       state={{
@@ -187,15 +188,23 @@ function Viewemp() {
                         aadhar:true
                       }}
                     >
-                      <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-1 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[11px]">
+                      <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-3 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[11px]" 
+                      onClick={(()=>{})}>
+                        
                         Review
                       </button>
                     </NavLink>
+
+                    
+                    
                     <ThreeDotMenu
                     onEdit={() => handleEdit(employee.employee_id,organization_id)}
-                    onDelete={() => handleDelete()}
                   />
+                    
+                  
+                    
                   </div>
+
                   </td>
 
                 </tr>

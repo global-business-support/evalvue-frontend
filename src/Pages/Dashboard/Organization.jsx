@@ -93,7 +93,7 @@ export default function Organization() {
         <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto ">
           <div
             className="flex justify-between sticky z-50 items-center mb-6 bg-white p-4 rounded-lg shadow-lg"
-            style={{ top: "64px" }}
+            style={{ top: "80px" }}
           >
             <h2 className="sm:text-lg text-xs font-semibold">
               Total Organization: {Orgdata.length}
@@ -109,17 +109,17 @@ export default function Organization() {
             <table className="w-full border-separate border-spacing-y-3">
               <thead>
                 <tr>
-                <td className="text-left w-[140px] md:w-[120px]  lg:w-[140px] xl:w-[280px] truncate font-bold text-black  py-2 sm:px-4 px-1  text-[12px]">
+                <td className="text-left w-[140px] md:w-[120px]  lg:w-[140px] xl:w-[280px] truncate font-bold text-black  py-2 sm:px-4 px-1 sm:text-[15px] text-[12px]">
                     Organization:
                   </td>
-                   <td className="text-left  w-[50px] truncate  font-bold text-black  py-2 sm:px-4 px-1  text-[12px]">
+                   <td className="text-left  min-w-[50px] truncate  font-bold text-black  py-2 sm:px-4 px-1 sm:text-[15px] text-[12px] sm:table-cell hidden">
                     Document Number:
                   </td>
                  
-                      <td className="text-left   md:w-[100px]  lg:w-[100px] xl:w-[320px] truncate font-bold text-black  py-2 sm:px-4 px-1  text-[12px]">
+                      <td className="text-left   md:min-w-[100px]  lg:w-[100px] xl:w-[320px] truncate font-bold text-black  py-2 sm:px-4 px-1 sm:text-[15px] text-[12px] sm:table-cell hidden">
                     Address:
                   </td>
-                  <td className="text-left font-bold text-black  py-2 sm:px-4 px-1  text-[12px]">
+                  <td className="sm:text-left text-right font-bold text-black py-2 sm:px-4 px-1 sm:w-auto sm:text-[15px] text-[12px]">
                     View:
                   </td>
                   {/* <td className="text-left font-bold text-black  py-2 px-4">Edit / Delete:</td> */}
@@ -129,7 +129,7 @@ export default function Organization() {
                 {Orgdata.map((organization, index) => (
                   <tr
                     key={organization.organization_id}
-                    className="lg:px-6 sm:px-5 px-1"
+                    className="lg:px-6 sm:px-5 px-1 w-[100%]"
                   >
                     <td
                       className={`py-3 sm:px-2 px-1  bg-${
@@ -154,7 +154,7 @@ export default function Organization() {
                       </div>
                     </td>
                     <td
-                        className={`py-3 sm:px-4 px-1 sm:text-base text-[12px] w-[100px] bg-${
+                        className={`py-3 sm:px-4 px-1 sm:text-base text-[12px] w-[100px]  bg-${
                         organization.organization_verified
                           ? "white"
                           : "[#f3f7fc]"
