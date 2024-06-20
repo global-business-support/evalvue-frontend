@@ -89,6 +89,7 @@ function DashboardHome() {
                       <p className="text-zinc-800 text-sm p-3 break-words break-all">
                         {feed.comment}
                       </p>
+                      {console.log(feed.image)}
                     </div>
                     <div className="mt-2 p-3 flex gap-2">
                       <span className="text-gray-800 font-semibold text-md">
