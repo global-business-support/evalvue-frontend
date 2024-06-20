@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../assets/images/logo.png";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import HouseIcon from "@mui/icons-material/House";
@@ -15,6 +15,7 @@ import { UserContext } from "../Contextfile";
 import ScrollToTop from "../Pages/Dashboard/ScrollTotop";
 
 function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [state, setState] = useState({
     right: false,
   });
@@ -35,6 +36,12 @@ function Navbar() {
     localStorage.removeItem("userId");
     localStorage.setItem("isLogin", false);
   };
+
+  useEffect(()=>{
+    const loggedin = localStorage.getItem("isLogin")
+    setIsLoggedIn(loggedin)
+    console.log(isLoggedIn)
+  })
   return (
     <>
     <ScrollToTop />
@@ -76,24 +83,26 @@ function Navbar() {
           <NavLink className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/help"><Typography variant='button-text'><HelpIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Help</Typography></NavLink>
         </div>
 
-        {userId ? (
-          <NavLink to="/login">
+        
+          
             <button
-              onClick={logout}
               className="bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1"
             >
+              {userId ? (
+              <NavLink to="/login" onClick={logout}>
               <LogoutIcon sx={{ fontSize: 20 }} />
               Logout
+              </NavLink>
+                ) : (
+              <NavLink to="/login">
+                <LogoutIcon sx={{ fontSize: 20 }} />
+                Login
+              </NavLink>
+              )}
             </button>
-          </NavLink>
-        ) : (
-          <NavLink to="/login">
-            <button className="bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1">
-              <LogoutIcon sx={{ fontSize: 20 }} />
-              Login
-            </button>
-          </NavLink>
-        )}
+        
+          
+        
 
         {/* <button className='bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1'><LogoutIcon sx={{ fontSize: 20 }} /><NavLink to="/login">Login</NavLink></button> */}
 
@@ -139,19 +148,7 @@ function Navbar() {
                       </Typography>
                     </NavLink>
 
-                    <NavLink
-                      className="font-semibold text-lg text-gray-600"
-                      to="/dashboard"
-                      onClick={toggleDrawer(anchor, false)}
-                    >
-                      <Typography variant="button-text">
-                        <ViewAgendaIcon
-                          className="text-primary-100 align-text-bottom"
-                          sx={{ fontSize: 20 }}
-                        />
-                        Feed
-                      </Typography>
-                    </NavLink>
+                    
                     {userId ? (
                       <NavLink
                         className="font-semibold lg:text-base text-xl text-gray-600"
@@ -214,9 +211,24 @@ function Navbar() {
                   </div>
                 </div>
 
-                <button className="bg-primary-100 mx-auto mt-auto mb-24 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] md:m-0 m-5 p-1 flex md:hidden items-center justify-center gap-1 content-center">
+                {/* <button className="bg-primary-100 mx-auto mt-auto mb-24 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] md:m-0 m-5 p-1 flex md:hidden items-center justify-center gap-1 content-center">
                   <LogoutIcon sx={{ fontSize: 20 }} />
                   <NavLink to="/login">Logout</NavLink>
+                </button> */}
+                <button
+                  className="bg-primary-100 mx-auto mt-auto mb-24 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] md:m-0 m-5 p-1 flex md:hidden items-center justify-center gap-1 content-center"
+                  >
+                    {isLoggedIn == 'true' ? (
+              <NavLink to="/login" onClick={logout}>
+              <LogoutIcon sx={{ fontSize: 20 }} />
+              Logout
+              </NavLink>
+                ) : (
+              <NavLink to="/login">
+                <LogoutIcon sx={{ fontSize: 20 }} />
+                Login
+              </NavLink>
+              )}
                 </button>
               </Drawer>
             </React.Fragment>
