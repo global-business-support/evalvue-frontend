@@ -334,7 +334,7 @@ const Registration = () => {
               >
                 I agree with the{" "}
                 <a
-                  href={`${apiUrl}/media/Terms/Terms%20and%20Conditions.pdf`}
+                 href={`https://api.evalvue.com/media/Terms/Terms and Conditions.pdf`}
                   target="_blank"
                   className="text-primary-100 dark:text-primary-100 underline hover:underline"
                 >

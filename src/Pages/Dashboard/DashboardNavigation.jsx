@@ -32,7 +32,7 @@ function DashboardNavigation() {
   }
   return (
     <>
-      <div className="py-10 md:flex hidden flex-col items-center ">
+      <div className="py-10 lg:flex hidden flex-col items-center ">
         <div className="flex flex-col items-center gap-3 h-full lg:w-[280px] w-[200px] p-2">
           <NavLink
             to="/dashboard"
@@ -156,7 +156,7 @@ function DashboardNavigation() {
         {/* <button className='font-bold  text-gray-600'><SettingsIcon className='text-[#5559AF] align-top' sx={{ fontSize: 20 }} /> Settings</button> */}
       </div>
 
-      <div className="md:hidden w-0">
+      <div className="lg:hidden w-0">
         <Button onClick={toggleDrawer(true)} className="w-full text-left z-30">
           <span className="text-primary-100 font-semibold ml-5 ">Menu</span>
           <KeyboardArrowRightOutlinedIcon className="text-xs p-0 text-primary-100" />

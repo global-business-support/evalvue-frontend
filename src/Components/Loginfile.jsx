@@ -9,7 +9,7 @@ import logo from "../assets/images/evalvuelogo.jpg";
 import Loader from "../Pages/Loader";
 import { ValidateEmail, ValidatePassword } from "../Pages/Validation";
 import Tittle from "../Tittle";
-import Apibackendrequest from "../Pages/Apibackendrequest";
+import {ApiLoginRequest} from "../Pages/Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Loginfile = () => {
@@ -59,9 +59,9 @@ const Loginfile = () => {
 
     if (Object.keys(errors).length === 0) {
       setLoading(true);
-      const res = await Apibackendrequest(`${apiUrl}/login/user/`, Formdata);
+      const res = await ApiLoginRequest(`${apiUrl}/login/user/`, Formdata);
       if (res.data) {
-        localStorage.setItem("isLogin", res.data.is_login_successfull);
+        localStorage.setItem("accessToken", res.data.access);
         if (res.data.is_login_successfull && res.data.is_user_verified) {
           setUserId(res.data.user_id);
           navigate("/organization", {
