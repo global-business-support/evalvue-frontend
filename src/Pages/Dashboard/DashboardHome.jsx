@@ -86,6 +86,7 @@ function DashboardHome() {
                         </p>
                       </div>
                     </div>
+
                     {feed.review_image ? (
                     <div className=" w-full flex gap-2 md:flex-row justify-between flex-col mt-4">
                       <div className="md:w[48%] w-full bg-gray-200 p-2 rounded-lg ">

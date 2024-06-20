@@ -37,6 +37,7 @@ function Post() {
     employee_id: state.empid,
     rating: rating,
     comment: comment,
+    image:selectedImage,
   };
 
   function postsubmit(e) {
@@ -145,7 +146,7 @@ function Post() {
                   <input
                     type="file"
                     className="hidden"
-                    name="review_image"
+                    name="image"
                     accept="image/*"
                     onChange={handleImageChange}
                   />
