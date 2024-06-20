@@ -13,6 +13,7 @@ function SearchByAadharCard() {
   const [isFocused, setIsFocused] = useState(false);
   const [empmappedbyaadhar, setempmappedbyaadhar] = useState(false);
   const navigate = useNavigate(); // Updated from useHistory to useNavigate
+  const [error,setError] = useState();
 
   let value = "";
   const handleSearchChange = async (e) => {
@@ -29,9 +30,8 @@ function SearchByAadharCard() {
           if(response.data){
             setEmployees(response.data.employees_list_by_aadhar);
             setempmappedbyaadhar(response.data.employees_mapped_to_aadhar);
-            console.log(response);
           } else if(response.isexception){
-            console.log(response.exceptionmessage)
+            setError(response.exceptionmessage)
           }
         })
 
@@ -40,15 +40,13 @@ function SearchByAadharCard() {
         // });
         // setEmployees(response.data.employees_list_by_aadhar);
         // setempmappedbyaadhar(response.data.employees_mapped_to_aadhar);
-        // console.log(response);
       } catch (error) {
-        console.error("Error fetching employee data", error);
+        setError("Error fetching employee data", error);
       }
     } else {
       setEmployees([]);
     }
   };
-  console.log(employees);
   const handleEmployeeClick = (employeeId) => {
     navigate(`/dashboard/organization/employee/review`, {
       state: {
@@ -64,7 +62,6 @@ function SearchByAadharCard() {
 
   return (
     <div className="relative h-[calc(100vh-165px)] w-full flex justify-center ">
-      {/* {console.log(employees.length)} */}
       {employees == undefined || employees.length == 0 ? (
         <div
           className="absolute inset-0 bg-white"

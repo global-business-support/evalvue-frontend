@@ -24,7 +24,10 @@ function DashboardHome() {
           setError(res.exceptionmessage)
         }
       })
-      setloading(false)
+      .finally(()=>{
+
+        setloading(false)
+      })
     }, []);
 
     
