@@ -119,11 +119,11 @@ function Landing() {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center mt-8">
+          {/* <div className="flex items-center justify-center mt-8">
             <button className="px-6 py-2 bg-primary-100 text-white rounded-lg hover:bg-[#5559af] hover:shadow-sm">
               Choose Plan
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* after plan */}

@@ -107,16 +107,17 @@ export default function Organization() {
             <table className="w-full border-separate border-spacing-y-3">
               <thead>
                 <tr>
-                  <td className="text-left font-bold text-black  py-2 sm:px-4 px-1 sm:text-base text-[12px]">
+                <td className="text-left w-[140px] md:w-[120px]  lg:w-[140px] xl:w-[280px] truncate font-bold text-black  py-2 sm:px-4 px-1  text-[12px]">
                     Organization:
                   </td>
-                  <td className="text-left font-bold text-black  py-2 sm:px-4 px-1 sm:text-base text-[12px]">
+                   <td className="text-left  w-[50px] truncate  font-bold text-black  py-2 sm:px-4 px-1  text-[12px]">
                     Document Number:
                   </td>
-                  <td className="text-left font-bold text-black  py-2 sm:px-4 px-1 sm:text-base text-[12px]">
+                 
+                      <td className="text-left   md:w-[100px]  lg:w-[100px] xl:w-[320px] truncate font-bold text-black  py-2 sm:px-4 px-1  text-[12px]">
                     Address:
                   </td>
-                  <td className="text-left font-bold text-black  py-2 sm:px-4 px-1 sm:text-base text-[12px]">
+                  <td className="text-left font-bold text-black  py-2 sm:px-4 px-1  text-[12px]">
                     View:
                   </td>
                   {/* <td className="text-left font-bold text-black  py-2 px-4">Edit / Delete:</td> */}
@@ -129,7 +130,7 @@ export default function Organization() {
                     className="lg:px-6 sm:px-5 px-1"
                   >
                     <td
-                      className={`py-3 sm:px-4 px-1 w-[25%] bg-${
+                      className={`py-3 sm:px-2 px-1  bg-${
                         organization.organization_verified
                           ? "white"
                           : "[#f3f7fc]"
@@ -137,7 +138,7 @@ export default function Organization() {
                     >
                       <div className="flex justify-start items-center gap-2">
                         <div className="relative">
-                          <div className="sm:h-16 sm:w-16 w-12 rounded-full border-[2px] border-primary-100 overflow-hidden">
+                        <div className=" h-12 w-12 lg:w-20  lg:h-20 md:w-16 md:h-16 rounded-full border-[2px] border-primary-100 overflow-hidden">
                             <img
                               src={organization.image}
                               alt=""
@@ -145,19 +146,19 @@ export default function Organization() {
                             />
                           </div>
                         </div>
-                        <h2 className="font-semibold sm:text-base text-[12px] text-primary-100">
+                        <h2 className="font-semibold  sm:text-base w-[140px] md:w-[120px]  lg:w-[140px] xl:w-[280px] truncate text-[12px] text-primary-100">
                           {organization.name}
                         </h2>
                       </div>
                     </td>
                     <td
-                      className={`py-3 sm:px-4 px-1 sm:text-base text-[12px] w-[18%] bg-${
+                        className={`py-3 sm:px-4 px-1 sm:text-base text-[12px] w-[100px] bg-${
                         organization.organization_verified
                           ? "white"
                           : "[#f3f7fc]"
                       } text-primary-100 font-semibold  shadow-top-bottom-xl`}
                     >
-                      {organization.document_number}
+                       <h1 className="hidden md:block">{organization.document_number}</h1>
                     </td>
                     <td
                       className={`py-3 sm:px-4 px-1  sm:text-base text-[12px] bg-${
@@ -166,7 +167,7 @@ export default function Organization() {
                           : "[#f3f7fc]"
                       } text-primary-100  font-semibold  shadow-top-bottom-xl`}
                     >
-                      <h1 className="sm:w-52 w-20 sm:text-wrap truncate">
+                         <h1 className=" md:w-[100px] hidden md:block  lg:w-[100px] xl:w-[320px] truncate">
                         {organization.area}, {organization.city_name},{" "}
                         {organization.state_name}, {organization.pincode}
                       </h1>
@@ -216,7 +217,7 @@ export default function Organization() {
                             }
                           />
                         ) : (
-                          <div></div>
+                          ""
                         )}
                       </div>
                     </td>
