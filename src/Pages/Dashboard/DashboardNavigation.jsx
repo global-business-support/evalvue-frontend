@@ -157,7 +157,7 @@ function DashboardNavigation() {
       </div>
 
       <div className="lg:hidden w-0">
-        <Button onClick={toggleDrawer(true)} className="w-full text-left z-30">
+        <Button onClick={toggleDrawer(true)} className="w-full text-left z-40">
           <span className="text-primary-100 font-semibold ml-5 ">Menu</span>
           <KeyboardArrowRightOutlinedIcon className="text-xs p-0 text-primary-100" />
         </Button>
