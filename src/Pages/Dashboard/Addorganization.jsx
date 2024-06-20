@@ -18,7 +18,6 @@ function Addorganization() {
     organization_id: location.state?.organization_id || "",
     gstin:""
   });
-  console.log(orgregdata)
   const [fileLogoName, setFileLogoName] = useState("");
   const [fileLogoPreview, setLogoFilePreview] = useState("");
   const [fileName, setFileName] = useState("");
@@ -140,7 +139,6 @@ function Addorganization() {
     }
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
-  console.log(error)
 
   const header = {
     headers: { "Content-Type": "multipart/form-data" },
@@ -176,7 +174,6 @@ function Addorganization() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
-  console.log(orgregdata)
   if (editOrgEnabled) {
     const editdata = {
       organization_id: location.state.organization_id || "",
@@ -185,7 +182,6 @@ function Addorganization() {
     useEffect(() => {
       Apibackendrequest(`${apiUrl}/organization/editable/data/`, editdata)
       .then((res) => {
-            // console.log(res)
             setOrgregdata((pre)=>({
               ...pre,
               ...res.data.organization_list[0]
@@ -199,8 +195,9 @@ function Addorganization() {
               setError(res.exceptionmessage)
             }
           })
-          
-
+        }, [editdata.organization_id]);
+      }
+         
       // axios
       //   .post(`${apiUrl}/organization/editable/data/`, editdata)
       //   .then((res) => {
@@ -218,10 +215,7 @@ function Addorganization() {
       //   .catch((err) => {
       //     console.log(err);setError(err.response.data.error);
       //   });
-    }, [editdata.organization_id]);
-  }
-  // console.log(editOrgData)
-  console.log(orgregdata);
+
   useEffect(() => {
 
     Apibackendrequest(`${apiUrl}/add/organization/`)
@@ -235,13 +229,9 @@ function Addorganization() {
         setstatedata(res.data.state);
         setcity(populateDropDown(res.data.city));
         setcitydata(res.data.city);
-        // console.log(doctype)
-        // setdocumenttype(doctype);
-        
       }else if(res.isexception){
-        console.log(res.exceptionmessage);
+        setError(res.exceptionmessage);
       }
-          // setdocumenttype(res.data.document_type);
         })
 
     // axios
@@ -292,17 +282,13 @@ function Addorganization() {
       const segments = pathname.split("/");
       return segments.pop() || ""; // Return the last segment which is the file name
     } catch (error) {
-      console.error("Invalid URL:", error);
+      setErrors("Invalid URL:", error);
       return "";
     }
   };
   function orgRegSubmit(event) {
-    console.log("abhishek");
     event.preventDefault();
     setloading(true);
-    console.log("before validata");
-    console.log(editOrgEnabled)
-    // console.log("after validata");
     
     const formData = new FormData();
     formData.append("organization_image", orgregdata.organization_image);
@@ -310,7 +296,6 @@ function Addorganization() {
     
     setloading(false);
     if (!validate()) return;
-    console.log(editOrgEnabled)
 
     Apibackendrequest(`${apiUrl}${editOrgEnabled ? "/organization/edit/" : "/create/organization/"}`, orgregdata,header)
         .then((res) => {
@@ -319,14 +304,12 @@ function Addorganization() {
               setIsOrganizationCreated(true);
               navigate("/dashboard/organization");
               setloading(false);
-              console.log("successfull");
             }
           } else if(res.isexception){
                 setloading(false);
               
                 setError(res.exceptionmessage.error);
                 
-                console.log(error);
                 validate();
               }
             })
@@ -365,7 +348,6 @@ function Addorganization() {
       </div>
     );
   }
-  console.log(fileLogoName)
 
   return (
     <div className="max-w-full m-4 p-6 bg-white shadow-md rounded-lg">

@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import Addorganization from "./Addorganization";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
@@ -14,32 +13,33 @@ const apiUrl = import.meta.env.VITE_API_URL;
 export default function Organization() {
   Tittle("Organization - Evalvue");
   const [Orgdata, setOrgdata] = useState([]);
-  const [Isorgmap, setIsorgmap] = useState(false);
   const [loading, setLoading] = useState(true); // Set initial loading state to true
-  const [address, setAddress] = useState({});
+  const [Isorgmap, setIsorgmap] = useState(false);
   const { userId } = useContext(UserContext);
+
+  const [address, setAddress] = useState({});
+  const [error, setError] = useState();
+
   const { setStateOrgData } = useContext(UserContext);
+
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-
-        Apibackendrequest(`${apiUrl}/organizations/`, { user_id: userId })
-      .then((res) => {
-        setOrgdata(res.data.organization_list);
-        if (res.data.is_organization_mapped) {
-          setIsorgmap(res.data.is_organization_mapped);
-        } else {
-          setAddress(res.data);
-        }
-        console.log(res)
-        if(res.isexception){
-          console.log(res.exceptionmessage)
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-        setLoading(false); // Set loading state to false when request completes
+    Apibackendrequest(`${apiUrl}/organizations/`, { user_id: userId })
+    .then((res) => {
+      setOrgdata(res.data.organization_list);
+      if (res.data.is_organization_mapped) {
+        setIsorgmap(res.data.is_organization_mapped);
+      } else {
+        setAddress(res.data);
+      }
+      if(res.isexception){
+        setError(res.exceptionmessage)
+      }
+    })
+    .catch((err) => {
+      setError(err);
+    }).finally(()=>{setLoading(false)});
       
 
     // axios
@@ -58,7 +58,7 @@ export default function Organization() {
     //   .finally(() => {
     //     setLoading(false); // Set loading state to false when request completes
     //   });
-  }, []);
+  }, [userId]);
 
   const handleEdit = (organizationId) => {
     // Navigate to the edit page
@@ -86,9 +86,10 @@ export default function Organization() {
     );
   }
 
-  return (
+  if(Isorgmap) {
+    return (
     <>
-      {Isorgmap ? (
+      
         <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto ">
           <div
             className="flex justify-between sticky z-50 items-center mb-6 bg-white p-4 rounded-lg shadow-lg"
@@ -236,9 +237,8 @@ export default function Organization() {
             </table>
           </div>
         </div>
-      ) : (
-        <Addorganization userId={userId} />
-      )}
+      
     </>
-  );
-}
+  )}else{return(<Addorganization />)
+  }
+};
