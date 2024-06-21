@@ -15,6 +15,7 @@ function Post() {
   const navigate = useNavigate();
   const [rating, setrating] = useState(0);
   const [loading,setloading]=useState(false)
+  const [error, setError] = useState('')
   const [comment, setcomment] = useState("");
   const [msg,setmsg]=useState("none");
   const [ratMsg, setRatMsg] = useState("none");
@@ -49,6 +50,7 @@ function Post() {
     else if(rating==0){
       setRatMsg("block")
     }
+    
     else{
 
       Apibackendrequest(`${apiUrl}/create/review/`, pay)
@@ -63,7 +65,8 @@ function Post() {
             });
           } 
         } else if(res.isexception){
-          console.log(res.exceptionmessage)
+          console.log(res.exceptionmessage.error)
+          setError(res.exceptionmessage.error)
         }
         })
 
@@ -165,7 +168,7 @@ function Post() {
           </div>
 
         <textarea
-          className="w-full p-2 border-4 mt-4 border-indigo-200 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-100 "
+          className="w-full p-2 border-4 mt-4 border-indigo-200 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-100 resize-none"
           rows="8"
           placeholder="What do you want to talk about?"
           name="comment"
@@ -184,6 +187,7 @@ function Post() {
         <p className="text-[red] " style={{display:ratMsg}}>
            Rating employee is compulsory
         </p>
+        
         </div>
         <div className="mx-1 my-4">
           <h3>Select rating : <span className="text-red-500">*</span></h3>
@@ -195,7 +199,9 @@ function Post() {
             }}
           />
         </div>
-
+        <p className="text-[red] w-full text-end">
+           {error}
+        </p>
         <div className="flex items-center mt-4">
           <button
             type="submit"
