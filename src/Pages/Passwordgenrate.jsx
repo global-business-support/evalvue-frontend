@@ -113,9 +113,6 @@ function Passwordgenrate() {
         </div>
       ) : (
         <div className="shadow-md rounded-lg p-6 max-w-md w-full bg-zinc-200">
-          <div className="flex justify-center mb-4">
-            <img src="https://placehold.co/100x50" alt="Logo" />
-          </div>
           <h2 className="text-center text-2xl font-semibold mb-4">Successful password reset!</h2>
           <p className="text-center text-zinc-600 dark:text-zinc-400 mb-6">
             You can now use your new password to login to your account 🎉

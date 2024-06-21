@@ -419,6 +419,7 @@ function Addorganization() {
                   <input
                     type="text"
                     placeholder="Name"
+                    maxLength={50}
                     name="organization_name"
                     value={orgregdata.organization_name || orgregdata.name}
                     onChange={orgHandler}
@@ -568,6 +569,7 @@ function Addorganization() {
                     type="text"
                     placeholder="CA739543A"
                     name="document_number"
+                    maxLength={25}
                     disabled={editOrgEnabled}
                     onChange={orgHandler}
                     value={orgregdata.document_number}

@@ -18,7 +18,7 @@ function Empform() {
   const [empregdata, Setempregdata] = useState({
     user_id: userId,
     employee_id: location.state.employee_id,
-    organization_id: organization_id.ordId,
+    organization_id: organization_id.organization_id,
   });
   const [editEnable, setEditEnable] = useState(!location.state.addEmp);
   const [fileLogoName, setFileLogoName] = useState("");

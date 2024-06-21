@@ -76,7 +76,7 @@ function SearchByAadharCard() {
             backgroundRepeat: "no-repeat",
             backgroundPositionX: "50%",
             backgroundPositionY: "80%",
-            backgroundSize: "30%",
+            backgroundSize: "25%",
           }}
         >
           <div className="absolute inset-0 bg-blue-gray-700 opacity-20"></div>
@@ -120,7 +120,7 @@ function SearchByAadharCard() {
 
         {empmappedbyaadhar ? (
           <div
-            className={`mt-8 lg:flex lg:flex-col grid sm:grid-cols-2 grid-cols-1 ${
+            className={`mt-8 xl:flex xl:flex-col grid  sm:grid-cols-2 grid-cols-1 gap-1 ${
               isFocused && value.length > 0 ? "h-[450px]" : ""
             }   scrollbar-custom  overflow-y-auto`}
           >
@@ -129,23 +129,23 @@ function SearchByAadharCard() {
                 key={employee.employee_id}
                 className=" py-5 md:px-5 px-3 m-0.5 lg:w-full w-50% bg-white mt-4 rounded-md shadow-lg"
               >
-                <div className=" flex lg:flex-row flex-col justify-between items-center lg:gap-4 gap-2">
-                  <div className="flex lg:flex-row flex-col items-center gap-4 lg:w-[20%] w-full justify-start">
+                <div className=" flex xl:flex-row flex-col justify-between items-center lg:gap-4 gap-2">
+                  <div className="flex xl:flex-row flex-col items-center gap-4 xl:w-[20%] w-full justify-start">
                     <img
                       src={employee.employee_image}
-                      className="lg:h-[70px] h-[80px] lg:max-w-[70px] w-[80px] border-[3px] border-primary-100 rounded-full object-fill"
+                      className="lg:h-[70px] min-h-[80px] lg:max-w-[70px] min-w-[80px] border-[3px] border-primary-100 rounded-full object-fill"
                       alt=""
                     />
-                    <div className="flex lg:flex-col">
+                    <di v className="flex xl:flex-col">
                       <small className="font-bold sm:text-sm text-xs ">
                         Name :&nbsp;
                       </small>
                       <h3 className="font-bold sm:text-sm text-xs text-primary-100">
                         {employee.employee_name}
                       </h3>
-                    </div>
+                    </di>
                   </div>
-                  <div className="lg:w-[20%] w-full flex lg:flex-col justify-start ">
+                  <div className="xl:w-[20%] w-full flex xl:flex-col justify-start ">
                     <small className="font-bold sm:text-sm text-xs">
                       Designation :&nbsp;
                     </small>
@@ -154,7 +154,7 @@ function SearchByAadharCard() {
                       {employee.designation}
                     </h3>
                   </div>
-                  <div className="lg:w-[20%] w-full flex lg:flex-col justify-start">
+                  <div className="xl:w-[20%] w-full flex xl:flex-col justify-start">
                     <small className="font-bold sm:text-sm text-xs">
                       Aadhaar Number :&nbsp;
                     </small>
@@ -162,7 +162,7 @@ function SearchByAadharCard() {
                       {employee.aadhar_number}
                     </h3>
                   </div>
-                  <div className="lg:w-[20%] w-full flex lg:flex-col justify-start">
+                  <div className="xl:w-[20%] w-full flex xl:flex-col justify-start">
                     <small className="font-bold sm:text-sm text-xs">
                       Mobile Number :&nbsp;
                     </small>
@@ -170,14 +170,34 @@ function SearchByAadharCard() {
                       {employee.mobile_number}
                     </h3>
                   </div>
+                  <div className="flex lg:flex-row flex-col lg:w-auto w-full gap-[2px]">
+                  {employee.status_id == 1 ?(
+                    <button
+                    onClick={() => {
+                      handleEmployeeClick(index);
+                    }}
+                    className="lg:w-auto w-full border-2 px-6 py-2 rounded-md font-bold border-green-500 text-green-500"
+                    >
+                      Active
+                    </button>
+                    ):(
+                    <button
+                      className="lg:w-auto w-full  border-2 px-2 py-2 rounded-md font-bold border-red-500 text-red-500"
+                    >
+                      Terminated
+                    </button>
+                  )}
+
                   <button
                     onClick={() => {
                       handleEmployeeClick(index);
                     }}
-                    className="lg:w-auto w-full border px-8 py-2 rounded-md bg-primary-100 text-white"
+                    className="lg:w-auto w-full border px-7 py-2 rounded-md bg-primary-100 text-white"
                   >
                     view
                   </button>
+                  </div>
+                  
                 </div>
               </div>
               // <li

@@ -132,7 +132,7 @@ export default function Organization() {
                     className="lg:px-6 sm:px-5 px-1 w-[100%]"
                   >
                     <td
-                      className={`py-3 sm:px-2 px-1  bg-${
+                      className={`py-3 sm:px-2 px-1 max-w-[180px] bg-${
                         organization.organization_verified
                           ? "white"
                           : "[#f3f7fc]"
@@ -154,13 +154,13 @@ export default function Organization() {
                       </div>
                     </td>
                     <td
-                        className={`py-3 sm:px-4 px-1 sm:text-base text-[12px] w-[100px]  bg-${
+                        className={`py-3 sm:px-4 px-1 sm:text-base text-[12px] max-w-[100px]  bg-${
                         organization.organization_verified
                           ? "white"
                           : "[#f3f7fc]"
                       } text-primary-100 font-semibold  shadow-top-bottom-xl`}
                     >
-                       <h1 className="hidden md:block">{organization.document_number}</h1>
+                       <h1 className="hidden md:block truncate">{organization.document_number}</h1>
                     </td>
                     <td
                       className={`py-3 sm:px-4 px-1  sm:text-base text-[12px] bg-${
@@ -195,13 +195,13 @@ export default function Organization() {
                                   orgimg: organization.image,
                                 })
                             })}
-                            // state={{
-                            //   organization_name: organization.name,
-                            //   orgarea: organization.area,
-                            //   orgcity: organization.city_name,
-                            //   orgstate: organization.state_name,
-                            //   orgimg: organization.image,
-                            // }}
+                            state={{
+                              organization_name: organization.name,
+                              orgarea: organization.area,
+                              orgcity: organization.city_name,
+                              orgstate: organization.state_name,
+                              orgimg: organization.image,
+                            }}
                           >
                             <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
                               <BiSolidShow className=" h-5 w-5" />
