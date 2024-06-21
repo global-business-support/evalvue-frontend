@@ -14,7 +14,7 @@ function DashboardHome() {
   const [Feed, setFeed] = useState([]);
   const { userId } = useContext(UserContext);
   const [loading, setloading] = useState(true)
-
+console.log(Feed)
   useEffect(() => {
     Apibackendrequest(`${apiUrl}/dashboard/feed/`, { user_id: userId })
       .then((res) => {
@@ -87,7 +87,7 @@ function DashboardHome() {
                       </div>
                     </div>
 
-                    {feed.review_image ? (
+                    {feed.image ? (
                     <div className=" w-full flex gap-2 md:flex-row justify-between flex-col mt-4">
                       <div className="md:w[48%] w-full bg-gray-200 p-2 rounded-lg ">
                         <div className="flex justify-center items-center  bg-slate-200 h-[100%] bg-white rounded-lg">

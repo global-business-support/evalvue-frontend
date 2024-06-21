@@ -93,7 +93,92 @@ function Personalreview() {
   }
 
   if (isReviewMapped) {
-    return (
+    return ( !state.aadhar ? 
+      <>
+      {ReviewList.map((review) => (
+            <div
+              key={review.review_id}
+              className="flex flex-col p-3 justify-center mx-auto items-center  gap-5  mb-18"
+            >
+              <div className=" bg-white mx-auto rounded-lg md:w-5/6 w-full shadow-md overflow-hidden">
+                <div className="p-4 l">
+                  <div className="flex items-center">
+                    <div className="h-10 w-10 rounded-full  border bg-zinc-100">
+                      <img
+                        className="h-full w-full rounded-full object-fit "
+                        src={state.orgImg}
+                        alt="Company Logo"
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm font-semibold text-zinc-900">
+                        {state.orgName}
+                      </p>
+                      <p className="text-xs text-zinc-500">{state.createdOn}</p>
+                    </div>
+                  </div>
+                  <div className=" h-full w-full p-2 mt-3  rounded-xl   border-[6px] border-zinc-200">
+                    <div className=" flex items-center">
+                      <div className="h-10 w-10 rounded-full border bg-zinc-100">
+                        <img
+                          className="h-full w-full object-cover rounded-full "
+                          src={EmployeeList.employee_image}
+                          alt="Company Logo"
+                        />
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-sm font-semibold text-zinc-900">
+                        {EmployeeList.employee_name}
+                        </p>
+                        <p className="text-xs text-zinc-500">
+                        {EmployeeList.designation}
+                        </p>
+                      </div>
+                    </div>
+
+                    {review.image ? (
+                    <div className=" w-full flex gap-2 md:flex-row justify-between flex-col mt-4">
+                      <div className="md:w[48%] w-full bg-gray-200 p-2 rounded-lg ">
+                        <div className="flex justify-center items-center  bg-slate-200 h-[100%] bg-white rounded-lg">
+                          <p className="whitespace-pre-wrap text-zinc-800 text-sm p-3 break-words break-all">
+                            {review.comment}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="bg-red-400 w-[1px] sm:block hidden h-vh"></div>
+
+                      <div className=" max-h-[400px] overflow-hidden  md:w[48%] w-full bg-gray-200 p-2 rounded-lg">
+                          <img src={review.image} alt="Review-Image"
+                            className="rounded-lg object-scale-down w-full h-full "
+                          />
+                      </div>
+                    </div>
+                    ) : 
+                    (
+                      <div className="mt-4 bg-gray-200 h-[100%] rounded-lg">
+                          <p className="whitespace-pre-wrap text-zinc-800 text-sm p-3 break-words break-all">
+                            {review.comment}
+                          </p>
+                        </div>
+                    )
+                    }
+                    <div className="mt-2 p-3 flex gap-2">
+                      <span className="text-gray-800 font-semibold text-md">
+                        Rating:{" "}
+                      </span>
+                      <span>
+                        <Rating value={review.rating} readonly />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ))}
+          </>
+    // ======================else==============
+    :
       <>
         {ReviewList.map((review) => (
           <div className="m-3" key={review.review_id}>
@@ -150,8 +235,12 @@ function Personalreview() {
           </div>
         ))}
       </>
+
     );
   }
+
+
+  // =======================================================
   return (
     <div className="flex justify-center">
       <h3>No review</h3>

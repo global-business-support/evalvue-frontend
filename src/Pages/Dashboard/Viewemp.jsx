@@ -9,15 +9,16 @@ import { UserContext } from "../../Contextfile";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function Viewemp() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   Tittle("Employees - Evalvue")
   const [Employees, setEmployees] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { organization_id } = useParams();
   const location = useLocation();
-  const state=location.state;
-const status = false /*Remove this variable */
+  const state = location.state;
+  const status = false /*Remove this variable */
+  const [delEmp, setDelEmp] = useState(false);
 
   const { stateOrgData } = useContext(UserContext);
 
@@ -37,39 +38,51 @@ const status = false /*Remove this variable */
   //   };
 
   useEffect(() => {
-    console.log(stateOrgData)
-  Apibackendrequest(`${apiUrl}/employees/`, {organization_id,})
-  .then((res) => {
-    setEmployees(res.data.employee_list || []);
-    if(res.isexception){
-      setError(res.exceptionmessage)
-    }
-  }).finally(()=>{setLoading(false)});
-      }, []);
+    Apibackendrequest(`${apiUrl}/employees/`, { organization_id, })
+      .then((res) => {
+        setEmployees(res.data.employee_list || []);
+        if (res.isexception) {
+          setError(res.exceptionmessage)
+        }
+      }).finally(() => { setLoading(false) });
+  }, []);
 
   const handleEdit = (empId, OrgId) => {
     // Navigate to the edit page
     navigate(`/dashboard/organization/employee/addemp`,
-      {state:{employee_id:empId,
-        organization_id:OrgId,
-        addEmp:false 
-      }}
+      {
+        state: {
+          employee_id: empId,
+          organization_id: OrgId,
+          addEmp: false
+        }
+      }
     )
   };
-
-  const handleDelete = () => {
-    // Navigate to the delete page or handle deletion logic
-    navigate(`/dashboard/organization/delete/`)
+  const handleTerminate = (empId, OrgId,empname) => {
+    const delId = {"organization_id": OrgId, "employee_id": empId};
+    const confirmuser=confirm(`Are you sure you want to delete ${empname}'S employment? ` );
+    if(confirmuser){
+    Apibackendrequest(`${apiUrl}/terminate/employee/`, delId)
+      .then((res) => {
+        if(res){if(res.exceptionmessage.is_employee_terminated_successfull){
+          window.location.reload();
+        }else{
+          setError(res.exceptionmessage.error);
+        }
+        }
+        }).finally(()=>setLoading(false));
+      }
   };
 
   if (loading) {
     return (
       <>
-      <div className="h-[calc(100vh-100px)] flex justify-center items-center">
-        <Loader/>
-      </div>
+        <div className="h-[calc(100vh-100px)] flex justify-center items-center">
+          <Loader />
+        </div>
       </>
-    ) 
+    )
   }
 
   if (error) {
@@ -79,18 +92,18 @@ const status = false /*Remove this variable */
   if (Employees?.length === 0) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-      <div className="flex justify-center flex-col items-center ">
-        <p className="text-2xl text-zinc-300">No employees</p>
-        <NavLink
-          to="/dashboard/organization/employee/addemp"
-          state={{ organization_id: organization_id ,state:state,addEmp : true,}}
-        >
-          <button className=" border hover:text-whitebg-primary-100 transition duration-300 border-primary-100 text-primary-100 font-semibold px-1 py-2 rounded-lg">
-            + Add Employee
-          </button>
-        </NavLink>
+        <div className="flex justify-center flex-col items-center ">
+          <p className="text-2xl text-zinc-300">No employees</p>
+          <NavLink
+            to="/dashboard/organization/employee/addemp"
+            state={{ organization_id: organization_id, state: state, addEmp: true, }}
+          >
+            <button className=" border hover:text-whitebg-primary-100 transition duration-300 border-primary-100 text-primary-100 font-semibold px-1 py-2 rounded-lg">
+              + Add Employee
+            </button>
+          </NavLink>
+        </div>
       </div>
-       </div>
     );
   }
 
@@ -116,21 +129,22 @@ const status = false /*Remove this variable */
             </div>
           </div>
           <div className="flex flex-col items-center gap-3">
-              <p className="sm:text-base text-xs font-semibold">
-                Total Employee : {Employees.length}
-              </p>
-              
-              <NavLink
-                to="/dashboard/organization/employee/addemp"
-                state={{ organization_id: organization_id, 
-                  addEmp : true,
-                
-                }}
-              >
-                <button className="border bg-primary-100 text-white sm:text-base text-xs font-semibold px-5 py-2 rounded-lg hover:bg-[#5559af] hover:shadow-sm">
-                  <span className="font-bold sm:text-xl text-xs"> + </span> Add Employee
-                </button>
-              </NavLink>
+            <p className="sm:text-base text-xs font-semibold">
+              Total Employee : {Employees.length}
+            </p>
+
+            <NavLink
+              to="/dashboard/organization/employee/addemp"
+              state={{
+                organization_id: organization_id,
+                addEmp: true,
+
+              }}
+            >
+              <button className="border bg-primary-100 text-white sm:text-base text-xs font-semibold px-5 py-2 rounded-lg hover:bg-[#5559af] hover:shadow-sm">
+                <span className="font-bold sm:text-xl text-xs"> + </span> Add Employee
+              </button>
+            </NavLink>
           </div>
         </div>
         <div className="mb-3 flex justify-center items-start mt-3  overflow-x">
@@ -167,8 +181,8 @@ const status = false /*Remove this variable */
                     </h2>
                   </td>
                   <td className="py-3 sm:px-2 px-1 w-[20%] bg-white font-semibold sm:text-sm text-[12px] text-primary-100 shadow-top-bottom-xl">
-                      {employee.aadhar_number}
-                    </td>
+                    {employee.aadhar_number}
+                  </td>
                   <td className="py-3 sm:px-2 px-1 w-[20%] text-primary-100 font-semibold sm:text-sm text-[12px] bg-white shadow-top-bottom-xl sm:table-cell hidden">
                     {employee.designation}
                   </td>
@@ -176,37 +190,30 @@ const status = false /*Remove this variable */
                   <td className="ml-10 py-3 sm:px-4 px-2 w-[20%] bg-white rounded-r-lg shadow-top-bottom-xl">
 
                     <div className="flex gap-4 justify-center items-center">
-                   
-                    <NavLink
-                      to={`/dashboard/organization/employee/review`}
-                      state={{
-                        empname: employee.employee_name,
-                        empdesignation: employee.designation,
-                        empimage:employee.employee_image,
-                        empid: employee.employee_id,
-                        emporgid: organization_id,
-                        aadhar:true
-                      }}
-                    >
-                      <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-3 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[11px]" 
-                      onClick={(()=>{})}>
-                        
-                        Review
-                      </button>
-                    </NavLink>
 
-                    
-                    
-                    <ThreeDotMenu
-                    onEdit={() => handleEdit(employee.employee_id,organization_id)}
-                  />
-                    
-                  
-                    
-                  </div>
+                      <NavLink
+                        to={`/dashboard/organization/employee/review`}
+                        state={{
+                          empname: employee.employee_name,
+                          empdesignation: employee.designation,
+                          empimage: employee.employee_image,
+                          empid: employee.employee_id,
+                          emporgid: organization_id,
+                          aadhar: true
+                        }}
+                      >
+                        <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-3 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[11px]"
+                          onClick={(() => { })}>
 
+                          Review
+                        </button>
+                      </NavLink>
+                      <ThreeDotMenu
+                        onEdit={() => handleEdit(employee.employee_id, organization_id)}
+                        onDelete={()=> handleTerminate(employee.employee_id, organization_id,employee.employee_name)}
+                      />
+                    </div>
                   </td>
-
                 </tr>
               ))}
             </tbody>
