@@ -242,8 +242,8 @@ function Personalreview() {
 
   // =======================================================
   return (
-    <div className="flex justify-center">
-      <h3>No review</h3>
+    <div className="flex h-[50vh] justify-center items-center">
+      <h3 className='text-xl font-bold text-red-500'>No review</h3>
     </div>
   );
 }
