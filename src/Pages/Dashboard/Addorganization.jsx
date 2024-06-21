@@ -286,18 +286,23 @@ function Addorganization() {
       return "";
     }
   };
+  const formData = new FormData();
+    Object.keys(orgregdata).forEach(key => {
+      formData.append(key, orgregdata[key]);
+    });
+
   function orgRegSubmit(event) {
     event.preventDefault();
     setloading(true);
     
-    const formData = new FormData();
-    formData.append("organization_image", orgregdata.organization_image);
-    formData.append("document_file", orgregdata.document_file);
+    // const formData = new FormData();
+    // formData.append("organization_image", orgregdata.organization_image);
+    // formData.append("document_file", orgregdata.document_file);
     
     setloading(false);
     if (!validate()) return;
 
-    Apibackendrequest(`${apiUrl}${editOrgEnabled ? "/organization/edit/" : "/create/organization/"}`, orgregdata,header)
+    Apibackendrequest(`${apiUrl}${editOrgEnabled ? "/organization/edit/" : "/create/organization/"}`, formData)
         .then((res) => {
           if(res.data){
             if (res.data.is_organization_register_successfull || res.data.organization_edit_sucessfull) {

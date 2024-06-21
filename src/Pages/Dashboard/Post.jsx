@@ -40,7 +40,10 @@ function Post() {
     comment: comment,
     image:selectedImage,
   };
-
+  const formData = new FormData();
+  Object.keys(pay).forEach(key => {
+    formData.append(key, pay[key]);
+  });
   function postsubmit(e) {
     e.preventDefault();
     setloading(true)
@@ -53,7 +56,7 @@ function Post() {
     
     else{
 
-      Apibackendrequest(`${apiUrl}/create/review/`, pay)
+      Apibackendrequest(`${apiUrl}/create/review/`, formData)
       .then((res) => {
         if(res.data){
           

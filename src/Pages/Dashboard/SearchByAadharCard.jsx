@@ -133,17 +133,17 @@ function SearchByAadharCard() {
                   <div className="flex xl:flex-row flex-col items-center gap-4 xl:w-[20%] w-full justify-start">
                     <img
                       src={employee.employee_image}
-                      className="lg:h-[70px] min-h-[80px] lg:max-w-[70px] min-w-[80px] border-[3px] border-primary-100 rounded-full object-fill"
+                      className="lg:h-[70px] h-[80px] lg:max-w-[70px] w-[80px] border-[3px] border-primary-100 rounded-full object-fill"
                       alt=""
                     />
-                    <di v className="flex xl:flex-col">
+                    <div className="flex xl:flex-col">
                       <small className="font-bold sm:text-sm text-xs ">
                         Name :&nbsp;
                       </small>
                       <h3 className="font-bold sm:text-sm text-xs text-primary-100">
                         {employee.employee_name}
                       </h3>
-                    </di>
+                    </div>
                   </div>
                   <div className="xl:w-[20%] w-full flex xl:flex-col justify-start ">
                     <small className="font-bold sm:text-sm text-xs">
