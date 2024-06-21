@@ -13,6 +13,7 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import { Button, Drawer, Typography } from "@mui/material";
 import { UserContext } from "../Contextfile";
 import ScrollToTop from "../Pages/Dashboard/ScrollTotop";
+import LogoutButton from "./LogoutButton";
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -34,7 +35,6 @@ function Navbar() {
   const logout = () => {
     setUserId(null);
     localStorage.removeItem("userId");
-    localStorage.setItem("isLogin", false);
   };
 
   useEffect(()=>{
@@ -87,12 +87,8 @@ function Navbar() {
             <button
               className="bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1"
             >
-              {userId ? (
-              <NavLink to="/login" onClick={logout}>
-              <LogoutIcon sx={{ fontSize: 20 }} />
-              Logout
-              </NavLink>
-                ) : (
+              {userId ? 
+             <LogoutButton />: (
               <NavLink to="/login">
                 <LogoutIcon sx={{ fontSize: 20 }} />
                 Login
@@ -218,10 +214,7 @@ function Navbar() {
                   className="bg-primary-100 mx-auto mt-auto mb-24 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] md:m-0 m-5 p-1 flex md:hidden items-center justify-center gap-1 content-center"
                   >
                     {isLoggedIn == 'true' ? (
-              <NavLink to="/login" onClick={logout}>
-              <LogoutIcon sx={{ fontSize: 20 }} />
-              Logout
-              </NavLink>
+              <LogoutButton/>
                 ) : (
               <NavLink to="/login">
                 <LogoutIcon sx={{ fontSize: 20 }} />

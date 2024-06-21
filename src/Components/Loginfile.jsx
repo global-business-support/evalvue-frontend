@@ -53,23 +53,28 @@ const Loginfile = () => {
 
   const submithandle = async (event) => {
     event.preventDefault();
-
+  
     const errors = validate();
     setFormErrors(errors);
-
+  
     if (Object.keys(errors).length === 0) {
       setLoading(true);
       const res = await ApiLoginRequest(`${apiUrl}/login/user/`, Formdata);
       if (res.data) {
-        localStorage.setItem("accessToken", res.data.access);
+        localStorage.setItem("accessToken", res.data.access); // Save token
+        localStorage.setItem("isLogin", res.data.is_login_successfull);
         if (res.data.is_login_successfull && res.data.is_user_verified) {
           setUserId(res.data.user_id);
-          navigate("/organization", {
-            state: {
-              is_login_successfull: res.data.is_login_successfull,
-              is_user_verified: res.data.is_user_verified,
-            },
-          });
+  
+          // Ensure token is available before navigation
+          setTimeout(() => {
+            navigate("/organization", {
+              state: {
+                is_login_successfull: res.data.is_login_successfull,
+                is_user_verified: res.data.is_user_verified,
+              },
+            });
+          }, 0); // Small delay to ensure token is saved
         } else if (res.data.is_user_verified == false) {
           navigate("/verified", {
             state: { isForget: false, email: Formdata.email },
