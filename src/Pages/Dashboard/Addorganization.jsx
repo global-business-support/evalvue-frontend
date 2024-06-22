@@ -626,8 +626,21 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-
-                <br />
+                {editOrgEnabled?"":<div>
+                  <label className="block mb-2 text-sm font-medium text-zinc-700">
+                    Referral Number (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    name="Referral_code"
+                    placeholder="Referral Code"
+                    value={orgregdata.Referral_code || ""}
+                    onChange={orgHandler}
+                    maxLength={8}
+                    className="w-full p-2 border rounded-md"
+                  />
+                  
+                </div>}
                 <div>
                   <h3 className="font-semibold text-xl ">
                     Address<span className="text-[red]">*</span>
@@ -722,6 +735,7 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
+               
               </div>
             </div>
             <div className="flex flex-col gap-3 mt-8">
