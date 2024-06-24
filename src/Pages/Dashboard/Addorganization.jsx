@@ -632,7 +632,7 @@ function Addorganization() {
                   </label>
                   <input
                     type="text"
-                    name="Referral_code"
+                    name="referral_code"
                     placeholder="Referral Code"
                     value={orgregdata.Referral_code || ""}
                     onChange={orgHandler}
