@@ -192,7 +192,7 @@ function Addorganization() {
               res.data.organization_editable_data_send_succesfull
             );
             if(res.isexception){
-              setError(res.exceptionmessage)
+              setError(res.exceptionmessage.error)
             }
           })
         }, [editdata.organization_id]);
@@ -229,10 +229,11 @@ function Addorganization() {
         setstatedata(res.data.state);
         setcity(populateDropDown(res.data.city));
         setcitydata(res.data.city);
-      }else if(res.isexception){
-        setError(res.exceptionmessage);
+        if(res.isexception){
+          setError(res.exceptionmessage.error);
+        }
       }
-        })
+        });
 
     // axios
     //   .post(`${apiUrl}/add/organization/`)

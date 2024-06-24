@@ -14,7 +14,7 @@ function DashboardHome() {
   const [Feed, setFeed] = useState([]);
   const { userId } = useContext(UserContext);
   const [loading, setloading] = useState(true)
-console.log(Feed)
+  const [error, setError] = useState("");
   useEffect(() => {
     Apibackendrequest(`${apiUrl}/dashboard/feed/`, { user_id: userId })
       .then((res) => {
@@ -22,7 +22,7 @@ console.log(Feed)
           setFeed(res.data.dashboard_list);
         }
         if (res.isexception) {
-          setError(res.exceptionmessage)
+          setError(res.exceptionmessage.error)
         }
       })
       .finally(() => {
@@ -40,6 +40,11 @@ console.log(Feed)
         </div>
       </>
     )
+  }
+  if(error){
+    return( <div>
+      <h1 className="text-red-500 text-lg align-middle">{error}</h1>
+    </div>)
   }
 
   return (

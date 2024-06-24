@@ -65,7 +65,7 @@ function Empform() {
           setFileName(getFileNameFromUrl(res.data.employee_list[0].employee_image))
           setEditEnable(res.data.employee_editable_data_send_successfull)
           if (res.isexception) {
-            setErrors(exceptionmessage);
+            setServerError(res.exceptionmessage.error);
           };
         });
     };
