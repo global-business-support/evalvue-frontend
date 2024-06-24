@@ -70,11 +70,8 @@ const Loginfile = () => {
         localStorage.setItem("accessToken", res.data.access); // Save token
         localStorage.setItem("isLogin", res.data.is_login_successfull);
         if (res.data.is_login_successfull && res.data.is_user_verified) {
-          if (res.isexception) {
-            setLoginerror(res.exceptionmessage.error);
-          }
           setUserId(res.data.user_id);
-  
+          
           // Ensure token is available before navigation
           setTimeout(() => {
             navigate("/organization", {
@@ -89,6 +86,9 @@ const Loginfile = () => {
             state: { isForget: false, email: Formdata.email },
           });
         }
+      }
+      if (res.isexception) {
+        setLoginerror(res.exceptionmessage.error);
       }
       setLoading(false);
     }
