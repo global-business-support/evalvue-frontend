@@ -22,7 +22,7 @@ function ParentComponent() {
       if(res.data){
         setIsorganizationmapped(res.data.is_organization_mapped);
       } else if(res.isexception){
-        setError(res.exceptionmessage)
+        setError(res.exceptionmessage.error)
       }
       }).finally(()=>{setLoading(false);});
       
@@ -45,7 +45,13 @@ function ParentComponent() {
         </div>
       </>
     );
-  }
+  };
+
+  if(error){
+    return( <div>
+      <h1 className="text-red-500 text-lg align-middle">{error}</h1>
+    </div>)
+  };
 
   if(Isorganizationmapped){return (
     <div >

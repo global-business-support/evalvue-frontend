@@ -52,7 +52,7 @@ function Personalreview() {
                    // Update review count
                 }
           } else if(response.isexception){
-            setError(response.exceptionmessage)
+            setError(response.exceptionmessage.error)
           }
         })
         
@@ -90,7 +90,13 @@ function Personalreview() {
       </div>
       </>
     ) 
-  }
+  };
+
+  if(error){
+    return( <div>
+      <h1 className="text-red-500 text-lg align-middle">{error}</h1>
+    </div>)
+  };
 
   if (isReviewMapped) {
     return ( !state.aadhar ? 

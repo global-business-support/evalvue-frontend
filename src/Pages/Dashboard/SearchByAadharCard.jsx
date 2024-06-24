@@ -31,7 +31,7 @@ function SearchByAadharCard() {
             setEmployees(response.data.employees_list_by_aadhar);
             setempmappedbyaadhar(response.data.employees_mapped_to_aadhar);
           } else if(response.isexception){
-            setError(response.exceptionmessage)
+            setError(response.exceptionmessage.error)
           }
         })
         
@@ -64,6 +64,12 @@ function SearchByAadharCard() {
       },
     }); // Updated navigation logic
   };
+
+  if(error){
+    return( <div>
+      <h1 className="text-red-500 text-lg align-middle">{error}</h1>
+    </div>)
+  }
 
   return (
     <div className="relative h-[calc(100vh-180px)] w-full flex justify-center ">

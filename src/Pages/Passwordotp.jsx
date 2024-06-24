@@ -157,7 +157,7 @@ function Passwordotp(props) {
               ) : (
                 <>
                   <div className="flex justify-between items-center">
-                    <h2 className="text-lg font-bold text-xl">OTP Verification <span className='text-[red]'>*</span></h2>
+                    <h2 className="font-bold text-xl">OTP Verification <span className='text-[red]'>*</span></h2>
                     <button className="text-zinc-400 hover:text-zinc-600">
                       <span aria-hidden="true" className='text-3xl'>×</span>
                     </button>
@@ -198,7 +198,7 @@ function Passwordotp(props) {
             ) : (
               <>
                 <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-bold text-xl">OTP Verification <span className='text-[red]'>*</span></h2>
+                  <h2 className="font-bold text-xl">OTP Verification <span className='text-[red]'>*</span></h2>
                   <button className="text-zinc-400 hover:text-zinc-600">
                     <span aria-hidden="true" className='text-3xl'>×</span>
                   </button>

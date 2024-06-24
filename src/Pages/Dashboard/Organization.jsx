@@ -34,7 +34,7 @@ export default function Organization() {
         setAddress(res.data);
       }
       if(res.isexception){
-        setError(res.exceptionmessage)
+        setError(res.exceptionmessage.error)
       }
     })
     .catch((err) => {
@@ -84,6 +84,12 @@ export default function Organization() {
         </div>
       </>
     );
+  }
+
+  if(error){
+    return( <div>
+      <h1 className="text-red-500 text-lg align-middle">{error}</h1>
+    </div>)
   }
 
   if(Isorgmap) {
