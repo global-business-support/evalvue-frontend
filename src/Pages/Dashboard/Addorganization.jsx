@@ -455,6 +455,7 @@ function Addorganization() {
                       </label>
                       {/* </div> */}
                     </div>
+                        <p className="text-sm text-gray-500 pt-1">(only jpeg, jpg, png are allowed)</p>
                     {errors.organization_image && (
                       <span className="text-red-600 text-sm">
                         {errors.organization_image}

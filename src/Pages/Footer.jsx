@@ -18,7 +18,7 @@ function Footer() {
   }
   function showRefundPolicy() {
     window.open(
-      "http://test.api.evalvue.com/media/Refund/Refund%20Policy.pdf",
+      "http://api.evalvue.com/media/Refund/Refund%20Policy.pdf",
       "_blank"
     );
   }

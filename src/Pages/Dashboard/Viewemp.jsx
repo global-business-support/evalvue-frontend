@@ -19,6 +19,7 @@ function Viewemp() {
   const state = location.state;
   const status = false /*Remove this variable */
   const [delEmp, setDelEmp] = useState(false);
+  const [terminated, setTerminated] = useState(false);
 
   const { stateOrgData } = useContext(UserContext);
 
@@ -42,10 +43,11 @@ function Viewemp() {
       .then((res) => {
         setEmployees(res.data.employee_list || []);
         if (res.isexception) {
-          setError(res.exceptionmessage)
+          setError(res.exceptionmessage.error)
         }
       }).finally(() => { setLoading(false) });
-  }, []);
+      setTerminated(false)
+  }, [terminated]);
 
   const handleEdit = (empId, OrgId) => {
     // Navigate to the edit page
@@ -67,7 +69,7 @@ function Viewemp() {
       .then((res) => {
         if(res){if(res.exceptionmessage.is_employee_terminated_successfull){
           window.location.reload();
-        }else{
+        }else if(res.isexception){
           setError(res.exceptionmessage.error);
         }
         }
@@ -86,7 +88,11 @@ function Viewemp() {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <div>
+        <h1 className="text-red-500 text-lg align-middle">{error}</h1>
+      </div>
+    )
   }
 
   if (Employees?.length === 0) {
@@ -154,9 +160,9 @@ function Viewemp() {
                 <td className=" text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] ">
                   Employee Name :
                 </td>
-                <td className="text-left font-semibold text-black sm:w-auto w-full py-2 sm:px-4 px-1 sm:text-base text-[11px] ">Aadhaar Number :</td>
-                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] sm:table-cell hidden ">Designation :</td>
-                <td className="text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] ">Reviews :</td>
+                <td className="text-left font-semibold text-black sm:w-auto w-full py-2 sm:px-2 px-1 sm:text-base text-[11px] ">Aadhaar Number :</td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-2 px-1 sm:text-base text-[11px] sm:table-cell hidden ">Designation :</td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-8 px-1 sm:text-base text-[11px] ">Reviews :</td>
                 {/* <td className="text-left font-semibold text-black  py-2 px-4">Edit / Delete :</td> */}
               </tr>
             </thead>
@@ -211,6 +217,7 @@ function Viewemp() {
                       <ThreeDotMenu
                         onEdit={() => handleEdit(employee.employee_id, organization_id)}
                         onDelete={()=> handleTerminate(employee.employee_id, organization_id,employee.employee_name)}
+                        organizationId={organization_id} setTerminated={setTerminated}
                       />
                     </div>
                   </td>
