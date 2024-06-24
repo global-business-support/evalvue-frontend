@@ -33,6 +33,18 @@ function Empform() {
     setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
   }
 
+  const getFileNameFromUrl = (url) => {
+    try {
+      const parsedUrl = new URL(url);
+      const pathname = parsedUrl.pathname;
+      const segments = pathname.split("/");
+      return segments.pop() || ""; // Return the last segment which is the file name
+    } catch (error) {
+      setErrors("Invalid URL:", error);
+      return "";
+    }
+  };
+
   const fileHandler = (e) => {
     const name = e.target.name;
     const file = e.target.files[0];
