@@ -628,21 +628,22 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-                {editOrgEnabled?"":<div>
-                  <label className="block mb-2 text-sm font-medium text-zinc-700">
-                    Referral Number (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    name="referral_code"
-                    placeholder="Referral Code"
-                    value={orgregdata.Referral_code || ""}
-                    onChange={orgHandler}
-                    maxLength={8}
-                    className="w-full p-2 border rounded-md"
-                  />
-                  
-                </div>}
+                {editOrgEnabled?<br/>:""}
+            {editOrgEnabled?"":<div>
+              <label className="block mb-2 text-sm font-medium text-zinc-700">
+                Referral Number (Optional)
+              </label>
+              <input
+                type="text"
+                name="referral_code"
+                placeholder="Referral Code"
+                value={orgregdata.referral_code || ""}
+                onChange={orgHandler}
+                maxLength={8}
+                className="w-full p-2 border rounded-md"
+              />
+              
+            </div>}
                 <div>
                   <h3 className="font-semibold text-xl ">
                     Address<span className="text-[red]">*</span>
