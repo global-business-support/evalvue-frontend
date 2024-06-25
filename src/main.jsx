@@ -42,7 +42,8 @@ import Loader from "./Pages/Loader.jsx";
 import Custompop from "./Pages/Custompop.jsx";
 import SearchByAadharCard from "./Pages/Dashboard/SearchByAadharCard.jsx";
 import ScrollToTop from "./Pages/Dashboard/ScrollTotop.jsx";
-
+import VerifyOrganization from "./AdminPanel/VerifyOrganization.jsx";
+import OrgDetails from "./AdminPanel/OrgDetails.jsx"
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -86,6 +87,9 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About/>} />
       <Route path="/services" element={<Services/>} />
       <Route path="*" element={<PageNotFound/>} />
+      
+      <Route path="/orgDetails" element={<OrgDetails />}/>
+      <Route path="/verifyOrganization" element={<VerifyOrganization />}/>
       {/* navbar */}
       </Route>
 
