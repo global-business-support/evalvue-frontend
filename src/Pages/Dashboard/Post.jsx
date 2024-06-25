@@ -8,6 +8,7 @@ import Loader from "../Loader";
 import Tittle from "../../Tittle";
 import Apibackendrequest from "../Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
+import { CiSquareRemove } from "react-icons/ci";
 
 function Post() {
   Tittle("New Review - Evalvue")
@@ -161,12 +162,19 @@ function Post() {
             </div>
           </div>
           {previewUrl && (
-            <div className="ml-4">
+            <div className="ml-4 flex">
               <img
                 src={previewUrl}
                 alt="Preview"
                 className="h-14 w-24 border border-gray-300 rounded-md"
               />
+              <div>
+                <button
+                onClick={()=>{setImgName(null); setPreviewUrl(null); setSelectedImage(null)}}
+                >
+                  <CiSquareRemove className="text-xl text-black"/>
+                </button>
+              </div>
             </div>
           )}
         </div>
