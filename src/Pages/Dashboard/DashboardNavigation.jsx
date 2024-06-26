@@ -60,7 +60,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
             <DashboardIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
             Organization
           </NavLink>
-          <NavLink
+          {showSearchByAadhaar&&<NavLink
             to="/dashboard/searchByAadharCard"
             className={({
               isActive,
@@ -73,7 +73,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
           >
             <SearchIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
             Search by Aadhar card
-          </NavLink>
+          </NavLink>}
           <NavLink
             onClick={showtermandcondition}
             className={({ isActive }) =>
