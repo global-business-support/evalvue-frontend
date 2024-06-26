@@ -8,6 +8,7 @@ const UserProvider = ({ children }) => {
     return localStorage.getItem('userId') || null;
   });
   const [stateOrgData, setStateOrgData] = useState({})
+  const [showSearchByAadhaar, setShowSearchByAadhaar] = useState(false)
 
   useEffect(() => {
     // Save userId to localStorage whenever it changes
@@ -17,15 +18,11 @@ const UserProvider = ({ children }) => {
       localStorage.removeItem('userId');
     }
   }, [userId]);
-
- 
-
-
+  
   return (
-    <UserContext.Provider value={{ userId, setUserId, stateOrgData, setStateOrgData }}>
+    <UserContext.Provider value={{ userId, setUserId, stateOrgData, setStateOrgData, showSearchByAadhaar, setShowSearchByAadhaar }}>
       {children}
     </UserContext.Provider>
   );
 };
-
-export { UserContext, UserProvider };
+export { UserContext, UserProvider};

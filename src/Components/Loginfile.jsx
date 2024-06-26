@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaEnvelope, FaKey, FaCheck, FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 import { FaX } from "react-icons/fa6";
 
@@ -51,14 +51,22 @@ const Loginfile = () => {
     return errors;
   };
 
+    useEffect(()=>{
+      if(localStorage.getItem("accessToken")){
+        localStorage.removeItem("userId");
+        localStorage.removeItem("accessToken"); // Remove accessToken
+        localStorage.setItem("isLogin", "false");
+      }
+    },[])
+
   const submithandle = async (event) => {
     event.preventDefault();
 
-    if(localStorage.getItem("accessToken")){
-      localStorage.removeItem("userId");
-      localStorage.removeItem("accessToken"); // Remove accessToken
-      localStorage.setItem("isLogin", "false");
-    }
+    // if(localStorage.getItem("accessToken")){
+    //   localStorage.removeItem("userId");
+    //   localStorage.removeItem("accessToken"); // Remove accessToken
+    //   localStorage.setItem("isLogin", "false");
+    // }
   
     const errors = validate();
     setFormErrors(errors);

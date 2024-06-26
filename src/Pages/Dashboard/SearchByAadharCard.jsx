@@ -168,20 +168,17 @@ function SearchByAadharCard() {
                       {employee.aadhar_number}
                     </h3>
                   </div>
-                  <div className="xl:w-[20%] w-full flex xl:flex-col justify-start">
+                  {/* <div className="xl:w-[20%] w-full flex xl:flex-col justify-start">
                     <small className="font-bold sm:text-sm text-xs">
                       Mobile Number :&nbsp;
                     </small>
                     <h3 className="font-bold sm:text-sm text-xs text-primary-100">
                       {employee.mobile_number}
                     </h3>
-                  </div>
+                  </div> */}
                   <div className="flex lg:flex-row flex-col lg:w-auto w-full gap-[2px]">
                   {employee.status_id == 1 ?(
                     <button
-                    onClick={() => {
-                      handleEmployeeClick(index);
-                    }}
                     className="lg:w-auto w-full border-2 px-6 py-2 rounded-md font-bold border-green-500 text-green-500"
                     >
                       Active

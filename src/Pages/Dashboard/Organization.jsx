@@ -15,8 +15,7 @@ export default function Organization() {
   const [Orgdata, setOrgdata] = useState([]);
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [Isorgmap, setIsorgmap] = useState(false);
-  const { userId } = useContext(UserContext);
-
+  const { userId} = useContext(UserContext);
   const [address, setAddress] = useState({});
   const [error, setError] = useState();
 
@@ -28,6 +27,8 @@ export default function Organization() {
     Apibackendrequest(`${apiUrl}/organizations/`, { user_id: userId })
     .then((res) => {
       setOrgdata(res.data.organization_list);
+      console.log(typeof(res))
+      
       if (res.data.is_organization_mapped) {
         setIsorgmap(res.data.is_organization_mapped);
       } else {
