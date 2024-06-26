@@ -2,10 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../Contextfile';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Tittle from '../Tittle';
+import Loader from "./Loader";
 const apiUrl = import.meta.env.VITE_API_URL;
 function Passwordotp(props) {
   Tittle("Verified OTP - Evalvue")
   const [otp, setOtp] = useState(new Array(6).fill(''));
+  const [otpSent, setOtpSent] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(120);
+  const [showResendButton, setShowResendButton] = useState(false);
   const [email, setEmail] = useState("");
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [isOtpVerified, setIsOtpVerified] = useState(false);
@@ -15,6 +19,7 @@ function Passwordotp(props) {
   const { userId, setUserId } = useContext(UserContext);
   const location = useLocation();
   const state = location.state;
+  const [loading, setLoading] = useState(false);
 
   // Initialize user_id from context
   let user_id = userId;
@@ -38,6 +43,8 @@ function Passwordotp(props) {
 
   // Function to handle email submission
   const handleEmailSubmit = async (e) => {
+    setError("")
+    setLoading(true);
     if (e) e.preventDefault();
 
     try {
@@ -54,12 +61,16 @@ function Passwordotp(props) {
       if (data.otp_send_successfull) {
         setIsEmailSent(true);
         setUserId(data.user_id);
+        setOtpSent(true);
+        setTimeLeft(120);
+        setShowResendButton(false);
       } else {
-        setError(data.message || 'Something went wrong. Please try again.');
+        setError(data.error || 'Something went wrong. Please try again.');
       }
     } catch (error) {
       setError('Failed to send email. Please try again.');
     }
+    setLoading(false);
   };
 
   // Function to handle OTP input change
@@ -97,7 +108,6 @@ function Passwordotp(props) {
       });
 
       const data = await response.json();
-      console.log('Response from OTP submit:', data);
 
       if (response.ok) {
         if (data.otp_verified_successfull && data.is_email_verified_successfull) {
@@ -113,15 +123,32 @@ function Passwordotp(props) {
       }
     } catch (error) {
       setError('Failed to verify OTP. Please try again.');
-    }
+    };
   };
 
   // Function to handle resend OTP
-  const handleResendOtp = () => {
-    setIsEmailSent(true);
-    setOtp(new Array(6).fill(''));
-    setError('');
-  };
+  useEffect(() => {
+    let timer;
+    if (otpSent && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+    }
+
+    if (timeLeft === 0) {
+      setShowResendButton(true);
+    }
+
+    return () => clearInterval(timer);
+  }, [otpSent, timeLeft]);
+
+  if(loading){
+    return <>
+      <div className=' w-full h-[100vh] flex justify-center items-center'>
+        <Loader />
+      </div>
+    </>
+  }
 
   return (
     <>
@@ -158,7 +185,9 @@ function Passwordotp(props) {
                 <>
                   <div className="flex justify-between items-center">
                     <h2 className="font-bold text-xl">OTP Verification <span className='text-[red]'>*</span></h2>
-                    <button className="text-zinc-400 hover:text-zinc-600">
+                    <button className="text-zinc-400 hover:text-zinc-600"
+                      onClick={() => window.location.href = "/login"}
+                    >
                       <span aria-hidden="true" className='text-3xl'>×</span>
                     </button>
                   </div>
@@ -187,19 +216,32 @@ function Passwordotp(props) {
                   >
                     Continue
                   </button>
+                  {
+                  otpSent && timeLeft > 0 &&
+                  <p className="text-sm text-center mt-4">
+                    OTP is valid for {timeLeft} seconds
+                  </p>
+                }
+                {
+                  showResendButton &&
                   <p className="text-sm text-center mt-4">
                     Didn't receive an email?
-                    <button className="text-primary-100 hover:text-blue-600 font-semibold" onClick={handleResendOtp}>
+                    <button className="text-primary-100 hover:text-blue-600 font-semibold" 
+                    onClick={()=>{handleEmailSubmit()}}
+                    >
                       RESEND OTP
                     </button>
                   </p>
+                }
                 </>
               )
             ) : (
               <>
                 <div className="flex justify-between items-center">
                   <h2 className="font-bold text-xl">OTP Verification <span className='text-[red]'>*</span></h2>
-                  <button className="text-zinc-400 hover:text-zinc-600">
+                  <button className="text-zinc-400 hover:text-zinc-600"
+                    onClick={() => window.location.href = "/login"}
+                  >
                     <span aria-hidden="true" className='text-3xl'>×</span>
                   </button>
                 </div>
@@ -228,12 +270,23 @@ function Passwordotp(props) {
                 >
                   Continue
                 </button>
-                <p className="text-sm text-center mt-4">
-                  Didn't receive an email?
-                  <button className="text-primary-100 hover:text-blue-600 font-semibold" onClick={handleResendOtp}>
-                    RESEND OTP
-                  </button>
-                </p>
+                {
+                  otpSent && timeLeft > 0 &&
+                  <p className="text-sm text-center mt-4">
+                    OTP is valid for {timeLeft} seconds
+                  </p>
+                }
+                {
+                  showResendButton &&
+                  <p className="text-sm text-center mt-4">
+                    Didn't receive an email?
+                    <button className="text-primary-100 hover:text-blue-600 font-semibold" 
+                    onClick={()=>{handleEmailSubmit(); console.log("clicked")}}
+                    >
+                      RESEND OTP
+                    </button>
+                  </p>
+                }
               </>
             )
           ) : (
