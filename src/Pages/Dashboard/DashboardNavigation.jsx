@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -10,11 +10,12 @@ import HttpsIcon from "@mui/icons-material/Https";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import SettingsIcon from "@mui/icons-material/Settings";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import { UserContext } from "../../Contextfile";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function DashboardNavigation() {
   const [open, setOpen] = React.useState(false);
-
+const {showSearchByAadhaar} = useContext(UserContext)
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
@@ -205,7 +206,7 @@ function DashboardNavigation() {
                 Organization
               </NavLink>
 
-              <NavLink
+              {showSearchByAadhaar&&<NavLink
                 to="/dashboard/searchByAadharCard"
                 end
                 className={({
@@ -220,7 +221,7 @@ function DashboardNavigation() {
               >
                 <SearchIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
                 Search by Aadhar card
-              </NavLink>
+              </NavLink>}
 
               <NavLink
                 onClick={()=>{showtermandcondition(); toggleDrawer(false)}}

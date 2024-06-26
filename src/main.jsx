@@ -44,6 +44,7 @@ import SearchByAadharCard from "./Pages/Dashboard/SearchByAadharCard.jsx";
 import ScrollToTop from "./Pages/Dashboard/ScrollTotop.jsx";
 import VerifyOrganization from "./AdminPanel/VerifyOrganization.jsx";
 import OrgDetails from "./AdminPanel/OrgDetails.jsx"
+import ProtectedAadhaarRoute from "./Pages/ProtectedAadhaarRoute.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -78,7 +79,8 @@ const router = createBrowserRouter(
           {/* <Route path='/dashboard/privacy' element={<Privacy />} /> */}
           {/* <Route path='/dashboard/help' element={<Help />} /> */}
         </Route>
-          <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} />
+        <Route path="searchByAadharCard" element={<ProtectedAadhaarRoute element={<SearchByAadharCard />} />} />
+        
           {/* <Route path='/dashboard/searchByAadharCard' element={<SearchByAadharCard/>} /> */}
         {/* <Route path='/register' element={<Registration/>} /> */}
       </Route>
