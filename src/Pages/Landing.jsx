@@ -4,6 +4,7 @@ import SubServices from "./Dashboard/SubServices";
 import Tittle from '../Tittle'
 import { FaCheck } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
+import homeimg from '../assets/images/homeimg.jpg'
 
 
 function Landing() {
@@ -39,7 +40,7 @@ function Landing() {
             </div>
             <div>
               <img
-                src="https://i.pinimg.com/564x/5b/6f/84/5b6f84ae598450a2ed19bcb9371c3b71.jpg"
+                src={homeimg}
                 alt="Digital Agency"
                 className="rounded-lg  h-[500px] shadow-lg"
               />
