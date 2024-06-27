@@ -13,7 +13,7 @@ function SearchByAadharCard() {
   const [isFocused, setIsFocused] = useState(false);
   const [empmappedbyaadhar, setempmappedbyaadhar] = useState(false);
   const navigate = useNavigate(); // Updated from useHistory to useNavigate
-  const [error,setError] = useState();
+  const [error, setError] = useState();
 
   let value = "";
   const handleSearchChange = async (e) => {
@@ -22,20 +22,16 @@ function SearchByAadharCard() {
 
     if (value.length > 0) {
       try {
-
         Apibackendrequest(`${apiUrl}/search/employee/aadhar/`, {
           aadhar_number: value,
-        })
-        .then((response)=>{
-          if(response.data){
+        }).then((response) => {
+          if (response.data) {
             setEmployees(response.data.employees_list_by_aadhar);
             setempmappedbyaadhar(response.data.employees_mapped_to_aadhar);
-          } else if(response.isexception){
-            setError(response.exceptionmessage.error)
+          } else if (response.isexception) {
+            setError(response.exceptionmessage.error);
           }
-        })
-        
-        
+        });
 
         // const response = await axios.post(`${apiUrl}/search/employee/aadhar/`, {
         //   aadhar_number: value,
@@ -65,10 +61,12 @@ function SearchByAadharCard() {
     }); // Updated navigation logic
   };
 
-  if(error){
-    return( <div>
-      <h1 className="text-red-500 text-lg align-middle">{error}</h1>
-    </div>)
+  if (error) {
+    return (
+      <div>
+        <h1 className="text-red-500 text-lg align-middle">{error}</h1>
+      </div>
+    );
   }
 
   return (
@@ -96,7 +94,10 @@ function SearchByAadharCard() {
       >
         <div className="w-full sticky top-[80px] py-4 px-6 bg-primary-100 shadow-lg flex rounded-lg justify-center items-center  z-50">
           <div className="ml-2 mx-8 w-full">
-            <label htmlFor="" className="sm:text-lg text-sm text-white font-thin">
+            <label
+              htmlFor=""
+              className="sm:text-lg text-sm text-white font-thin"
+            >
               {" "}
               Enter Employee Aadhaar Number
             </label>
@@ -177,30 +178,41 @@ function SearchByAadharCard() {
                     </h3>
                   </div> */}
                   <div className="flex lg:flex-row flex-col lg:w-auto w-full gap-[2px]">
-                  {employee.status_id == 1 ?(
-                    <button
-                    className="lg:w-auto w-full border-2 px-6 py-2 rounded-md font-bold border-green-500 text-green-500"
-                    >
-                      Active
-                    </button>
-                    ):(
-                    <button
-                      className="lg:w-auto w-full  border-2 px-2 py-2 rounded-md font-bold border-red-500 text-red-500"
-                    >
-                      Terminated
-                    </button>
-                  )}
+                    {employee.status_id == 1 ? (
+                      <button className="lg:w-auto w-full border-2 px-6 py-2 rounded-md font-bold bg-green-700 text-white">
+                        Currently Active
+                      </button>
+                    ) : (
+                     
+                        
+                        <NavLink
+                          to={"/dashboard/addEmployee"}
+                          state={{
+                            addemp:true,
+                            employee_id : employee.employee_id,
+                            employee_name: employee.employee_name,
+                            employee_designation : employee.designation,
+                            employee_email : employee.email,
+                            employee_mobileNumber : employee.mobile_number,
+                            employee_aadhar_number : employee.aadhar_number,
+                            employee_image : employee.employee_image
+                          }}
+                          className="lg:w-auto w-full text-center  border-2 px-2 py-2 rounded-md font-bold bg-primary-100 text-white"
+                        >
+                          Add to Organization
+                        </NavLink>
+                      
+                    )}
 
-                  <button
-                    onClick={() => {
-                      handleEmployeeClick(index);
-                    }}
-                    className="lg:w-auto w-full border px-7 py-2 rounded-md bg-primary-100 text-white"
-                  >
-                    view
-                  </button>
+                    <button
+                      onClick={() => {
+                        handleEmployeeClick(index);
+                      }}
+                      className="lg:w-auto w-full border px-7 py-2 rounded-md bg-primary-100 text-white"
+                    >
+                      view
+                    </button>
                   </div>
-                  
                 </div>
               </div>
               // <li
