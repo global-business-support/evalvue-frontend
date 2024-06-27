@@ -1,3 +1,7 @@
+
+
+
+
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -33,12 +37,14 @@ function Addorganization() {
   const [city, setcity] = useState([]);
   const [statedata, setstatedata] = useState([]);
   const [citydata, setcitydata] = useState([]);
-  const [iscity, setiscity] = useState(true);
-  const [isstate, setisstate] = useState(true);
-  // const [editOrgData, seteditOrgData] = useState('');
   const [editOrgEnabled, seteditOrgEnabled] = useState(
     location.state?.editorg ?? false
   );
+  const [iscity, setiscity] = useState(editOrgEnabled?false:true);
+
+  const [isstate, setisstate] = useState(editOrgEnabled?false:true);
+  // const [editOrgData, seteditOrgData] = useState('');
+ 
 
   Tittle("Add Organization - Evalvue");
   function populateState(id) {
@@ -104,41 +110,63 @@ function Addorganization() {
   const filelogoHandler = (e) => {
     const name = e.target.name;
     const file = e.target.files[0];
+    
     if (file) {
+      // File type validation for organization_image
       if (name === "organization_image") {
+        const allowedExtensions = ["jpeg", "jpg", "png"];
+        const fileExtension = file.name.split(".").pop().toLowerCase();
+        if (!allowedExtensions.includes(fileExtension)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Only JPEG, JPG, or PNG files are allowed.",
+          }));
+          return;
+        }
         setFileLogoName(file.name);
         setLogoFilePreview(URL.createObjectURL(file));
         setOrgregdata((values) => ({ ...values, [name]: file }));
       }
-     } else {
+    } else {
       setFileLogoName("");
       setLogoFilePreview("");
       setOrgregdata((values) => ({ ...values, [name]: "" }));
-
-      validate()
+      validate(); // Assuming this function handles form validation
     }
+  
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
-
+  
   const filedocumentHandler = (e) => {
     const name = e.target.name;
     const file = e.target.files[0];
+  
     if (file) {
+      // File type validation for document_file
       if (name === "document_file") {
+        const allowedExtensions = ["jpeg", "jpg", "png", "pdf"];
+        const fileExtension = file.name.split(".").pop().toLowerCase();
+        if (!allowedExtensions.includes(fileExtension)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Only JPEG, JPG, PNG, or PDF files are allowed.",
+          }));
+          return;
+        }
         setFileName(file.name);
         setFilePreview(URL.createObjectURL(file));
         setOrgregdata((values) => ({ ...values, [name]: file }));
-      } 
-     } else {
+      }
+    } else {
       setFileName("");
       setFilePreview("");
       setOrgregdata((values) => ({ ...values, [name]: "" }));
-
-      validate()
-      
+      validate(); // Assuming this function handles form validation
     }
+  
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
+  
 
   const header = {
     headers: { "Content-Type": "multipart/form-data" },
@@ -455,7 +483,6 @@ function Addorganization() {
                       </label>
                       {/* </div> */}
                     </div>
-                        <p className="text-sm text-gray-500 pt-1">(only jpeg, jpg, png are allowed)</p>
                     {errors.organization_image && (
                       <span className="text-red-600 text-sm">
                         {errors.organization_image}
@@ -539,6 +566,7 @@ function Addorganization() {
                   <select
                     name="sector_id"
                     onChange={orgHandler}
+                    value={orgregdata.sector_id || ""}
                     className="w-full p-2 border  rounded-md"
                   >
                     {sectortype}
@@ -556,6 +584,7 @@ function Addorganization() {
                   <select
                     name="listed_id"
                     onChange={orgHandler}
+                    value={orgregdata.listed_id || ""}
                     className="w-full p-2 border  rounded-md"
                   >
                     {listedtype}
@@ -612,6 +641,7 @@ function Addorganization() {
                   <select
                     name="number_of_employee"
                     onChange={orgHandler}
+                    value={orgregdata.number_of_employee || ""}
                     className="w-full p-2 border rounded-md"
                   >
                     <option aria-readonly>Select any one</option>
@@ -673,6 +703,7 @@ function Addorganization() {
                   <select
                     name="country_id"
                     onChange={orgHandler}
+                    value={orgregdata.country_id || ""}
                     className="w-full p-2 border  rounded-md"
                   >
                     {country}
@@ -690,6 +721,7 @@ function Addorganization() {
                   <select
                     name="state_id"
                     onChange={orgHandler}
+                    value={orgregdata.state_id || ""}
                     className="w-full p-2 border  rounded-md"
                     disabled={isstate}
                   >
@@ -708,6 +740,7 @@ function Addorganization() {
                   <select
                     name="city_id"
                     onChange={orgHandler}
+                    value={orgregdata.city_id || ""}
                     className="w-full p-2 border rounded-md"
                     disabled={iscity}
                   >
