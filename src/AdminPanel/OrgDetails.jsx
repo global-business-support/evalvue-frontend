@@ -9,11 +9,14 @@ const OrgDetails = () => {
     const [error, setError] = useState();
     const [loading, setLoading] = useState(true);
     const [orgData, setOrgData] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredData, setFilteredData] = useState([]);
     useEffect(() => {
         Apibackendrequest(`${apiUrl}/document/verification/data/`)
             .then((res) => {
                 if (res.data) {
                     setOrgData(res.data.organization_verification);
+                    setFilteredData(res.data.organization_verification);
                 }
                 if (res.isexception) {
                     setError(res.exceptionmessage.error)
@@ -23,6 +26,14 @@ const OrgDetails = () => {
                 setError(err);
             }).finally(() => { setLoading(false) });
     }, []);
+
+    useEffect(() => {
+        setFilteredData(
+            orgData.filter(item =>
+                item.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    }, [searchTerm, orgData]);
 
     if (loading) {
         return (
@@ -42,6 +53,17 @@ const OrgDetails = () => {
 
     return (
         <>
+            <div className='w-full flex justify-center mt-8'>
+                <div className=''>
+                    <input
+                        type="text"
+                        placeholder="Search by organization name..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{ marginBottom: '20px', padding: '10px', width: '300px' }}
+                    />
+                </div>
+            </div>
             <div className="w-full flex justify-center mt-8">
                 <table className="border-separate border-spacing-y-3">
                     <thead>
@@ -62,7 +84,7 @@ const OrgDetails = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {orgData.map((organization) => (
+                        {filteredData.map((organization) => (
                             <tr key={organization.organization_id} className=" bg-gray-100">
                                 <td className={`py-3 sm:px-2 px-1 rounded-l-lg border-l shadow-top-bottom-xl`}>
                                     <div className="flex justify-start items-center gap-2 lg:w-[300px]">
