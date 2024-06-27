@@ -146,11 +146,15 @@ const VerifyOrganization = () => {
                     </tr>
                     <tr>
                       <td className="py-2 px-4 border-b sm:text-base text-sm">Number of Employees</td>
-                      <td className="py-2 px-4 border-b font-bold">{org?.number_of_employees}</td>
+                      <td className="py-2 px-4 border-b font-bold">{org?.number_of_employee}</td>
                     </tr>
                     <tr>
                       <td className="py-2 px-4 border-b sm:text-base text-sm">Document Number</td>
                       <td className="py-2 px-4 border-b font-bold">{org.document_number}</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 px-4 border-b sm:text-base text-sm">Registration Date & Time</td>
+                      <td className="py-2 px-4 border-b font-bold">{org.date_time}</td>
                     </tr>
                     <tr>
                       <td className="py-2 px-4 border-b sm:text-base text-sm">Document Image</td>

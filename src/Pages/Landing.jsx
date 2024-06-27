@@ -1,14 +1,10 @@
 import { FaCircleCheck } from "react-icons/fa6";
 import Footer from "./Footer";
 import SubServices from "./Dashboard/SubServices";
-import Tittle from '../Tittle'
+import Tittle from '../Tittle';
 import { FaCheck } from "react-icons/fa6";
-
-import { RxCross1 } from "react-icons/rx";
-import homeimg from '../assets/images/homeimg.jpg'
-
-import homeVideo from '../assets/videos/home-video.mp4'
-
+import homeimg from '../assets/images/homeimg.jpg';
+import homeVideo from '../assets/videos/home-video.mp4';
 
 function Landing() {
  Tittle("Home page -Evalvue")
@@ -41,7 +37,7 @@ function Landing() {
                 {/* <a href="" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a> */}
               </div>
             </div>
-            <div>
+            <div className="w-full flex justify-end">
               <img
                 src={homeimg}
                 alt="Digital Agency"
@@ -183,6 +179,6 @@ function Landing() {
       <Footer/>
     </>
   );
-}
+};
 
 export default Landing;
