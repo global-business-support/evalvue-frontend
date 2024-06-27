@@ -3,7 +3,7 @@ import Footer from "./Footer";
 import SubServices from "./Dashboard/SubServices";
 import Tittle from '../Tittle'
 import { FaCheck } from "react-icons/fa6";
-import { RxCross1 } from "react-icons/rx";
+import homeVideo from '../assets/videos/home-video.mp4'
 
 
 function Landing() {
@@ -46,6 +46,19 @@ function Landing() {
             </div>
           </div>
         </div>
+
+        <section className="w-full">
+          <div>
+            <video 
+              loop muted autoPlay playsInline
+              className="h-[600px] rounded-lg mx-auto" 
+            >
+              <source src={homeVideo} type="video/mp4" />
+              Your browser does not support the video...
+            </video>
+          </div>
+        </section>
+
         {/* services section */}
         <SubServices />
 
