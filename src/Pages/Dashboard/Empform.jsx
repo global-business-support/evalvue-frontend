@@ -48,18 +48,53 @@ function Empform() {
   const fileHandler = (e) => {
     const name = e.target.name;
     const file = e.target.files[0];
+  
+    // Valid file extensions for image files
+    const allowedExtensions = ["jpg", "jpeg", "png", "gif"];
+  
+    // Max file size in bytes (3 MB in this case)
+    const maxSize = 3 * 1024 * 1024;
+  
     if (file) {
-      if (name === "employee_image") {
-        setFileLogoName(file.name);
-        setLogoFilePreview(URL.createObjectURL(file));
+      // Check file extension
+      const fileExtension = file.name.split(".").pop().toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        // Invalid file extension
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "Only JPG, JPEG, PNG, and GIF file types are allowed.",
+        }));
+        return;
       }
+  
+      // Check file size
+      if (file.size > maxSize) {
+        // File size exceeds maximum limit
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: `File size exceeds the limit of ${maxSize / (1024 * 1024)} MB.`,
+        }));
+        return;
+      }
+  
+      // Valid file: set file name, preview, and update state
+      setFileLogoName(file.name);
+      setLogoFilePreview(URL.createObjectURL(file));
       Setempregdata((values) => ({ ...values, [name]: file }));
     } else {
+      // No file selected: reset name, preview, and clear state
       setFileLogoName("");
       setLogoFilePreview("");
+      Setempregdata((values) => ({ ...values, [name]: "" }));
     }
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+  
+    // Clear any previous errors
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
+  
 
   const editData = {
     employee_id: location.state.employee_id,
