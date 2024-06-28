@@ -70,7 +70,7 @@ function SearchByAadharCard() {
   }
 
   return (
-    <div className="relative h-[calc(100vh-180px)] w-full flex justify-center ">
+    <div className="relative h-full w-full flex justify-center ">
       {employees == undefined || employees.length == 0 ? (
         <div
           className="absolute inset-0 bg-white"
@@ -83,7 +83,7 @@ function SearchByAadharCard() {
             backgroundSize: "25%",
           }}
         >
-          <div className="absolute inset-0 bg-blue-gray-700 opacity-20"></div>
+          <div className="absolute  inset-0 bg-blue-gray-700 opacity-20"></div>
         </div>
       ) : (
         ""
