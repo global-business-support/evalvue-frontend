@@ -12,6 +12,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import { UserContext } from "../../Contextfile";
 const apiUrl = import.meta.env.VITE_API_URL;
+import HistorySharpIcon from '@mui/icons-material/HistorySharp';
+import CardMembershipIcon from '@mui/icons-material/CardMembership';
 
 function DashboardNavigation() {
   const [open, setOpen] = React.useState(false);
@@ -44,7 +46,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
               }`
             }
           >
-            <BungalowIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
+          <BungalowIcon className="align-text-bottom mr-2" sx={{ fontSize: 18 }} />
             Feed
           </NavLink>
 
@@ -57,7 +59,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
               }`
             }
           >
-            <DashboardIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
+            <DashboardIcon className="align-text-bottom mr-2" sx={{ fontSize: 18 }} />
             Organization
           </NavLink>
           {showSearchByAadhaar&&<NavLink
@@ -71,16 +73,50 @@ const {showSearchByAadhaar} = useContext(UserContext)
                             : "text-gray-600"
                         }`}
           >
-            <SearchIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
+            <SearchIcon className="align-text-bottom mr-2" sx={{ fontSize: 18 }} />
             Search by Aadhar card
           </NavLink>}
+          <NavLink
+                to="/dashboard/transactionHistory"
+                end
+                onClick={()=>{toggleDrawer(false)}}
+                className={({
+                  isActive,
+                }) => `w-full py-2 ps-2 rounded font-semibold 
+                                    ${
+                                      isActive
+                                        ? "text-white bg-primary-100 "
+                                        : "text-gray-600"
+                                    }`}
+                
+              >
+                <HistorySharpIcon className="align-text-top mr-2" sx={{ fontSize: 18 }} />
+                Payment History
+            </NavLink>
+            <NavLink
+                to="/dashboard/subscription"
+                end
+                onClick={()=>{toggleDrawer(false)}}
+                className={({
+                  isActive,
+                }) => `w-full py-2 ps-2 rounded font-semibold 
+                                    ${
+                                      isActive
+                                        ? "text-white bg-primary-100 "
+                                        : "text-gray-600"
+                                    }`}
+                
+              >
+                <CardMembershipIcon className="align-text-top mr-2" sx={{ fontSize: 18 }} />
+                Subscription
+            </NavLink>
           <NavLink
             onClick={showtermandcondition}
             className={({ isActive }) =>
               `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
             }
           >
-            <ShieldIcon className="align-text-top" sx={{ fontSize: 16 }} />
+            <ShieldIcon className="align-text-top mr-2" sx={{ fontSize: 16 }} />
             Terms and conditions
           </NavLink>
 
@@ -91,7 +127,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
               `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
             }
           >
-            <HttpsIcon className="align-text-top" sx={{ fontSize: 15 }} />
+            <HttpsIcon className="align-text-top mr-2" sx={{ fontSize: 15 }} />
             Privacy
           </NavLink>
           {/* ${(isActive) ? 'text-white bg-[#5134a9] ' : 'text-gray-600'} */}
@@ -178,7 +214,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
                                     onClick={toggleDrawer(false)}
               >
                 <BungalowIcon
-                  className="align-text-bottom"
+                  className="align-text-bottom mr-2"
                   sx={{ fontSize: 18 }}
                   to="/"
                 />
@@ -199,7 +235,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
                                     onClick={toggleDrawer(false)}
               >
                 <DashboardIcon
-                  className="align-text-top"
+                  className="align-text-top mr-2"
                   sx={{ fontSize: 15 }}
                 />
                 Organization
@@ -218,9 +254,42 @@ const {showSearchByAadhaar} = useContext(UserContext)
                                     }`}
                                     onClick={toggleDrawer(false)}
               >
-                <SearchIcon className="align-text-bottom" sx={{ fontSize: 18 }} />
+                <SearchIcon className="align-text-bottom mr-2" sx={{ fontSize: 18 }} />
                 Search by Aadhar card
               </NavLink>}
+
+              <NavLink
+                to="/dashboard/transactionHistory"
+                end
+                onClick={()=>{toggleDrawer(false)}}
+                className={({
+                  isActive,
+                }) => `w-full py-2 ps-2 rounded font-semibold 
+                                    ${
+                                      isActive
+                                        ? "text-white bg-primary-100 "
+                                        : "text-gray-600"
+                                    }`}
+              >
+                <HistorySharpIcon className="align-text-top mr-2" sx={{ fontSize: 18 }} />
+                Payment History
+              </NavLink>
+              <NavLink
+                to="/dashboard/subscription"
+                end
+                onClick={()=>{toggleDrawer(false)}}
+                className={({
+                  isActive,
+                }) => `w-full py-2 ps-2 rounded font-semibold 
+                                    ${
+                                      isActive
+                                        ? "text-white bg-primary-100 "
+                                        : "text-gray-600"
+                                    }`}
+              >
+                <CardMembershipIcon className="align-text-top mr-2" sx={{ fontSize: 18 }} />
+                Subscription
+            </NavLink>
 
               <NavLink
                 onClick={()=>{showtermandcondition(); toggleDrawer(false)}}
@@ -229,7 +298,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
                 }
                 
               >
-                <ShieldIcon className="align-text-top" sx={{ fontSize: 15 }} />
+                <ShieldIcon className="align-text-top mr-2" sx={{ fontSize: 15 }} />
                 Terms and conditions
               </NavLink>
 
@@ -240,7 +309,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
                   `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
                 }
               >
-                <HttpsIcon className="align-text-top" sx={{ fontSize: 15 }} />
+                <HttpsIcon className="align-text-top mr-2" sx={{ fontSize: 15 }} />
                 Privacy
               </NavLink>
 
