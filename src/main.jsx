@@ -47,6 +47,8 @@ import OrgDetails from "./AdminPanel/OrgDetails.jsx"
 import ProtectedAadhaarRoute from "./Pages/ProtectedAadhaarRoute.jsx";
 import AddEmployee from "./Pages/Dashboard/AddEmployee.jsx";
 import PrivateRoute from "./AdminPanel/PrivateRoute.jsx";
+import TransactionHistory from "./Payment/TransactionHistory.jsx";
+import Subscription from "./Payment/Subscription.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -59,6 +61,8 @@ const router = createBrowserRouter(
         </Route>
       
         <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard/>}/>}>
+            <Route path="transactionHistory" element={<TransactionHistory />}/>
+            <Route path="subscription" element={<Subscription />}/>
           <Route index element={<Dhashboardhome />} />
            <Route path="organization" element={<Orgoutlet />}>
            
@@ -94,7 +98,6 @@ const router = createBrowserRouter(
       <Route path="/services" element={<Services/>} />
       <Route path="*" element={<PageNotFound/>} />
       <Route path="/orgDetails" element={<PrivateRoute element={<OrgDetails />} />}/>
-      {/* <Route path="/orgDetails" element={<OrgDetails />}/> */}
       <Route path="/verifyOrganization" element={<VerifyOrganization />}/>
       {/* navbar */}
       </Route>

@@ -6,7 +6,7 @@ import PageNotFound from '../PageNotFound';
 const PrivateRoute = ({ element }) => {
     const { userId } = useContext(UserContext);
 
-    if (userId == 1 || userId == 61) {
+    if (userId == 1) {
         return element;
     } else {
         return <PageNotFound />;
