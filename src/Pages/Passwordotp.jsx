@@ -3,6 +3,7 @@ import { UserContext } from "../Contextfile";
 import { useLocation, useNavigate } from "react-router-dom";
 import Tittle from "../Tittle";
 import Loader from "./Loader";
+import axios from "axios";
 const apiUrl = import.meta.env.VITE_API_URL;
 function Passwordotp(props) {
   Tittle("Verified OTP - Evalvue");
@@ -28,13 +29,7 @@ function Passwordotp(props) {
 
   useEffect(() => {
     // Set the email state if it exists in location state and not in forget mode
-    if(state.isForget){
-      setuserverification(true)
-      setemployeeverification(false)
-    }else if(state.addemp){
-      setuserverification(false)
-      setemployeeverification(true)
-    }
+
     if (!state.isForget) {
       setEmail(state.email);
     }
@@ -62,7 +57,11 @@ function Passwordotp(props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          user_verification: !userverification,
+          employee_verification: employeeverification,
+        }),
       });
 
       const data = await response.json();
@@ -106,9 +105,9 @@ function Passwordotp(props) {
   // Function to handle OTP submission
   const handleOtpSubmit = async () => {
     const otpCode = otp.join("");
-
     try {
-      const response = await fetch(`${apiUrl}/verify/otp/`, {
+      console.log(otpCode)
+      const response = await axios(`${apiUrl}/verify/otp/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,13 +116,17 @@ function Passwordotp(props) {
           user_id: user_id,
           otp_number: otpCode,
           email,
-          user_verification: userverification,
+          user_verification: state.isForget ? userverification : !userverification,
           employee_verification: employeeverification,
         }),
-      });
+      }
+     
+    );
+    console.log(response)
 
       const data = await response.json();
-
+      console.log(response)
+      console.log(data)
       if (response.ok) {
         if (
           data.otp_verified_successfull &&
@@ -145,20 +148,20 @@ function Passwordotp(props) {
   };
 
   // Function to handle resend OTP
-  useEffect(() => {
-    let timer;
-    if (otpSent && timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    }
+  // useEffect(() => {
+  //   let timer;
+  //   if (otpSent && timeLeft > 0) {
+  //     timer = setInterval(() => {
+  //       setTimeLeft((prev) => prev - 1);
+  //     }, 1000);
+  //   }
 
-    if (timeLeft === 0) {
-      setShowResendButton(true);
-    }
+  //   if (timeLeft === 0) {
+  //     setShowResendButton(true);
+  //   }
 
-    return () => clearInterval(timer);
-  }, [otpSent, timeLeft]);
+  //   return () => clearInterval(timer);
+  // }, [otpSent, timeLeft]);
 
   if (loading) {
     return (

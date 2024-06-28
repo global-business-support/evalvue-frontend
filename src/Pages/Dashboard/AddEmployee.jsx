@@ -9,9 +9,12 @@ const apiUrl = import.meta.env.VITE_API_URL;
 function AddEmployee() {
   const [orgList, setOrgList] = useState([]);
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [otpSent, setOtpSent] = useState(false);
   const [timeLeft, setTimeLeft] = useState(120);
   const [error, setError] = useState("");
   const [errors, setErrors] = useState("");
+  const [otpSentSuccessfull, setOtpSentSuccessfull] = useState(false)
+  const [isOtpVarified, setIsOtpVerified] = useState(false)
   const [selectedOrg, setSelectedOrg] = useState({
     // user_id: userId,
     // organization_id: location.state?.organization_id || "",
@@ -21,6 +24,25 @@ function AddEmployee() {
 
   const location = useLocation();
   const state = location.state;
+
+  useEffect(() => {
+    setLoading(true);
+    Apibackendrequest(`${apiUrl}/organizations/`)
+  
+      .then((res) => {
+        setOrgList(res.data.organization_list);
+        if (res.isexception) {
+          setError(res.exceptionmessage.error);
+        }
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
 
   function orgHandler(e) {
     const name = e.target.name;
@@ -46,14 +68,13 @@ function AddEmployee() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, user_varification : false, employee_varification : true }),
+        body: JSON.stringify({ email, user_verification : false, employee_verification : true }),
       });
 
       const data = await response.json();
 
       if (data.otp_send_successfull) {
-        setIsEmailSent(true);
-        setUserId(data.user_id);
+        setOtpSentSuccessfull(true)
         setOtpSent(true);
         setTimeLeft(120);
         setShowResendButton(false);
@@ -76,7 +97,7 @@ function AddEmployee() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user_id: user_id, otp_number: otpCode, email }),
+        body: JSON.stringify({ user_id: user_id, otp_number: otpCode, email, user_verification : false, employee_verification : true }),
       });
 
       const data = await response.json();
@@ -147,18 +168,18 @@ function AddEmployee() {
             alt=""
             className="h-28 w-28 rounded-full"
           />
-          <div className="mt-8 text-gray-800 space-y-1">
-            <h1 className="text-xl">{state?.employee_name}</h1>
-            <h1 className="text-sm">{state?.employee_designation}</h1>
-            <h1 className="text-sm font-bold">{state?.employee_email}</h1>
-            <h1 className="text-sm">
-              Mobile No. :{" "}
-              <span className="font-bold">{state?.employee_mobileNumber}</span>
+          <div className="w-full mt-8 text-gray-800 text-start ms-10 space-y-1">
+            <h1 className="text-2xl">{state?.employee_name}</h1>
+            <h1 className="text-base">{state?.employee_designation}</h1>
+            <h1 className="text-base ">{state?.employee_email}</h1>
+            <h1 className="text-base text-gray-700 flex">
+              Mobile No. :
+              <h1 className="text-black w-[75px] truncate "> &nbsp;{state?.employee_mobileNumber}</h1>
             </h1>
-            <h1 className="text-sm">
-              Aadhar No. :{" "}
-              <span className=" font-bold">
-                {state?.employee_aadhar_number}
+            <h1 className="text-sm text-gray-700">
+              Aadhar No. :
+              <span className=" text-black">
+              &nbsp;{state?.employee_aadhar_number}
               </span>
             </h1>
           </div>
@@ -208,7 +229,7 @@ function AddEmployee() {
           </div>
           {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
-          {timeLeft > 0 && (
+          {otpSent && timeLeft > 0 && (
             <p className="text-sm text-center mt-4">
               OTP is valid for {timeLeft} seconds
             </p>
@@ -219,7 +240,7 @@ function AddEmployee() {
               <button
                 className="text-primary-100 hover:text-blue-600 font-semibold"
                 onClick={() => {
-                  handleEmailSubmit();
+                  SendOTP();
                 }}
               >
                 RESEND OTP
@@ -228,6 +249,16 @@ function AddEmployee() {
           }
         </>
         <>
+        {
+          (otpSentSuccessfull)?
+          <button
+          onClick={()=>{
+            verifyOTP()
+          }}
+          className=" mt-5 px-8 py-2 bg-primary-100 rounded-lg text-white">
+            Confirm
+          </button>
+          :
           <button
             onClick={(e) => {
               SendOTP(e);
@@ -236,13 +267,9 @@ function AddEmployee() {
           >
             Send otp
           </button>
-          {/* <button
-          onClick={()=>{
-            verifyOTP()
-          }}
-          className=" mt-5 px-8 py-2 bg-primary-100 rounded-lg text-white">
-            Confirm
-          </button> */}
+        }
+          
+          
         </>
       </div>
     </>

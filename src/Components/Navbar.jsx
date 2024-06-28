@@ -14,9 +14,10 @@ import { Button, Drawer, Typography } from "@mui/material";
 import { UserContext } from "../Contextfile";
 import ScrollToTop from "../Pages/Dashboard/ScrollTotop";
 import LogoutButton from "./LogoutButton";
+import DashboardNavigation from "../Pages/Dashboard/DashboardNavigation";
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [state, setState] = useState({
     right: false,
   });
@@ -37,28 +38,72 @@ function Navbar() {
     localStorage.removeItem("userId");
   };
 
-  useEffect(()=>{
-    const loggedin = localStorage.getItem("isLogin")
-    setIsLoggedIn(loggedin)
-  })
+  useEffect(() => {
+    const loggedin = localStorage.getItem("isLogin");
+    setIsLoggedIn(loggedin);
+  });
   return (
     <>
-    <ScrollToTop />
-      <nav className="h-[80px] sticky border-b-2 z-10 top-0 w-full bg-white lg:px-[80px] sm:px-[20px] px-[10px] flex items-center justify-between ">
+      <ScrollToTop />
+      <nav className="h-[80px] sticky border-b-2 z-10 top-0 w-full bg-white lg:px-[80px] sm:px-[20px]  flex items-center justify-between ">
+        
+          {/* <DashboardNavigation /> */}
+        
         <Link>
           <img src={logo} alt="" className="lg:h-[40px] sm:h-[35px] h-[30px]" />
         </Link>
 
         <div className="md:flex hidden items-center lg:gap-7 md:gap-3 lg:text-lg text-sm">
-          <NavLink  className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to='/'><Typography variant='button-text'><HouseIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} to="/" />Home</Typography></NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${
+                isActive
+                  ? "text-primary-100 border-b border-primary-100 "
+                  : "text-gray-600"
+              } font-semibold lg:text-base text-sm`
+            }
+            to="/"
+          >
+            <Typography variant="button-text">
+              <HouseIcon
+                className="text-primary-100 align-text-bottom"
+                sx={{ fontSize: 20 }}
+                to="/"
+              />
+              Home
+            </Typography>
+          </NavLink>
 
-          <NavLink  className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/services"><Typography variant='button-text'><HomeRepairServiceIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Services</Typography></NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${
+                isActive
+                  ? "text-primary-100 border-b border-primary-100 "
+                  : "text-gray-600"
+              } font-semibold lg:text-base text-sm`
+            }
+            to="/services"
+          >
+            <Typography variant="button-text">
+              <HomeRepairServiceIcon
+                className="text-primary-100 align-text-bottom"
+                sx={{ fontSize: 20 }}
+              />
+              Services
+            </Typography>
+          </NavLink>
 
           {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/feed"><Typography variant='button-text'><ViewAgendaIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Feed</Typography></NavLink> */}
 
           {userId ? (
-            <NavLink 
-              className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`}
+            <NavLink
+              className={({ isActive }) =>
+                `${
+                  isActive
+                    ? "text-primary-100 border-b border-primary-100 "
+                    : "text-gray-600"
+                } font-semibold lg:text-base text-sm`
+              }
               to="/dashboard"
             >
               <Typography variant="button-text">
@@ -75,29 +120,74 @@ function Navbar() {
 
           {/* <NavLink className='font-semibold lg:text-base text-xl text-gray-600' to="/dashboard"><Typography variant='button-text'><DashboardIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Dashboard</Typography></NavLink> */}
 
-          <NavLink className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/about"><Typography variant='button-text'><InfoIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />About us</Typography></NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${
+                isActive
+                  ? "text-primary-100 border-b border-primary-100 "
+                  : "text-gray-600"
+              } font-semibold lg:text-base text-sm`
+            }
+            to="/about"
+          >
+            <Typography variant="button-text">
+              <InfoIcon
+                className="text-primary-100 align-text-bottom"
+                sx={{ fontSize: 20 }}
+              />
+              About us
+            </Typography>
+          </NavLink>
 
-          <NavLink className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/contact"><Typography variant='button-text'><CallIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Contact</Typography></NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${
+                isActive
+                  ? "text-primary-100 border-b border-primary-100 "
+                  : "text-gray-600"
+              } font-semibold lg:text-base text-sm`
+            }
+            to="/contact"
+          >
+            <Typography variant="button-text">
+              <CallIcon
+                className="text-primary-100 align-text-bottom"
+                sx={{ fontSize: 20 }}
+              />
+              Contact
+            </Typography>
+          </NavLink>
 
-          <NavLink className={({isActive})=> `${(isActive)? 'text-primary-100 border-b border-primary-100 ' : 'text-gray-600'} font-semibold lg:text-base text-sm`} to="/help"><Typography variant='button-text'><HelpIcon className='text-primary-100 align-text-bottom' sx={{ fontSize:20 }} />Help</Typography></NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${
+                isActive
+                  ? "text-primary-100 border-b border-primary-100 "
+                  : "text-gray-600"
+              } font-semibold lg:text-base text-sm`
+            }
+            to="/help"
+          >
+            <Typography variant="button-text">
+              <HelpIcon
+                className="text-primary-100 align-text-bottom"
+                sx={{ fontSize: 20 }}
+              />
+              Help
+            </Typography>
+          </NavLink>
         </div>
 
-        
-          
-            <button
-              className="bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1"
-            >
-              {userId ? 
-             <LogoutButton />: (
-              <NavLink to="/login">
-                <LogoutIcon sx={{ fontSize: 20 }} />
-                Login
-              </NavLink>
-              )}
-            </button>
-        
-          
-        
+        <button className="bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1">
+          {userId ? (
+            <LogoutButton />
+          ) : (
+            <NavLink to="/login">
+              <LogoutIcon sx={{ fontSize: 20 }} />
+              Login
+            </NavLink>
+          )}
+        </button>
 
         {/* <button className='bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1'><LogoutIcon sx={{ fontSize: 20 }} /><NavLink to="/login">Login</NavLink></button> */}
 
@@ -115,7 +205,7 @@ function Navbar() {
                 <div className=" w-56 flex justify-start items-start mt-10">
                   <div className="md:hidden flex flex-col items-start gap-4 p-5">
                     <NavLink
-                      className='font-semibold text-lg w-full border-b-2 text-gray-600'
+                      className="font-semibold text-lg w-full border-b-2 text-gray-600"
                       to="/"
                       onClick={toggleDrawer(anchor, false)}
                     >
@@ -143,7 +233,6 @@ function Navbar() {
                       </Typography>
                     </NavLink>
 
-                    
                     {userId ? (
                       <NavLink
                         className="font-semibold lg:text-base text-xl text-gray-600"
@@ -189,7 +278,7 @@ function Navbar() {
                         Contact
                       </Typography>
                     </NavLink>
-                    
+
                     <NavLink
                       className="font-semibold text-lg text-gray-600"
                       to="/help"
@@ -210,17 +299,15 @@ function Navbar() {
                   <LogoutIcon sx={{ fontSize: 20 }} />
                   <NavLink to="/login">Logout</NavLink>
                 </button> */}
-                <button
-                  className="bg-primary-100 mx-auto mt-auto mb-24 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] md:m-0 m-5 p-1 flex md:hidden items-center justify-center gap-1 content-center"
-                  >
-                    {isLoggedIn == 'true' ? (
-              <LogoutButton/>
-                ) : (
-              <NavLink to="/login">
-                <LogoutIcon sx={{ fontSize: 20 }} />
-                Login
-              </NavLink>
-              )}
+                <button className="bg-primary-100 mx-auto mt-auto mb-24 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] md:m-0 m-5 p-1 flex md:hidden items-center justify-center gap-1 content-center">
+                  {isLoggedIn == "true" ? (
+                    <LogoutButton />
+                  ) : (
+                    <NavLink to="/login">
+                      <LogoutIcon sx={{ fontSize: 20 }} />
+                      Login
+                    </NavLink>
+                  )}
                 </button>
               </Drawer>
             </React.Fragment>
