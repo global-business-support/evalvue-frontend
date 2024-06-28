@@ -9,7 +9,7 @@ import ShieldIcon from "@mui/icons-material/Shield";
 import HttpsIcon from "@mui/icons-material/Https";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import SettingsIcon from "@mui/icons-material/Settings";
-import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import DehazeIcon from "@mui/icons-material/Dehaze";
 import { UserContext } from "../../Contextfile";
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -159,8 +159,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
 
       <div className="lg:hidden w-0">
         <Button onClick={toggleDrawer(true)} className="w-full text-left z-40">
-          <span className="text-primary-100 font-semibold ml-5 ">Menu</span>
-          <KeyboardArrowRightOutlinedIcon className="text-xs p-0 text-primary-100" />
+          <span className="text-primary-100 font-semibold ml-5 mt-5"><DehazeIcon className="text-primary-100" /></span>
         </Button>
         <Drawer open={open} onClose={toggleDrawer(false)}>
           <div className="py-10 flex  flex-col items-center ">
