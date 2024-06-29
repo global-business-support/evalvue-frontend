@@ -42,6 +42,9 @@ import AddEmployee from "./Pages/Dashboard/AddEmployee.jsx";
 import PrivateRoute from "./AdminPanel/PrivateRoute.jsx";
 import TransactionHistory from "./Payment/TransactionHistory.jsx";
 import Subscription from "./Payment/Subscription.jsx";
+
+import Clock from "./Components/Clock.jsx";
+
 // import OrgRepeat from "./Pages/Dashboard/OrgRepeat.jsx";
 
 const router = createBrowserRouter(
@@ -97,6 +100,7 @@ const router = createBrowserRouter(
       <Route path="/verified" element={<Passwordotp />} />
       <Route path="/passgenerate" element={<Passwordgenrate />} />
       <Route path="/register" element={<Registration />} />
+      <Route path="/clock" element={<Clock />} />
       <Route path="/address" element={<Address />} />
     </>
   )
