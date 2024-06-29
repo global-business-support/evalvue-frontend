@@ -24,7 +24,12 @@ module.exports = withMT({
       // => @media (min-width: 1536px) { ... }
     
   },
-    extend: {
+    extend: {zIndex: {
+      '100': '100',
+      '200': '200',
+      '300': '300',
+      // Add more custom values as needed
+    },
       colors: {
         primary: {
           100: '#5134a9',

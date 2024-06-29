@@ -7,7 +7,9 @@ const Subscription = () => {
     
         return (
             <>
-            <div className='flex justify-center mb-4'>
+
+            <div className='flex justify-center mb-4 mt-8'>
+
               <h1 className='text-[#5559AF] text-2xl font-bold'>Active Subscription</h1>
             </div>
             <div className="flex flex-col overflow-x-auto">
@@ -22,7 +24,9 @@ const Subscription = () => {
                           <th scope="col" className="px-6 py-4">Amount</th>
                           <th scope="col" className="px-6 py-4">Billing Cycle</th>
                           <th scope="col" className="px-6 py-4">Next Due Date</th>
-                          <th scope="col" className="px-6 py-4">Cancel</th>
+
+                          <th scope="col" className="px-6 py-4">Action</th>
+
                         </tr>
                       </thead>
                       <tbody>
