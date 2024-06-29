@@ -55,10 +55,7 @@ const router = createBrowserRouter(
         <Route path="organization" element={<ParentComponent />}>
           <Route index element={<Addorganization />} />
         </Route>
-        <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />}>
           {/* <Route path="orgRepeat" element={<OrgRepeat />}></Route> */}
-          <Route path="transactionHistory" element={<TransactionHistory />} />
-          <Route path="subscription" element={<Subscription />} />
       
         <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard/>}/>}>
             <Route path="transactionHistory" element={<TransactionHistory />}/>
@@ -73,20 +70,13 @@ const router = createBrowserRouter(
               <Route path="review" element={<Enpreviewoutlet />} >
                 <Route index element={<Personalreview />} />
                 <Route path="newpost" element={<Post />} />
-              </Route>/
+              </Route>
             </Route>
           </Route>
           <Route path="searchByAadharCard" element={<ProtectedAadhaarRoute element={<SearchByAadharCard />} />} />
           <Route path="addEmployee" element={<AddEmployee />} />
         </Route>
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="*" element={<PageNotFound />} />
-        <Route path="/orgDetails" element={<PrivateRoute element={<OrgDetails />} />} />
-        <Route path="/verifyOrganization" element={<VerifyOrganization />} />
-      </Route>
+       
       <Route path="/contact" element={<Contact/>} />
       <Route path="/help" element={<Help/>} />
       <Route path="/about" element={<About/>} />
