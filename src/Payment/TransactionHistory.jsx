@@ -7,7 +7,7 @@ const [list, setList] = useState([
 
     return (
         <>
-        <div className='flex justify-center mb-4'>
+        <div className='flex justify-center mb-4 mt-8'>
           <h1 className='text-[#5559AF] text-2xl font-bold'>Transaction History</h1>
         </div>
         <div className="flex flex-col overflow-x-auto">
@@ -35,7 +35,7 @@ const [list, setList] = useState([
                     <td className="whitespace-nowrap px-6 py-4 text-gray-700">{i.subscriptionId}</td>
                     <td className="whitespace-nowrap px-6 py-4 text-gray-700">{i.billingCycle}</td>
                     <td className="whitespace-nowrap px-6 py-4 text-gray-700">₹{i.amount}</td>
-                    <td className="whitespace-nowrap px-6 py-4 text-gray-700"><button className='bg-green-600 py-1 px-2 text-white rounded'>{i.status}</button></td>
+                    <td className="whitespace-nowrap px-6 py-4 text-gray-700"><span className='bg-green-600 py-1 px-2 text-white rounded'>{i.status}</span></td>
                   </tr>
                    ))}
                     

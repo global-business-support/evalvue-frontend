@@ -21,8 +21,8 @@ const LogoutButton = () => {
     <button
       onClick={handleLogout}
       variant="contained"
-      color="primary"
-    ><LogoutIcon />
+      className="text-white"
+    ><LogoutIcon className="text-white"/>
       Logout
     </button>
   );
