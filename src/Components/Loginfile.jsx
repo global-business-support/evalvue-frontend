@@ -56,6 +56,7 @@ const Loginfile = () => {
         localStorage.removeItem("userId");
         localStorage.removeItem("accessToken"); // Remove accessToken
         localStorage.setItem("isLogin", "false");
+        localStorage.removeItem("email");
       }
     },[])
 
@@ -101,6 +102,7 @@ const Loginfile = () => {
       setLoading(false);
     }
   };
+  localStorage.setItem("email", Formdata.email);
 
   return (
     <>

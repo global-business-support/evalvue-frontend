@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import logo from "../assets/images/logo.png";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import HouseIcon from "@mui/icons-material/House";
-import ViewAgendaIcon from "@mui/icons-material/ViewAgenda";
 import LogoutIcon from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import InfoIcon from "@mui/icons-material/Info";
@@ -14,7 +13,7 @@ import { Button, Drawer, Typography } from "@mui/material";
 import { UserContext } from "../Contextfile";
 import ScrollToTop from "../Pages/Dashboard/ScrollTotop";
 import LogoutButton from "./LogoutButton";
-import DashboardNavigation from "../Pages/Dashboard/DashboardNavigation";
+import UserDetails from "./UserDetails";
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,7 +21,9 @@ function Navbar() {
     right: false,
   });
   const { userId, setUserId } = useContext(UserContext);
-
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const isLogin = localStorage.getItem("isLogin");
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -42,6 +43,12 @@ function Navbar() {
     const loggedin = localStorage.getItem("isLogin");
     setIsLoggedIn(loggedin);
   });
+  useEffect(()=>{
+    if(isLogin){
+        setUserEmail(localStorage.getItem("email"));
+        setUserName(userEmail[0]?.toUpperCase());}
+        console.log(userEmail)
+  })
   return (
     <>
       <ScrollToTop />
@@ -178,20 +185,24 @@ function Navbar() {
           </NavLink>
         </div>
 
-        <button className="bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1">
+        <div className="md:block hidden ">
           {userId ? (
-            <LogoutButton />
+            <UserDetails />
           ) : (
-            <NavLink to="/login">
+            <NavLink to="/login"
+            className="bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1"
+            >
               <LogoutIcon sx={{ fontSize: 20 }} />
               Login
             </NavLink>
           )}
-        </button>
+        </div>
+       
+        
 
         {/* <button className='bg-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:shadow-gray-600 shadow-sm shadow-gray-500 text-white rounded w-[100px] p-1 md:flex hidden items-center justify-center gap-1'><LogoutIcon sx={{ fontSize: 20 }} /><NavLink to="/login">Login</NavLink></button> */}
 
-        <div className="md:hidden ">
+        <div className="md:hidden">
           {["right"].map((anchor) => (
             <React.Fragment key={anchor}>
               <Button onClick={toggleDrawer(anchor, true)}>
@@ -202,13 +213,22 @@ function Navbar() {
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
               >
-                <div className=" w-56 flex justify-start items-start mt-10">
+                <div className=" w-56 flex flex-col justify-start items-start mt-10">
+                  <div className="w-full h-20 bg-primary-100 ">
+                    <div className="w-10 h-10 mt-[-15px] border-[3px] border-white mx-auto rounded-full bg-orange-800 flex justify-center items-center">
+                      <span className="text-xl text-white">{userName}</span>
+                    </div>
+                    <div className="flex justify-center mt-3">
+                    <span className="px-1 text-white text-sm underline underline-offset-4 max-w-56 truncate">{userEmail}</span>
+                    </div>
+                  </div>
                   <div className="md:hidden flex flex-col items-start gap-4 p-5">
                     <NavLink
                       className="font-semibold text-lg w-full border-b-2 text-gray-600"
                       to="/"
                       onClick={toggleDrawer(anchor, false)}
                     >
+                      
                       <Typography variant="button-text">
                         <HouseIcon
                           className="text-primary-100 align-text-bottom "
