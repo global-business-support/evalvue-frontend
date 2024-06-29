@@ -23,7 +23,6 @@ function Passwordotp(props) {
   const [loading, setLoading] = useState(false);
   const [userverification, setuserverification] = useState(false);
   const [employeeverification, setemployeeverification] = useState(false);
-  console.log(state);
   // Initialize user_id from context
   let user_id = userId;
 
@@ -35,15 +34,19 @@ function Passwordotp(props) {
     }
 
     // If email exists and not in forget mode, automatically submit to send OTP
-    if (email && !state.isForget) {
-      handleEmailSubmit();
+    if(!isEmailSent){
+
+      if (email && !state.isForget) {
+        console.log("call again")
+        handleEmailSubmit();
+      }
     }
 
     // Navigate to password generation page if OTP is verified and it is for forget password
     if (isOtpVerified && state.isForget) {
       navigate("/passgenerate");
     }
-  }, [isOtpVerified, state.isForget, navigate, email]);
+  }, [isOtpVerified, state.isForget, email,isEmailSent]);
 
   // Function to handle email submission
   const handleEmailSubmit = async (e) => {
@@ -105,45 +108,44 @@ function Passwordotp(props) {
   // Function to handle OTP submission
   const handleOtpSubmit = async () => {
     const otpCode = otp.join("");
-    try {
-      console.log(otpCode)
-      const response = await axios(`${apiUrl}/verify/otp/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: user_id,
-          otp_number: otpCode,
-          email,
-          user_verification: state.isForget ? userverification : !userverification,
-          employee_verification: employeeverification,
-        }),
-      }
-     
-    );
-    console.log(response)
+    if (otpCode.length < 1) {
+      console.log("please fill otp");
+      setError("please enter the OTP");
+    } else {
+   await axios.post(`${apiUrl}/verify/otp/`, {
+        user_id: user_id,
+        otp_number: otpCode,
+        email,
+        user_verification: state.isForget
+          ? userverification
+          : !userverification,
+        employee_verification: employeeverification,
+      })
+.then(response=>{
+  console.log(response.data)
+      if (
+        response.data.otp_verified_successfull &&
+        response.data.is_email_verified_successfull
+      ) {
+        setIsOtpVerified(response.data.otp_verified_successfull);
+        setIsEmailVerified(response.data.is_email_verified_successfull);
+        if(state.isForget){
 
-      const data = await response.json();
-      console.log(response)
-      console.log(data)
-      if (response.ok) {
-        if (
-          data.otp_verified_successfull &&
-          data.is_email_verified_successfull
-        ) {
-          setIsOtpVerified(true);
-          setIsEmailVerified(true);
-        } else if (data.otp_is_expired) {
-          setError("OTP is expired. Please request a new one.");
-        } else {
-          setError(data.error || "OTP verification failed. Please try again.");
+          navigate("/passgenerate")
         }
-      } else {
-        setError(data.message || "Something went wrong. Please try again.");
+        
+      } else if (response.data.otp_is_expired) {
+        setError("OTP is expired. Please request a new one.");
+      }else if(response.data.incorrect_otp){
+        setError("Please enter correct OTP")
       }
-    } catch (error) {
-      setError("Failed to verify OTP. Please try again.");
+      else if(response.data.otp_is_expired){
+        setError("OTP is Expired")
+      }
+       else {
+        setError(response.error || "OTP verification failed. Please try again.");
+      }
+    })
     }
   };
 
