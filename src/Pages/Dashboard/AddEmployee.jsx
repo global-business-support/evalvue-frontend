@@ -76,7 +76,7 @@ function AddEmployee() {
       if (data.otp_send_successfull) {
         setOtpSentSuccessfull(true);
         setOtpSent(true);
-        startTimer(); // Start the timer when OTP is sent successfully
+        // startTimer(); // Start the timer when OTP is sent successfully
       } else {
         setError(data.error || "Something went wrong. Please try again.");
       }

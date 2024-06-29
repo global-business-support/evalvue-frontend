@@ -13,13 +13,13 @@ function UserDetails() {
       setShowMenu(false); // Hide the menu
     }
   };
+  
   useEffect(()=>{
     if(isLogin){
         setUserEmail(localStorage.getItem("email"));
-        setUserName(userEmail[0]?.toUpperCase());}
+        setUserName(userEmail?userEmail[0]?.toUpperCase():"");}
         console.log(userEmail)
   });
-  
 
   useEffect(() => {
     // Add event listener to detect clicks outside

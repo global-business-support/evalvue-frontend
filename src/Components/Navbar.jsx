@@ -46,7 +46,7 @@ function Navbar() {
   useEffect(()=>{
     if(isLogin){
         setUserEmail(localStorage.getItem("email"));
-        setUserName(userEmail[0]?.toUpperCase());}
+        setUserName(userEmail?userEmail[0]?.toUpperCase():"");}
         console.log(userEmail)
   })
   return (
