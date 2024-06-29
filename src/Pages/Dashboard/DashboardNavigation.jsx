@@ -194,8 +194,8 @@ const {showSearchByAadhaar} = useContext(UserContext)
       </div>
 
       <div className="lg:hidden w-0">
-        <Button onClick={toggleDrawer(true)} className="w-full text-left z-40">
-          <span className="text-primary-100 font-semibold ml-5 mt-5"><DehazeIcon className="text-primary-100" /></span>
+        <Button onClick={toggleDrawer(true)} className="w-full text-left z-50">
+          <span className="text-primary-100 font-semibold ml-5 mt-2"><DehazeIcon className="text-primary-100" /></span>
         </Button>
         <Drawer open={open} onClose={toggleDrawer(false)}>
           <div className="py-10 flex  flex-col items-center ">

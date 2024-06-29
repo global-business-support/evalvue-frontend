@@ -43,6 +43,7 @@ import PrivateRoute from "./AdminPanel/PrivateRoute.jsx";
 import TransactionHistory from "./Payment/TransactionHistory.jsx";
 import Subscription from "./Payment/Subscription.jsx";
 // import OrgRepeat from "./Pages/Dashboard/OrgRepeat.jsx";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -55,6 +56,10 @@ const router = createBrowserRouter(
           {/* <Route path="orgRepeat" element={<OrgRepeat />}></Route> */}
           <Route path="transactionHistory" element={<TransactionHistory />} />
           <Route path="subscription" element={<Subscription />} />
+      
+        <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard/>}/>}>
+            <Route path="transactionHistory" element={<TransactionHistory />}/>
+            <Route path="subscription" element={<Subscription />}/>
           <Route index element={<Dhashboardhome />} />
           <Route path="organization" element={<Orgoutlet />}>
             <Route index element={<Organization />} />
@@ -78,6 +83,15 @@ const router = createBrowserRouter(
         <Route path="*" element={<PageNotFound />} />
         <Route path="/orgDetails" element={<PrivateRoute element={<OrgDetails />} />} />
         <Route path="/verifyOrganization" element={<VerifyOrganization />} />
+      </Route>
+      <Route path="/contact" element={<Contact/>} />
+      <Route path="/help" element={<Help/>} />
+      <Route path="/about" element={<About/>} />
+      <Route path="/services" element={<Services/>} />
+      <Route path="*" element={<PageNotFound/>} />
+      <Route path="/orgDetails" element={<PrivateRoute element={<OrgDetails />} />}/>
+      <Route path="/verifyOrganization" element={<VerifyOrganization />}/>
+      {/* navbar */}
       </Route>
       <Route path="/login" element={<Loginfile />} />
       <Route path="/verified" element={<Passwordotp />} />

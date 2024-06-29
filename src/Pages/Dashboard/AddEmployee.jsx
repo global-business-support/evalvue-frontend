@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
-import aboutimg from "../../assets/images/about-img.jpg";
+import React, {useState, useEffect, useRef, useCallback, useContext,} from "react";
 import Loader from "../Loader";
 import Apibackendrequest from "../Apibackendrequest";
-import bgImg from "../../assets/images/FooterBackgroundImage.png";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserContext } from "../../Contextfile";
+import { NavLink } from 'react-router-dom';
+import { RxCross2 } from "react-icons/rx";
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function AddEmployee() {
@@ -13,102 +16,104 @@ function AddEmployee() {
   const [timeLeft, setTimeLeft] = useState(120);
   const [error, setError] = useState("");
   const [errors, setErrors] = useState("");
-  const [otpSentSuccessfull, setOtpSentSuccessfull] = useState(false)
-  const [isOtpVarified, setIsOtpVerified] = useState(false)
-  const [selectedOrg, setSelectedOrg] = useState({
-    // user_id: userId,
-    // organization_id: location.state?.organization_id || "",
-    // gstin:""
-  });
+  const [showResendButton, setShowResendButton] = useState(false);
+  const [otpSentSuccessfull, setOtpSentSuccessfull] = useState(false);
+  const [isOtpVarified, setIsOtpVerified] = useState(false);
+  const [selectedOrg, setSelectedOrg] = useState("");
+  const [showSuccessfull, setShowSuccessfull] = useState(false)
   const [loading, setLoading] = useState(false);
+  const [
+    is_terminated_employee_added_successfull,
+    setIs_terminated_employee_added_successfull,
+  ] = useState(false);
 
+  const navigate = useNavigate()
   const location = useLocation();
   const state = location.state;
 
-  useEffect(() => {
-    setLoading(true);
-    Apibackendrequest(`${apiUrl}/organizations/`)
-  
-      .then((res) => {
-        setOrgList(res.data.organization_list);
-        if (res.isexception) {
-          setError(res.exceptionmessage.error);
-        }
-      })
-      .catch((err) => {
-        setError(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const { userId } = useContext(UserContext);
 
+  const timerRef = useRef(null);
 
-  function orgHandler(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-    setSelectedOrg((values) => ({ ...values, [name]: value }));
-    // Remove error for this field when user enters a value
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-  }
-
-  
+  // const startTimer = useCallback(() => {
+  //   setShowResendButton(false);
+  //   setTimeLeft(120);
+  //   if (timerRef.current) {
+  //     clearInterval(timerRef.current);
+  //   }
+  //   timerRef.current = setInterval(() => {
+  //     setTimeLeft((prev) => {
+  //       if (prev === 1) {
+  //         clearInterval(timerRef.current);
+  //         setShowResendButton(true);
+  //         return 0;
+  //       }
+  //       return prev - 1;
+  //     });
+  //   }, 1000);
+  // }, []);
 
   const SendOTP = async (e) => {
     setError("");
-    console.log("before");
     const email = state.employee_email;
-    console.log(email);
     e.preventDefault();
-    console.log("after");
-    console.log(state.employee_email);
+    setLoading(true);
     try {
       const response = await fetch(`${apiUrl}/shoot/otp/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, user_verification : false, employee_verification : true }),
+        body: JSON.stringify({
+          email,
+          user_verification: false,
+          employee_verification: true,
+        }),
       });
 
       const data = await response.json();
 
       if (data.otp_send_successfull) {
-        setOtpSentSuccessfull(true)
+        setOtpSentSuccessfull(true);
         setOtpSent(true);
-        setTimeLeft(120);
-        setShowResendButton(false);
-        setLoading(false);
+        startTimer(); // Start the timer when OTP is sent successfully
       } else {
         setError(data.error || "Something went wrong. Please try again.");
       }
     } catch (error) {
-      setError("Failed to send email. Please try again.");
+      console.log(error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
-
+  
   const verifyOTP = async () => {
     const otpCode = otp.join("");
 
     try {
-      const response = await fetch(`${apiUrl}/verify/otp/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: user_id, otp_number: otpCode, email, user_verification : false, employee_verification : true }),
+      const response = await axios.post(`${apiUrl}/verify/otp/`, {
+        user_id: userId,
+        email: state.employee_email,
+        otp_number: otpCode,
+        employee_id: state.employee_id,
+        organization_id: selectedOrg.organization_id,
+        user_verification: false,
+        employee_verification: true,
       });
 
-      const data = await response.json();
+      const data = response.data;
 
-      if (response.ok) {
+      if (response.status === 200) {
         if (
           data.otp_verified_successfull &&
-          data.is_email_verified_successfull
+          data.is_terminated_employee_added_successfull
         ) {
           setIsOtpVerified(true);
-          setIsEmailVerified(true);
+          setIs_terminated_employee_added_successfull(data.is_terminated_employee_added_successfull);
+          console.log(is_terminated_employee_added_successfull)
+          setShowSuccessfull(true)
+          handleshowSuccessfull()
         } else if (data.otp_is_expired) {
           setError("OTP is expired. Please request a new one.");
         } else {
@@ -118,6 +123,7 @@ function AddEmployee() {
         setError(data.message || "Something went wrong. Please try again.");
       }
     } catch (error) {
+      console.error("Error verifying OTP:", error);
       setError("Failed to verify OTP. Please try again.");
     }
   };
@@ -132,80 +138,145 @@ function AddEmployee() {
     }
   };
 
+  const handleKeyDown = (element, index, event) => {
+    if (event.key === "Backspace") {
+      if (element.previousSibling && !element.value) {
+        element.previousSibling.focus();
+      }
+      setOtp([...otp.map((d, idx) => (idx === index ? "" : d))]);
+    }
+  };
+  function Successfull(){
+    console.log("function called")
+      setTimeout(()=>{
+        navigate('/dashboard/organization')
+        setShowSuccessfull(false)
+      },3000)
+    }
+  function handleshowSuccessfull(){
+    console.log(is_terminated_employee_added_successfull)
+  if(is_terminated_employee_added_successfull){
+    Successfull()
+    console.log("calling the function")
+  }
+}
 
-  // useEffect(() => {
-  //   let timer;
-  //   if (otpSent && timeLeft > 0) {
-  //     timer = setInterval(() => {
-  //       setTimeLeft((prev) => prev - 1);
-  //     }, 1000);
-  //   }
 
-  //   if (timeLeft === 0) {
-  //     setShowResendButton(true);
-  //   }
 
-  //   return () => clearInterval(timer);
-  // }, [otpSent, timeLeft]);
+  function orgHandler(e) {
+    const value = e.target.value;
+    const selectedOrgId = parseInt(value); // Convert value to integer if needed
+    setSelectedOrg((prevState) => ({
+      ...prevState,
+      organization_id: selectedOrgId,
+    }));
+    // Remove error for this field when user selects an option
+    setErrors((prevErrors) => ({ ...prevErrors, organization: "" }));
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    Apibackendrequest(`${apiUrl}/organizations/`)
+      .then((res) => {
+        setOrgList(res.data.organization_list);
+        if (res.isexception) {
+          setError(res.exceptionmessage.error);
+        }
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   if (loading) {
     return (
-      <>
-        <div className="h-[calc(100vh-200px)] flex justify-center items-center">
-          <Loader />
-        </div>
-      </>
+      <div className="h-[calc(100vh-200px)] flex justify-center items-center">
+        <Loader />
+      </div>
     );
   }
 
-  return (
-    <>
-      <div className="min-h-full mx-auto md:w-[60%] bg-white p-2 rounded-lg flex flex-col items-center">
-        <div className="h-20 w-full bg-gray-300 rounded-lg"></div>
-        <div className="w-full flex flex-col items-center mt-[-60px]">
+  return showSuccessfull? (
+    <div className="flex items-center justify-center  h-[calc(100vh-160px)] bg-zinc-100">
+      <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <div className="flex flex-col items-center">
           <img
-            src={state?.employee_image}
-            alt=""
-            className="h-28 w-28 rounded-full"
+            undefinedhidden="true"
+            alt="checkmark-icon"
+            src="https://openui.fly.dev/openui/64x64.svg?text=✔"
+            className="mb-4"
           />
-          <div className="w-full mt-8 text-gray-800 text-start ms-10 space-y-1">
-            <h1 className="text-2xl">{state?.employee_name}</h1>
-            <h1 className="text-base">{state?.employee_designation}</h1>
-            <h1 className="text-base ">{state?.employee_email}</h1>
-            <h1 className="text-base text-gray-700 flex">
-              Mobile No. :
-              <h1 className="text-black w-[75px] truncate "> &nbsp;{state?.employee_mobileNumber}</h1>
-            </h1>
-            <h1 className="text-sm text-gray-700">
-              Aadhar No. :
-              <span className=" text-black">
-              &nbsp;{state?.employee_aadhar_number}
-              </span>
-            </h1>
-          </div>
-        </div>
-        <div className="mt-5 flex flex-col">
-          <label htmlFor="organization"> Please select Organization : </label>
-          <select
-            name="organization"
-            id="organization"
-            onChange={() => orgHandler}
+          <h2 className="text-2xl font-semibold text-zinc-800 mb-2">
+            Awesome!
+          </h2>
+          <p className="text-zinc-600 mb-6">
+           Employee added to your Organization successfully
+          </p>
+          {/* <NavLink
+            to={"/dashboard/organization"}
+            className="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-600 focus:outline-none"
           >
-            <option value="">--Please Select--</option>
-            {orgList.map((org, index) => (
-              <option key={index} value={org.id}>
-                {org.name}
-              </option>
-            ))}
-          </select>
-          {errors?.org?.name && (
-            <span className="text-red-600 text-sm">
-              {errors.organization_image}
-            </span>
-          )}
+            Back to Organization List
+          </NavLink> */}
         </div>
-
-        <>
+      </div>
+    </div>
+  ) : (
+    <div className="min-h-full mx-auto md:w-[60%] p-2 rounded-lg flex flex-col items-center bg-white">
+      <div className="h-20 w-full bg-primary-100 rounded-lg p-3 flex items-start justify-end">
+        <button className="text-3xl text-white" onClick={()=>{navigate(-1)}}><RxCross2 /></button>
+      </div>
+      <div className="w-full flex flex-col items-center mt-[-60px]">
+        <img
+          src={state?.employee_image}
+          alt=""
+          className="h-28 w-28 rounded-full border-4 border-white"
+        />
+        <div className="w-full mt-8 text-gray-800 text-start ms-10 space-y-1">
+          <h1 className="text-2xl">{state?.employee_name}</h1>
+          <h1 className="text-base">{state?.employee_designation}</h1>
+          <h1 className="text-base ">{state?.employee_email}</h1>
+          <h1 className="text-base text-gray-700 flex">
+            Mobile No. :
+            <h1 className="text-black w-[75px] truncate ">
+              {" "}
+              &nbsp;{state?.employee_mobileNumber}
+            </h1>
+          </h1>
+          <h1 className="text-base text-gray-700">
+            Aadhar No. :
+            <span className=" text-black">
+              &nbsp;{state?.employee_aadhar_number}
+            </span>
+          </h1>
+        </div>
+      </div>
+      <div className="mt-10 flex flex-col">
+        <label htmlFor="organization"> Please select Organization : </label>
+        <select
+          name="organization"
+          id="organization"
+          value={selectedOrg.organization_id} // Assuming selectedOrg holds the selected organization state
+          onChange={(e) => orgHandler(e)}
+        >
+          <option value="">--Please Select--</option>
+          {orgList.map((org) => (
+            <option key={org.organization_id} value={org.organization_id}>
+              {org.name}
+            </option>
+          ))}
+        </select>
+        {errors?.org?.name && (
+          <span className="text-red-600 text-sm">
+            {errors.organization_image}
+          </span>
+        )}
+      </div>
+      {otpSentSuccessfull && (
+        <div className="w-full flex flex-col items-center">
           <div className="flex justify-between items-center mt-10">
             <h2 className="font-bold text-xl">Please Enter OTP</h2>
           </div>
@@ -228,51 +299,41 @@ function AddEmployee() {
             ))}
           </div>
           {error && <p className="text-red-500 text-center mt-4">{error}</p>}
-
           {otpSent && timeLeft > 0 && (
-            <p className="text-sm text-center mt-4">
+            <p className="text-sm text-center mt-4" ref={timerRef}>
               OTP is valid for {timeLeft} seconds
             </p>
           )}
-          {
+          {showResendButton && (
             <p className="text-sm text-center mt-4">
               Didn't receive an email?
               <button
                 className="text-primary-100 hover:text-blue-600 font-semibold"
-                onClick={() => {
-                  SendOTP();
-                }}
+                onClick={(e) => SendOTP(e)}
               >
                 RESEND OTP
               </button>
             </p>
-          }
-        </>
-        <>
-        {
-          (otpSentSuccessfull)?
-          <button
-          onClick={()=>{
-            verifyOTP()
-          }}
-          className=" mt-5 px-8 py-2 bg-primary-100 rounded-lg text-white">
-            Confirm
-          </button>
-          :
-          <button
-            onClick={(e) => {
-              SendOTP(e);
-            }}
-            className=" mt-5 px-8 py-2 bg-primary-100 rounded-lg text-white"
-          >
-            Send otp
-          </button>
-        }
-          
-          
-        </>
-      </div>
-    </>
+          )}
+        </div>
+      )}
+
+      {otpSentSuccessfull ? (
+        <button
+          onClick={verifyOTP}
+          className="mt-5 px-8 py-2 bg-primary-100 rounded-lg text-white"
+        >
+          Confirm and Submit
+        </button>
+      ) : (
+        <button
+          onClick={(e) => SendOTP(e)}
+          className="mt-5 px-8 py-2 bg-primary-100 rounded-lg text-white"
+        >
+          Send otp
+        </button>
+      )}
+    </div>
   );
 }
 
