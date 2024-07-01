@@ -6,24 +6,16 @@ import { Rating } from "@material-tailwind/react";
 function Enpreview() {
   const { state } = useLocation();
   const reviewref = useRef(0);
-  // const avgreviewref = useRef(0);
-  // const [avgrating,setavgrating]=useState(0);
+
 
   const updateReviewCount = (count) => {
     reviewref.current.textContent = `Total Review : ${count}`;
   };
 
-  // const overallRating = (avgrating) =>{
-  //   console.log("satya",avgrating)
-  //   return avgrating
-  // };
-  // useEffect(()=>{
-  //   setavgrating()
-  // })
 
   return (
     <>
-      <div className=" w-[95%] flex justify-between z-10 items-center mx-auto sticky top-[47px]  bg-white p-4  rounded-lg ">
+      <div className=" w-[95%] lg:mb-0 mb-14 flex justify-between z-[1] items-center mx-auto sticky top-[47px]  bg-white p-4  rounded-lg">
         <div className="flex justify-center items-center gap-5">
           <div className="h-20 w-20 border border-zinc-300 rounded-full">
             <img
