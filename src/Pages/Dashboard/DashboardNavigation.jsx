@@ -193,10 +193,12 @@ const {showSearchByAadhaar} = useContext(UserContext)
         {/* <button className='font-bold  text-gray-600'><SettingsIcon className='text-[#5559AF] align-top' sx={{ fontSize: 20 }} /> Settings</button> */}
       </div>
 
-      <div className="lg:hidden w-0">
-        <Button onClick={toggleDrawer(true)} className="w-full text-left z-50">
+      <div className="lg:hidden w-full absolute z-[2]">
+        <div className="w-full h-12 bg-[#e6eaee] text-left z-50 bg-black">
+        <Button  onClick={toggleDrawer(true)} className=" text-left z-50">
           <span className="text-primary-100 font-semibold ml-5 mt-2"><DehazeIcon className="text-primary-100" /></span>
         </Button>
+        </div>
         <Drawer open={open} onClose={toggleDrawer(false)}>
           <div className="py-10 flex  flex-col items-center ">
             <div className="flex flex-col items-center gap-3 h-full  w-[280px] p-2 ">
@@ -261,7 +263,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
               <NavLink
                 to="/dashboard/transactionHistory"
                 end
-                onClick={()=>{toggleDrawer(false)}}
+                onClick={toggleDrawer(false)}
                 className={({
                   isActive,
                 }) => `w-full py-2 ps-2 rounded font-semibold 
@@ -277,7 +279,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
               <NavLink
                 to="/dashboard/subscription"
                 end
-                onClick={()=>{toggleDrawer(false)}}
+                onClick={toggleDrawer(false)}
                 className={({
                   isActive,
                 }) => `w-full py-2 ps-2 rounded font-semibold 

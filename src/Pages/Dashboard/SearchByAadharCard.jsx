@@ -70,7 +70,7 @@ function SearchByAadharCard() {
   }
 
   return (
-    <div className="relative h-[calc(100vh-160px)] w-full flex justify-center ">
+    <div className="relative h-[calc(100vh-120px)] w-full flex justify-center ">
       {employees == undefined || employees.length == 0 ? (
         <div
           className="absolute inset-0 bg-white"
@@ -83,16 +83,14 @@ function SearchByAadharCard() {
             backgroundSize: "25%",
           }}
         >
-          <div className="absolute  inset-0 bg-blue-gray-700 opacity-20"></div>
+          <div className="absolute inset-0 bg-blue-gray-700 opacity-20"></div>
         </div>
       ) : (
         ""
       )}
 
-      <div
-        className={`w-full mx-1 md:w-full h-max px-4 relative z-10 dark:bg-zinc-800 rounded-lg`}
-      >
-        <div className="w-full sticky top-[56px]  py-4 px-6 bg-primary-100 shadow-lg flex rounded-lg justify-center items-center  z-50">
+      <div className="w-full sticky  mx-1 md:w-full h-max px-4 dark:bg-zinc-800 rounded-lg">
+        <div className="w-full sticky lg:top-[0] top-[47px] mt-8 py-4 px-6 bg-primary-100 shadow-lg flex rounded justify-center items-center mb-5">
           <div className="ml-2 mx-8 w-full">
             <label
               htmlFor=""
@@ -127,7 +125,7 @@ function SearchByAadharCard() {
 
         {empmappedbyaadhar ? (
           <div
-            className={`mt-8 xl:flex xl:flex-col grid  sm:grid-cols-2 grid-cols-1 gap-1 ${
+            className={`mt-8 pt-5 xl:flex xl:flex-col grid  sm:grid-cols-2 grid-cols-1 gap-1 ${
               isFocused && value.length > 0 ? "h-[450px]" : ""
             }   scrollbar-custom  overflow-y-auto`}
           >

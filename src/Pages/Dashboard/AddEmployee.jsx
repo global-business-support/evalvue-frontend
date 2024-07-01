@@ -1,10 +1,16 @@
-import React, {useState, useEffect, useRef, useCallback, useContext,} from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
 import Loader from "../Loader";
 import Apibackendrequest from "../Apibackendrequest";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../Contextfile";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -20,14 +26,15 @@ function AddEmployee() {
   const [otpSentSuccessfull, setOtpSentSuccessfull] = useState(false);
   const [isOtpVarified, setIsOtpVerified] = useState(false);
   const [selectedOrg, setSelectedOrg] = useState("");
-  const [showSuccessfull, setShowSuccessfull] = useState(false)
+  const [ empMobileNumber,setEmpMobileNumber] = useState()
+  const [showSuccessfull, setShowSuccessfull] = useState(false);
   const [loading, setLoading] = useState(false);
   const [
     is_terminated_employee_added_successfull,
     setIs_terminated_employee_added_successfull,
   ] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
 
@@ -53,41 +60,65 @@ function AddEmployee() {
   //   }, 1000);
   // }, []);
 
+  useEffect(() => {
+    const mobileNumber = String(state.employee_mobileNumber)
+    const lastFour = mobileNumber.slice(-4);
+
+    // Calculate the number of stars to prepend
+    const starsCount = mobileNumber.length - 4;
+    const stars = "*".repeat(starsCount);
+
+    // Combine stars and last four characters
+    const maskedNumber = stars + lastFour;
+    setEmpMobileNumber(maskedNumber)
+  }, []);
+
+  function validate() {
+    const newErrors = {};
+    if (!selectedOrg) {
+      newErrors.organization_list = "Please select Organization*";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
   const SendOTP = async (e) => {
     setError("");
     const email = state.employee_email;
     e.preventDefault();
     setLoading(true);
-    try {
-      const response = await fetch(`${apiUrl}/shoot/otp/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          user_verification: false,
-          employee_verification: true,
-        }),
-      });
+    const isCallApi = validate();
+    if (isCallApi) {
+      try {
+        const response = await fetch(`${apiUrl}/shoot/otp/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            user_verification: false,
+            employee_verification: true,
+          }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (data.otp_send_successfull) {
-        setOtpSentSuccessfull(true);
-        setOtpSent(true);
-        // startTimer(); // Start the timer when OTP is sent successfully
-      } else {
-        setError(data.error || "Something went wrong. Please try again.");
+        if (data.otp_send_successfull) {
+          setOtpSentSuccessfull(true);
+          setOtpSent(true);
+          // startTimer(); // Start the timer when OTP is sent successfully
+        } else {
+          setError(data.error || "Something went wrong. Please try again.");
+        }
+      } catch (error) {
+        console.log(error);
+        setError(error);
       }
-    } catch (error) {
-      console.log(error);
-      setError(error);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
-  
+
   const verifyOTP = async () => {
     const otpCode = otp.join("");
 
@@ -110,10 +141,12 @@ function AddEmployee() {
           data.is_terminated_employee_added_successfull
         ) {
           setIsOtpVerified(true);
-          setIs_terminated_employee_added_successfull(data.is_terminated_employee_added_successfull);
-          console.log(is_terminated_employee_added_successfull)
-          setShowSuccessfull(true)
-          handleshowSuccessfull()
+          setIs_terminated_employee_added_successfull(
+            data.is_terminated_employee_added_successfull
+          );
+          console.log(is_terminated_employee_added_successfull);
+          setShowSuccessfull(true);
+          handleshowSuccessfull();
         } else if (data.otp_is_expired) {
           setError("OTP is expired. Please request a new one.");
         } else {
@@ -146,22 +179,20 @@ function AddEmployee() {
       setOtp([...otp.map((d, idx) => (idx === index ? "" : d))]);
     }
   };
-  function Successfull(){
-    console.log("function called")
-      setTimeout(()=>{
-        navigate('/dashboard/organization')
-        setShowSuccessfull(false)
-      },3000)
-    }
-  function handleshowSuccessfull(){
-    console.log(is_terminated_employee_added_successfull)
-  if(is_terminated_employee_added_successfull){
-    Successfull()
-    console.log("calling the function")
+  function Successfull() {
+    console.log("function called");
+    setTimeout(() => {
+      navigate("/dashboard/organization");
+      setShowSuccessfull(false);
+    }, 3000);
   }
-}
-
-
+  function handleshowSuccessfull() {
+    console.log(is_terminated_employee_added_successfull);
+    if (is_terminated_employee_added_successfull) {
+      Successfull();
+      console.log("calling the function");
+    }
+  }
 
   function orgHandler(e) {
     const value = e.target.value;
@@ -178,7 +209,12 @@ function AddEmployee() {
     setLoading(true);
     Apibackendrequest(`${apiUrl}/organizations/`)
       .then((res) => {
-        setOrgList(res.data.organization_list);
+        const list = res.data.organization_list.filter((org) => {
+          if (org.organization_verified) {
+            return org;
+          }
+        });
+        setOrgList(list);
         if (res.isexception) {
           setError(res.exceptionmessage.error);
         }
@@ -199,7 +235,7 @@ function AddEmployee() {
     );
   }
 
-  return showSuccessfull? (
+  return showSuccessfull ? (
     <div className="flex items-center justify-center  h-[calc(100vh-160px)] bg-zinc-100">
       <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex flex-col items-center">
@@ -213,7 +249,7 @@ function AddEmployee() {
             Awesome!
           </h2>
           <p className="text-zinc-600 mb-6">
-           Employee added to your Organization successfully
+            Employee added to your Organization successfully
           </p>
           {/* <NavLink
             to={"/dashboard/organization"}
@@ -226,14 +262,21 @@ function AddEmployee() {
     </div>
   ) : (
     <div className="min-h-full mx-auto md:w-[60%] p-2 rounded-lg flex flex-col items-center bg-white">
-      <div className="h-20 w-full bg-primary-100 rounded-lg p-3 flex items-start justify-end">
-        <button className="text-3xl text-white" onClick={()=>{navigate(-1)}}><RxCross2 /></button>
+      <div className="h-20 w-full bg-primary-100 rounded-lg p-2 flex items-start justify-end">
+        <button
+          className="text-3xl z-[5] text-white cursor-pointer"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <RxCross2/>
+        </button>
       </div>
       <div className="w-full flex flex-col items-center mt-[-60px]">
         <img
           src={state?.employee_image}
           alt=""
-          className="h-28 w-28 rounded-full border-4 border-white"
+          className="h-28 w-28 rounded-full border-4 border-white bg-white"
         />
         <div className="w-full mt-8 text-gray-800 text-start ms-10 space-y-1">
           <h1 className="text-2xl">{state?.employee_name}</h1>
@@ -241,9 +284,9 @@ function AddEmployee() {
           <h1 className="text-base ">{state?.employee_email}</h1>
           <h1 className="text-base text-gray-700 flex">
             Mobile No. :
-            <h1 className="text-black w-[75px] truncate ">
+            <h1 className="text-black">
               {" "}
-              &nbsp;{state?.employee_mobileNumber}
+              &nbsp;{empMobileNumber}
             </h1>
           </h1>
           <h1 className="text-base text-gray-700">
@@ -269,9 +312,9 @@ function AddEmployee() {
             </option>
           ))}
         </select>
-        {errors?.org?.name && (
+        {errors?.organization_list && (
           <span className="text-red-600 text-sm">
-            {errors.organization_image}
+            {errors.organization_list}
           </span>
         )}
       </div>
