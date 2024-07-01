@@ -13,6 +13,7 @@ function Contact() {
   Tittle("Contact Page - Evalvue")
   return (
               <div className="bg-zinc-100 min-h-screen">
+                <div className='xl:mx-0 lg:mx-14'>
                 <main className="container mx-auto px-4 py-8">
                   <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
                   <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -72,6 +73,7 @@ function Contact() {
                 </button>
               </div>
                 </main>
+                </div>
                 <Footer />
               </div>
   )

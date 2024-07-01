@@ -16,7 +16,7 @@ function SubServices() {
                 Services
               </span>
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="lg:mx-10 mx-0 grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="  p-6 rounded-lg shadow-lg border border-b-4 border-b-purple-900 hover:scale-105 transition-all duration-300 drop-shadow-lg">
                 <div className="flex justify-center mb-4 p-2 ">
                   <div className="h-20 w-20 bg-primary-100 rounded-full p-6">

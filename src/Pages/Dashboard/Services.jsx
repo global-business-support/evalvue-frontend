@@ -24,7 +24,7 @@ Tittle("Services-Evalvue")
      <SubServices />
      
      <section className="bg-primary-100 text-white  py-20 mb-28">
-       <div className="container mx-auto text-center">
+       <div className="px-8 container mx-auto  text-center">
          <h2 className="text-3xl font-bold underline underline-offset-2 mb-10">Why Choose Us</h2>
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
            <div>
