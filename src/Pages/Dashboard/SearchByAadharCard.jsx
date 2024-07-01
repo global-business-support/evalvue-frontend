@@ -83,14 +83,14 @@ function SearchByAadharCard() {
             backgroundSize: "25%",
           }}
         >
-          <div className="absolute inset-0 bg-blue-gray-700 opacity-20"></div>
+          <div className="absolute inset-0 bg-blue-gray-700 opacity-10"></div>
         </div>
       ) : (
         ""
       )}
 
       <div className="w-full sticky  mx-1 md:w-full h-max px-4 dark:bg-zinc-800 rounded-lg">
-        <div className="w-full sticky lg:top-0 top-[47px] lg:mt-0 mt-8 py-4 px-6 bg-primary-100 shadow-lg flex rounded justify-center items-center mb-5">
+        <div className="w-full sticky lg:top-0 top-[47px] lg:mt-0 mt-10 py-4 px-6 bg-primary-100 shadow-lg flex rounded justify-center items-center mb-5">
           <div className="ml-2 mx-8 w-full">
             <label
               htmlFor=""
