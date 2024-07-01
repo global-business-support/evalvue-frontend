@@ -49,6 +49,7 @@ function DashboardHome() {
 
   return (
     <>
+    <div className="mt-10">
       {Feed.map(function (feed) {
         return (
           <>
@@ -134,6 +135,7 @@ function DashboardHome() {
           </>
         );
       })}
+      </div>
     </>
   );
 }

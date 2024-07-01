@@ -16,41 +16,21 @@ function Dashboard() {
       res?.data?.organization_list?.map((organization) => {
         if (organization.organization_verified == true) {
           setShowSearchByAadhaar(true);
-        } else {
-          setShowSearchByAadhaar(false);
         }
       });
     });
   }, []);
   Tittle("Dashboard - Evalvue");
 
-  const navigate = useNavigate();
-  const handleBack = () => {
-    navigate(-1); // Navigate back one step
-  };
-  const handleForword = () => {
-    navigate(+1); // Navigate back one step
-  };
+
+
 
   return (
     <>
       <div className="h-[calc(100vh-80px)] bg-white rounded-3xl flex pt-3 ">
         <DashboardNavigation />
         <div className=" rounded-lg h-[calc(100vh-100px)] w-full overflow-auto scrollbar-custom bg-[#e6eaee]">
-          <div
-            className="px-5 py-2 bg-[#e6eaee] flex lg:justify-between justify-end sticky z-30 "
-            style={{ top: "0px" }}>
-            <button
-              onClick={handleBack}
-              className=" p-2  text-gray-800 rounded ">
-              <FaArrowAltCircleLeft className="h-6 w-6" />
-            </button>
-            <button
-              onClick={handleForword}
-              className=" p-2 text-gray-800 rounded ">
-              <FaArrowAltCircleRight className="h-6 w-6" />
-            </button>
-          </div>
+          
           <Outlet />
         </div>
       </div>

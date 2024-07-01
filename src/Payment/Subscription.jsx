@@ -8,7 +8,7 @@ const Subscription = () => {
         return (
             <>
 
-            <div className='flex justify-center mb-4 mt-8'>
+            <div className='flex justify-center mb-4 mt-12'>
 
               <h1 className='text-[#5559AF] text-2xl font-bold'>Active Subscription</h1>
             </div>
