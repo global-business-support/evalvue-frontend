@@ -97,7 +97,7 @@ function Viewemp() {
 
   if (Employees?.length === 0) {
     return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full h-[calc(100vh-200px)] flex justify-center items-center">
         <div className="flex justify-center flex-col items-center ">
           <p className="text-2xl text-zinc-300">No employees</p>
           <NavLink
@@ -116,7 +116,7 @@ function Viewemp() {
   return (
     <>
       <div className="lg:px-6 sm:px-2">
-        <div className="flex justify-between items-center  bg-white sm:p-4 p-2 rounded z-[2] sticky top-[56px] ">
+        <div className="lg:mb-0 mb-14 flex justify-between items-center bg-white sm:p-4 p-2 rounded z-[2] sticky lg:top-[56px] top-[48px]">
           <div className="flex justify-center items-center sm:gap-5 gap-2">
             <div className="sm:h-20 h-14 sm:w-20 w-14 border-primary-100 border-[3px] rounded-full">
               <img
@@ -157,12 +157,12 @@ function Viewemp() {
           <table className=" border-separate min-w-full border-spacing-y-3">
             <thead>
               <tr className=" align-text-bottom">
-                <td className=" text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base text-[11px] ">
-                  Employee Name :
+                <td className=" text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base  ">
+                  Employee Name
                 </td>
-                <td className="text-left font-semibold text-black sm:w-auto w-full py-2 sm:px-2 px-1 sm:text-base text-[11px] ">Aadhaar Number :</td>
-                <td className="text-left font-semibold text-black  py-2 sm:px-2 px-1 sm:text-base text-[11px] sm:table-cell hidden ">Designation :</td>
-                <td className="text-left font-semibold text-black  py-2 sm:px-8 px-1 sm:text-base text-[11px] ">Reviews :</td>
+                <td className="text-left font-semibold text-black sm:w-auto w-full py-2 sm:px-2 px-1 sm:text-base">Aadhaar Number</td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-2 px-1 sm:text-base sm:table-cell hidden">Designation</td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-8 px-1 sm:text-base">Reviews</td>
                 {/* <td className="text-left font-semibold text-black  py-2 px-4">Edit / Delete :</td> */}
               </tr>
             </thead>
@@ -208,9 +208,7 @@ function Viewemp() {
                           aadhar: true
                         }}
                       >
-                        <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-3 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[11px]"
-                          onClick={(() => { })}>
-
+                        <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-3 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[11px]">
                           Review
                         </button>
                       </NavLink>

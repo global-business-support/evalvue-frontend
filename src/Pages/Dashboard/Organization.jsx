@@ -99,7 +99,7 @@ export default function Organization() {
       
         <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto ">
           <div
-            className="flex justify-between sticky lg:top-[55px] top-[48px] z-[2] items-center md:mb-4 mb-2 bg-white p-4 rounded shadow-lg"
+            className="flex justify-between sticky lg:top-[55px] top-[48px] z-[2] items-center lg:mb-3 mb-12 bg-white p-4 rounded shadow-lg"
           >
             <h2 className="sm:text-lg text-xs font-semibold">
               Total Organization: {Orgdata.length}
@@ -116,17 +116,17 @@ export default function Organization() {
               <thead>
                 <tr>
                 <td className="text-left w-[140px] md:w-[120px]  lg:w-[140px] xl:w-[280px] truncate font-bold text-black  py-2 sm:px-4 px-1 sm:text-[15px] text-[12px]">
-                    Organization:
+                    Organization
                   </td>
                    <td className="text-left  min-w-[50px] truncate  font-bold text-black  py-2 sm:px-4 px-1 sm:text-[15px] text-[12px] sm:table-cell hidden">
-                    Document Number:
+                    Document Number
                   </td>
                  
                       <td className="text-left   md:min-w-[100px]  lg:w-[100px] xl:w-[320px] truncate font-bold text-black  py-2 sm:px-4 px-1 sm:text-[15px] text-[12px] sm:table-cell hidden">
-                    Address:
+                    Address
                   </td>
-                  <td className="sm:text-left text-right font-bold text-black py-2 sm:px-4 px-1 sm:w-auto sm:text-[15px] text-[12px]">
-                    View:
+                  <td className="sm:text-left font-bold text-black py-2 sm:px-4 px-1 sm:w-auto sm:text-[15px] text-[12px]">
+                    <span>View</span>
                   </td>
                   {/* <td className="text-left font-bold text-black  py-2 px-4">Edit / Delete:</td> */}
                 </tr>
