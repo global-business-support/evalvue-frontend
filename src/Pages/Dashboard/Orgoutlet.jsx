@@ -18,7 +18,7 @@ function Orgoutlet() {
     <div>
       <div className=" w-full flex justify-end sticky z-[2] " style={{ top: "0px" }}>
       <div
-            className="lg:w-full z-[-1] w-fit px-5 py-2 bg-[#e6eaee] flex lg:justify-between justify-end sticky "
+            className="lg:w-full z-[-1] w-fit px-5 py-2 bg-[#e6eaee] lg:flex hidden lg:justify-between justify-end sticky "
             style={{ top: "0px" }}>
             <button
               onClick={handleBack}
