@@ -48,7 +48,7 @@ function Landing() {
             </div>
           
         </section>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="lg:mx-10 mx-0 max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-4">
               <h1 className="text-3xl md:text-4xl font-bold text-zinc-900">
@@ -90,7 +90,7 @@ function Landing() {
 
         {/* plan section */}
 
-        <div className="max-w-4xl mx-auto p-6   rounded-lg shadow-md">
+        <div className="max-w-4xl mx-auto p-6 rounded-lg shadow-md">
           <h2 className="text-center text-4xl font-bold text-zinc-900 dark:text-white">
             Simple,{" "}
             <span className="text-primary-100 underline">
@@ -168,7 +168,7 @@ function Landing() {
 
         {/* after plan */}
         <div className="py-28">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:mx-10 mx-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
                 <img

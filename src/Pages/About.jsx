@@ -11,9 +11,8 @@ function About() {
   Tittle("About page-Evalvue")
   return (
               <>
-              
-             <div className="p-3">
-
+              <div>
+             <div className='lg:px-0 px-6'>
              <section className="pb-10 lg:w-[90%] mx-auto m-4 relative rounded-xl text-start bg-gradient-to-r from-primary-100">
                       <img src={aboutImg} alt="about-img" className='absolute right-0 z-[-10] h-full'/>
                       <div className='pt-20 px-10 lg:w-[50%]  text-white'>
@@ -25,10 +24,10 @@ function About() {
               </section>
               
               <section className="py-16">
-                <div className="container mx-auto flex flex-col md:flex-row items-center">
-                  <div className="md:w-1/2 ">
-                    <h2 className="text-3xl font-bold mb-4 xl:px-0 px-2">Our Mission</h2>
-                    <p className="text-zinc-600 text-justify md:mr-4 xl:px-0 px-2 dark:text-zinc-400">Empower everyone through exemplary employees by contrasting good employees with bad ones.
+                <div className="container mx-auto flex flex-col gap-2 md:flex-row items-center">
+                  <div className="md:w-1/2 xl:ml-0 lg:ml-12">
+                    <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
+                    <p className="text-zinc-600 text-justify md:mr-4 dark:text-zinc-400">Empower everyone through exemplary employees by contrasting good employees with bad ones.
                        We add worldwide companies to assist in selecting the right employees, ensuring that each
                        organization is equipped with top talent to drive success. Moreover, we recognize that talent knows
                       no borders. By partnering with a diverse array of global companies, we expand the pool of
@@ -38,7 +37,7 @@ function About() {
                       drive success.
                     </p>
                   </div>
-                  <div className="md:w-1/2 grid grid-cols-2 gap-4">
+                  <div className="md:w-1/2 grid grid-cols-2 gap-4 xl:mr-0 lg:mr-12">
                     <img src={aboutMission1} alt="Mission Image 1" className="w-[300px] h-[200px] rounded"/>
                     <img src={aboutMission2} alt="Mission Image 2" className="w-[300px] h-[200px] rounded"/>
                     <img src={aboutMission3} alt="Mission Image 3" className="w-[300px] h-[200px] rounded"/>
@@ -46,15 +45,15 @@ function About() {
                 </div>
               </section>
 
-              <section className="py-16">
-                <div className="container mx-auto flex flex-col md:flex-row items-center">
+              <section className="py-16 xl:ml-0 lg:ml-12">
+                <div className="container gap-2 mx-auto flex flex-col md:flex-row items-center">
                   <div className="md:w-1/2 grid grid-cols-2 gap-4">
                     <img src={aboutVision4} alt="Mission Image 1" className="w-[300px] h-[200px] rounded"/>
                     <img src={aboutVision3} alt="Mission Image 2" className="w-[300px] h-[200px] rounded"/>
                     <div className='w-[300px] h-[200px] bg-white'></div>
                     <img src={aboutVision2} alt="Mission Image 3" className="w-[300px] h-[200px] rounded"/>
                   </div>
-                  <div className="md:w-1/2 ml-4">
+                  <div className="md:w-1/2 xl:mr-0 lg:mr-12">
                     <h2 className="text-3xl font-bold mb-4 xl:px-0 px-2">Our Vision</h2>
                     <p className="text-zinc-600 text-justify dark:text-zinc-400 xl:px-0 px-2">
                       At Evalvue, our vision is to promote transparency and authenticity in the workplace. Our goal is to create a platform where companies can post reviews of their employees' performance when they leave a job, allowing potential employers to clearly see their identity and work experience when applying for a new position. Through Evalvue, we make it possible to identify individuals who provide fake experience, as their actual work history is displayed on our platform. Additionally, we provide ratings for good employees based on their work methods and background, showcasing their exceptional performance. We aim to build a platform that helps employers make informed and accurate hiring decisions while giving employees the opportunity to demonstrate their true potential. Through Evalvue, we strive to create a transparent, reliable, and fair job market for all.
@@ -62,6 +61,7 @@ function About() {
                   </div>
                 </div>
               </section>
+              </div>
               
               <Footer />
                 </div>
