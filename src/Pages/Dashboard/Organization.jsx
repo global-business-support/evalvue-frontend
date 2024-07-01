@@ -69,7 +69,7 @@ export default function Organization() {
     <>
         <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto ">
           <div
-            className="flex justify-between sticky z-50 items-center mb-6 bg-white p-4 rounded shadow-lg"
+            className="flex justify-between sticky z-[2] items-center mb-6 bg-white p-4 rounded shadow-lg"
             style={{ top: "56px" }}
           >
             <h2 className="sm:text-lg text-xs font-semibold">

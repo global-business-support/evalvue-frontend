@@ -31,7 +31,7 @@ function UserDetails() {
     };
   }, []);
   return (
-    <div className="relative" ref={menuRef}>
+    <div className="relative z-50" ref={menuRef}>
       <button onClick={() => setShowMenu(!showMenu)}>
         <div>
           <div className="w-10 h-10 rounded-full bg-orange-800 flex justify-center items-center">
@@ -40,7 +40,7 @@ function UserDetails() {
         </div>
       </button>
       {showMenu && (
-        <div  className="absolute z-50 w-72 h-56  bg-gray-900 rounded-xl right-0 mt-0 flex-col justify-center items-center">
+        <div  className="absolute w-72 h-56  bg-gray-900 rounded-xl right-0 mt-0 flex-col justify-center items-center">
             <div>
                 <div>
                 <div className="w-full h-12 rounded-t-xl bg-[#1F467E]">
