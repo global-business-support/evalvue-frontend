@@ -12,6 +12,7 @@ import axios from "axios";
 import { UserContext } from "../../Contextfile";
 import { NavLink } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
+import Clock from "../../Components/Clock";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -227,6 +228,12 @@ function AddEmployee() {
       });
   }, []);
 
+  const handleOTPSent = (e) => {
+    SendOTP(e)
+    console.log('OTP sent or resent');
+    // Add any additional logic you want to perform when OTP is sent
+  };
+
   if (loading) {
     return (
       <div className="h-[calc(100vh-200px)] flex justify-center items-center">
@@ -261,7 +268,7 @@ function AddEmployee() {
       </div>
     </div>
   ) : (
-    <div className="min-h-full mx-auto md:w-[60%] p-2 rounded-lg flex flex-col items-center bg-white">
+    <div className="mb-2 lg:mt-2 mt-14 min-h-[80%] mx-auto md:w-[60%] p-2 md:rounded-lg flex flex-col items-center bg-white">
       <div className="h-20 w-full bg-primary-100 rounded-lg p-2 flex items-start justify-end">
         <button
           className="text-3xl z-[5] text-white cursor-pointer"
@@ -342,12 +349,13 @@ function AddEmployee() {
             ))}
           </div>
           {error && <p className="text-red-500 text-center mt-4">{error}</p>}
-          {otpSent && timeLeft > 0 && (
+          
+          {/* {otpSent && timeLeft > 0 && (
             <p className="text-sm text-center mt-4" ref={timerRef}>
               OTP is valid for {timeLeft} seconds
             </p>
-          )}
-          {showResendButton && (
+          )} */}
+          {/* {showResendButton && (
             <p className="text-sm text-center mt-4">
               Didn't receive an email?
               <button
@@ -357,7 +365,7 @@ function AddEmployee() {
                 RESEND OTP
               </button>
             </p>
-          )}
+          )} */}
         </div>
       )}
 
@@ -375,6 +383,7 @@ function AddEmployee() {
         >
           Send otp
         </button>
+        // <Clock onOTPSent={(e)=>{handleOTPSent(e)}} />
       )}
     </div>
   );

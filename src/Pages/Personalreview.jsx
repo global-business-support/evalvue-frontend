@@ -104,7 +104,7 @@ function Personalreview() {
       {ReviewList.map((review) => (
             <div
               key={review.review_id}
-              className="flex flex-col p-3 justify-center mx-auto items-center  gap-5  mb-18"
+              className="flex flex-col p-3 justify-center mx-auto items-center  gap-5 mb-18"
             >
               <div className=" bg-white mx-auto rounded-lg md:w-5/6 w-full shadow-md overflow-hidden">
                 <div className="p-4 l">

@@ -296,7 +296,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
               <NavLink
                 onClick={()=>{showtermandcondition(); toggleDrawer(false)}}
                 className={({ isActive }) =>
-                  `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
+                  `w-full py-2 ps-2 rounded  font-semibold text-gray-600`
                 }
                 
               >
@@ -308,7 +308,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
                 id="abhi"
                 onClick={()=>{showprivicy(); toggleDrawer(false)}}
                 className={({ isActive }) =>
-                  `w-full py-2 ps-2 rounded lg:text-base text-sm font-semibold text-gray-600`
+                  `w-full py-2 ps-2 rounded  font-semibold text-gray-600`
                 }
               >
                 <HttpsIcon className="align-text-top mr-2" sx={{ fontSize: 15 }} />
