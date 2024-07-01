@@ -23,7 +23,7 @@ function Enpreview() {
 
   return (
     <>
-      <div className="sm:flex-col lg:flex-row w-[95%] flex justify-between z-10 items-center mx-auto sticky top-[56px]  bg-white p-4  rounded-lg ">
+      <div className=" w-[95%] flex justify-between z-10 items-center mx-auto sticky top-[47px]  bg-white p-4  rounded-lg ">
         <div className="flex justify-center items-center gap-5">
           <div className="h-20 w-20 border border-zinc-300 rounded-full">
             <img
@@ -50,7 +50,7 @@ function Enpreview() {
           <div className="flex justify-end">
             {state.aadhar?
             <NavLink to={'newpost'} state={state}>
-              <button className=' text-white bg-primary-100 font-semibold py-2 px-5 rounded border border-primary-100 text-base'> <span className="font-bold text-xl"> + </span> Add Review</button>
+              <button className=' text-white bg-primary-100 font-semibold py-2 px-5 rounded border border-primary-100 sm:text-xl text-sm'> <span className="font-bold sm:text-xl text-sm"> + </span> Add Review</button>
             </NavLink>:""}
           </div>
         </div>
