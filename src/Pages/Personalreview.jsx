@@ -19,6 +19,7 @@ function Personalreview() {
   const [EmployeeList, setEmployeeList] = useState(null);
   const [error, setError] = useState();
  
+  console.log(state )
   
   // function calcoverallrating(reviews){
   //   var count=0;
@@ -34,6 +35,7 @@ function Personalreview() {
     const fetchData = async () => {
 
       Apibackendrequest(`${apiUrl}/reviews/`, {
+        search_by_aa:state.search_by_aa?state.search_by_aa:false,
           user_id: userId,
           organization_id: state.emporgid,
           employee_id: state.empid,
