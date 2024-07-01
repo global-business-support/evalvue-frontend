@@ -194,7 +194,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
       </div>
 
       <div className="lg:hidden w-full absolute z-[2]">
-        <div className="w-full h-12 bg-[#e6eaee] text-left z-50 bg-black">
+        <div className="w-full h-12 bg-[#e6eaee] text-left z-50">
         <Button  onClick={toggleDrawer(true)} className=" text-left z-50">
           <span className="text-primary-100 font-semibold ml-5 mt-2"><DehazeIcon className="text-primary-100" /></span>
         </Button>
