@@ -17,11 +17,11 @@ function Viewemp() {
   const { organization_id } = useParams();
   const location = useLocation();
   const state = location.state;
+  console.log(state)
   const status = false /*Remove this variable */
   const [delEmp, setDelEmp] = useState(false);
   const [terminated, setTerminated] = useState(false);
 
-  const { stateOrgData } = useContext(UserContext);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -120,17 +120,17 @@ function Viewemp() {
           <div className="flex justify-center items-center sm:gap-5 gap-2">
             <div className="sm:h-20 h-14 sm:w-20 w-14 border-primary-100 border-[3px] rounded-full">
               <img
-                src={stateOrgData?.orgimg}
+                src={state.orgimg}
                 alt=""
                 className="h-full w-full object-cover rounded-full"
               />
             </div>
             <div>
               <h1 className="sm:text-xl font-semibold text-primary-100">
-                {stateOrgData.organization_name}
+                {state.organization_name}
               </h1>
               <p className="text-xs  text-primary-100 ">
-                {stateOrgData.orgarea}, {stateOrgData.orgcity}, {stateOrgData.orgstate}
+                {state.orgarea}, {state.orgcity}, {state.orgstate}
               </p>
             </div>
           </div>

@@ -192,15 +192,6 @@ export default function Organization() {
                         {organization.organization_verified ? (
                           <NavLink
                             to={`/dashboard/organization/employee/${organization.organization_id}`}
-                            onClick={(()=>{
-                              setStateOrgData({
-                                  organization_name: organization.name,
-                                  orgarea: organization.area,
-                                  orgcity: organization.city_name,
-                                  orgstate: organization.state_name,
-                                  orgimg: organization.image,
-                                })
-                            })}
                             state={{
                               organization_name: organization.name,
                               orgarea: organization.area,
