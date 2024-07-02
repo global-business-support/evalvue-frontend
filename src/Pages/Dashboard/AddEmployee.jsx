@@ -143,8 +143,8 @@ function AddEmployee() {
           Successfull();
         } else if (data.otp_is_expired) {
           setError("OTP is expired. Please request a new one.");
-        } else {
-          setError(data.error || "OTP verification failed. Please try again.");
+        } if(data.incorrect_otp) {
+          setError("Incorrect otp");
         }
       } else {
         setError(data.message || "Something went wrong. Please try again.");
