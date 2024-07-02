@@ -114,15 +114,15 @@ function Personalreview() {
                     <div className="h-10 w-10 rounded-full  border bg-zinc-100">
                       <img
                         className="h-full w-full rounded-full object-fit "
-                        src={state.orgImg}
+                        src={review.organization_image}
                         alt="Company Logo"
                       />
                     </div>
                     <div className="ml-3">
                       <p className="text-sm font-semibold text-zinc-900">
-                        {state.orgName}
+                        {review.organization_name}
                       </p>
-                      <p className="text-xs text-zinc-500">{state.createdOn}</p>
+                      <p className="text-xs text-zinc-500">{review.created_on}</p>
                     </div>
                   </div>
                   <div className=" h-full w-full p-2 mt-3  rounded-xl   border-[6px] border-zinc-200">

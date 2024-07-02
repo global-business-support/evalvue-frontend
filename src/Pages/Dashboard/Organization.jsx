@@ -125,8 +125,8 @@ export default function Organization() {
                       <td className="text-left   md:min-w-[100px]  lg:w-[100px] xl:w-[320px] truncate font-bold text-black  py-2 sm:px-4 px-1 sm:text-[15px] text-[12px] sm:table-cell hidden">
                     Address
                   </td>
-                  <td className="sm:text-left font-bold text-black py-2 sm:px-4 px-1 sm:w-auto sm:text-[15px] text-[12px]">
-                    <span>View</span>
+                  <td className="md:text-left font-bold text-black py-2 px-1 sm:w-auto sm:text-[15px] text-[12px]">
+                    <span className="xl:ml-16 lg:ml-5 md:ml-4">View</span>
                   </td>
                   {/* <td className="text-left font-bold text-black  py-2 px-4">Edit / Delete:</td> */}
                 </tr>
@@ -200,14 +200,14 @@ export default function Organization() {
                               orgimg: organization.image,
                             }}
                           >
-                            <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
+                            <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 md:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
                               <BiSolidShow className=" h-5 w-5" />
                               View
                             </button>{" "}
                           </NavLink>
                         ) : (
                           <button
-                            className="text-white flex gap-2 mr-7 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]"
+                            className="text-white flex gap-2 mr-10 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]"
                             disabled
                           >
                             <FaClock className="my-auto h-4 w-4" />

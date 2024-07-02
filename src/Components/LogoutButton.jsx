@@ -21,7 +21,7 @@ const LogoutButton = () => {
     <button
       onClick={handleLogout}
       variant="contained"
-      className="text-white"
+      className="text-white hover:bg-gray-600 w-full transition duration-200"
     ><LogoutIcon className="text-white"/>
       Logout
     </button>

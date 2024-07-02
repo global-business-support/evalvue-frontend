@@ -19,7 +19,7 @@ function Help() {
   Tittle("Help page - Evalvue")
   return (
     <div className="min-h-screen bg-zinc-100 text-zinc-900">
-      <div className='xl:mx-0 lg:mx-[75px]'>
+      <div className='lg:mx-[75px]'>
       <div className="mt-2 container mx-auto flex justify-between items-center ">
         <div className="mx-2 text-2xl font-bold">Help Center</div>
         <nav className="space-x-4">

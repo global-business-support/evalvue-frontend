@@ -55,9 +55,6 @@ function SearchByAadharCard() {
         emporgid: employees[employeeId].organization_id,
         aadhar: false,
         search_by_aa:true,
-        createdOn: employees[employeeId].created_on,
-        orgName: employees[employeeId].organization_name,
-        orgImg: employees[employeeId].organization_image,
       },
     }); // Updated navigation logic
   };
