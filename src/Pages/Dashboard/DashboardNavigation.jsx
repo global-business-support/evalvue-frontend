@@ -36,7 +36,7 @@ const {showSearchByAadhaar} = useContext(UserContext)
   return (
     <>
       <div className="py-10 lg:flex hidden flex-col items-center ">
-        <div className="flex flex-col items-center gap-3 h-full lg:w-[280px] w-[200px] p-2">
+        <div className="flex flex-col items-center gap-3 h-full w-[240px] p-2">
           <NavLink
             to="/dashboard"
             end
@@ -200,8 +200,8 @@ const {showSearchByAadhaar} = useContext(UserContext)
         </Button>
         </div>
         <Drawer open={open} onClose={toggleDrawer(false)}>
-          <div className="py-10 flex  flex-col items-center ">
-            <div className="flex flex-col items-center gap-3 h-full  w-[280px] p-2 ">
+          <div className="py-10 flex flex-col items-center ">
+            <div className="flex flex-col items-center gap-3 h-full  w-[240px] p-2 ">
               <NavLink
                 to="/dashboard"
                 end

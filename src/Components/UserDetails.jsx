@@ -18,7 +18,6 @@ function UserDetails() {
     if(isLogin){
         setUserEmail(localStorage.getItem("email"));
         setUserName(userEmail?userEmail[0]?.toUpperCase():"");}
-        console.log(userEmail)
   });
 
   useEffect(() => {
@@ -34,24 +33,24 @@ function UserDetails() {
     <div className="relative z-50" ref={menuRef}>
       <button onClick={() => setShowMenu(!showMenu)}>
         <div>
-          <div className="w-10 h-10 rounded-full bg-orange-800 flex justify-center items-center">
+          <div className="w-10 h-10 rounded-full bg-orange-800 flex justify-center items-center hover:bg-deep-orange-900 transition duration-200">
             <span className="text-lg text-white">{userName}</span>
           </div>
         </div>
       </button>
       {showMenu && (
-        <div  className="absolute w-72 h-56  bg-gray-900 rounded-xl right-0 mt-0 flex-col justify-center items-center">
+        <div  className="absolute w-72 h-56 bg-gray-900 rounded-xl right-0 mt-0 flex-col justify-center items-center">
             <div>
                 <div>
                 <div className="w-full h-12 rounded-t-xl bg-[#1F467E]">
                 </div>
-                    <div className="w-14 h-14 border-[3px] border-gray-900 mx-auto mt-[-25px] rounded-full bg-orange-800 flex justify-center items-center">
+                    <div className="w-14 h-14 border-[3px] border-gray-900 mx-auto mt-[-25px] rounded-full bg-orange-800 flex justify-center items-center hover:bg-gray-900 transition duration-1000">
                         <span className="text-2xl text-white">{userName}</span>
                     </div>
                 </div>
                     <h1 className="pt-4 text-center text-white underline underline-offset-4">{userEmail}</h1>
                 <div className="mt-8 flex justify-center">
-                    <LogoutButton className="text-white" />
+                    <LogoutButton />
                 </div>
             </div>
         </div>
