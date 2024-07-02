@@ -155,7 +155,7 @@ function Empform() {
       .then(res => {
         if (res.data) {
           if (res.data.is_employee_register_successfull || res.data.employee_edit_sucessfull) {
-            navigate(`/dashboard/organization/employee/${organization_id.organization_id}`, { state: location.state });
+            navigate(`/dashboard/organization/employee/${organization_id.organization_id}`, { state: location.state } ,console.log("EMPFORM"));
           }
         } else if (res.isexception) {
           setServerError(res.exceptionmessage.error)

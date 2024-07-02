@@ -10,18 +10,17 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function Viewemp() {
   const navigate = useNavigate();
-  Tittle("Employees - Evalvue")
+  Tittle("Employees - Evalvue");
   const [Employees, setEmployees] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { organization_id } = useParams();
   const location = useLocation();
   const state = location.state;
-  console.log(state)
-  const status = false /*Remove this variable */
+  console.log(state);
+  const status = false; /*Remove this variable */
   const [delEmp, setDelEmp] = useState(false);
   const [terminated, setTerminated] = useState(false);
-
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -39,42 +38,52 @@ function Viewemp() {
   //   };
 
   useEffect(() => {
-    Apibackendrequest(`${apiUrl}/employees/`, { organization_id, })
+    Apibackendrequest(`${apiUrl}/employees/`, { organization_id })
       .then((res) => {
         setEmployees(res.data.employee_list || []);
         if (res.isexception) {
-          setError(res.exceptionmessage.error)
+          setError(res.exceptionmessage.error);
         }
-      }).finally(() => { setLoading(false) });
-      setTerminated(false)
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+    setTerminated(false);
   }, [terminated]);
 
   const handleEdit = (empId, OrgId) => {
     // Navigate to the edit page
-    navigate(`/dashboard/organization/employee/addemp`,
-      {
-        state: {
-          employee_id: empId,
-          organization_id: OrgId,
-          addEmp: false
-        }
-      }
-    )
+    navigate(`/dashboard/organization/employee/addemp`, {
+      state: {
+        employee_id: empId,
+        organization_id: OrgId,
+        addEmp: false,
+        orgimg: state.orgimg,
+        organization_name: state.organization_name,
+        orgarea: state.orgarea,
+        orgcity: state.orgcity,
+        orfstate: state.orgstate,
+      },
+    });
   };
-  const handleTerminate = (empId, OrgId,empname) => {
-    const delId = {"organization_id": OrgId, "employee_id": empId};
-    const confirmuser=confirm(`Are you sure you want to delete ${empname}'S employment? ` );
-    if(confirmuser){
-    Apibackendrequest(`${apiUrl}/terminate/employee/`, delId)
-      .then((res) => {
-        if(res){if(res.exceptionmessage.is_employee_terminated_successfull){
-          window.location.reload();
-        }else if(res.isexception){
-          setError(res.exceptionmessage.error);
-        }
-        }
-        }).finally(()=>setLoading(false));
-      }
+  const handleTerminate = (empId, OrgId, empname) => {
+    const delId = { organization_id: OrgId, employee_id: empId };
+    const confirmuser = confirm(
+      `Are you sure you want to delete ${empname}'S employment? `
+    );
+    if (confirmuser) {
+      Apibackendrequest(`${apiUrl}/terminate/employee/`, delId)
+        .then((res) => {
+          if (res) {
+            if (res.exceptionmessage.is_employee_terminated_successfull) {
+              window.location.reload();
+            } else if (res.isexception) {
+              setError(res.exceptionmessage.error);
+            }
+          }
+        })
+        .finally(() => setLoading(false));
+    }
   };
 
   if (loading) {
@@ -84,7 +93,7 @@ function Viewemp() {
           <Loader />
         </div>
       </>
-    )
+    );
   }
 
   if (error) {
@@ -92,7 +101,7 @@ function Viewemp() {
       <div>
         <h1 className="text-red-500 text-lg align-middle">{error}</h1>
       </div>
-    )
+    );
   }
 
   if (Employees?.length === 0) {
@@ -102,7 +111,16 @@ function Viewemp() {
           <p className="text-2xl text-zinc-300">No employees</p>
           <NavLink
             to="/dashboard/organization/employee/addemp"
-            state={{ organization_id: organization_id, state: state, addEmp: true, }}
+            state={{
+              organization_id: organization_id,
+              state: state,
+              orgimg: state.orgimg,
+              organization_name: state.organization_name,
+              orgarea: state.orgarea,
+              orgcity: state.orgcity,
+              orfstate: state.orgstate,
+              addEmp: true,
+            }}
           >
             <button className=" border hover:text-whitebg-primary-100 transition duration-300 border-primary-100 text-primary-100 font-semibold px-1 py-2 rounded-lg">
               + Add Employee
@@ -143,12 +161,17 @@ function Viewemp() {
               to="/dashboard/organization/employee/addemp"
               state={{
                 organization_id: organization_id,
+                orgimg: state.orgimg,
+              organization_name: state.organization_name,
+              orgarea: state.orgarea,
+              orgcity: state.orgcity,
+              orfstate: state.orgstate,
                 addEmp: true,
-
               }}
             >
               <button className="border bg-primary-100 text-white sm:text-base text-xs font-semibold px-5 py-2 rounded-lg hover:bg-[#5559af] hover:shadow-sm">
-                <span className="font-bold sm:text-xl text-xs"> + </span> Add Employee
+                <span className="font-bold sm:text-xl text-xs"> + </span> Add
+                Employee
               </button>
             </NavLink>
           </div>
@@ -160,18 +183,21 @@ function Viewemp() {
                 <td className=" text-left font-semibold text-black  py-2 sm:px-4 px-1 sm:text-base  ">
                   Employee Name
                 </td>
-                <td className="text-left font-semibold text-black sm:w-auto w-full py-2 sm:px-2 px-1 sm:text-base">Aadhaar Number</td>
-                <td className="text-left font-semibold text-black  py-2 sm:px-2 px-1 sm:text-base sm:table-cell hidden">Designation</td>
-                <td className="text-left font-semibold text-black  py-2 sm:px-8 px-1 sm:text-base">Reviews</td>
+                <td className="text-left font-semibold text-black sm:w-auto w-full py-2 sm:px-2 px-1 sm:text-base">
+                  Aadhaar Number
+                </td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-2 px-1 sm:text-base sm:table-cell hidden">
+                  Designation
+                </td>
+                <td className="text-left font-semibold text-black  py-2 sm:px-8 px-1 sm:text-base">
+                  Reviews
+                </td>
                 {/* <td className="text-left font-semibold text-black  py-2 px-4">Edit / Delete :</td> */}
               </tr>
             </thead>
             <tbody className="mt-4">
               {Employees.map((employee) => (
-                <tr
-                  key={Employees.employee_id}
-                  className=""
-                >
+                <tr key={Employees.employee_id} className="">
                   <td className="py-3 sm:px-4 px-1 flex justify-start items-center gap-2 bg-white roundeblack shadow-top-bottom-xl rounded-l-lg">
                     <div className="relative">
                       <div className="sm:h-16 h-12 sm:w-16 w-12 ml-2 rounded-full border-[3px] border-primary-100 overflow-hidden">
@@ -194,9 +220,7 @@ function Viewemp() {
                   </td>
 
                   <td className="ml-10 py-3 sm:px-4 px-2 w-[20%] bg-white rounded-r-lg shadow-top-bottom-xl">
-
                     <div className="flex gap-4 justify-center items-center">
-
                       <NavLink
                         to={`/dashboard/organization/employee/review`}
                         state={{
@@ -205,7 +229,7 @@ function Viewemp() {
                           empimage: employee.employee_image,
                           empid: employee.employee_id,
                           emporgid: organization_id,
-                          aadhar: true
+                          aadhar: true,
                         }}
                       >
                         <button className="  text-white bg-primary-100 font-semibold py-2 sm:px-5 px-3 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm sm:text-sm text-[11px]">
@@ -213,9 +237,18 @@ function Viewemp() {
                         </button>
                       </NavLink>
                       <ThreeDotMenu
-                        onEdit={() => handleEdit(employee.employee_id, organization_id)}
-                        onDelete={()=> handleTerminate(employee.employee_id, organization_id,employee.employee_name)}
-                        organizationId={organization_id} setTerminated={setTerminated}
+                        onEdit={() =>
+                          handleEdit(employee.employee_id, organization_id)
+                        }
+                        onDelete={() =>
+                          handleTerminate(
+                            employee.employee_id,
+                            organization_id,
+                            employee.employee_name
+                          )
+                        }
+                        organizationId={organization_id}
+                        setTerminated={setTerminated}
                       />
                     </div>
                   </td>
@@ -224,7 +257,6 @@ function Viewemp() {
             </tbody>
           </table>
         </div>
-
       </div>
     </>
   );

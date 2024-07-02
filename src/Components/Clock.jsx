@@ -2,16 +2,14 @@ import React, { useRef, useState, useEffect } from 'react';
 
 const Clock = ({ onOTPSent }) => {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [countdown, setCountdown] = useState(10);
-  const [hasSentOTP, setHasSentOTP] = useState(false);
+  const [countdown, setCountdown] = useState(120); // 2 minutes
   const intervalRef = useRef(null);
   const displayRef = useRef(null);
 
   // Function to start the timer
   const startTimer = () => {
     setIsTimerRunning(true);
-    setHasSentOTP(true);
-    setCountdown(10); // Initialize countdown to 10 seconds
+    setCountdown(120); // Initialize countdown to 120 seconds
 
     // Call the function passed from the parent component
     if (onOTPSent) {
@@ -56,7 +54,7 @@ const Clock = ({ onOTPSent }) => {
         <p className='text-primary-100 font-semibold' ref={displayRef}>{countdown} seconds</p>
       ) : (
         <button className='text-primary-100 font-semibold' onClick={startTimer}>
-          {hasSentOTP ? 'Resend OTP' : 'Send OTP'}
+          {countdown === 120 ? 'Send OTP' : 'Resend OTP'}
         </button>
       )}
     </div>

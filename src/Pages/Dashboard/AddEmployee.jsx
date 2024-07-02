@@ -2,7 +2,6 @@ import React, {
   useState,
   useEffect,
   useRef,
-  useCallback,
   useContext,
 } from "react";
 import Loader from "../Loader";
@@ -10,9 +9,8 @@ import Apibackendrequest from "../Apibackendrequest";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../Contextfile";
-import { NavLink } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
-import Clock from "../../Components/Clock";
+import { FaCheck } from "react-icons/fa6"
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -27,7 +25,7 @@ function AddEmployee() {
   const [otpSentSuccessfull, setOtpSentSuccessfull] = useState(false);
   const [isOtpVarified, setIsOtpVerified] = useState(false);
   const [selectedOrg, setSelectedOrg] = useState("");
-  const [ empMobileNumber,setEmpMobileNumber] = useState()
+  const [empMobileNumber, setEmpMobileNumber] = useState("");
   const [showSuccessfull, setShowSuccessfull] = useState(false);
   const [loading, setLoading] = useState(false);
   const [
@@ -41,38 +39,34 @@ function AddEmployee() {
 
   const { userId } = useContext(UserContext);
 
-  const timerRef = useRef(null);
+  const timerRef = useRef(null); // Use ref to store timer
 
-  // const startTimer = useCallback(() => {
-  //   setShowResendButton(false);
-  //   setTimeLeft(120);
-  //   if (timerRef.current) {
-  //     clearInterval(timerRef.current);
-  //   }
-  //   timerRef.current = setInterval(() => {
-  //     setTimeLeft((prev) => {
-  //       if (prev === 1) {
-  //         clearInterval(timerRef.current);
-  //         setShowResendButton(true);
-  //         return 0;
-  //       }
-  //       return prev - 1;
-  //     });
-  //   }, 1000);
-  // }, []);
+  const startTimer = () => {
+    setShowResendButton(false);
+    setTimeLeft(120);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev === 1) {
+          clearInterval(timerRef.current);
+          setShowResendButton(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
 
   useEffect(() => {
-    const mobileNumber = String(state.employee_mobileNumber)
+    const mobileNumber = String(state.employee_mobileNumber);
     const lastFour = mobileNumber.slice(-4);
-
-    // Calculate the number of stars to prepend
     const starsCount = mobileNumber.length - 4;
     const stars = "*".repeat(starsCount);
-
-    // Combine stars and last four characters
     const maskedNumber = stars + lastFour;
-    setEmpMobileNumber(maskedNumber)
-  }, []);
+    setEmpMobileNumber(maskedNumber);
+  }, [state.employee_mobileNumber]);
 
   function validate() {
     const newErrors = {};
@@ -84,9 +78,9 @@ function AddEmployee() {
   }
 
   const SendOTP = async (e) => {
+    e.preventDefault();
     setError("");
     const email = state.employee_email;
-    e.preventDefault();
     setLoading(true);
     const isCallApi = validate();
     if (isCallApi) {
@@ -108,13 +102,13 @@ function AddEmployee() {
         if (data.otp_send_successfull) {
           setOtpSentSuccessfull(true);
           setOtpSent(true);
-          // startTimer(); // Start the timer when OTP is sent successfully
+          startTimer(); // Start the timer when OTP is sent successfully
         } else {
           setError(data.error || "Something went wrong. Please try again.");
         }
       } catch (error) {
         console.log(error);
-        setError(error);
+        setError(error.message || "Failed to send OTP. Please try again.");
       }
     }
     setLoading(false);
@@ -145,9 +139,8 @@ function AddEmployee() {
           setIs_terminated_employee_added_successfull(
             data.is_terminated_employee_added_successfull
           );
-          console.log(is_terminated_employee_added_successfull);
           setShowSuccessfull(true);
-          handleshowSuccessfull();
+          Successfull();
         } else if (data.otp_is_expired) {
           setError("OTP is expired. Please request a new one.");
         } else {
@@ -180,20 +173,14 @@ function AddEmployee() {
       setOtp([...otp.map((d, idx) => (idx === index ? "" : d))]);
     }
   };
+
   function Successfull() {
-    console.log("function called");
     setTimeout(() => {
       navigate("/dashboard/organization");
       setShowSuccessfull(false);
     }, 3000);
   }
-  function handleshowSuccessfull() {
-    console.log(is_terminated_employee_added_successfull);
-    if (is_terminated_employee_added_successfull) {
-      Successfull();
-      console.log("calling the function");
-    }
-  }
+
 
   function orgHandler(e) {
     const value = e.target.value;
@@ -228,12 +215,6 @@ function AddEmployee() {
       });
   }, []);
 
-  const handleOTPSent = (e) => {
-    SendOTP(e)
-    console.log('OTP sent or resent');
-    // Add any additional logic you want to perform when OTP is sent
-  };
-
   if (loading) {
     return (
       <div className="h-[calc(100vh-200px)] flex justify-center items-center">
@@ -246,24 +227,13 @@ function AddEmployee() {
     <div className="flex items-center justify-center  h-[calc(100vh-160px)] bg-zinc-100">
       <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex flex-col items-center">
-          <img
-            undefinedhidden="true"
-            alt="checkmark-icon"
-            src="https://openui.fly.dev/openui/64x64.svg?text=✔"
-            className="mb-4"
-          />
-          <h2 className="text-2xl font-semibold text-zinc-800 mb-2">
+          <FaCheck className="text-4xl text-green-600"/>
+          <h2 className="text-2xl font-semibold text-green-600 mb-2">
             Awesome!
           </h2>
-          <p className="text-zinc-600 mb-6">
+          <p className="text-green-600 mb-6">
             Employee added to your Organization successfully
           </p>
-          {/* <NavLink
-            to={"/dashboard/organization"}
-            className="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-600 focus:outline-none"
-          >
-            Back to Organization List
-          </NavLink> */}
         </div>
       </div>
     </div>
@@ -349,23 +319,22 @@ function AddEmployee() {
             ))}
           </div>
           {error && <p className="text-red-500 text-center mt-4">{error}</p>}
-          
-          {/* {otpSent && timeLeft > 0 && (
+          {otpSent && timeLeft > 0 && (
             <p className="text-sm text-center mt-4" ref={timerRef}>
               OTP is valid for {timeLeft} seconds
             </p>
-          )} */}
-          {/* {showResendButton && (
+          )}
+          {showResendButton && (
             <p className="text-sm text-center mt-4">
               Didn't receive an email?
               <button
                 className="text-primary-100 hover:text-blue-600 font-semibold"
-                onClick={(e) => SendOTP(e)}
+                onClick={SendOTP}
               >
                 RESEND OTP
               </button>
             </p>
-          )} */}
+          )}
         </div>
       )}
 
@@ -378,12 +347,11 @@ function AddEmployee() {
         </button>
       ) : (
         <button
-          onClick={(e) => SendOTP(e)}
+          onClick={SendOTP}
           className="mt-5 px-8 py-2 bg-primary-100 rounded-lg text-white"
         >
           Send otp
         </button>
-        // <Clock onOTPSent={(e)=>{handleOTPSent(e)}} />
       )}
     </div>
   );
