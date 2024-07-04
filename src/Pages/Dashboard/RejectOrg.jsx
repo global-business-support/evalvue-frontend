@@ -1,32 +1,30 @@
-
-
-
-
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Contextfile";
 import Loader from "../Loader";
-import { select } from "@material-tailwind/react";
 import Tittle from "../../Tittle";
 import Apibackendrequest from "../Apibackendrequest";
 const apiUrl = import.meta.env.VITE_API_URL;
-function Addorganization() {
+
+function RejectOrg() {
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
   const [error, setError] = useState("");
-  
   const location = useLocation();
+  const [editRejected, setEditRejected] = useState(
+    location.state?.rejected ?? false
+  );
   const [orgregdata, setOrgregdata] = useState({
     user_id: userId,
     organization_id: location.state?.organization_id || "",
-    gstin:""
+    gstin: "",
+    rejected_user_reapplied: true,
   });
   const [fileLogoName, setFileLogoName] = useState("");
   const [fileLogoPreview, setLogoFilePreview] = useState("");
   const [fileName, setFileName] = useState("");
   const [filePreview, setFilePreview] = useState("");
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [isOrganizationCreated, setIsOrganizationCreated] = useState(false);
   const [errors, setErrors] = useState("");
   const [documenttype, setdocumenttype] = useState([]);
@@ -37,16 +35,10 @@ function Addorganization() {
   const [city, setcity] = useState([]);
   const [statedata, setstatedata] = useState([]);
   const [citydata, setcitydata] = useState([]);
-  const [editOrgEnabled, seteditOrgEnabled] = useState(
-    location.state?.editorg ?? false
-  );
-  const [iscity, setiscity] = useState(editOrgEnabled?false:true);
+  const [iscity, setiscity] = useState(editRejected?false:true);
+  const [isstate, setisstate] = useState(editRejected?false:true);
 
-  const [isstate, setisstate] = useState(editOrgEnabled?false:true);
-  // const [editOrgData, seteditOrgData] = useState('');
- 
-
-  Tittle("Add Organization - Evalvue");
+  Tittle("Reapply Organization - Evalvue");
   function populateState(id) {
     var data = statedata;
     var tempList = [];
@@ -58,7 +50,7 @@ function Addorganization() {
     });
     setisstate(false);
     setstate(tempList);
-  }
+  };
 
   function populateCity(id) {
     var data = citydata;
@@ -71,7 +63,7 @@ function Addorganization() {
     });
     setiscity(false);
     setcity(tempList);
-  }
+  };
 
   function orgHandler(e) {
     const name = e.target.name;
@@ -82,11 +74,10 @@ function Addorganization() {
     } else if (name == "state_id") {
       populateCity(value);
     }
-    // Remove error for this field when user enters a value
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-  }
+  };
 
-  if(editOrgEnabled){
+  if(editRejected){
     const filelogoHandler = (e) => {
       const name = e.target.name;
       const file = e.target.files[0];
@@ -100,19 +91,17 @@ function Addorganization() {
         setFileLogoName("");
         setLogoFilePreview("");
         setOrgregdata((values) => ({ ...values, [name]: "" }));
-  
         validate()
       }
       setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
     };
-  }
+  };
   
   const filelogoHandler = (e) => {
     const name = e.target.name;
     const file = e.target.files[0];
     
     if (file) {
-      // File type validation for organization_image
       if (name === "organization_image") {
         const allowedExtensions = ["jpeg", "jpg", "png"];
         const fileExtension = file.name.split(".").pop().toLowerCase();
@@ -131,9 +120,8 @@ function Addorganization() {
       setFileLogoName("");
       setLogoFilePreview("");
       setOrgregdata((values) => ({ ...values, [name]: "" }));
-      validate(); // Assuming this function handles form validation
+      validate();
     }
-  
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
   
@@ -142,7 +130,6 @@ function Addorganization() {
     const file = e.target.files[0];
   
     if (file) {
-      // File type validation for document_file
       if (name === "document_file") {
         const allowedExtensions = ["jpeg", "jpg", "png", "pdf"];
         const fileExtension = file.name.split(".").pop().toLowerCase();
@@ -161,17 +148,14 @@ function Addorganization() {
       setFileName("");
       setFilePreview("");
       setOrgregdata((values) => ({ ...values, [name]: "" }));
-      validate(); // Assuming this function handles form validation
+      validate();
     }
-  
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
-  
 
   const header = {
     headers: { "Content-Type": "multipart/form-data" },
   };
-  // var doctype=[];
   function validate() {
     const newErrors = {};
     if (!orgregdata.organization_name)
@@ -182,8 +166,7 @@ function Addorganization() {
       newErrors.sector_id = "Organization sector is required.";
     if (!orgregdata.listed_id)
       newErrors.listed_id = "Organization listed is required.";
-
-    if(!editOrgEnabled){
+    if(!editRejected){
       if (!orgregdata.document_type_id)
         newErrors.document_type_id = "Document type is required.";
       if (!orgregdata.document_number)
@@ -191,7 +174,6 @@ function Addorganization() {
       if (!orgregdata.document_file)
         newErrors.document_file = "Document file is required.";
     }
-
     if (!orgregdata.number_of_employee)
       newErrors.number_of_employee = "Number of employee is required.";
     if (!orgregdata.area) newErrors.area = "Address is required.";
@@ -201,11 +183,12 @@ function Addorganization() {
     if (!orgregdata.pincode) newErrors.pincode = "Pin number is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  }
-  if (editOrgEnabled) {
+  };
+  if (editRejected) {
     const editdata = {
       organization_id: location.state.organization_id || "",
       user_id: userId,
+      rejected_user_reapply: editRejected ? true : false,
     };
     useEffect(() => {
       Apibackendrequest(`${apiUrl}/organization/editable/data/`, editdata)
@@ -216,36 +199,18 @@ function Addorganization() {
             }));
             setFileLogoName(getFileNameFromUrl(res.data.organization_list[0].organization_image))
   
-            seteditOrgEnabled(
+            setEditRejected(
               res.data.organization_editable_data_send_succesfull
             );
             if(res.isexception){
-              setError(res.exceptionmessage.error)
-            }
+              setError(res.exceptionmessage.error);
+            };
+            setloading(false);
           })
         }, [editdata.organization_id]);
-      }
-         
-      // axios
-      //   .post(`${apiUrl}/organization/editable/data/`, editdata)
-      //   .then((res) => {
-      //     // console.log(res)
-      //     setOrgregdata((pre)=>({
-      //       ...pre,
-      //       ...res.data.organization_list[0]
-      //     }));
-      //     setFileLogoName(getFileNameFromUrl(res.data.organization_list[0].organization_image))
-
-      //     seteditOrgEnabled(
-      //       res.data.organization_editable_data_send_succesfull
-      //     );
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);setError(err.response.data.error);
-      //   });
+      };
 
   useEffect(() => {
-
     Apibackendrequest(`${apiUrl}/add/organization/`)
     .then((res) => {
       if(res.data){
@@ -262,26 +227,6 @@ function Addorganization() {
         }
       }
         });
-
-    // axios
-    //   .post(`${apiUrl}/add/organization/`)
-    //   .then((res) => {
-    //     // setdocumenttype(res.data.document_type);
-    //     setdocumenttype(populateDropDown(res.data.document_type));
-    //     setsectortype(populateDropDown(res.data.sector_type));
-    //     setlistedtype(populateDropDown(res.data.listed_type));
-    //     setcountry(populateDropDown(res.data.country));
-    //     setstate(populateDropDown(res.data.state));
-    //     setstatedata(res.data.state);
-    //     setcity(populateDropDown(res.data.city));
-    //     setcitydata(res.data.city);
-
-    //     // console.log(doctype)
-    //     // setdocumenttype(doctype);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   }, [userId]);
 
   function populateDropDown(data) {
@@ -303,13 +248,13 @@ function Addorganization() {
       );
     });
     return tempList;
-  }
+  };
   const getFileNameFromUrl = (url) => {
     try {
       const parsedUrl = new URL(url);
       const pathname = parsedUrl.pathname;
       const segments = pathname.split("/");
-      return segments.pop() || ""; // Return the last segment which is the file name
+      return segments.pop() || "";
     } catch (error) {
       setErrors("Invalid URL:", error);
       return "";
@@ -323,15 +268,10 @@ function Addorganization() {
   function orgRegSubmit(event) {
     event.preventDefault();
     setloading(true);
-    
-    // const formData = new FormData();
-    // formData.append("organization_image", orgregdata.organization_image);
-    // formData.append("document_file", orgregdata.document_file);
-    
     setloading(false);
     if (!validate()) return;
 
-    Apibackendrequest(`${apiUrl}${editOrgEnabled ? "/organization/edit/" : "/create/organization/"}`, formData)
+    Apibackendrequest(`${apiUrl}${"/organization/edit/"}`, formData)
         .then((res) => {
           if(res.data){
             if (res.data.is_organization_register_successfull || res.data.organization_edit_sucessfull) {
@@ -347,33 +287,7 @@ function Addorganization() {
                 validate();
               }
             })
-            
-
-    // axios
-    //   .post(
-    //     `${apiUrl}${
-    //       editOrgEnabled ? "/organization/edit/" : "/create/organization/"
-    //     }`,
-    //     orgregdata,
-    //     header
-    //   )
-    //   .then((res) => {
-    //     if (res.data.is_organization_register_successfull || res.data.organization_edit_sucessfull) {
-    //       setIsOrganizationCreated(true);
-    //       navigate("/dashboard/organization");
-    //       setloading(false);
-    //       console.log("successfull");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setloading(false);
-        
-    //       setError(err.response.data.error);
-          
-    //       console.log(error);
-    //       validate();
-    //   });
-  }
+  };
 
   if (loading) {
     return (
@@ -381,68 +295,16 @@ function Addorganization() {
         <Loader />
       </div>
     );
-  }
+  };
 
   return (
     <div className="lg:mt-0 mt-12 max-w-full m-4 p-6 bg-white shadow-md rounded-lg">
-      {isOrganizationCreated ? (
-        <div className="flex items-center justify-center h-[calc(100svh-140px)]">
-          <div className="bg-zinc-200 rounded-lg shadow-lg p-6 max-w-sm w-full relative">
-            <button className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-            <div className="flex flex-col items-center">
-              <img
-                alt="check"
-                src="https://placehold.co/100x100?text=✓"
-                className="w-16 h-16 mb-4"
-              />
-              <h2 className="text-2xl font-bold text-zinc-800 mb-2">
-                Awesome!
-              </h2>
-              <p className="text-zinc-600 mb-6">
-                You are ready to proceed using CakeHR
-              </p>
-              <NavLink to="/dashboard/organization">
-                <button className="bg-primary-100 hover:bg-primary-100 text-white font-semibold py-2 px-4 rounded-full">
-                  Start CakeHR
-                </button>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <>
-          {editOrgEnabled ? (
             <h1 className="text-xl font-semibold mb-4">
-              Update your organization
+              Reapply your organization
             </h1>
-          ) : (
-            <>
-              <h1 className="text-xl font-semibold mb-4">
-                Register your organization
-              </h1>
-              <p className="mb-6 text-zinc-700 w-full">
-                Welcome to our organization registration form! Whether you're a
-                budding startup, a growing enterprise, or a well-established
-                company, we invite you to join our community.
-              </p>
-            </>
-          )}
-
+            <p className="bg-red-800 text-white font-semibold rounded p-2 md:text-base text-sm">
+                Your organization has rejected due to " {orgregdata.rejected_message||"reason not mentioned"} "
+            </p>
           <form className="mt-10" onSubmit={orgRegSubmit}>
             <div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -481,7 +343,6 @@ function Addorganization() {
                           onChange={filelogoHandler}
                         />
                       </label>
-                      {/* </div> */}
                     </div>
                     {errors.organization_image && (
                       <span className="text-red-600 text-sm">
@@ -500,7 +361,7 @@ function Addorganization() {
                   )}
                 </div>
 
-                    {editOrgEnabled?"":
+                    {editRejected?"":
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
                     Document type<span className="text-[red]">*</span>
@@ -508,7 +369,7 @@ function Addorganization() {
                   <select
                     name="document_type_id"
                     onChange={orgHandler}
-                    disabled={editOrgEnabled}
+                    disabled={editRejected}
                     className="w-full p-2 border  rounded-md"
                   >
                     {documenttype}
@@ -521,7 +382,7 @@ function Addorganization() {
                   )}
                 </div>
                 }
-                  {editOrgEnabled?"":
+                  {editRejected?"":
                 <div className=" flex items-end ">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-zinc-700">
@@ -536,12 +397,12 @@ function Addorganization() {
                           type="file"
                           className="hidden"
                           name="document_file"
-                          disabled={editOrgEnabled}
+                          disabled={editRejected}
                           onChange={filedocumentHandler}
                         />
                       </label>
                     </div>
-                    {editOrgEnabled?"Not Changeable":""}
+                    {editRejected?"Not Changeable":""}
                     {errors.document_file && (
                       <span className="text-red-600 text-sm">
                         {errors.document_file}
@@ -595,7 +456,7 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-                {editOrgEnabled?"":
+                {editRejected?"":
                 <>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-zinc-700">
@@ -606,7 +467,7 @@ function Addorganization() {
                     placeholder="CA739543A"
                     name="document_number"
                     maxLength={25}
-                    disabled={editOrgEnabled}
+                    disabled={editRejected}
                     onChange={orgHandler}
                     value={orgregdata.document_number}
                     className="w-full p-2 border  rounded-md"
@@ -626,7 +487,7 @@ function Addorganization() {
                     placeholder="CA739543A525A"
                     name="gstin"
                     maxLength={15}
-                    disabled={editOrgEnabled}
+                    disabled={editRejected}
                     onChange={orgHandler}
                     value={orgregdata.gst_number}
                     className="w-full p-2 border  rounded-md"
@@ -658,8 +519,8 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-                {editOrgEnabled?<br/>:""}
-            {editOrgEnabled?"":<div>
+                {editRejected?<br/>:""}
+            {editRejected?"":<div>
               <label className="block mb-2 text-sm font-medium text-zinc-700">
                 Referral Number (Optional)
               </label>
@@ -771,12 +632,11 @@ function Addorganization() {
                     </span>
                   )}
                 </div>
-               
               </div>
             </div>
             <div className="flex flex-col gap-3 mt-8">
               {error && <span className="text-red-600 text-sm">{"*" + error}</span>}
-              {editOrgEnabled?
+              {editRejected?
               <input
                 type="submit"
                 className="bg-primary-100 hover:bg-primary-100 text-white font-semibold py-2 px-4 rounded-full"
@@ -789,10 +649,7 @@ function Addorganization() {
               />}
             </div>
           </form>
-        </>
-      )}
     </div>
   );
-}
-
-export default Addorganization;
+};
+export default RejectOrg;
