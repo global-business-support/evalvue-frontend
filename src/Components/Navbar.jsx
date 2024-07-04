@@ -47,7 +47,6 @@ function Navbar() {
     if(isLogin){
         setUserEmail(localStorage.getItem("email"));
         setUserName(userEmail?userEmail[0]?.toUpperCase():"");}
-        console.log(userEmail)
   })
   return (
     <>
