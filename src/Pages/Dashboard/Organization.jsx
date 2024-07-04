@@ -6,10 +6,10 @@ import Loader from "../Loader";
 import Tittle from "../../Tittle";
 import { FaClock } from "react-icons/fa6";
 import { BiSolidShow } from "react-icons/bi";
-import { BsCreditCard2Back } from "react-icons/bs"; 
+import { BsCreditCard2Back } from "react-icons/bs";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-
+import logo from '../../assets/images/evalvuelogo.jpg'
 
 import { BsPatchExclamationFill } from "react-icons/bs";
 
@@ -21,7 +21,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 export default function Organization() {
   Tittle("Organization - Evalvue");
   const [Orgdata, setOrgdata] = useState([]);
-  const [count, setCount] = useState()
+  const [count, setCount] = useState();
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [Isorgmap, setIsorgmap] = useState(false);
   const { userId } = useContext(UserContext);
@@ -37,7 +37,6 @@ export default function Organization() {
       .then((res) => {
         setOrgdata(res.data.organization_list);
         setCount(res.data.organizations_paid_count);
-       
 
         if (res.data.is_organization_mapped) {
           setIsorgmap(res.data.is_organization_mapped);
@@ -81,17 +80,75 @@ export default function Organization() {
     // navigate(`/dashboard/organization/edit/${organizationId}`)
   };
 
-  const handleDelete = (organizationId) => {
-    // Navigate to the delete page or handle deletion logic
-    navigate(`/dashboard/organization/delete/${organizationId}`);
-  };
+  const handleReApply = (organizationId) => {
+    navigate(/dashboard/organization/reapply, {
+      state: { 
+        organization_id: organizationId,
+        rejected: true,
+       },
+    });
+  };
   const handleAddOrg = () => {
     navigate("/dashboard/organization/addorganization", {});
   };
 
-  function CreatePayment(organizationId){
-   const response= axios.post(`${apiUrl}/create/subscription/id/`,{user_id:userId,organization_id:organizationId,plan_id:1})
-   console.log(response)
+  function CreatePayment(organizationId) {
+    const response = Apibackendrequest(`${apiUrl}/create/subscription/id/`, {
+      user_id: userId,
+      organization_id: organizationId,
+      plan_id: 4,
+    });
+    // if(response)
+    response.then(response=>{
+      console.log(response.data)
+
+      const subid=response.data.subscription_response_list[0].subscription_id;
+      console.log(subid)
+
+      if(subid){
+        var options = {
+          "key": "rzp_test_mHIc2FsOxWbBD7",
+          "subscription_id": `${subid}`,
+          "name": "Evalvue",
+          "description": "Monthly Test Plan",
+          "image": `${logo}`,
+          // "subscription_card_change": 0,
+          "handler": function(response) {
+            alert(response.razorpay_payment_id),
+            alert(response.razorpay_subscription_id),
+            alert(response.razorpay_signature);
+            const res=Apibackendrequest(`${apiUrl}/verify/payment/`,{
+              payment_id:response.razorpay_payment_id,
+              subscription_id:response.razorpay_subscription_id,
+              user_id: userId,
+              organization_id: organizationId,
+
+            })
+            console.log(res)
+          },
+          "prefill": {
+            "name": "",
+            "email": "",
+            "contact": ""
+          },
+          "theme": {
+            "color": "#5134a9"
+          }
+        };
+
+      var rzp1 = new Razorpay(options);
+        rzp1.open();
+
+        
+      }
+      else{
+        alert("Payment is not available at this time. Please try again later. ")
+      }
+    })
+
+    response.catch(err=>{
+      console.log(err)
+    })
   }
 
   if (loading) {
@@ -142,7 +199,7 @@ export default function Organization() {
                     Address
                   </td>
                   <td className="md:text-center text-end font-bold  text-black justify-end py-2 px-1 sm:w-auto sm:text-[15px] text-[12px]">
-                    <span className="md:mr-0 mr-16 md:pl-6">View</span>
+                    <span className="xl:ml-14 lg:mr-12 md:mr-20 mr-28">View</span>
                   </td>
                   {/* <td className="text-left font-bold text-black  py-2 px-4">Edit / Delete:</td> */}
                 </tr>
@@ -155,7 +212,8 @@ export default function Organization() {
                   >
                     <td
                       className={`py-3 sm:px-2 px-1 max-w-[180px] bg-${
-                        organization.organization_verified && organization.organization_paid
+                        organization.organization_verified &&
+                        organization.organization_paid
                           ? "white"
                           : "[#f3f7fc]"
                       } rounded-l-lg border-l  shadow-top-bottom-xl`}
@@ -177,7 +235,8 @@ export default function Organization() {
                     </td>
                     <td
                       className={`py-3 sm:px-4 px-1  md:table-cell hidden sm:text-base text-[12px] max-w-[100px]  bg-${
-                        organization.organization_verified  && organization.organization_paid
+                        organization.organization_verified &&
+                        organization.organization_paid
                           ? "white"
                           : "[#f3f7fc]"
                       } text-primary-100 font-semibold  shadow-top-bottom-xl`}
@@ -188,7 +247,8 @@ export default function Organization() {
                     </td>
                     <td
                       className={`py-3 sm:px-4 px-1 md:table-cell hidden  sm:text-base text-[12px] bg-${
-                        organization.organization_verified  && organization.organization_paid
+                        organization.organization_verified &&
+                        organization.organization_paid
                           ? "white"
                           : "[#f3f7fc]"
                       } text-primary-100  font-semibold  shadow-top-bottom-xl`}
@@ -201,59 +261,62 @@ export default function Organization() {
 
                     <td
                       className={` py-3 sm:px-0 px-1 ${
-                        organization.organization_verified  && organization.organization_paid
+                        organization.organization_verified &&
+                        organization.organization_paid
                           ? "bg-white"
                           : "bg-[#f3f7fc]"
                       } text-primary-100 rounded-r-lg  shadow-top-bottom-xl`}
                     >
                       <div className="flex gap-4 justify-end items-center">
-                      { (organization.organization_rejected) ? 
-                          (<button
+                        {organization.organization_rejected ? (
+                          <button
                             className="text-white flex gap-2 mr-[45px]  font-semibold py-2 sm:px-2 px-1 rounded order-red-500 transition duration-300 bg-red-800 cursor-pointer hover:text-white sm:text-sm text-[12px]"
-                            disabled
+                            onClick={()=>handleReApply(organization.organization_id)}
                           >
                             <AiOutlineCloudUpload className="my-auto font-semibold h-5 w-5" />
                             {/* Rejected  */}
                             Re-Apply
-                          </button>)
-                            : 
-                            (organization.organization_paid) ? 
-                                (organization.organization_verified) ?
-                                <NavLink
-                                  to={`/dashboard/organization/employee/${organization.organization_id}`}
-                                  state={{
-                                    organization_name: organization.name,
-                                    orgarea: organization.area,
-                                    orgcity: organization.city_name,
-                                    orgstate: organization.state_name,
-                                    orgimg: organization.image,
-                                  }}
-                                >
-                                  <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 sm:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
-                                    <BiSolidShow className=" h-5 w-5" />
-                                    View
-                                  </button>{" "}
-                                </NavLink>
-                                :
-                                <button
-                                className="text-white flex gap-2 mr-10 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]"
-                                disabled
-                                >
-                                  <FaClock className="my-auto h-4 w-4" />
-                                  Pending...
-                              </button>
-                            :
+                          </button>
+                        ) : organization.organization_paid ? (
+                          organization.organization_verified ? (
+                            <NavLink
+                              to={`/dashboard/organization/employee/${organization.organization_id}`}
+                              state={{
+                                organization_name: organization.name,
+                                orgarea: organization.area,
+                                orgcity: organization.city_name,
+                                orgstate: organization.state_name,
+                                orgimg: organization.image,
+                              }}
+                            >
+                              <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 sm:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
+                                <BiSolidShow className=" h-5 w-5" />
+                                View
+                              </button>{" "}
+                            </NavLink>
+                          ) : (
                             <button
+                              className="text-white flex gap-2 mr-10 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]"
+                              disabled
+                            >
+                              <FaClock className="my-auto h-4 w-4" />
+                              Pending...
+                            </button>
+                          )
+                        ) : (
+                          <button
                             className="flex items-center gap-2 mr-10 font-semibold py-1 sm:px-4 px-3 rounded border-2 border-primary-100 transition duration-300 bg-primary-100 text-white sm:text-base text-[14px]"
-                            onClick={()=>{
-                              
-                              CreatePayment(organization.organization_id)}}
+                            onClick={() => {
+                              CreatePayment(organization.organization_id);
+                            }}
                           >
                             Pay
-                            
-                          <span className="flex sm:text-lg text-base"><FaIndianRupeeSign className="my-auto h-4 w-4" />{count == 0 ? '1' : '99'}</span>
+                            <span className="flex sm:text-lg text-base">
+                              <FaIndianRupeeSign className="my-auto h-4 w-4" />
+                              {count == 0 ? "1" : "99"}
+                            </span>
                           </button>
-                      }
+                        )}
 
                         {/* {organization.organization_verified ? (
                           <NavLink
@@ -286,9 +349,6 @@ export default function Organization() {
                           <ThreeDotMenu
                             onEdit={() =>
                               handleEdit(organization.organization_id)
-                            }
-                            onDelete={() =>
-                              handleDelete(organization.organization_id)
                             }
                           />
                         ) : (
