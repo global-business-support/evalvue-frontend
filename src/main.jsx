@@ -44,6 +44,7 @@ import TransactionHistory from "./Payment/TransactionHistory.jsx";
 import Subscription from "./Payment/Subscription.jsx";
 
 import Clock from "./Components/Clock.jsx";
+import RejectOrg from "./Pages/Dashboard/RejectOrg.jsx";
 
 // import OrgRepeat from "./Pages/Dashboard/OrgRepeat.jsx";
 
@@ -64,6 +65,7 @@ const router = createBrowserRouter(
           <Route path="organization" element={<Orgoutlet />}>
             <Route index element={<Organization />} />
             <Route path="addorganization" element={<Addorganization />} />
+            <Route path="reapply" element={<RejectOrg />} />
             <Route path="employee" element={<Empoutlet />}>
               <Route path=":organization_id" element={<Vieworganization />} />
               <Route path="addemp" element={<Empform />} />
