@@ -6,10 +6,18 @@ import Loader from "../Loader";
 import Tittle from "../../Tittle";
 import { FaClock } from "react-icons/fa6";
 import { BiSolidShow } from "react-icons/bi";
+
+import { FaIndianRupeeSign } from "react-icons/fa6";
+import { IoReceiptOutline } from "react-icons/io5";
+import { RxCross1 } from "react-icons/rx";
+
+import { AiOutlineCloudUpload } from "react-icons/ai";
+
 import { BsCreditCard2Back } from "react-icons/bs";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import logo from '../../assets/images/evalvuelogo.jpg'
+
 
 import { BsPatchExclamationFill } from "react-icons/bs";
 
@@ -25,6 +33,7 @@ export default function Organization() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [Isorgmap, setIsorgmap] = useState(false);
   const { userId } = useContext(UserContext);
+  const [paymentSuccessfull, setPaymentSuccessfull] = useState(false);
   const [address, setAddress] = useState({});
   const [error, setError] = useState();
 
@@ -93,6 +102,7 @@ export default function Organization() {
   };
 
   function CreatePayment(organizationId) {
+
     const response = Apibackendrequest(`${apiUrl}/create/subscription/id/`, {
       user_id: userId,
       organization_id: organizationId,
@@ -149,6 +159,7 @@ export default function Organization() {
     response.catch(err=>{
       console.log(err)
     })
+
   }
 
   if (loading) {
@@ -172,7 +183,55 @@ export default function Organization() {
   if (Isorgmap) {
     return (
       <>
-        <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto ">
+        <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto">
+          {paymentSuccessfull && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+              <div className=" lg:min-w-[500px] md:min-w-[400px] min-w-[350px]  min-h-[500px] bg-white p-5 rounded-lg shadow-lg max-w-md border-t-4 border-primary-100">
+                <div className="w-full flex justify-center mb-2">
+                  <div className="w-auto p-3 rounded-full bg-gray-200 flex items-center justify-center">
+                    <IoReceiptOutline className="text-3xl text-primary-100" />
+                  </div>
+                </div>
+                <hr className="" />
+                <div className="h-full w-full mt-2">
+                  <h1 className="text-lg">Hello, organization name</h1>
+                  <div className="bg-gray-300 w-full h-full my-5 text-sm py-1 px-3 flex flex-col items-center justify-center rounded-lg ">
+                    <p className="w-full flex justify-between">
+                      Order Id :{" "}
+                      <span className="font-semibold">455655555555555</span>
+                    </p>
+                    <p className="w-full flex justify-between">
+                      Payment Id :{" "}
+                      <span className="font-semibold">455655555555555</span>
+                    </p>
+                    <p className="w-full flex justify-between">
+                      Subscription Id :{" "}
+                      <span className="font-semibold">455655555555555</span>
+                    </p>
+                  <div className="w-full flex items-center justify-between mt-5">
+                    <h1 className="text-primary-100 text-base">Amount</h1>
+                    <h1 className="flex items-center text-xl font-semibold text-primary-100">
+                      <FaIndianRupeeSign className="text-base" />
+                      99
+                    </h1>
+                  </div>
+                  </div>
+                  <hr />
+                  <div className="w-full flex flex-col items-center text-center gap-5 mt-5">
+                    <h1 className="text-primary-100 font-semibold">
+                      Amount Paid Successfully
+                    </h1>
+                    <button
+                      className="bg-primary-100 w-40 rounded-lg py-2 px-5 text-white font-semibold"
+                      onClick={() => setPaymentSuccessfull(false)}
+                    >
+                      Ok
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex justify-between sticky lg:top-[55px] top-[48px] z-[2] items-center lg:mb-3 mb-12 bg-white p-4 rounded shadow-lg">
             <h2 className="sm:text-lg text-xs font-semibold">
               Total Organization: {Orgdata.length}
