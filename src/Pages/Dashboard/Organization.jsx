@@ -14,8 +14,8 @@ import { RxCross1 } from "react-icons/rx";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
 import { BsCreditCard2Back } from "react-icons/bs";
-import { FaIndianRupeeSign } from "react-icons/fa6";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+// import { FaIndianRupeeSign } from "react-icons/fa6";
+// import { AiOutlineCloudUpload } from "react-icons/ai";
 import logo from '../../assets/images/evalvuelogo.jpg'
 
 
@@ -90,13 +90,13 @@ export default function Organization() {
   };
 
   const handleReApply = (organizationId) => {
-    navigate(/dashboard/organization/reapply, {
+    navigate("/dashboard/organization/reapply", {
       state: { 
         organization_id: organizationId,
         rejected: true,
        },
     });
-  };
+};
   const handleAddOrg = () => {
     navigate("/dashboard/organization/addorganization", {});
   };
