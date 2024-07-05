@@ -10,22 +10,17 @@ import { BiSolidShow } from "react-icons/bi";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { IoReceiptOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
-
 import { AiOutlineCloudUpload } from "react-icons/ai";
-
 import { BsCreditCard2Back } from "react-icons/bs";
-// import { FaIndianRupeeSign } from "react-icons/fa6";
-// import { AiOutlineCloudUpload } from "react-icons/ai";
 import logo from '../../assets/images/evalvuelogo.jpg'
-
-
 import { BsPatchExclamationFill } from "react-icons/bs";
-
 import ThreeDotMenu from "./ThreeDotMenu";
 import Apibackendrequest from "../Apibackendrequest";
 import axios from "axios";
 const apiUrl = import.meta.env.VITE_API_URL;
-
+import React, { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import '../../index.css';
 export default function Organization() {
   Tittle("Organization - Evalvue");
   const [Orgdata, setOrgdata] = useState([]);
@@ -33,10 +28,11 @@ export default function Organization() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [Isorgmap, setIsorgmap] = useState(false);
   const { userId } = useContext(UserContext);
-  const [paymentSuccessfull, setPaymentSuccessfull] = useState(true);
+  const [paymentSuccessfull, setPaymentSuccessfull] = useState(false);
   const [address, setAddress] = useState({});
   const [error, setError] = useState();
-
+  const [payment_response_list ,setpayment_response_list]=useState([]);
+  const componentRef = useRef();
   const { setStateOrgData } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -124,9 +120,9 @@ export default function Organization() {
           "image": `${logo}`,
           // "subscription_card_change": 0,
           "handler": function(response) {
-            alert(response.razorpay_payment_id),
-            alert(response.razorpay_subscription_id),
-            alert(response.razorpay_signature);
+            // alert(response.razorpay_payment_id),
+            // alert(response.razorpay_subscription_id),
+            // alert(response.razorpay_signature);
             const res=Apibackendrequest(`${apiUrl}/verify/payment/`,{
               payment_id:response.razorpay_payment_id,
               subscription_id:response.razorpay_subscription_id,
@@ -134,7 +130,23 @@ export default function Organization() {
               organization_id: organizationId,
 
             })
-            console.log(res)
+            res.then(response=>{
+              console.log(response)
+              if(response.data.is_payment_response_sent_succefull)
+              {
+                setpayment_response_list(response.data.payment_response_list[0])
+                setPaymentSuccessfull(response.data.is_payment_response_sent_succefull)
+              }
+              console.log(payment_response_list)
+            })
+            res.catch(err=>{
+              console.log(err)
+              if(err.isexception)
+              {
+                setPaymentSuccessfull(response.data.is_payment_response_sent_succefull)
+                console.log(err.exceptionmessage)
+              }
+            })
           },
           "prefill": {
             "name": "",
@@ -161,7 +173,13 @@ export default function Organization() {
     })
 
   }
+  
 
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: 'Payment Receipt',
+    onAfterPrint: () => console.log('Print success!')
+  });
   if (loading) {
     return (
       <>
@@ -185,57 +203,85 @@ export default function Organization() {
       <>
         <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto">
           {paymentSuccessfull && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-              <div className=" lg:min-w-[500px] md:min-w-[400px] min-w-[350px]  min-h-[500px] bg-white p-5 rounded-lg shadow-lg max-w-md border-t-4 border-primary-100">
-                <div className="w-full flex justify-center mb-2">
-                  <div className="w-auto p-3 rounded-full bg-gray-200 flex items-center justify-center">
-                    <IoReceiptOutline className="text-3xl text-primary-100" />
-                  </div>
-                </div>
-                <div className="h-full w-full mt-10">
-                  <h1 className="text-[15px] font-bold">Hello, <span className="text-primary-100">Organization Name</span></h1>
-                  <p className="text-[13px] font-semibold">Subscription Amount Paid Successfully</p>
-                  <div className="bg-gray-200 w-full h-full my-5 text-sm p-3 flex flex-col items-center justify-center rounded-lg ">
-                    <p className="w-full flex justify-between text-gray-700">
-                      Order Id :
-                      <span className="font-semibold">455655555555555</span>
-                    </p>
-                    <p className="w-full flex justify-between text-gray-700">
-                      Payment Id :
-                      <span className="font-semibold">455655555555555</span>
-                    </p>
-                    <p className="w-full flex justify-between text-gray-700">
-                      Subscription Id :
-                      <span className="font-semibold">455655555555555</span>
-                    </p>
-                    <p className="w-full flex justify-between text-gray-700">
-                      Billing Cycle :
-                      <span className="font-semibold">Monthly</span>
-                    </p>
-                  <div className="w-full flex items-center justify-between mt-5 border-t-2 border-white">
-                    <h1 className="text-primary-100 text-base">Amount</h1>
-                    <h1 className="flex items-center text-xl font-semibold text-primary-100">
-                      <FaIndianRupeeSign className="text-base" />
-                      99
-                    </h1>
-                  </div>
-                  </div>
-                  <hr />
-                  <div className="w-full flex items-center justify-center text-center gap-5 mt-5">
-                    {/* <h1 className=" text-[14px] text-primary-100 font-semibold">
-                      Amount Paid Successfully
-                    </h1> */}
-                    <button
-                      className="bg-primary-100 rounded-lg py-2 px-10 text-white font-semibold"
-                      onClick={() => setPaymentSuccessfull(false)}
-                    >
-                      Ok
-                    </button>
-                    <h1 className="text-end my-2 border-2 border-primary-100 py-2 px-8 rounded-lg text-primary-100 hover:bg-primary-100 hover:text-white transition-all duration-300 text-sm ">Print</h1>
-                  </div>
+            <div ref={componentRef} className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+            <div  className="lg:min-w-[500px] md:min-w-[400px] min-w-[350px] min-h-[500px] bg-white p-5 rounded-lg shadow-lg max-w-md border-t-4 border-primary-100">
+
+              <div className="w-full flex justify-center mb-2">
+                <div className="p-6 rounded-full bg-gray-200 flex items-center justify-center">
+                  <IoReceiptOutline className="text-4xl text-primary-100" />
                 </div>
               </div>
+              <div className="h-full w-full mt-10">
+                <h1 className="text-[15px] font-bold">Hello, <span className="text-primary-100">Organization Name</span></h1>
+                <div className="text-sm text-gray-700 mt-5">
+                  <p className="mb-3">
+                    We are pleased to inform you that your recent payment of <span className="font-semibold">₹99.00</span> has been successfully processed. Thank you for your prompt payment. This receipt confirms the transaction and includes the details below for your records.
+                  </p>
+                </div>
+                <div className="bg-gray-100 w-full h-full my-5 text-sm p-3 flex gap-2 flex-col items-center justify-center rounded-lg">
+                  <p className="w-full flex justify-between text-gray-700">
+                    Order Id:
+                    <span className="font-base">455655555555555</span>
+                  </p>
+                  <p className="w-full flex justify-between text-gray-700">
+                    Subscription Id:
+                    <span className="font-base">455655555555555</span>
+                  </p>
+                  <p className="w-full flex justify-between text-gray-700">
+                    Billing Cycle:
+                    <span className="font-base">Monthly</span>
+                  </p>
+                  <p className="w-full flex justify-between text-gray-700">
+                    Date:
+                    <span className="font-base">05/07/2024</span>
+                  </p>
+                  <div className="w-full mt-5 border-t-4 border-white">
+                    <div className="flex items-center justify-between">
+                      <h1 className="text-gray-900 text-base">Amount:</h1>
+                      <h1 className="flex items-center text-md font-base text-gray-900">
+                        <FaIndianRupeeSign className="text-sm" />
+                        99.00
+                      </h1>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <h1 className="text-gray-900 text-base">Other Amount:</h1>
+                      <h1 className="flex items-center text-md font-base text-gray-900">
+                        <FaIndianRupeeSign className="text-sm" />
+                        00.00
+                      </h1>
+                    </div>
+                    <div className="w-full mt-2 border-t-2 border-gray-400"></div>
+                    <div className="flex items-center justify-between">
+                      <h1 className="text-primary-100 text-base">Total Amount:</h1>
+                      <h1 className="flex items-center text-lg font-base text-primary-100">
+                        <FaIndianRupeeSign className="text-base" />
+                        99.00
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                {
+                  payment_response_list.transaction === "Successful" ?
+                  <p className="text-[13px] text-green-600 font-semibold">Paid Successfully</p> :
+                  <p className="text-[13px] text-red-600 font-semibold">Payment Failed</p>
+                }
+                <hr />
+              </div>
+              <div className="w-full flex items-center justify-center text-center gap-5 mt-5 no-print">
+          <button
+            className="bg-primary-100 rounded-lg py-2 px-10 text-white font-semibold"
+            onClick={() => setPaymentSuccessfull(false)}
+          >
+            Ok
+          </button>
+          <button className="text-end my-2 border-2 border-primary-100 py-2 px-8 rounded-lg text-primary-100 hover:bg-primary-100 hover:text-white transition-all duration-300 text-sm"
+            onClick={handlePrint}
+          >
+            Print
+          </button>
+        </div>
             </div>
+          </div>
           )}
           <div className="flex justify-between sticky lg:top-[55px] top-[48px] z-[2] items-center lg:mb-3 mb-12 bg-white p-4 rounded shadow-lg">
             <h2 className="sm:text-lg text-xs font-semibold">
@@ -381,32 +427,6 @@ export default function Organization() {
                             </span>
                           </button>
                         )}
-
-                        {/* {organization.organization_verified ? (
-                          <NavLink
-                            to={`/dashboard/organization/employee/${organization.organization_id}`}
-                            state={{
-                              organization_name: organization.name,
-                              orgarea: organization.area,
-                              orgcity: organization.city_name,
-                              orgstate: organization.state_name,
-                              orgimg: organization.image,
-                            }}
-                          >
-                            <button className=" text-white flex gap-1 bg-primary-100 font-semibold py-2 md:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
-                              <BiSolidShow className=" h-5 w-5" />
-                              View
-                            </button>{" "}
-                          </NavLink>
-                        ) : (
-                          <button
-                            className="text-white flex gap-2 mr-10 bg-[#88898b]  font-semibold py-2 sm:px-2 px-1 rounded border transition duration-300 hover:text-white sm:text-sm text-[12px]"
-                            disabled
-                          >
-                            <FaClock className="my-auto h-4 w-4" />
-                            Pending...
-                          </button>
-                        )} */}
 
                         {organization.organization_verified &&
                         organization.organization_paid ? (

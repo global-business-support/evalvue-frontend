@@ -11,6 +11,11 @@ select:-webkit-autofill {
   border: none;
   /* color: #004d40 !important; Change to your desired text color */
 }
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
