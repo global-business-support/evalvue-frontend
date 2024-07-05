@@ -7,20 +7,20 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const Subscription = () => {
     const [list, setList] = useState([])
     const [loading, setLoading] = useState(true)
+    const [error,setError] = useState(null);
 
-    
     useEffect(()=> {
       Apibackendrequest(`${apiUrl}/subscription/history/data/`)
       .then((res)=>{
-        console.log(res)
         if(res.data.subscription_history_data){
           setList(res.data.subscription_history_data)
-        } else {
-          setError("")
+        } 
+        if (res.isexception) {
+          setError(res.exceptionmessage.error);
         }
       })
       .catch((error)=>{
-        console.log(error)
+        setError(error);
       }).finally(() => { setLoading(false) });
     },[])
     
@@ -32,7 +32,14 @@ const Subscription = () => {
               </div>
           </>
       );
-  }
+  };
+  if (error) {
+    return (
+      <div>
+        <h1 className="text-red-500 text-lg align-middle">{error}</h1>
+      </div>
+    );
+  };
 
     if(list.length == 0){
       return (
@@ -40,12 +47,12 @@ const Subscription = () => {
           <div className='h-[70%] flex justify-center items-center'>
             <div>
             <PiEmptyBold className='mx-auto text-5xl text-red-800'/>
-            <p className='text-red-800 text-lg font-semibold'>There is no payment history!</p>
+            <p className='text-red-800 text-lg font-semibold'>There is no subscription history!</p>
             </div>
           </div>
         </>
       )
-    }
+    };
         return (
             
             <>

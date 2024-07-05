@@ -12,7 +12,9 @@ export default function TransactionHistory() {
   useEffect(() => {
     Apibackendrequest(`${apiUrl}/payment/history/`)
       .then((res) => {
-        setPaymentData(res.data.payment_history_list);
+        if(res.data.is_payment_history_sent_successfull){
+          setPaymentData(res.data.payment_history_list);
+        }
         if (res.isexception) {
           setError(res.exceptionmessage.error);
         }
