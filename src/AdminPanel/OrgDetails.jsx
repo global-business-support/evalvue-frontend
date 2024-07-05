@@ -11,12 +11,16 @@ const OrgDetails = () => {
     const [orgData, setOrgData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
+    const [filterVerified, setFilteredVerified] = useState([]);
+    const [filterRejected, setFilteredRejected] = useState([]);
+    const [filterPending, setFilteredPending] = useState([]);
+    const [filterType, setFilterType] = useState('');
+    
     useEffect(() => {
         Apibackendrequest(`${apiUrl}/document/verification/data/`)
             .then((res) => {
                 if (res.data) {
                     setOrgData(res.data.organization_verification);
-                    setFilteredData(res.data.organization_verification);
                 }
                 if (res.isexception) {
                     setError(res.exceptionmessage.error)
@@ -27,13 +31,53 @@ const OrgDetails = () => {
             }).finally(() => { setLoading(false) });
     }, []);
 
+
+    const handleVerified = () => {
+        const verifiedItems = orgData.filter(item => item.verified === true);
+        setFilteredVerified(verifiedItems);
+        setFilterType('verified');
+    };
+    const handleRejected = () => {
+        const rejectedItems = orgData.filter(item => item.rejected == true);
+        setFilteredRejected(rejectedItems);
+        setFilterType('rejected');
+    };
+    const handlePending = () => {
+        const pendingItems = orgData.filter(item => (item.rejected == false) && (item.verified == false));
+        setFilteredPending(pendingItems);
+        setFilterType('pending');
+    };
     useEffect(() => {
-        setFilteredData(
-            orgData.filter(item =>
+        setFilteredData(filterVerified);
+    }, [filterVerified]);
+    useEffect(() => {
+        setFilteredData(filterRejected);
+    }, [filterRejected]);
+    useEffect(() => {
+        setFilteredData(filterPending);
+    }, [filterPending]);
+
+    useEffect(() => {
+        let filteredResults = [];
+        if (filterType === 'verified') {
+            filteredResults = filterVerified.filter(item => 
                 item.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-        );
-    }, [searchTerm, orgData]);
+            );
+        } else if (filterType === 'rejected') {
+            filteredResults = filterRejected.filter(item => 
+                item.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        } else if (filterType === 'pending') {
+            filteredResults = filterPending.filter(item => 
+                item.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        } else {
+            filteredResults = orgData.filter(item => 
+                item.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+        setFilteredData(filteredResults);
+    }, [searchTerm, filterVerified, filterRejected, filterPending, filterType, orgData]);
 
     if (loading) {
         return (
@@ -53,6 +97,11 @@ const OrgDetails = () => {
 
     return (
         <>
+            <div className='flex justify-center'>
+                <button onClick={handleVerified} className='bg-green-800 px-2 mx-4 mt-1 text-white rounded'>Verified</button>
+                <button onClick={handlePending} className='bg-primary-100 px-2 mx-4 mt-1 text-white rounded'>Pending</button>
+                <button onClick={handleRejected} className='bg-red-800 px-2 mx-4 mt-1 text-white rounded'>Rejected</button>
+            </div>
             <div className='w-full flex justify-center mt-8'>
                 <div className=''>
                     <input
@@ -64,7 +113,7 @@ const OrgDetails = () => {
                     />
                 </div>
             </div>
-            <div className="w-full flex justify-center mt-8">
+            <div className="w-full flex justify-center">
                 <table className="border-separate border-spacing-y-3">
                     <thead>
                         <tr>
@@ -121,7 +170,7 @@ const OrgDetails = () => {
                                                 orgId: organization.organization_id
                                             }}
                                         >
-                                            <button className="text-white flex gap-1 bg-primary-100 font-semibold py-2 lg:px-6 px-4 rounded border border-primary-100 hover:bg-[#5559af] hover:shadow-sm hover:text-white text-sm">
+                                            <button className={`text-white flex gap-1 ${(organization.rejected && "bg-red-800") || (organization.verified && "bg-green-800") || "bg-primary-100"} font-semibold py-2 lg:px-6 px-4 rounded hover:shadow-sm text-sm`}>
                                                 <BiSolidShow className="h-5 w-5" />
                                                 View
                                             </button>
@@ -133,7 +182,6 @@ const OrgDetails = () => {
                     </tbody>
                 </table>
             </div>
-
         </>
     )
 };
