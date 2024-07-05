@@ -33,7 +33,7 @@ export default function Organization() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [Isorgmap, setIsorgmap] = useState(false);
   const { userId } = useContext(UserContext);
-  const [paymentSuccessfull, setPaymentSuccessfull] = useState(false);
+  const [paymentSuccessfull, setPaymentSuccessfull] = useState(true);
   const [address, setAddress] = useState({});
   const [error, setError] = useState();
 
@@ -192,23 +192,27 @@ export default function Organization() {
                     <IoReceiptOutline className="text-3xl text-primary-100" />
                   </div>
                 </div>
-                <hr className="" />
-                <div className="h-full w-full mt-2">
-                  <h1 className="text-lg">Hello, organization name</h1>
-                  <div className="bg-gray-300 w-full h-full my-5 text-sm py-1 px-3 flex flex-col items-center justify-center rounded-lg ">
-                    <p className="w-full flex justify-between">
-                      Order Id :{" "}
+                <div className="h-full w-full mt-10">
+                  <h1 className="text-[15px] font-bold">Hello, <span className="text-primary-100">Organization Name</span></h1>
+                  <p className="text-[13px] font-semibold">Subscription Amount Paid Successfully</p>
+                  <div className="bg-gray-200 w-full h-full my-5 text-sm p-3 flex flex-col items-center justify-center rounded-lg ">
+                    <p className="w-full flex justify-between text-gray-700">
+                      Order Id :
                       <span className="font-semibold">455655555555555</span>
                     </p>
-                    <p className="w-full flex justify-between">
-                      Payment Id :{" "}
+                    <p className="w-full flex justify-between text-gray-700">
+                      Payment Id :
                       <span className="font-semibold">455655555555555</span>
                     </p>
-                    <p className="w-full flex justify-between">
-                      Subscription Id :{" "}
+                    <p className="w-full flex justify-between text-gray-700">
+                      Subscription Id :
                       <span className="font-semibold">455655555555555</span>
                     </p>
-                  <div className="w-full flex items-center justify-between mt-5">
+                    <p className="w-full flex justify-between text-gray-700">
+                      Billing Cycle :
+                      <span className="font-semibold">Monthly</span>
+                    </p>
+                  <div className="w-full flex items-center justify-between mt-5 border-t-2 border-white">
                     <h1 className="text-primary-100 text-base">Amount</h1>
                     <h1 className="flex items-center text-xl font-semibold text-primary-100">
                       <FaIndianRupeeSign className="text-base" />
@@ -217,16 +221,17 @@ export default function Organization() {
                   </div>
                   </div>
                   <hr />
-                  <div className="w-full flex flex-col items-center text-center gap-5 mt-5">
-                    <h1 className="text-primary-100 font-semibold">
+                  <div className="w-full flex items-center justify-center text-center gap-5 mt-5">
+                    {/* <h1 className=" text-[14px] text-primary-100 font-semibold">
                       Amount Paid Successfully
-                    </h1>
+                    </h1> */}
                     <button
-                      className="bg-primary-100 w-40 rounded-lg py-2 px-5 text-white font-semibold"
+                      className="bg-primary-100 rounded-lg py-2 px-10 text-white font-semibold"
                       onClick={() => setPaymentSuccessfull(false)}
                     >
                       Ok
                     </button>
+                    <h1 className="text-end my-2 border-2 border-primary-100 py-2 px-8 rounded-lg text-primary-100 hover:bg-primary-100 hover:text-white transition-all duration-300 text-sm ">Print</h1>
                   </div>
                 </div>
               </div>
