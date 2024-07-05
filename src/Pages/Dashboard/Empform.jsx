@@ -172,7 +172,7 @@ function Empform() {
   }
 
   return (
-    <div className="w-4/5 mx-auto mt-4 p-4 bg-white shadow rounded-lg">
+    <div className="w-4/5 mx-auto lg:mt-1 mt-12 p-4 bg-white shadow rounded-lg">
       <h1 className="text-xl font-semibold mb-4">Employee Details</h1>
       <form
         className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10"
