@@ -4,6 +4,8 @@ const apiUrl = import.meta.env.VITE_API_URL;
 import Apibackendrequest from "../Pages/Apibackendrequest";
 import { UserContext } from "../Contextfile";
 import { RxCross1 } from "react-icons/rx";
+import { MdVerified } from "react-icons/md";
+import { FaCircleExclamation } from "react-icons/fa6";
 import Loader from "../Pages/Loader";
 
 const VerifyOrganization = () => {
@@ -21,7 +23,7 @@ const VerifyOrganization = () => {
 
   const location = useLocation();
   const state = location.state;
-
+  console.log(org)
   useEffect(() => {
     const organization = state?.orgData.filter(
       (org) => org.organization_id === state.orgId
@@ -314,7 +316,7 @@ console.log(error)
                       Country
                     </td>
                     <td className="py-2 px-4 border-b font-bold">
-                      {org.city_Name}
+                      {org.country_name}
                     </td>
                   </tr>
                   <tr>
@@ -322,7 +324,7 @@ console.log(error)
                       State
                     </td>
                     <td className="py-2 px-4 border-b font-bold">
-                      {org.state_Name}
+                      {org.state_name}
                     </td>
                   </tr>
                   <tr>
@@ -330,7 +332,7 @@ console.log(error)
                       City
                     </td>
                     <td className="py-2 px-4 border-b font-bold">
-                      {org.city_Name}
+                      {org.city_name}
                     </td>
                   </tr>
                   <tr>
@@ -341,25 +343,47 @@ console.log(error)
                       {org.pincode}
                     </td>
                   </tr>
+                  <tr>
+                    <td className="py-2 px-4 border-b sm:text-base text-sm">
+                      Status
+                    </td>
+                  <td className={`py-2 px-4 border-b font-bold `}>
+                    <h1 className={`px-2 py-1 w-fit text-white `}>
+                      {org.paid?
+                      <span className="text-green-500 flex items-center gap-2"><MdVerified /> Paid</span>
+                        :
+                      <span className="text-red-500 flex items-center gap-2"><FaCircleExclamation />Unpaid</span>}
+                    </h1>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
-            <div className="self-center space-x-5 mt-5">
-              <button
-                className="border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-5 py-2 rounded-lg font-semibold transition ease-in-out"
+            <div className="self-center sm:space-x-5 space-x-3 mt-5">
+              {org.paid? 
+                <>
+                {!org.rejected&&<button
+                className="border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-5 py-2 rounded-lg font-semibold transition ease-in-out sm:text-base text-xs"
                 onClick={() => handleVerifyClick(true)}
               >
                 Approve
-              </button>
-              <button
-                className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-2 rounded-lg font-semibold transition ease-in-out"
+              </button>}
+              {!org.verified&&<button
+                className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-2 rounded-lg font-semibold transition ease-in-out sm:text-base text-xs"
                 onClick={() => setRejected(true)}
               >
                 Reject
-              </button>
+              </button>}
+              
+              </> : ''}
+              
+                
+              
+              
+              
               <NavLink
                 to={"/orgDetails"}
-                className="border border-primary-100 text-primary-100 hover:bg-primary-100 hover:text-white px-5 py-2 rounded-lg font-semibold transition ease-in-out"
+                className="border border-primary-100 text-primary-100 hover:bg-primary-100 hover:text-white px-5 py-2 rounded-lg font-semibold transition ease-in-out sm:text-base text-xs"
               >
                 Cancel
               </NavLink>
