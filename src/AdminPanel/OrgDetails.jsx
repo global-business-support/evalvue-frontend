@@ -14,7 +14,9 @@ const OrgDetails = () => {
     const [filterVerified, setFilteredVerified] = useState([]);
     const [filterRejected, setFilteredRejected] = useState([]);
     const [filterPending, setFilteredPending] = useState([]);
+    const [filterPaid, setFilteredPaid] = useState([]);
     const [filterType, setFilterType] = useState('');
+    const [selectedButton, setSelectedButton] = useState("");
     
     useEffect(() => {
         Apibackendrequest(`${apiUrl}/document/verification/data/`)
@@ -47,6 +49,11 @@ const OrgDetails = () => {
         setFilteredPending(pendingItems);
         setFilterType('pending');
     };
+    const handlePaid = () => {
+        const paidItems = orgData.filter(item => item.paid == true);
+        setFilteredPaid(paidItems);
+        setFilterType('paid');
+    };
     useEffect(() => {
         setFilteredData(filterVerified);
     }, [filterVerified]);
@@ -56,6 +63,9 @@ const OrgDetails = () => {
     useEffect(() => {
         setFilteredData(filterPending);
     }, [filterPending]);
+    useEffect(() => {
+        setFilteredData(filterPaid);
+    }, [filterPaid]);
 
     useEffect(() => {
         let filteredResults = [];
@@ -71,13 +81,21 @@ const OrgDetails = () => {
             filteredResults = filterPending.filter(item => 
                 item.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
+        } else if (filterType === 'paid') {
+            filteredResults = filterPaid.filter(item => 
+                item.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
         } else {
             filteredResults = orgData.filter(item => 
                 item.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
         setFilteredData(filteredResults);
-    }, [searchTerm, filterVerified, filterRejected, filterPending, filterType, orgData]);
+    }, [searchTerm, filterVerified, filterRejected, filterPending, filterPaid, filterType, orgData]);
+
+    const handleButtonClick = (index) => {
+        setSelectedButton(index);
+      };
 
     if (loading) {
         return (
@@ -98,9 +116,30 @@ const OrgDetails = () => {
     return (
         <>
             <div className='flex justify-center'>
-                <button onClick={handleVerified} className='bg-green-800 px-2 mx-4 mt-1 text-white rounded'>Verified</button>
-                <button onClick={handlePending} className='bg-primary-100 px-2 mx-4 mt-1 text-white rounded'>Pending</button>
-                <button onClick={handleRejected} className='bg-red-800 px-2 mx-4 mt-1 text-white rounded'>Rejected</button>
+                <button 
+                onClick={()=>{handleVerified(); handleButtonClick("verified");}} 
+                className={`${selectedButton == "verified" && "border-[3px] border-black"} bg-green-800 px-2 mx-4 mt-1 text-white rounded`}
+                >
+                    Verified
+                </button>
+                <button 
+                onClick={()=>{handlePaid(); handleButtonClick("paid");}} 
+                className={`${selectedButton == "paid" && "border-[3px] border-black"} bg-green-800 px-2 mx-4 mt-1 text-white rounded`}
+                >
+                    Paid
+                </button>
+                <button 
+                onClick={()=>{handlePending(); handleButtonClick("pending");}} 
+                className={`${selectedButton == "pending" && "border-[3px] border-black"} bg-primary-100 px-2 mx-4 mt-1 text-white rounded`}
+                >
+                    Pending
+                </button>
+                <button 
+                onClick={()=>{handleRejected(); handleButtonClick("rejected");}} 
+                className={`${selectedButton == "rejected" && "border-[3px] border-black"} bg-red-800 px-2 mx-4 mt-1 text-white rounded`}
+                >
+                    Rejected
+                </button>
             </div>
             <div className='w-full flex justify-center mt-8'>
                 <div className=''>
