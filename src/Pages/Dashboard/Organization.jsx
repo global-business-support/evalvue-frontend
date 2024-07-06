@@ -12,7 +12,7 @@ import { IoReceiptOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsCreditCard2Back } from "react-icons/bs";
-import logo from '../../assets/images/evalvuelogo.jpg'
+import logo from "../../assets/images/evalvuelogo.jpg";
 import { BsPatchExclamationFill } from "react-icons/bs";
 import ThreeDotMenu from "./ThreeDotMenu";
 import Apibackendrequest from "../Apibackendrequest";
@@ -20,7 +20,7 @@ import axios from "axios";
 const apiUrl = import.meta.env.VITE_API_URL;
 import React, { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
-import '../../index.css';
+import "../../index.css";
 export default function Organization() {
   Tittle("Organization - Evalvue");
   const [Orgdata, setOrgdata] = useState([]);
@@ -28,13 +28,13 @@ export default function Organization() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [Isorgmap, setIsorgmap] = useState(false);
   const { userId } = useContext(UserContext);
-  const [paymentSuccessfull, setPaymentSuccessfull] = useState(false);
+  const [paymentSuccessfull, setPaymentSuccessfull] = useState(true);
   const [address, setAddress] = useState({});
   const [error, setError] = useState();
-  const [payment_response_list ,setpayment_response_list]=useState([]);
+  const [payment_response_list, setpayment_response_list] = useState([]);
   const componentRef = useRef();
   const { setStateOrgData } = useContext(UserContext);
-
+  const [print, setPrint] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,6 +58,7 @@ export default function Organization() {
       .finally(() => {
         setLoading(false);
       });
+    console.log(print, "print again");
 
     // axios
     //   .post(`${apiUrl}/organizations/`, { user_id: userId })
@@ -75,7 +76,7 @@ export default function Organization() {
     //   .finally(() => {
     //     setLoading(false); // Set loading state to false when request completes
     //   });
-  }, [userId]);
+  }, [userId, print]);
 
   const handleEdit = (organizationId) => {
     // Navigate to the edit page
@@ -87,98 +88,154 @@ export default function Organization() {
 
   const handleReApply = (organizationId) => {
     navigate("/dashboard/organization/reapply", {
-      state: { 
+      state: {
         organization_id: organizationId,
         rejected: true,
-       },
+      },
     });
-};
+  };
   const handleAddOrg = () => {
     navigate("/dashboard/organization/addorganization", {});
   };
 
-  function CreatePayment(organizationId) {
-
+  function CreatePayment(organizationId, planId) {
+    setLoading(true);
     const response = Apibackendrequest(`${apiUrl}/create/subscription/id/`, {
       user_id: userId,
       organization_id: organizationId,
-      plan_id: 4,
+      plan_id: planId,
     });
     // if(response)
-    response.then(response=>{
-      console.log(response.data)
+    response.then((response) => {
+      console.log(response.data);
 
-      const subid=response.data.subscription_response_list[0].subscription_id;
-      console.log(subid)
+      if(response.data.is_subscription_id_created_successfull){
+      const subid = response.data.subscription_response_list[0].subscription_id;
+      console.log(subid);
 
-      if(subid){
+      if (subid) {
+        setLoading(false);
         var options = {
-          "key": "rzp_test_mHIc2FsOxWbBD7",
-          "subscription_id": `${subid}`,
-          "name": "Evalvue",
-          "description": "Monthly Test Plan",
-          "image": `${logo}`,
+          key: "rzp_test_mHIc2FsOxWbBD7",
+          subscription_id: `${subid}`,
+          name: "Evalvue",
+          description: "Monthly Test Plan",
+          image: `${logo}`,
           // "subscription_card_change": 0,
-          "handler": function(response) {
+          handler: function (response) {
             // alert(response.razorpay_payment_id),
             // alert(response.razorpay_subscription_id),
             // alert(response.razorpay_signature);
-            const res=Apibackendrequest(`${apiUrl}/verify/payment/`,{
-              payment_id:response.razorpay_payment_id,
-              subscription_id:response.razorpay_subscription_id,
+            console.log("payment successfull ");
+            setLoading(true);
+            const res = Apibackendrequest(`${apiUrl}/verify/payment/`, {
+              payment_id: response.razorpay_payment_id,
+              subscription_id: response.razorpay_subscription_id,
               user_id: userId,
               organization_id: organizationId,
-
-            })
-            res.then(response=>{
-              console.log(response)
-              if(response.data.is_payment_response_sent_succefull)
-              {
-                setpayment_response_list(response.data.payment_response_list[0])
-                setPaymentSuccessfull(response.data.is_payment_response_sent_succefull)
+            });
+            res.then((response) => {
+              console.log(response);
+              setLoading(false);
+              if (response.data.is_payment_response_sent_succefull) {
+                setpayment_response_list(
+                  response.data.generate_reciept_data[0]
+                );
+                setPaymentSuccessfull(
+                  response.data.is_payment_response_sent_succefull
+                );
+                // setLoading(false);
               }
-              console.log(payment_response_list)
-            })
-            res.catch(err=>{
-              console.log(err)
-              if(err.isexception)
-              {
-                setPaymentSuccessfull(response.data.is_payment_response_sent_succefull)
-                console.log(err.exceptionmessage)
+              console.log(payment_response_list);
+            });
+            res.catch((err) => {
+              console.log(err);
+              if (err.isexception) {
+                setPaymentSuccessfull(
+                  response.data.is_payment_response_sent_succefull
+                );
+                console.log(err.exceptionmessage);
               }
-            })
+            });
           },
-          "prefill": {
-            "name": "",
-            "email": "",
-            "contact": ""
+          prefill: {
+            name: "",
+            email: "",
+            contact: "",
           },
-          "theme": {
-            "color": "#5134a9"
-          }
+          theme: {
+            color: "#5134a9",
+          },
         };
 
-      var rzp1 = new Razorpay(options);
+        var rzp1 = new Razorpay(options);
         rzp1.open();
-
-        
+        rzp1.on("payment.failed", function (response) {
+          console.log("alert called");
+          // alert(response.error.code);
+          // alert(response.error.description);
+          // alert(response.error.source);
+          // alert(response.error.step);
+          // alert(response.error.reason);
+          // alert(response.error.metadata.order_id);
+          // alert(response.error.metadata.payment_id);
+          setpayment_response_list({reason:response.error.reason})
+          console.log(payment_response_list)
+          console.log("payment id called");
+          const res = Apibackendrequest(`${apiUrl}/verify/payment/`, {
+            payment_id: response.error.metadata.payment_id,
+            user_id: userId,
+            organization_id: organizationId,
+          });
+          res.then((response) => {
+            console.log(response);
+            setLoading(false);
+            if (response.data.is_payment_response_sent_succefull) {
+              setpayment_response_list(
+                response.data.generate_reciept_data[0]
+              );
+              setPaymentSuccessfull(
+                response.data.is_payment_response_sent_succefull
+              );
+              // setLoading(false);
+            }
+            console.log(payment_response_list);
+          });
+          res.catch((err) => {
+            console.log(err);
+            if (err.isexception) {
+              setPaymentSuccessfull(
+                response.data.is_payment_response_sent_succefull
+              );
+              console.log(err.exceptionmessage);
+            }
+          });
+          console.log("payment will be failed ");
+        });
+      } } else {
+        alert(
+          "Payment is not available at this time. Please try again later. "
+        );
+        setLoading(false)
       }
-      else{
-        alert("Payment is not available at this time. Please try again later. ")
-      }
-    })
+    });
 
-    response.catch(err=>{
-      console.log(err)
-    })
-
+    response.catch((err) => {
+      console.log(err);
+    });
   }
-  
+  const notprint = () => {
+    setPrint(true); // Set `print` to `true` when this function is called
+  };
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: 'Payment Receipt',
-    onAfterPrint: () => console.log('Print success!')
+    documentTitle: "Payment Receipt",
+    onAfterPrint: () => {
+      console.log("Print success!");
+      notprint();
+      setPaymentSuccessfull(false);
+    },
   });
   if (loading) {
     return (
@@ -203,85 +260,133 @@ export default function Organization() {
       <>
         <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto">
           {paymentSuccessfull && (
-            <div ref={componentRef} className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
-            <div  className="lg:min-w-[500px] md:min-w-[400px] min-w-[350px] min-h-[500px] bg-white p-5 rounded-lg shadow-lg max-w-md border-t-4 border-primary-100">
-
-              <div className="w-full flex justify-center mb-2">
-                <div className="p-6 rounded-full bg-gray-200 flex items-center justify-center">
-                  <IoReceiptOutline className="text-4xl text-primary-100" />
-                </div>
-              </div>
-              <div className="h-full w-full mt-10">
-                <h1 className="text-[15px] font-bold">Hello, <span className="text-primary-100">Organization Name</span></h1>
-                <div className="text-sm text-gray-700 mt-5">
-                  <p className="mb-3">
-                    We are pleased to inform you that your recent payment of <span className="font-semibold">₹99.00</span> has been successfully processed. Thank you for your prompt payment. This receipt confirms the transaction and includes the details below for your records.
-                  </p>
-                </div>
-                <div className="bg-gray-100 w-full h-full my-5 text-sm p-3 flex gap-2 flex-col items-center justify-center rounded-lg">
-                  <p className="w-full flex justify-between text-gray-700">
-                    Order Id:
-                    <span className="font-base">455655555555555</span>
-                  </p>
-                  <p className="w-full flex justify-between text-gray-700">
-                    Subscription Id:
-                    <span className="font-base">455655555555555</span>
-                  </p>
-                  <p className="w-full flex justify-between text-gray-700">
-                    Billing Cycle:
-                    <span className="font-base">Monthly</span>
-                  </p>
-                  <p className="w-full flex justify-between text-gray-700">
-                    Date:
-                    <span className="font-base">05/07/2024</span>
-                  </p>
-                  <div className="w-full mt-5 border-t-4 border-white">
-                    <div className="flex items-center justify-between">
-                      <h1 className="text-gray-900 text-base">Amount:</h1>
-                      <h1 className="flex items-center text-md font-base text-gray-900">
-                        <FaIndianRupeeSign className="text-sm" />
-                        99.00
-                      </h1>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <h1 className="text-gray-900 text-base">Other Amount:</h1>
-                      <h1 className="flex items-center text-md font-base text-gray-900">
-                        <FaIndianRupeeSign className="text-sm" />
-                        00.00
-                      </h1>
-                    </div>
-                    <div className="w-full mt-2 border-t-2 border-gray-400"></div>
-                    <div className="flex items-center justify-between">
-                      <h1 className="text-primary-100 text-base">Total Amount:</h1>
-                      <h1 className="flex items-center text-lg font-base text-primary-100">
-                        <FaIndianRupeeSign className="text-base" />
-                        99.00
-                      </h1>
-                    </div>
+            <div
+              ref={componentRef}
+              className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50"
+            >
+              <div className="lg:min-w-[500px] md:min-w-[400px] min-w-[350px] min-h-[500px] bg-white p-5 rounded-lg shadow-lg max-w-md border-t-4 border-primary-100">
+                <div className="w-full flex justify-center mb-2">
+                  <div className="p-6 rounded-full bg-gray-200 flex items-center justify-center">
+                    <IoReceiptOutline className="text-4xl text-primary-100" />
                   </div>
                 </div>
-                {
-                  payment_response_list.transaction === "Successful" ?
-                  <p className="text-[13px] text-green-600 font-semibold">Paid Successfully</p> :
-                  <p className="text-[13px] text-red-600 font-semibold">Payment Failed</p>
-                }
-                <hr />
+                <div className="h-full w-full mt-1">
+                  <h1 className="text-[15px] font-bold">
+                    Hello,{" "}
+                    <span className="text-primary-100">
+                      {payment_response_list.organization_name}
+                    </span>
+                  </h1>
+                  <div className="text-sm text-gray-700 mt-2">
+                    <p className="mb-3">
+                      We are pleased to inform you that your recent payment of{" "}
+                      <span className="font-semibold">
+                        ₹{payment_response_list.amount}.00
+                      </span>{" "}
+                      has been successfully processed. Thank you for your prompt
+                      payment. This receipt confirms the transaction.
+                    </p>
+                  </div>
+                  <div className="bg-gray-100 w-full h-full my-5 text-sm p-3 flex gap-2 flex-col items-center justify-center rounded-lg">
+                    <p className="w-full flex justify-between text-gray-700">
+                      Order Id:
+                      <span className="font-base">
+                        {payment_response_list.razorpay_order_id}
+                      </span>
+                    </p>
+                    <p className="w-full flex justify-between text-gray-700">
+                      transaction Id:
+                      <span className="font-base">
+                        {payment_response_list.transaction_id}
+                      </span>
+                    </p>
+                    <p className="w-full flex justify-between text-gray-700">
+                      Billing Cycle:
+                      <span className="font-base">Monthly</span>
+                    </p>
+                    <p className="w-full flex justify-between text-gray-700">
+                      Payment Mode:
+                      <span className="font-base">
+                        {" "}
+                        {payment_response_list.payment_mode}
+                      </span>
+                    </p>
+                    <p className="w-full flex justify-between text-gray-700">
+                      Date:
+                      <span className="font-base">05/07/2024</span>
+                    </p>
+                    <div className="w-full mt-5 border-t-4 border-white">
+                      <div className="flex items-center justify-between">
+                        <h1 className="text-gray-900 text-base">Amount:</h1>
+                        <h1 className="flex items-center text-md font-base text-gray-900">
+                          <FaIndianRupeeSign className="text-sm" />
+                          {payment_response_list.amount -
+                            (payment_response_list.amount * 18) / 100}
+                        </h1>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <h1 className="text-gray-900 text-base">Total GST:</h1>
+                        <h1 className="flex items-center text-md font-base text-gray-900">
+                          + <FaIndianRupeeSign className="text-sm" />
+                          {(payment_response_list.amount * 18) / 100}
+                        </h1>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <h1 className="text-gray-900 text-sm">CGST:</h1>
+                        <h1 className="flex items-center text-md font-base text-gray-900">
+                          - <FaIndianRupeeSign className="text-sm" />
+                          {(payment_response_list.amount * 18) / 100 / 2}
+                        </h1>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <h1 className="text-gray-900 text-sm">SGST:</h1>
+                        <h1 className="flex items-center text-md font-base text-gray-900">
+                          - <FaIndianRupeeSign className="text-sm" />
+                          {(payment_response_list.amount * 18) / 100 / 2}
+                        </h1>
+                      </div>
+                      <div className="w-full mt-2 border-t-2 border-gray-400"></div>
+                      <div className="flex items-center justify-between">
+                        <h1 className="text-primary-100 text-base">
+                          Total Amount:
+                        </h1>
+                        <h1 className="flex items-center text-lg font-base text-primary-100">
+                          <FaIndianRupeeSign className="text-base" />
+                          {payment_response_list.amount}.00
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                  {payment_response_list.transaction === "Successful" ? (
+                    <p className="text-[13px] text-green-600 font-semibold">
+                      Paid Successfully
+                    </p>
+                  ) : (
+                    <p className="text-[13px] text-red-600 font-semibold">
+                      Payment Failed :{payment_response_list.reason}
+                    </p>
+                  )}
+                  <hr />
+                </div>
+                <div className="w-full flex items-center justify-center text-center gap-5 mt-5 no-print">
+                  <button
+                    className="bg-primary-100 rounded-lg py-2 px-10 text-white font-semibold"
+                    onClick={() => {
+                      setPaymentSuccessfull(false);
+                      notprint();
+                    }}
+                  >
+                    Ok
+                  </button>
+                  <button
+                    className="text-end my-2 border-2 border-primary-100 py-2 px-8 rounded-lg text-primary-100 hover:bg-primary-100 hover:text-white transition-all duration-300 text-sm"
+                    onClick={handlePrint}
+                  >
+                    Print
+                  </button>
+                </div>
               </div>
-              <div className="w-full flex items-center justify-center text-center gap-5 mt-5 no-print">
-          <button
-            className="bg-primary-100 rounded-lg py-2 px-10 text-white font-semibold"
-            onClick={() => setPaymentSuccessfull(false)}
-          >
-            Ok
-          </button>
-          <button className="text-end my-2 border-2 border-primary-100 py-2 px-8 rounded-lg text-primary-100 hover:bg-primary-100 hover:text-white transition-all duration-300 text-sm"
-            onClick={handlePrint}
-          >
-            Print
-          </button>
-        </div>
             </div>
-          </div>
           )}
           <div className="flex justify-between sticky lg:top-[55px] top-[48px] z-[2] items-center lg:mb-3 mb-12 bg-white p-4 rounded shadow-lg">
             <h2 className="sm:text-lg text-xs font-semibold">
@@ -309,7 +414,9 @@ export default function Organization() {
                     Address
                   </td>
                   <td className="md:text-center text-end font-bold  text-black justify-end py-2 px-1 sm:w-auto sm:text-[15px] text-[12px]">
-                    <span className="xl:ml-14 lg:mr-12 md:mr-20 mr-28">View</span>
+                    <span className="xl:ml-14 lg:mr-12 md:mr-20 mr-28">
+                      View
+                    </span>
                   </td>
                   {/* <td className="text-left font-bold text-black  py-2 px-4">Edit / Delete:</td> */}
                 </tr>
@@ -381,7 +488,9 @@ export default function Organization() {
                         {organization.organization_rejected ? (
                           <button
                             className="text-white flex gap-2 mr-[45px]  font-semibold py-2 sm:px-2 px-1 rounded order-red-500 transition duration-300 bg-red-800 cursor-pointer hover:text-white sm:text-sm text-[12px]"
-                            onClick={()=>handleReApply(organization.organization_id)}
+                            onClick={() =>
+                              handleReApply(organization.organization_id)
+                            }
                           >
                             <AiOutlineCloudUpload className="my-auto font-semibold h-5 w-5" />
                             {/* Rejected  */}
@@ -417,13 +526,16 @@ export default function Organization() {
                           <button
                             className="flex items-center gap-2 mr-10 font-semibold py-1 sm:px-4 px-3 rounded border-2 border-primary-100 transition duration-300 bg-primary-100 text-white sm:text-base text-[14px]"
                             onClick={() => {
-                              CreatePayment(organization.organization_id);
+                              CreatePayment(
+                                organization.organization_id,
+                                count == 0 ? 3 : 4
+                              );
                             }}
                           >
                             Pay
                             <span className="flex sm:text-lg text-base">
                               <FaIndianRupeeSign className="my-auto h-4 w-4" />
-                              {count == 0 ? "1" : "99"}
+                              {count == 0 ? "7" : "99"}
                             </span>
                           </button>
                         )}
