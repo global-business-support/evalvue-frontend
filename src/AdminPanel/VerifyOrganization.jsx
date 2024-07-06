@@ -70,7 +70,7 @@ const VerifyOrganization = () => {
       setError("Minimum 50 characters are required")
     }
     if(rejectedMsg == null){
-      setError("Please Give Reason for Rejecting the Orgainzation")
+      setError("Please Give Reason for Rejecting the Organization")
     } else{
       handleVerifyClick(false)
       setError(null)
