@@ -87,7 +87,7 @@ const Subscription = () => {
                         <td className="whitespace-nowrap px-6 py-4 text-gray-700">{data.next_due_date}</td>
                         <td className="whitespace-nowrap px-6 py-4 text-gray-700">Monthly</td>
                         <td className="whitespace-nowrap px-6 py-4 text-gray-700">₹{data?.plan_id < 4 ? '1' : '99'}</td>
-                        <td className={`whitespace-nowrap px-5 py-4`}><button className={`${(data.status == "active")? 'bg-green-700 px-[42px]' : 'bg-primary-100'} py-1 px-2 text-white rounded`}>{data.status}{(data.status == "active")? '': ' & unpaid'}</button></td>
+                        <td className={`whitespace-nowrap px-5 py-4`}><button className={`${(data.status == "active")? 'bg-green-700 px-[42px]' : 'bg-primary-100'} py-1 px-2 text-white rounded cursor-none`}>{data.status}{(data.status == "active")? '': ' & unpaid'}</button></td>
                         {(data.status == "active")&&<td className="whitespace-nowrap px-6 py-4 text-gray-700"><button className='bg-red-400 py-1 px-2 text-white rounded'>Cancel</button></td>}
                       </tr>
                        ))}
