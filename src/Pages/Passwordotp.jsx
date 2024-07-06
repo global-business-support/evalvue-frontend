@@ -110,7 +110,6 @@ function Passwordotp(props) {
       setOtp([...otp.map((d, idx) => (idx === index ? "" : d))]);
     }
   };
-
   const handleOtpSubmit = async () => {
     const otpCode = otp.join("");
     if (otpCode.length < 1) {
@@ -120,7 +119,7 @@ function Passwordotp(props) {
         user_id: user_id,
         otp_number: otpCode,
         email,
-        user_verification: state.isForget ? userverification : !userverification,
+        user_verification: state.isForget ? !userverification : userverification,
         employee_verification: employeeverification,
       }).then(response => {
         if (response.data.otp_verified_successfull && response.data.is_email_verified_successfull) {
@@ -131,12 +130,14 @@ function Passwordotp(props) {
           }
         } else if (response.data.otp_is_expired) {
           setError("OTP is expired. Please request a new one.");
-        } else if (response.data.incorrect_otp) {
+        }else if (response.data.incorrect_otp) {
           setError("Please enter correct OTP");
         } else {
           setError(response.error || "OTP verification failed. Please try again.");
         }
-      });
+      }).catch((err=>{
+        setError(err.response.data.error)
+      }));
     }
   };
 
