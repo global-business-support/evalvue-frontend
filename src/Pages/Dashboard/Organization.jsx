@@ -109,7 +109,7 @@ export default function Organization() {
     response.then((response) => {
       console.log(response.data);
 
-      if(response.data.is_subscription_id_created_successfull){
+      if(response.data.is_subscription_id_created_successfull || response.data.is_subscription_id_already_exist){
       const subid = response.data.subscription_response_list[0].subscription_id;
       console.log(subid);
 
@@ -529,7 +529,7 @@ export default function Organization() {
                             onClick={() => {
                               CreatePayment(
                                 organization.organization_id,
-                                count == 0 ? 3 : 4
+                                count == 0 ? 1 : 2
                               );
                             }}
                           >
