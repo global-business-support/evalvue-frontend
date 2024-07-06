@@ -28,7 +28,7 @@ export default function Organization() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [Isorgmap, setIsorgmap] = useState(false);
   const { userId } = useContext(UserContext);
-  const [paymentSuccessfull, setPaymentSuccessfull] = useState(true);
+  const [paymentSuccessfull, setPaymentSuccessfull] = useState(false);
   const [address, setAddress] = useState({});
   const [error, setError] = useState();
   const [payment_response_list, setpayment_response_list] = useState([]);
