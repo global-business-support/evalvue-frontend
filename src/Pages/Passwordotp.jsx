@@ -119,7 +119,7 @@ function Passwordotp(props) {
         user_id: user_id,
         otp_number: otpCode,
         email,
-        user_verification: state.isForget ? !userverification : userverification,
+        user_verification: !userverification,
         employee_verification: employeeverification,
       }).then(response => {
         if (response.data.otp_verified_successfull && response.data.is_email_verified_successfull) {
