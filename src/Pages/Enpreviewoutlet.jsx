@@ -15,7 +15,7 @@ function Enpreview() {
 
   return (
     <>
-      <div className=" w-[95%] lg:mb-0 mb-14 flex justify-between z-[1] items-center mx-auto sticky top-[47px]  bg-white p-4  rounded-lg">
+      <div className=" w-[95%] lg:mb-0 mb-14 flex justify-between z-[1] items-center mx-auto sticky top-[46.5px]  bg-white p-4  rounded-lg">
         <div className="flex justify-center items-center gap-5">
           <div className="h-20 w-20 border border-zinc-300 rounded-full">
             <img

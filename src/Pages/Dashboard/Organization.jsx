@@ -389,7 +389,7 @@ export default function Organization() {
               </div>
             </div>
           )}
-          <div className="flex justify-between sticky lg:top-[55px] top-[48px] z-[2] items-center lg:mb-3 mb-12 bg-white p-4 rounded shadow-lg">
+          <div className="flex justify-between sticky lg:top-[55px] top-[46.5px] z-[2] items-center lg:mb-3 mb-12 bg-white p-4 rounded shadow-lg">
             <h2 className="sm:text-lg text-xs font-semibold">
               Total Organization: {Orgdata.length}
             </h2>
