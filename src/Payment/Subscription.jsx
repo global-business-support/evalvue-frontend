@@ -59,7 +59,7 @@ const Subscription = () => {
 
             <div className='flex justify-center mb-4 mt-12'>
 
-              <h1 className='text-[#5559AF] text-2xl font-bold'>Active Subscription</h1>
+              <h1 className='text-[#5559AF] text-2xl font-bold'>Subscription Details</h1>
             </div>
             <div className="flex flex-col overflow-x-auto">
               <div className="sm:-mx-6 lg:-mx-8">
@@ -71,12 +71,10 @@ const Subscription = () => {
                           <th scope="col" className="px-6 py-4">Organization Name</th>
                           <th scope="col" className="px-6 py-4">Start Date</th>
                           <th scope="col" className="px-6 py-4">Next Due Date</th>
-                          <th scope="col" className="px-6 py-4">Billing Cycle</th>
+                          <th scope="col" className="px-6 py-4">Plan</th>
                           <th scope="col" className="px-6 py-4">Amount</th>
-                          <th scope="col" className="px-6 py-4">Status</th>
-
-                          <th scope="col" className="px-6 py-4">Action</th>
-
+                          <th scope="col" className="px-6 py-4">Billing Cycle</th>
+                          {/* <th scope="col" className="px-6 py-4">Action</th> */}
                         </tr>
                       </thead>
                       <tbody>
@@ -86,9 +84,13 @@ const Subscription = () => {
                         <td className="whitespace-nowrap px-6 py-4 text-gray-700">{data?.start_date}</td>
                         <td className="whitespace-nowrap px-6 py-4 text-gray-700">{data.next_due_date}</td>
                         <td className="whitespace-nowrap px-6 py-4 text-gray-700">Monthly</td>
-                        <td className="whitespace-nowrap px-6 py-4 text-gray-700">₹{data?.plan_id < 2 ? '7' : '99'}</td>
-                        <td className={`whitespace-nowrap px-5 py-4`}><button className={`${(data.status == "completed")? 'bg-green-700 px-[42px]' : 'bg-primary-100'} py-1 px-2 text-white rounded cursor-none`}>{data.status}{(data.status == "completed")? '': ' & unpaid'}</button></td>
-                        {(data.status == "completed")&&<td className="whitespace-nowrap px-6 py-4 text-gray-700"><button className='bg-red-400 py-1 px-2 text-white rounded'>Cancel</button></td>}
+                        <td className="whitespace-nowrap px-6 py-4 text-gray-700">₹{data.amount}</td>
+                        <td className={`whitespace-nowrap px-5 py-4`}>
+                          <button className={`${(data.status == "active")? 'bg-green-700' : 'bg-primary-100'} py-1 px-2 text-white rounded cursor-none`}>
+                            {data.status}
+                          </button>
+                        </td>
+                        {/* {(data.status == "completed")&&<td className="whitespace-nowrap px-6 py-4 text-gray-700"><button className='bg-red-400 py-1 px-2 text-white rounded'>Cancel</button></td>} */}
                       </tr>
                        ))}
                         
