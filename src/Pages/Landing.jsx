@@ -84,8 +84,9 @@ function Landing() {
             </div>
           </div>
         </div> */}
-
-   <Swiper/>
+        <div className="xl:h-fit lg:h-[750px] md:h-[800px] sm:h-[900px] h-[1100px] sm:mb-5">
+          <Swiper/>
+        </div>
         {/* services section */}
         <SubServices />
 

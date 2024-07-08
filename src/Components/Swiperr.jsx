@@ -86,8 +86,8 @@ function Swiperr() {
   };
 
   return (
-    <div className="flex  flex-col xl:flex-row items-center justify-center bg-zinc-500 p-8 h-screen">
-      <div className="w-full md:text-center lg:w-[80%] xl:w-[40%] p-4">
+    <div className="flex flex-col xl:gap-0 gap-2 xl:flex-row items-center justify-center bg-zinc-500 p-8">
+      <div className=" w-full md:text-center lg:w-[80%] xl:w-[40%] p-4">
         <h2 className="text-3xl  font-bold mb-4">What Our Customers Say</h2>
         <p className="text-muted-foreground mb-6">
           Relation so in confined smallest children unpacked delicate. Why sir
@@ -99,11 +99,11 @@ function Swiperr() {
         </button>
       </div>
       <div
-        className=" lg:w-[80%] xl:w-[58%]  relative"
+        className=" lg:w-[80%] xl:w-[58%] w-full h-full relative"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="mt-10 h-[400px]  bg-red-400">
+        <div className="mt-10 md:h-[400px] h-full ">
           {Feed.map((feed, index) => (
             <div
               key={feed.review_id}
@@ -111,8 +111,8 @@ function Swiperr() {
                 index === currentIndex ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className=" bg-white shadow-xl w-full rounded-lg h-full">
-                <div className="p-4  h-full">
+              <div className=" bg-white shadow-xl w-full rounded-lg h-fit">
+                <div className="p-4 h-fit">
                   <div className="flex items-center">
                     <div className="h-10 w-10 rounded-full border bg-zinc-100">
                       <img
@@ -128,7 +128,7 @@ function Swiperr() {
                       <p className="text-xs text-zinc-500">{feed.created_on}</p>
                     </div>
                   </div>
-                  <div className=" h-[350px] w-full p-2 mt-3 mb-2 rounded-xl border-[6px] border-zinc-200">
+                  <div className=" xl:h-[350px] h-fit w-full p-2 mt-3 mb-2 rounded-xl border-[6px] border-zinc-200">
                     <div className="flex items-center">
                       <div className="h-10 w-10 rounded-full border bg-zinc-100">
                         <img
@@ -155,7 +155,7 @@ function Swiperr() {
                             </p>
                           </div>
                         </div>
-                        <div className="bg-red-400 w-[1px] sm:block hidden h-vh"></div>
+                        <div className="w-[1px] sm:block hidden h-vh"></div>
                         <div className="max-h-[200px] overflow-hidden md:w-[48%] w-full bg-gray-200 p-2 rounded-lg">
                           <img
                             src={feed.image}
