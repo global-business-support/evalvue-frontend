@@ -5,7 +5,7 @@ import Tittle from "../Tittle";
 import { FaCheck } from "react-icons/fa6";
 import homeimg from "../assets/images/homeimg.jpg";
 import homeVideo from "../assets/videos/home-video.mp4";
-
+import Swiper from '../Components/Swiperr'
 function Landing() {
   Tittle("Home page -Evalvue");
 
@@ -24,31 +24,32 @@ function Landing() {
               <source src={homeVideo} type="video/mp4" />
               Your browser does not support the video...
             </video>
-            </div>
-            <div className="h-[100vh] w-full flex absolute bg-[#000000a5] justify-center items-center">
-              <div className="space-y-4 sm:max-w-[700px] max-w-[300px] text-center">
-                <h1 className="text-2xl md:text-5xl font-bold text-white">
-                  Optimize Your{" "}
-                  <span className="text-white ">Operations</span> With Our{" "}
-                  <span className="text-white ">Employee</span> Solutions
-                </h1>
-               <p className="text-white">
-               We offer the best services related to employee work experience. When employees leave a company, we help organizations post reviews about their performance and the reasons for their departure. 
-               </p>
-                <div className="flex justify-center gap-6 pt-8">
-                  <a
-                    href="/register"
-                    className="bg-primary-100  text-white px-6 py-2 rounded-md hover:bg-[#5559af] hover:shadow-sm"
-                  >
-                    Join Now
-                  </a>
-                  {/* <a href="" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a> */}
-                </div>
+          </div>
+          <div className="h-[100vh] w-full flex absolute bg-[#000000a5] justify-center items-center">
+            <div className="space-y-4 sm:max-w-[700px] max-w-[300px] text-center">
+              <h1 className="text-2xl md:text-5xl font-bold text-white">
+                Optimize Your <span className="text-white ">Operations</span>{" "}
+                With Our <span className="text-white ">Employee</span> Solutions
+              </h1>
+              <p className="text-white">
+                We offer the best services related to employee work experience.
+                When employees leave a company, we help organizations post
+                reviews about their performance and the reasons for their
+                departure.
+              </p>
+              <div className="flex justify-center gap-6 pt-8">
+                <a
+                  href="/register"
+                  className="bg-primary-100  text-white px-6 py-2 rounded-md hover:bg-[#5559af] hover:shadow-sm"
+                >
+                  Join Now
+                </a>
+                {/* <a href="" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a> */}
               </div>
             </div>
-          
+          </div>
         </section>
-        <div className="lg:mx-10 mx-0 max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        {/* <div className="lg:mx-10 mx-0 max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-4">
               <h1 className="text-3xl md:text-4xl font-bold text-zinc-900">
@@ -72,7 +73,6 @@ function Landing() {
                 >
                   Join Now
                 </a>
-                {/* <a href="" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a> */}
               </div>
             </div>
             <div className="w-full flex justify-end">
@@ -83,8 +83,9 @@ function Landing() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
+   <Swiper/>
         {/* services section */}
         <SubServices />
 

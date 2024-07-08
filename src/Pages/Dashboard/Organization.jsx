@@ -101,7 +101,7 @@ export default function Organization() {
   function CreatePayment(organizationId, planId) {
     setLoading(true);
     const response = Apibackendrequest(`${apiUrl}/create/subscription/id/`, {
-      user_id: userId,
+      user_id:  parseInt(userId),
       organization_id: organizationId,
       plan_id: planId,
     });
@@ -116,8 +116,8 @@ export default function Organization() {
       if (subid) {
         setLoading(false);
         var options = {
-          // key: "rzp_test_mHIc2FsOxWbBD7",
-          key: "rzp_live_0KlxeEsfpZArko",
+          key: "rzp_test_mHIc2FsOxWbBD7",
+          // key: "rzp_live_0KlxeEsfpZArko",
           subscription_id: `${subid}`,
           name: "Evalvue",
           description: "Monthly Test Plan",
@@ -132,7 +132,7 @@ export default function Organization() {
             const res = Apibackendrequest(`${apiUrl}/verify/payment/`, {
               payment_id: response.razorpay_payment_id,
               subscription_id: response.razorpay_subscription_id,
-              user_id: userId,
+              user_id:  parseInt(userId),
               organization_id: organizationId,
             });
             res.then((response) => {
@@ -185,7 +185,7 @@ export default function Organization() {
           console.log("payment id called");
           const res = Apibackendrequest(`${apiUrl}/verify/payment/`, {
             payment_id: response.error.metadata.payment_id,
-            user_id: userId,
+            user_id: parseInt(userId),
             organization_id: organizationId,
           });
           res.then((response) => {
@@ -529,7 +529,7 @@ export default function Organization() {
                             onClick={() => {
                               CreatePayment(
                                 organization.organization_id,
-                                count == 0 ? 1 : 2
+                                count == 0 ? 3 : 4
                               );
                             }}
                           >
