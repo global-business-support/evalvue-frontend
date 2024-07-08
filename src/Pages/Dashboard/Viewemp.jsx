@@ -134,7 +134,7 @@ function Viewemp() {
   return (
     <>
       <div className="lg:px-6 sm:px-2">
-        <div className="lg:mb-0 mb-14 flex justify-between items-center bg-white sm:p-4 p-2 rounded z-[2] sticky lg:top-[56px] top-[48px]">
+        <div className="lg:mb-0 mb-14 flex justify-between items-center bg-white sm:p-4 p-2 rounded z-[2] sticky lg:top-[56px] top-[46.5px]">
           <div className="flex justify-center items-center sm:gap-5 gap-2">
             <div className="sm:h-20 h-14 sm:w-20 w-14 border-primary-100 border-[3px] rounded-full">
               <img

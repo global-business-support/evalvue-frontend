@@ -88,7 +88,7 @@ function SearchByAadharCard() {
       )}
 
       <div className="w-full sticky mx-1 md:w-full h-max px-4 dark:bg-zinc-800 rounded-lg">
-        <div className="w-full sticky lg:top-0 top-[47px] lg:mt-0 mt-12 py-2 px-6 bg-primary-100 shadow-lg flex justify-center items-center">
+        <div className="w-full sticky lg:top-0 top-[46.5px] lg:mt-0 mt-12 py-2 px-6 bg-primary-100 shadow-lg flex justify-center items-center">
           <div className="ml-2 mx-8 w-full">
             <label
               htmlFor=""
