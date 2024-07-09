@@ -79,7 +79,11 @@ function Footer() {
               className="size-20 rounded-full "
             /> */}
           </div>
+          <div>
+
           <p className="text-gray-300 md:text-base text-xs">© 2024 Global Business Support. All rights reserved.</p>
+          <span className="text-blue-300 md:text-base text-xs">v 1.0.0.0</span>
+          </div>
           </div>
 
       </div>
