@@ -116,8 +116,8 @@ export default function Organization() {
       if (subid) {
         setLoading(false);
         var options = {
-          // key: "rzp_test_mHIc2FsOxWbBD7",
-          key: "rzp_live_0KlxeEsfpZArko",
+          key: "rzp_test_mHIc2FsOxWbBD7",
+          // key: "rzp_live_0KlxeEsfpZArko",
           subscription_id: `${subid}`,
           name: "Evalvue",
           description: "Monthly Test Plan",
@@ -263,7 +263,7 @@ export default function Organization() {
           {paymentSuccessfull && (
             <div
               ref={componentRef}
-              className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50"
+              className={`fixed inset-0 flex items-center justify-center bg-black  bg-opacity-60 z-50`}
             >
               <div className="lg:min-w-[500px] md:min-w-[400px] min-w-[350px] min-h-[500px] bg-white p-5 rounded-lg shadow-lg max-w-md border-t-4 border-primary-100">
                 <div className="w-full flex justify-center mb-2">
@@ -529,7 +529,7 @@ export default function Organization() {
                             onClick={() => {
                               CreatePayment(
                                 organization.organization_id,
-                                count == 0 ? 1 : 2
+                                count == 0 ? 3 : 4
                               );
                             }}
                           >
