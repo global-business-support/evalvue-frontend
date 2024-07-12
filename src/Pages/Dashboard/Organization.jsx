@@ -99,7 +99,7 @@ export default function Organization() {
   };
 
   function CreatePayment(organizationId, planId) {
-    if (planId == 1) {
+    if (planId == 3) {
       const confirmationpayment = confirm("Thank you for your payment. Please note that your payment has been automatically refunded.");
       if (confirmationpayment) {
         setLoading(true);
@@ -126,8 +126,8 @@ export default function Organization() {
             if (subid) {
               setLoading(false);
               var options = {
-                // key: "rzp_test_mHIc2FsOxWbBD7",
-                key: "rzp_live_0KlxeEsfpZArko",
+                key: "rzp_test_mHIc2FsOxWbBD7",
+                // key: "rzp_live_0KlxeEsfpZArko",
                 subscription_id: `${subid}`,
                 name: "Evalvue",
                 description: "Monthly Test Plan",
@@ -258,8 +258,8 @@ export default function Organization() {
           if (subid) {
             setLoading(false);
             var options = {
-              // key: "rzp_test_mHIc2FsOxWbBD7",
-              key: "rzp_live_0KlxeEsfpZArko",
+              key: "rzp_test_mHIc2FsOxWbBD7",
+              // key: "rzp_live_0KlxeEsfpZArko",
               subscription_id: `${subid}`,
               name: "Evalvue",
               description: "Monthly Test Plan",
@@ -674,7 +674,7 @@ export default function Organization() {
                             onClick={() => {
                               CreatePayment(
                                 organization.organization_id,
-                                count == 0 ? 1 : 2
+                                count == 0 ? 3 : 4
                               );
                             }}
                           >
