@@ -99,7 +99,7 @@ export default function Organization() {
   };
 
   function CreatePayment(organizationId, planId) {
-    if (planId == 3) {
+    if (planId == 1) {
       const confirmationpayment = confirm("Thank you for your payment. Please note that your payment has been automatically refunded.");
       if (confirmationpayment) {
         setLoading(true);
@@ -126,8 +126,8 @@ export default function Organization() {
             if (subid) {
               setLoading(false);
               var options = {
-                key: "rzp_test_mHIc2FsOxWbBD7",
-                // key: "rzp_live_0KlxeEsfpZArko",
+                // key: "rzp_test_mHIc2FsOxWbBD7",
+                key: "rzp_live_0KlxeEsfpZArko",
                 subscription_id: `${subid}`,
                 name: "Evalvue",
                 description: "Monthly Test Plan",
@@ -258,8 +258,8 @@ export default function Organization() {
           if (subid) {
             setLoading(false);
             var options = {
-              key: "rzp_test_mHIc2FsOxWbBD7",
-              // key: "rzp_live_0KlxeEsfpZArko",
+              // key: "rzp_test_mHIc2FsOxWbBD7",
+              key: "rzp_live_0KlxeEsfpZArko",
               subscription_id: `${subid}`,
               name: "Evalvue",
               description: "Monthly Test Plan",
@@ -459,7 +459,7 @@ export default function Organization() {
                     </p>
                     <p className="w-full flex justify-between text-gray-700">
                       Date:
-                      <span className="font-base">05/07/2024</span>
+                      <span className="font-base">{payment_response_list.date}</span>
                     </p>
                     <div className="w-full mt-5 border-t-4 border-white">
                       <div className="flex items-center justify-between">
@@ -503,7 +503,7 @@ export default function Organization() {
                       </div>
                     </div>
                   </div>
-                  {payment_response_list.transaction === "Successful" ? (
+                  {payment_response_list.transaction === "Successful" || payment_response_list.transaction === "refunded" ? (
                     <p className="text-[13px] text-green-600 font-semibold">
                       Paid Successfully
                     </p>
@@ -674,7 +674,7 @@ export default function Organization() {
                             onClick={() => {
                               CreatePayment(
                                 organization.organization_id,
-                                count == 0 ? 3 : 4
+                                count == 0 ? 1 : 2
                               );
                             }}
                           >
