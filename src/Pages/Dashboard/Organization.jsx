@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import Tittle from "../../Tittle";
 import { FaClock } from "react-icons/fa6";
 import { BiSolidShow } from "react-icons/bi";
-
+// import logo from '../assets/images/evalvuelogo.jpg'
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { IoReceiptOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
@@ -411,7 +411,8 @@ export default function Organization() {
               className={`fixed inset-0 flex items-center justify-center bg-black  bg-opacity-60 z-50`}
             >
               <div className="lg:min-w-[500px] md:min-w-[400px] min-w-[350px] min-h-[500px] bg-white p-5 rounded-lg shadow-lg max-w-md border-t-4 border-primary-100">
-                <div className="w-full flex justify-center mb-2">
+                <div className="w-full relative flex justify-center mb-2">
+                <div className="absolute left-0"><img className="h-16 w-16" src={logo} alt="" /></div>
                   <div className="p-6 rounded-full bg-gray-200 flex items-center justify-center">
                     <IoReceiptOutline className="text-4xl text-primary-100" />
                   </div>
@@ -505,7 +506,8 @@ export default function Organization() {
                   </div>
                   {payment_response_list.transaction === "Successful" || payment_response_list.transaction === "refunded" ? (
                     <p className="text-[13px] text-green-600 font-semibold">
-                      Paid Successfully
+                      Paid Successfully 
+                      <p>{payment_response_list.transaction === "refunded"?"this amount will we refundable":""}</p>
                     </p>
                   ) : (
                     <p className="text-[13px] text-red-600 font-semibold">
