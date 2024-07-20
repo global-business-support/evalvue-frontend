@@ -99,7 +99,7 @@ export default function Organization() {
   };
 
   function CreatePayment(organizationId, planId) {
-    if (planId == 1) {
+    if (planId == 3) {
       const confirmationpayment = confirm("Thank you for your payment. Please note that your payment has been automatically refunded.");
       if (confirmationpayment) {
         setLoading(true);
@@ -126,8 +126,8 @@ export default function Organization() {
             if (subid) {
               setLoading(false);
               var options = {
-                // key: "rzp_test_mHIc2FsOxWbBD7",
-                key: "rzp_live_0KlxeEsfpZArko",
+                key: "rzp_test_mHIc2FsOxWbBD7",
+                // key: "rzp_live_0KlxeEsfpZArko",
                 subscription_id: `${subid}`,
                 name: "Evalvue",
                 description: "Monthly Test Plan",
@@ -258,8 +258,8 @@ export default function Organization() {
           if (subid) {
             setLoading(false);
             var options = {
-              // key: "rzp_test_mHIc2FsOxWbBD7",
-              key: "rzp_live_0KlxeEsfpZArko",
+              key: "rzp_test_mHIc2FsOxWbBD7",
+              // key: "rzp_live_0KlxeEsfpZArko",
               subscription_id: `${subid}`,
               name: "Evalvue",
               description: "Monthly Test Plan",
@@ -504,10 +504,10 @@ export default function Organization() {
                       </div>
                     </div>
                   </div>
-                  {payment_response_list.transaction === "Successful" || payment_response_list.transaction === "refunded" ? (
+                  {payment_response_list.payment_status === "captured" || payment_response_list.payment_status === "refunded" ? (
                     <p className="text-[13px] text-green-600 font-semibold">
                       Paid Successfully 
-                      <p>{payment_response_list.transaction === "refunded"?"this amount will we refundable":""}</p>
+                      <p>{payment_response_list.payment_status === "refunded"?"this amount will we refundable":""}</p>
                     </p>
                   ) : (
                     <p className="text-[13px] text-red-600 font-semibold">
@@ -676,7 +676,7 @@ export default function Organization() {
                             onClick={() => {
                               CreatePayment(
                                 organization.organization_id,
-                                count == 0 ? 1 : 2
+                                count == 0 ? 3 : 4
                               );
                             }}
                           >
