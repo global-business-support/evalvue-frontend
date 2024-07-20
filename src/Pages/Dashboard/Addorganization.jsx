@@ -384,48 +384,9 @@ function Addorganization() {
   }
 
   return (
-    <div className="lg:mt-0 mt-12 max-w-full m-4 p-6 bg-white shadow-md rounded-lg">
-      {isOrganizationCreated ? (
-        <div className="flex items-center justify-center h-[calc(100svh-140px)]">
-          <div className="bg-zinc-200 rounded-lg shadow-lg p-6 max-w-sm w-full relative">
-            <button className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-            <div className="flex flex-col items-center">
-              <img
-                alt="check"
-                src="https://placehold.co/100x100?text=✓"
-                className="w-16 h-16 mb-4"
-              />
-              <h2 className="text-2xl font-bold text-zinc-800 mb-2">
-                Awesome!
-              </h2>
-              <p className="text-zinc-600 mb-6">
-                You are ready to proceed using CakeHR
-              </p>
-              <NavLink to="/dashboard/organization">
-                <button className="bg-primary-100 hover:bg-primary-100 text-white font-semibold py-2 px-4 rounded-full">
-                  Start CakeHR
-                </button>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <>
+    <div className="lg:mt-0 mt-12 max-w-full m-4 p-6 bg-white rounded-lg">
+    
+    
           {editOrgEnabled ? (
             <h1 className="text-xl font-semibold mb-4">
               Update your organization
@@ -789,8 +750,8 @@ function Addorganization() {
               />}
             </div>
           </form>
-        </>
-      )}
+        
+      
     </div>
   );
 }
