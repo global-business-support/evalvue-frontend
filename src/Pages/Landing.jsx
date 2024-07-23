@@ -5,7 +5,7 @@ import Tittle from "../Tittle";
 import { FaCheck } from "react-icons/fa6";
 import homeimg from "../assets/images/homeimg.jpg";
 import homeVideo from "../assets/videos/home-video.mp4";
-import Swiper from '../Components/Swiperr'
+import Swiper from "../Components/Swiperr";
 function Landing() {
   Tittle("Home page -Evalvue");
 
@@ -42,7 +42,7 @@ function Landing() {
                   href="/register"
                   className="bg-primary-100  text-white px-6 py-2 rounded-md hover:bg-[#5559af] hover:shadow-sm"
                 >
-                  Join Now
+                 Try 1 Month Free
                 </a>
                 {/* <a href="" className="bg-transparent border text-primary-100 border-primary-100 hover:bg-zinc-100 px-6 py-2 rounded-md">Check Our Intro Video</a> */}
               </div>
@@ -85,7 +85,7 @@ function Landing() {
           </div>
         </div> */}
         <div className="xl:h-fit lg:h-[750px] md:h-[800px] sm:h-[900px] h-[1100px] sm:mb-5">
-          <Swiper/>
+          <Swiper />
         </div>
         {/* services section */}
         <SubServices />
@@ -173,11 +173,15 @@ function Landing() {
           <div className="lg:mx-10 mx-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
-                <img
-                  src="https://img.indiafilings.com/learn/wp-content/uploads/2015/07/12011038/starting-a-business-in-India-for-foreign-company-1024x683.jpg"
-                  alt="Integrated Digital Agency"
+                <iframe
+                  width="100%" // Adjust width as per your design
+                  height="315" // Adjust height as per your design
+                  // https://www.youtube.com/watch?v=NnNGpfRrgLw
+                  src="https://www.youtube.com/embed/NnNGpfRrgLw" // Replace with your YouTube video ID
+                  frameborder="0"
+                  allowfullscreen
                   className="rounded-lg shadow-lg"
-                />
+                ></iframe>
               </div>
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold text-zinc-900">
