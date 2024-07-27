@@ -21,6 +21,8 @@ const apiUrl = import.meta.env.VITE_API_URL;
 import React, { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import "../../index.css";
+import { Helmet } from "react-helmet-async";
+
 export default function Organization() {
   Tittle("Organization - Evalvue");
   const [Orgdata, setOrgdata] = useState([]);
@@ -58,7 +60,7 @@ export default function Organization() {
       .finally(() => {
         setLoading(false);
       });
-    console.log(print, "print again");
+    // console.log(print, "print again");
 
   }, [userId, print]);
 
@@ -83,7 +85,7 @@ export default function Organization() {
   };
 
   function CreatePayment(organizationId, planId) {
-    if (planId == 1) {
+    if (planId == 3) {
       const confirmationpayment = confirm("Thank you for your payment. Please note that your payment has been automatically refunded.");
       if (confirmationpayment) {
         setLoading(true);
@@ -97,7 +99,7 @@ export default function Organization() {
         );
         // if(response)
         response.then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
 
           if (
             response.data.is_subscription_id_created_successfull ||
@@ -105,13 +107,13 @@ export default function Organization() {
           ) {
             const subid =
               response.data.subscription_response_list[0].subscription_id;
-            console.log(subid);
+            // console.log(subid);
 
             if (subid) {
               setLoading(false);
               var options = {
-                // key: "rzp_test_mHIc2FsOxWbBD7",
-                key: "rzp_live_0KlxeEsfpZArko",
+                key: "rzp_test_mHIc2FsOxWbBD7",
+                // key: "rzp_live_0KlxeEsfpZArko",
                 subscription_id: `${subid}`,
                 name: "Evalvue",
                 description: "Monthly Test Plan",
@@ -121,7 +123,7 @@ export default function Organization() {
                   // alert(response.razorpay_payment_id),
                   // alert(response.razorpay_subscription_id),
                   // alert(response.razorpay_signature);
-                  console.log("payment successfull ");
+                  // console.log("payment successfull ");
                   setLoading(true);
                   const res = Apibackendrequest(`${apiUrl}/verify/payment/`, {
                     payment_id: response.razorpay_payment_id,
@@ -130,7 +132,7 @@ export default function Organization() {
                     organization_id: organizationId,
                   });
                   res.then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     setLoading(false);
                     if (response.data.is_payment_response_sent_succefull) {
                       setpayment_response_list(
@@ -141,7 +143,7 @@ export default function Organization() {
                       );
                       // setLoading(false);
                     }
-                    console.log(payment_response_list);
+                    // console.log(payment_response_list);
                   });
                   res.catch((err) => {
                     console.log(err);
@@ -149,7 +151,7 @@ export default function Organization() {
                       setPaymentSuccessfull(
                         response.data.is_payment_response_sent_succefull
                       );
-                      console.log(err.exceptionmessage);
+                      // console.log(err.exceptionmessage);
                     }
                   });
                 },
@@ -166,7 +168,7 @@ export default function Organization() {
               var rzp1 = new Razorpay(options);
               rzp1.open();
               rzp1.on("payment.failed", function (response) {
-                console.log("alert called");
+                // console.log("alert called");
                 // alert(response.error.code);
                 // alert(response.error.description);
                 // alert(response.error.source);
@@ -175,15 +177,15 @@ export default function Organization() {
                 // alert(response.error.metadata.order_id);
                 // alert(response.error.metadata.payment_id);
                 setpayment_response_list({ reason: response.error.reason });
-                console.log(payment_response_list);
-                console.log("payment id called");
+                // console.log(payment_response_list);
+                // console.log("payment id called");
                 const res = Apibackendrequest(`${apiUrl}/verify/payment/`, {
                   payment_id: response.error.metadata.payment_id,
                   user_id: parseInt(userId),
                   organization_id: organizationId,
                 });
                 res.then((response) => {
-                  console.log(response);
+                  // console.log(response);
                   setLoading(false);
                   if (response.data.is_payment_response_sent_succefull) {
                     setpayment_response_list(
@@ -194,18 +196,18 @@ export default function Organization() {
                     );
                     // setLoading(false);
                   }
-                  console.log(payment_response_list);
+                  // console.log(payment_response_list);
                 });
                 res.catch((err) => {
-                  console.log(err);
+                  // console.log(err);
                   if (err.isexception) {
                     setPaymentSuccessfull(
                       response.data.is_payment_response_sent_succefull
                     );
-                    console.log(err.exceptionmessage);
+                    // console.log(err.exceptionmessage);
                   }
                 });
-                console.log("payment will be failed ");
+                // console.log("payment will be failed ");
               });
             }
           } else {
@@ -229,7 +231,7 @@ export default function Organization() {
       });
       // if(response)
       response.then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
 
         if (
           response.data.is_subscription_id_created_successfull ||
@@ -237,13 +239,13 @@ export default function Organization() {
         ) {
           const subid =
             response.data.subscription_response_list[0].subscription_id;
-          console.log(subid);
+          // console.log(subid);
 
           if (subid) {
             setLoading(false);
             var options = {
-              // key: "rzp_test_mHIc2FsOxWbBD7",
-              key: "rzp_live_0KlxeEsfpZArko",
+              key: "rzp_test_mHIc2FsOxWbBD7",
+              // key: "rzp_live_0KlxeEsfpZArko",
               subscription_id: `${subid}`,
               name: "Evalvue",
               description: "Monthly Test Plan",
@@ -253,7 +255,7 @@ export default function Organization() {
                 // alert(response.razorpay_payment_id),
                 // alert(response.razorpay_subscription_id),
                 // alert(response.razorpay_signature);
-                console.log("payment successfull ");
+                // console.log("payment successfull ");
                 setLoading(true);
                 const res = Apibackendrequest(`${apiUrl}/verify/payment/`, {
                   payment_id: response.razorpay_payment_id,
@@ -262,7 +264,7 @@ export default function Organization() {
                   organization_id: organizationId,
                 });
                 res.then((response) => {
-                  console.log(response);
+                  // console.log(response);
                   setLoading(false);
                   if (response.data.is_payment_response_sent_succefull) {
                     setpayment_response_list(
@@ -273,7 +275,7 @@ export default function Organization() {
                     );
                     // setLoading(false);
                   }
-                  console.log(payment_response_list);
+                  // console.log(payment_response_list);
                 });
                 res.catch((err) => {
                   console.log(err);
@@ -281,7 +283,7 @@ export default function Organization() {
                     setPaymentSuccessfull(
                       response.data.is_payment_response_sent_succefull
                     );
-                    console.log(err.exceptionmessage);
+                    // console.log(err.exceptionmessage);
                   }
                 });
               },
@@ -298,7 +300,7 @@ export default function Organization() {
             var rzp1 = new Razorpay(options);
             rzp1.open();
             rzp1.on("payment.failed", function (response) {
-              console.log("alert called");
+              // console.log("alert called");
               // alert(response.error.code);
               // alert(response.error.description);
               // alert(response.error.source);
@@ -307,15 +309,15 @@ export default function Organization() {
               // alert(response.error.metadata.order_id);
               // alert(response.error.metadata.payment_id);
               setpayment_response_list({ reason: response.error.reason });
-              console.log(payment_response_list);
-              console.log("payment id called");
+              // console.log(payment_response_list);
+              // console.log("payment id called");
               const res = Apibackendrequest(`${apiUrl}/verify/payment/`, {
                 payment_id: response.error.metadata.payment_id,
                 user_id: parseInt(userId),
                 organization_id: organizationId,
               });
               res.then((response) => {
-                console.log(response);
+                // console.log(response);
                 setLoading(false);
                 if (response.data.is_payment_response_sent_succefull) {
                   setpayment_response_list(
@@ -326,18 +328,18 @@ export default function Organization() {
                   );
                   // setLoading(false);
                 }
-                console.log(payment_response_list);
+                // console.log(payment_response_list);
               });
               res.catch((err) => {
-                console.log(err);
+                // console.log(err);
                 if (err.isexception) {
                   setPaymentSuccessfull(
                     response.data.is_payment_response_sent_succefull
                   );
-                  console.log(err.exceptionmessage);
+                  // console.log(err.exceptionmessage);
                 }
               });
-              console.log("payment will be failed ");
+              // console.log("payment will be failed ");
             });
           }
         } else {
@@ -388,6 +390,10 @@ export default function Organization() {
   if (Isorgmap) {
     return (
       <>
+      <Helmet>
+      <link rel="canonical" href="https://evalvue.com/" />
+      <meta name="robots" content="nofollow" />
+      </Helmet>
         <div className="lg:px-4 sm:px-2 relative rounded-lg mx-auto">
           {paymentSuccessfull && (
             <div
@@ -660,7 +666,7 @@ export default function Organization() {
                             onClick={() => {
                               CreatePayment(
                                 organization.organization_id,
-                                count == 0 ? 1 : 2
+                                count == 0 ? 3 : 4
                               );
                             }}
                           >

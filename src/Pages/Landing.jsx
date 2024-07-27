@@ -7,7 +7,7 @@ import homeimg from "../assets/images/homeimg.jpg";
 import homeVideo from "../assets/videos/home-video.mp4";
 import Swiper from "../Components/Swiperr";
 function Landing() {
-  Tittle("Home page -Evalvue");
+  Tittle("Evalvue - Employees performance and reviews management system");
 
   return (
     <>
