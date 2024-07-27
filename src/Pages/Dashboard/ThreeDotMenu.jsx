@@ -25,7 +25,6 @@ function ThreeDotMenu({ onEdit, onDelete, organizationId, setTerminated }) {
   }, []);
 
   const isViewEmpPath = location.pathname === `/dashboard/organization/employee/${organizationId}`;
-0
   return (
     <div className="relative" ref={menuRef}>
       <button onClick={() => setShowMenu(!showMenu)} className="w-7  h-7 text-2xl font-bold">

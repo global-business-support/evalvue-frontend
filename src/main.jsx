@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import { HelmetProvider } from 'react-helmet-async';
 import "./index.css";
 import {
   Route,
@@ -99,10 +100,12 @@ const router = createBrowserRouter(
 );
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <HelmetProvider>
     <IsverifiedProvider>
       <UserProvider>
         <RouterProvider router={router} />
       </UserProvider>
     </IsverifiedProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );
