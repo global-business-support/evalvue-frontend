@@ -49,41 +49,7 @@ function Landing() {
             </div>
           </div>
         </section>
-        {/* <div className="lg:mx-10 mx-0 max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-4">
-              <h1 className="text-3xl md:text-4xl font-bold text-zinc-900">
-                Optimize Your{" "}
-                <span className="text-primary-100 ">Operations</span> With Our{" "}
-                <span className="text-primary-100 ">Employee</span> Solutions
-              </h1>
-              <p className="text-zinc-600">
-                We offer the best services related to employee work experience.
-                When employees leave a company, we help organizations post
-                reviews about their performance and the reasons for their
-                departure. This information helps other companies access the
-                employee's bio-data during the hiring process, making it easier
-                to select top talent. Join us to improve your employee community
-                and foster organizational growth.
-              </p>
-              <div className="flex gap-6 pt-8">
-                <a
-                  href="/register"
-                  className="bg-primary-100  text-white px-6 py-2 rounded-md hover:bg-[#5559af] hover:shadow-sm"
-                >
-                  Join Now
-                </a>
-              </div>
-            </div>
-            <div className="w-full flex justify-end">
-              <img
-                src={homeimg}
-                alt="Digital Agency"
-                className="rounded-lg  h-[500px] shadow-lg"
-              />
-            </div>
-          </div>
-        </div> */}
+       
         <div className="xl:h-fit lg:h-[750px] md:h-[800px] sm:h-[900px] h-[1100px] sm:mb-5">
           <Swiper />
         </div>
