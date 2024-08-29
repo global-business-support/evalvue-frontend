@@ -6,6 +6,7 @@ import { FaCheck } from "react-icons/fa6";
 import homeimg from "../assets/images/homeimg.jpg";
 import homeVideo from "../assets/videos/home-video.mp4";
 import Swiper from "../Components/Swiperr";
+import trophy from '../assets/images/trophy.png'
 function Landing() {
   Tittle("Evalvue - Employees performance and reviews management system");
 
@@ -52,6 +53,27 @@ function Landing() {
        
         <div className="xl:h-fit lg:h-[750px] md:h-[800px] sm:h-[900px] h-[1100px] sm:mb-5">
           <Swiper />
+        </div>
+        <div className="w-[100%] flex items-center justify-center">
+          <div className="h-full w-[97%] rounded-xl p-5 border-2 flex-col justify-center items-center">
+            <h1 className="text-black text-center text-3xl font-bold">Rewards</h1>
+            <div className="h-full w-[100%] flex items-center justify-between">
+              <div className="w-[600px] p-3 rounded-2xl flex items-center gap-5">
+                <img src={trophy} alt="" className="h-[200px]"/>
+                <h1 className="text-black text-xl"><b>Evalvue</b> give rewards to  top 5 best performing employees every month</h1>
+              </div>
+              <div className="h-auto w-[600px] p-3 rounded-2xl flex-col justify-center">
+                <div className="h-[80px] w-[300px] bg-white shadow-lg rounded-lg flex items-center p-2">
+                  <img src={trophy} alt="" className="h-[50px] w-[50px]"/>
+                  <div className="ms-2">
+                    <h1 className="text-base font-semibold text-gray-800">Abhishek gurjar</h1>
+                    <h1 className="text-sm font-meduim text-gray-600">Organization name</h1>
+                    <h1 className="text-sm font-meduim text-gray-600">Designation</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         {/* services section */}
         <SubServices />
